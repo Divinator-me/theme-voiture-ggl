@@ -1,5 +1,4 @@
 {{ 'hero.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'hero.js' | asset_url }}" defer></script>
 
 <section class="rc-hero" data-hero aria-label="Collection voitures RC 2026">
   <div class="rc-hero__grid" aria-hidden="true"></div>
@@ -37,8 +36,8 @@
           class="rc-hero__image"
           src="{{ 'hero-car-crawler.png' | asset_url }}"
           alt="Voiture RC crawler noire et blanche"
-          width="1920"
-          height="1920"
+          width="1745"
+          height="1202"
           loading="eager"
         >
         <img
@@ -71,6 +70,43 @@
     </dl>
   </div>
 </section>
+
+<script>
+  (() => {
+    const hero = document.currentScript.previousElementSibling;
+    const carousel = hero?.querySelector('[data-hero-carousel]');
+    const cars = carousel ? [...carousel.querySelectorAll('.rc-hero__image')] : [];
+
+    if (!carousel || cars.length < 2 || carousel.dataset.ready === 'true') return;
+
+    carousel.dataset.ready = 'true';
+    carousel.classList.add('is-js-ready');
+
+    let activeIndex = cars.findIndex((car) => car.classList.contains('is-active'));
+    activeIndex = activeIndex >= 0 ? activeIndex : 0;
+    cars[activeIndex].classList.add('is-active');
+
+    const switchCar = () => {
+      const current = cars[activeIndex];
+      activeIndex = (activeIndex + 1) % cars.length;
+      const next = cars[activeIndex];
+
+      next.classList.remove('is-exiting');
+      current.classList.add('is-exiting');
+      current.classList.remove('is-active');
+
+      requestAnimationFrame(() => {
+        next.classList.add('is-active');
+      });
+
+      window.setTimeout(() => {
+        current.classList.remove('is-exiting');
+      }, 700);
+    };
+
+    window.setInterval(switchCar, 4000);
+  })();
+</script>
 
 {% schema %}
 {
