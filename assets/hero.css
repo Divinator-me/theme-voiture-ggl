@@ -86,9 +86,10 @@
 .rc-hero__visual {
   position: relative;
   display: grid;
-  width: 280px;
-  height: 180px;
-  margin: 40px auto 0;
+  width: min(72vw, 300px);
+  aspect-ratio: 768 / 1376;
+  height: auto;
+  margin: 28px auto 0;
   place-items: center;
 }
 
@@ -285,9 +286,8 @@
   }
 
   .rc-hero__visual {
-    width: 252px;
-    height: 166px;
-    margin-top: 34px;
+    width: min(68vw, 272px);
+    margin-top: 24px;
   }
 
   .rc-hero__stats dt {
@@ -309,8 +309,7 @@
   }
 
   .rc-hero__visual {
-    width: 390px;
-    height: 250px;
+    width: min(42vw, 340px);
   }
 }
 
@@ -324,7 +323,6 @@
   }
 
   .rc-hero__visual {
-    width: 500px;
-    height: 320px;
+    width: min(36vw, 380px);
   }
 }
