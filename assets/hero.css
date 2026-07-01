@@ -124,18 +124,20 @@
   opacity: 0;
   transform-origin: center;
   animation: rc-hero-car-sweep 16s var(--ease-smooth) infinite;
+  animation-delay: -0.8s;
+  will-change: transform, opacity;
 }
 
 .rc-hero__image:nth-child(2) {
-  animation-delay: 4s;
+  animation-delay: 3.2s;
 }
 
 .rc-hero__image:nth-child(3) {
-  animation-delay: 8s;
+  animation-delay: 7.2s;
 }
 
 .rc-hero__image:nth-child(4) {
-  animation-delay: 12s;
+  animation-delay: 11.2s;
 }
 
 .rc-hero__cta {
