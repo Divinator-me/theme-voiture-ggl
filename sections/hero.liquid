@@ -71,49 +71,6 @@
   </div>
 </section>
 
-<script>
-  (() => {
-    const hero = document.currentScript.previousElementSibling;
-    const carousel = hero?.querySelector('[data-hero-carousel]');
-    const cars = carousel ? [...carousel.querySelectorAll('.rc-hero__image')] : [];
-
-    if (!carousel || cars.length < 2 || carousel.dataset.ready === 'true') return;
-
-    carousel.dataset.ready = 'true';
-    carousel.classList.add('is-js-ready');
-
-    let activeIndex = 0;
-    let isAnimating = false;
-
-    const switchCar = () => {
-      if (isAnimating) return;
-
-      isAnimating = true;
-      const current = cars[activeIndex];
-      activeIndex = (activeIndex + 1) % cars.length;
-      const next = cars[activeIndex];
-
-      next.classList.remove('is-active', 'is-exiting', 'is-entering');
-      next.classList.add('is-next');
-
-      void next.offsetHeight;
-
-      current.classList.add('is-exiting');
-      next.classList.remove('is-next');
-      next.classList.add('is-entering');
-
-      window.setTimeout(() => {
-        current.classList.remove('is-active', 'is-exiting');
-        next.classList.remove('is-entering');
-        next.classList.add('is-active');
-        isAnimating = false;
-      }, 760);
-    };
-
-    window.setInterval(switchCar, 4000);
-  })();
-</script>
-
 {% schema %}
 {
   "name": "Hero RC",
