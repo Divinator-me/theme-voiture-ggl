@@ -1,0 +1,25 @@
+Ce projet est un thème Shopify custom basé sur Horizon.
+
+STACK :
+- Sections en Liquid (.liquid)
+- CSS vanilla dans /assets
+- JS vanilla + GSAP pour animations, Lenis pour smooth scroll
+- Web Components quand pertinent (Horizon en utilise déjà)
+
+RÈGLES :
+- Tout est hardcodé dans le code (pas de schemas éditables sauf demande explicite).
+- Pas de React, pas de Next, pas de framework — pur Liquid/HTML/CSS/JS.
+- Prioriser la performance : lazy load images, defer scripts, CSS critical inline si besoin.
+- Design premium, animations fluides, mobile-first.
+- Respecter la structure Shopify : /assets, /config, /layout, /sections, /snippets, /templates, /locales.
+
+QUAND TU CODES UNE NOUVELLE SECTION :
+- Fichier dans /sections/nom-section.liquid
+- HTML/Liquid en haut, style dans /assets/section-nom.css importé via {{ 'section-nom.css' | asset_url | stylesheet_tag }}
+- JS dans /assets/section-nom.js si nécessaire
+- Schema minimal en bas juste pour que la section soit ajoutable dans une page
+
+NE JAMAIS :
+- Toucher au checkout
+- Modifier la logique produit/panier de base sans que je le demande
+- Utiliser des CDN externes pour libs critiques (préférer /assets)
