@@ -1,22 +1,14 @@
 {{ 'promo-bar.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'countdown.js' | asset_url }}" defer></script>
 
-{% assign deadline_seconds = 'now' | date: '%s' | plus: 604800 %}
-{% assign deadline_label = deadline_seconds | date: '%d/%m' %}
+<section class="rc-promo-bar" aria-label="Offre spéciale">
+  <p class="rc-promo-bar__offer">
+    <span aria-hidden="true">🎁</span>
+    <strong>Offre spéciale :</strong>
+    1 batterie offerte + 2 ans de garantie
+  </p>
 
-<section class="rc-promo-bar" data-countdown-wrapper aria-label="Offre limitée">
-  <div class="rc-promo-bar__left">Atelier français</div>
-  <div class="rc-promo-bar__center">
-    <span>Offre limitée : 1 batterie offerte dès 100€ d'achat</span>
-    <b>Jusqu'au {{ deadline_label }}</b>
-  </div>
-  <div class="rc-promo-bar__right">
-    <div class="rc-countdown" data-countdown data-duration="604800" aria-label="Compte à rebours de l'offre">
-      <span><strong data-days>07</strong><small>JJ</small></span>
-      <span><strong data-hours>00</strong><small>HH</small></span>
-      <span><strong data-minutes>00</strong><small>MM</small></span>
-      <span><strong data-seconds>00</strong><small>SS</small></span>
-    </div>
+  <div class="rc-promo-bar__actions">
+    <span class="rc-promo-bar__date">Du 24/06 au 01/07</span>
     <a class="rc-promo-bar__cta" href="{{ routes.all_products_collection_url }}" aria-label="Profiter de l'offre">J'en profite →</a>
   </div>
 </section>
