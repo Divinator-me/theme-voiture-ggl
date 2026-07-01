@@ -82,26 +82,11 @@
     carousel.dataset.ready = 'true';
     carousel.classList.add('is-js-ready');
 
-    let activeIndex = cars.findIndex((car) => car.classList.contains('is-active'));
-    activeIndex = activeIndex >= 0 ? activeIndex : 0;
-    cars[activeIndex].classList.add('is-active');
+    let activeIndex = 0;
 
     const switchCar = () => {
-      const current = cars[activeIndex];
       activeIndex = (activeIndex + 1) % cars.length;
-      const next = cars[activeIndex];
-
-      next.classList.remove('is-exiting');
-      current.classList.add('is-exiting');
-      current.classList.remove('is-active');
-
-      requestAnimationFrame(() => {
-        next.classList.add('is-active');
-      });
-
-      window.setTimeout(() => {
-        current.classList.remove('is-exiting');
-      }, 700);
+      carousel.style.setProperty('--hero-car-index', activeIndex);
     };
 
     window.setInterval(switchCar, 4000);

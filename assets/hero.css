@@ -92,6 +92,7 @@
   overflow: hidden;
   margin: 28px auto 0;
   place-items: center;
+  animation: rc-hero-float 4s ease-in-out 1.65s infinite;
 }
 
 .rc-hero__spotlight {
@@ -113,7 +114,6 @@
   filter: drop-shadow(0 24px 24px rgb(0 0 0 / 45%));
   transform: translate3d(calc(var(--hero-car-index, 0) * -100%), 0, 0);
   transition: transform 0.72s var(--ease-smooth);
-  animation: rc-hero-float 4s ease-in-out 1.65s infinite;
   will-change: transform;
 }
 
@@ -132,9 +132,7 @@
 }
 
 .rc-hero__carousel:not(.is-js-ready) {
-  animation:
-    rc-hero-track-auto 16s var(--ease-smooth) infinite,
-    rc-hero-float 4s ease-in-out 1.65s infinite;
+  animation: rc-hero-track-auto 16s var(--ease-smooth) infinite;
 }
 
 .rc-hero__cta {
