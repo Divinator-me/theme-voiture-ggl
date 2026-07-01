@@ -1,0 +1,86 @@
+{{ 'hero.css' | asset_url | stylesheet_tag }}
+
+<section class="rc-hero" aria-label="Collection voitures RC 2026">
+  <div class="rc-hero__pattern" aria-hidden="true"></div>
+  <div class="rc-hero__burn" aria-hidden="true"></div>
+
+  <div class="rc-hero__inner">
+    <div class="rc-hero__copy">
+      <p class="rc-hero__tag">🔥 Collection 2026</p>
+
+      <h1 class="rc-hero__title" aria-label="L'adrénaline en miniature">
+        <span class="rc-hero__line" aria-hidden="true">
+          <span style="--i: 0">L</span><span style="--i: 1">'</span><span style="--i: 2">A</span><span style="--i: 3">D</span><span style="--i: 4">R</span><span style="--i: 5">É</span><span style="--i: 6">N</span><span style="--i: 7">A</span><span style="--i: 8">L</span><span style="--i: 9">I</span><span style="--i: 10">N</span><span style="--i: 11">E</span>
+        </span>
+        <span class="rc-hero__line rc-hero__line--outline" aria-hidden="true">
+          <span style="--i: 0">E</span><span style="--i: 1">N</span>
+          <span class="rc-hero__space" style="--i: 2">&nbsp;</span>
+          <span style="--i: 3">M</span><span style="--i: 4">I</span><span style="--i: 5">N</span><span style="--i: 6">I</span><span style="--i: 7">A</span><span style="--i: 8">T</span><span style="--i: 9">U</span><span style="--i: 10">R</span><span style="--i: 11">E</span>
+        </span>
+      </h1>
+
+      <p class="rc-hero__subtitle">Voitures RC haute performance. Livrées prêtes à rouler.</p>
+
+      <div class="rc-hero__mobile-visual">
+        <div class="rc-hero__spotlight" aria-hidden="true"></div>
+        <svg class="rc-hero__car" viewBox="0 0 560 360" role="img" aria-label="Silhouette stylisée de voiture RC">
+          <path d="M64 218c18-47 55-76 113-86l112-19 67-54h71c29 0 56 14 72 38l45 68h34c18 0 32 14 32 32v42H31v-20h33Z" fill="none" stroke="currentColor" stroke-width="18" stroke-linejoin="round"/>
+          <path d="M171 132h181l-58 55H91l80-55Z" fill="currentColor"/>
+          <path d="M325 116h93c17 0 33 8 43 22l29 42H325v-64Z" fill="currentColor" opacity=".9"/>
+          <path d="M84 239h404" fill="none" stroke="currentColor" stroke-width="20" stroke-linecap="round"/>
+          <circle cx="131" cy="250" r="55" fill="#0A0A0A" stroke="currentColor" stroke-width="18"/>
+          <circle cx="131" cy="250" r="18" fill="currentColor"/>
+          <circle cx="429" cy="250" r="55" fill="#0A0A0A" stroke="currentColor" stroke-width="18"/>
+          <circle cx="429" cy="250" r="18" fill="currentColor"/>
+          <path d="M176 193h153M372 193h80M238 95l30-35M416 59l19-32" fill="none" stroke="#FF2D2D" stroke-width="12" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <div class="rc-hero__actions">
+        <a class="rc-hero__cta" href="{{ routes.all_products_collection_url }}">Découvrir la gamme →</a>
+        <a class="rc-hero__secondary" href="#shopify-section-featured_products">Voir les meilleures ventes ↓</a>
+      </div>
+
+      <dl class="rc-hero__stats">
+        <div>
+          <dt>80</dt>
+          <dd>KM/H</dd>
+        </div>
+        <div>
+          <dt>4WD</dt>
+          <dd>Transmission</dd>
+        </div>
+        <div>
+          <dt>45MIN</dt>
+          <dd>Autonomie</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="rc-hero__visual" aria-hidden="true">
+      <div class="rc-hero__spotlight"></div>
+      <svg class="rc-hero__car" viewBox="0 0 560 360">
+        <path d="M64 218c18-47 55-76 113-86l112-19 67-54h71c29 0 56 14 72 38l45 68h34c18 0 32 14 32 32v42H31v-20h33Z" fill="none" stroke="currentColor" stroke-width="18" stroke-linejoin="round"/>
+        <path d="M171 132h181l-58 55H91l80-55Z" fill="currentColor"/>
+        <path d="M325 116h93c17 0 33 8 43 22l29 42H325v-64Z" fill="currentColor" opacity=".9"/>
+        <path d="M84 239h404" fill="none" stroke="currentColor" stroke-width="20" stroke-linecap="round"/>
+        <circle cx="131" cy="250" r="55" fill="#0A0A0A" stroke="currentColor" stroke-width="18"/>
+        <circle cx="131" cy="250" r="18" fill="currentColor"/>
+        <circle cx="429" cy="250" r="55" fill="#0A0A0A" stroke="currentColor" stroke-width="18"/>
+        <circle cx="429" cy="250" r="18" fill="currentColor"/>
+        <path d="M176 193h153M372 193h80M238 95l30-35M416 59l19-32" fill="none" stroke="#FF2D2D" stroke-width="12" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero RC",
+  "presets": [
+    {
+      "name": "Hero RC"
+    }
+  ]
+}
+{% endschema %}
