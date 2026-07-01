@@ -48,6 +48,7 @@
   padding: 6px 14px;
   background: var(--color-red);
   color: var(--color-white);
+  box-shadow: none;
   font-size: 11px;
   line-height: 1;
   white-space: nowrap;
@@ -59,11 +60,51 @@
 
 .rc-promo-bar__cta {
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.3px;
   text-transform: uppercase;
   transition:
     background 0.2s var(--ease-smooth),
     color 0.2s var(--ease-smooth);
+}
+
+.rc-promo-bar__cta span {
+  margin-left: 4px;
+  font-size: 12px;
+}
+
+.promo-bar__cta,
+.promo-bar__dates {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  min-height: 0;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 5px 12px !important;
+  background: #ff2d2d;
+  box-shadow: none;
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px !important;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.promo-bar__cta:hover,
+.promo-bar__dates:hover {
+  border-color: #ff2d2d;
+  background: #ffffff;
+  color: #ff2d2d;
+}
+
+.promo-bar__cta .arrow {
+  margin-left: 3px;
+  font-size: 11px;
 }
 
 .rc-promo-bar__cta:hover {
