@@ -142,6 +142,24 @@
   transform: translate3d(-110%, 0, 0) scale(0.96);
 }
 
+.rc-hero__carousel:not(.is-js-ready) .rc-hero__image {
+  transition: none;
+  animation: rc-hero-car-auto 16s var(--ease-smooth) infinite;
+  animation-delay: -0.64s;
+}
+
+.rc-hero__carousel:not(.is-js-ready) .rc-hero__image:nth-child(2) {
+  animation-delay: 3.36s;
+}
+
+.rc-hero__carousel:not(.is-js-ready) .rc-hero__image:nth-child(3) {
+  animation-delay: 7.36s;
+}
+
+.rc-hero__carousel:not(.is-js-ready) .rc-hero__image:nth-child(4) {
+  animation-delay: 11.36s;
+}
+
 .rc-hero__cta {
   display: inline-flex;
   justify-content: center;
@@ -281,6 +299,30 @@
   to {
     opacity: 1;
     transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes rc-hero-car-auto {
+  0% {
+    opacity: 0;
+    transform: translate3d(110%, 0, 0) scale(0.96);
+  }
+
+  4%,
+  21% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  25% {
+    opacity: 0;
+    transform: translate3d(-110%, 0, 0) scale(0.96);
+  }
+
+  25.01%,
+  100% {
+    opacity: 0;
+    transform: translate3d(110%, 0, 0) scale(0.96);
   }
 }
 
