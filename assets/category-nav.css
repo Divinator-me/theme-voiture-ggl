@@ -1,98 +1,62 @@
 .rc-category-nav {
-  position: sticky;
-  top: 60px;
-  z-index: 67;
-  overflow-x: auto;
-  min-height: 45px;
-  background: var(--color-black);
-  color: var(--color-white);
-  scrollbar-width: none;
-}
-
-.rc-category-nav::-webkit-scrollbar {
   display: none;
 }
 
-.rc-category-nav__inner {
-  display: flex;
-  gap: 16px;
-  align-items: center;
-  justify-content: flex-start;
-  min-height: 45px;
-  min-width: max-content;
-  padding: 0 16px 0 94px;
-}
-
-.rc-category-nav a {
-  position: relative;
-  display: inline-flex;
-  gap: 8px;
-  align-items: center;
-  padding: 15px 0;
-  color: var(--color-white);
-  font-family: var(--font-body);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  line-height: 1;
-  text-transform: uppercase;
-}
-
-.rc-category-nav a:first-child {
-  position: sticky;
-  left: 0;
-  z-index: 2;
-  min-height: 45px;
-  margin-left: -94px;
-  padding-right: 14px;
-  padding-left: 16px;
-  background: var(--color-black);
-}
-
-.rc-category-nav a::after {
-  position: absolute;
-  right: 0;
-  bottom: 8px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--color-red);
-  content: "";
-  transition: width 0.3s var(--ease-smooth);
-}
-
-.rc-category-nav a:hover::after {
-  width: 100%;
-}
-
-@media (min-width: 990px) {
+@media (min-width: 1024px) {
   .rc-category-nav {
-    top: 80px;
+    position: sticky;
+    top: 76px;
+    z-index: 67;
+    display: block;
+    overflow-x: auto;
     min-height: 55px;
+    background: var(--color-black);
+    color: var(--color-white);
+    scrollbar-width: none;
+  }
+
+  .rc-category-nav::-webkit-scrollbar {
+    display: none;
   }
 
   .rc-category-nav__inner {
+    display: flex;
     gap: 24px;
+    align-items: center;
     justify-content: center;
     min-height: 55px;
+    min-width: max-content;
     padding: 0 32px;
   }
 
-  .rc-category-nav a:first-child {
-    position: relative;
-    left: auto;
-    min-height: auto;
-    margin-left: 0;
-    padding-right: 0;
-    padding-left: 0;
-  }
-
   .rc-category-nav a {
+    position: relative;
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
     padding: 18px 0;
+    color: var(--color-white);
+    font-family: var(--font-body);
     font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    line-height: 1;
+    text-transform: uppercase;
   }
 
   .rc-category-nav a::after {
+    position: absolute;
+    right: 0;
     bottom: 11px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--color-red);
+    content: "";
+    transition: width 0.3s var(--ease-smooth);
+  }
+
+  .rc-category-nav a:hover::after {
+    width: 100%;
   }
 }

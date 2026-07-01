@@ -5,7 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 60px;
+  height: 56px;
   padding: 0 16px;
   background: var(--color-white);
   box-shadow: 0 2px 8px rgb(0 0 0 / 4%);
@@ -85,6 +85,11 @@
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: 2;
+}
+
+.burger-icon {
+  width: 24px;
+  height: 18px;
 }
 
 .burger-icon line {
@@ -254,7 +259,7 @@
 
 @media (min-width: 768px) {
   .rc-main-nav {
-    height: 80px;
+    height: 76px;
     padding: 0 32px;
   }
 
