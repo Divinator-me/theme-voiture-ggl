@@ -1,0 +1,63 @@
+{{ 'hero.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'hero.js' | asset_url }}" defer></script>
+
+<section class="rc-hero" data-hero>
+  <div class="rc-hero__shape rc-hero__shape--red" aria-hidden="true"></div>
+  <div class="rc-hero__shape rc-hero__shape--black" aria-hidden="true"></div>
+
+  <div class="rc-hero__content">
+    <div class="rc-hero__copy">
+      <p class="rc-hero__tag">Nouveauté 2026</p>
+      <h1 class="rc-hero__title" aria-label="Monster Truck Brushless Edition">
+        <span data-hero-word>Monster</span>
+        <span data-hero-word>Truck</span>
+        <span class="rc-hero__outline" data-hero-word>Brushless Edition</span>
+      </h1>
+      <p class="rc-hero__subtitle">La machine qui redéfinit les règles du RC</p>
+      <a class="rc-hero__cta" href="/collections/all" data-hero-cta>Découvrir la gamme →</a>
+
+      <dl class="rc-hero__stats">
+        <div>
+          <dt>80 KM/H</dt>
+          <dd>Vitesse max</dd>
+        </div>
+        <div>
+          <dt>4WD</dt>
+          <dd>Transmission</dd>
+        </div>
+        <div>
+          <dt>45 MIN</dt>
+          <dd>Autonomie</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="rc-hero__visual" data-hero-visual>
+      <svg viewBox="0 0 620 360" role="img" aria-label="Voiture RC monster truck stylisée">
+        <path d="M106 232c17-58 56-92 118-101l179-26c45-7 87 16 105 58l21 49h33c18 0 33 15 33 33v18H27v-24c0-17 14-31 31-31h31l17 24Z" fill="#FF2D2D"/>
+        <path d="m153 179 92-17 76-55h69c29 0 56 16 70 42l30 57H118l35-27Z" fill="#0A0A0A"/>
+        <path d="m267 159 45-34h65c20 0 38 10 49 27l17 27H267v-20Z" fill="#FFFFFF" opacity=".9"/>
+        <path d="M92 252h435" stroke="#0A0A0A" stroke-width="28" stroke-linecap="round"/>
+        <circle cx="148" cy="266" r="63" fill="#0A0A0A"/>
+        <circle cx="148" cy="266" r="34" fill="#FFFFFF"/>
+        <circle cx="148" cy="266" r="16" fill="#FF2D2D"/>
+        <circle cx="468" cy="266" r="63" fill="#0A0A0A"/>
+        <circle cx="468" cy="266" r="34" fill="#FFFFFF"/>
+        <circle cx="468" cy="266" r="16" fill="#FF2D2D"/>
+        <path d="m74 202 58-52 38 9-50 61H74Z" fill="#FF2D2D"/>
+        <path d="M408 102h41l20 34h-60l-1-34Z" fill="#FF2D2D"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero RC",
+  "presets": [
+    {
+      "name": "Hero RC"
+    }
+  ]
+}
+{% endschema %}
