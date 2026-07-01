@@ -1,6 +1,7 @@
 {{ 'hero.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'hero.js' | asset_url }}" defer></script>
 
-<section class="rc-hero" aria-label="Collection voitures RC 2026">
+<section class="rc-hero" data-hero aria-label="Collection voitures RC 2026">
   <div class="rc-hero__grid" aria-hidden="true"></div>
   <div class="rc-hero__burn" aria-hidden="true"></div>
 
@@ -14,9 +15,9 @@
 
     <div class="rc-hero__visual">
       <div class="rc-hero__spotlight" aria-hidden="true"></div>
-      <div class="rc-hero__carousel" aria-label="Voitures RC en vedette">
+      <div class="rc-hero__carousel" data-hero-carousel aria-label="Voitures RC en vedette">
         <img
-          class="rc-hero__image"
+          class="rc-hero__image is-active"
           src="{{ 'hero-rc-gtr.png' | asset_url }}"
           alt="Voiture RC Nissan GT-R en studio"
           width="2560"

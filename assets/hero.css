@@ -122,22 +122,24 @@
   object-fit: contain;
   object-position: center;
   opacity: 0;
+  transform: translate3d(110%, 0, 0) scale(0.96);
   transform-origin: center;
-  animation: rc-hero-car-sweep 16s var(--ease-smooth) infinite;
-  animation-delay: -0.8s;
+  transition:
+    opacity 0.62s var(--ease-smooth),
+    transform 0.62s var(--ease-smooth);
   will-change: transform, opacity;
 }
 
-.rc-hero__image:nth-child(2) {
-  animation-delay: 3.2s;
+.rc-hero__image.is-active {
+  z-index: 2;
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
 }
 
-.rc-hero__image:nth-child(3) {
-  animation-delay: 7.2s;
-}
-
-.rc-hero__image:nth-child(4) {
-  animation-delay: 11.2s;
+.rc-hero__image.is-exiting {
+  z-index: 3;
+  opacity: 0;
+  transform: translate3d(-110%, 0, 0) scale(0.96);
 }
 
 .rc-hero__cta {
@@ -282,30 +284,6 @@
   }
 }
 
-@keyframes rc-hero-car-sweep {
-  0% {
-    opacity: 0;
-    transform: translate3d(110%, 0, 0) scale(0.96);
-  }
-
-  5%,
-  21% {
-    opacity: 1;
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-
-  26% {
-    opacity: 0;
-    transform: translate3d(-110%, 0, 0) scale(0.96);
-  }
-
-  26.01%,
-  100% {
-    opacity: 0;
-    transform: translate3d(110%, 0, 0) scale(0.96);
-  }
-}
-
 @keyframes rc-hero-float {
   0%,
   100% {
@@ -373,13 +351,11 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .rc-hero__carousel,
-  .rc-hero__image {
+  .rc-hero__carousel {
     animation: none;
   }
 
-  .rc-hero__image:first-child {
-    opacity: 1;
-    transform: none;
+  .rc-hero__image {
+    transition: none;
   }
 }
