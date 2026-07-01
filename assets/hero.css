@@ -132,7 +132,7 @@
 }
 
 .rc-hero__carousel:not(.is-js-ready) {
-  animation: rc-hero-track-auto 16s var(--ease-smooth) infinite;
+  animation: rc-hero-track-auto 20s var(--ease-smooth) infinite;
 }
 
 .rc-hero__cta {
@@ -279,27 +279,28 @@
 
 @keyframes rc-hero-track-auto {
   0%,
-  20% {
+  16% {
     transform: translate3d(0, 0, 0);
   }
 
-  25%,
-  45% {
+  20%,
+  36% {
     transform: translate3d(-100%, 0, 0);
   }
 
-  50%,
-  70% {
+  40%,
+  56% {
     transform: translate3d(-200%, 0, 0);
   }
 
-  75%,
-  95% {
+  60%,
+  76% {
     transform: translate3d(-300%, 0, 0);
   }
 
+  80%,
   100% {
-    transform: translate3d(0, 0, 0);
+    transform: translate3d(-400%, 0, 0);
   }
 }
 
