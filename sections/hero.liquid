@@ -14,15 +14,41 @@
 
     <div class="rc-hero__visual">
       <div class="rc-hero__spotlight" aria-hidden="true"></div>
-      <img
-        class="rc-hero__image"
-        src="{{ 'hero-rc-gtr.png' | asset_url }}"
-        alt="Voiture RC Nissan GT-R en studio"
-        width="2560"
-        height="1468"
-        loading="eager"
-        fetchpriority="high"
-      >
+      <div class="rc-hero__carousel" aria-label="Voitures RC en vedette">
+        <img
+          class="rc-hero__image"
+          src="{{ 'hero-rc-gtr.png' | asset_url }}"
+          alt="Voiture RC Nissan GT-R en studio"
+          width="2560"
+          height="1468"
+          loading="eager"
+          fetchpriority="high"
+        >
+        <img
+          class="rc-hero__image"
+          src="{{ 'hero-car-conquer.png' | asset_url }}"
+          alt="Voiture RC monster truck noire et rouge"
+          width="1000"
+          height="492"
+          loading="eager"
+        >
+        <img
+          class="rc-hero__image"
+          src="{{ 'hero-car-crawler.png' | asset_url }}"
+          alt="Voiture RC crawler noire et blanche"
+          width="1920"
+          height="1920"
+          loading="eager"
+        >
+        <img
+          class="rc-hero__image"
+          src="{{ 'hero-car-drive.png' | asset_url }}"
+          alt="Voiture RC monster truck jaune et noire"
+          width="1200"
+          height="573"
+          loading="eager"
+        >
+      </div>
     </div>
 
     <a class="rc-hero__cta" href="{{ routes.all_products_collection_url }}">Découvrir la gamme →</a>
