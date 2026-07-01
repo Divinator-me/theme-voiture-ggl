@@ -74,37 +74,38 @@
 
 .promo-bar__cta,
 .promo-bar__dates {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: auto;
-  min-height: 0;
-  border: 1px solid transparent;
-  border-radius: 999px;
-  padding: 5px 12px !important;
-  background: #ff2d2d;
-  box-shadow: none;
-  color: #ffffff;
-  font-family: 'Inter', sans-serif;
-  font-size: 10px !important;
-  font-weight: 700;
-  letter-spacing: 0.3px;
-  line-height: 1;
-  text-transform: uppercase;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: auto !important;
+  min-height: 0 !important;
+  border: none !important;
+  border-radius: 6px !important;
+  padding: 8px 16px !important;
+  background: #ff2d2d !important;
+  box-shadow: 0 2px 6px rgba(255, 45, 45, 0.25);
+  color: #ffffff !important;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.5px !important;
+  line-height: 1 !important;
+  text-transform: uppercase !important;
   white-space: nowrap;
   transition: all 0.2s ease;
 }
 
-.promo-bar__cta:hover,
-.promo-bar__dates:hover {
-  border-color: #ff2d2d;
-  background: #ffffff;
-  color: #ff2d2d;
+.promo-bar__cta:hover {
+  background: #e01d1d !important;
+  box-shadow: 0 4px 10px rgba(255, 45, 45, 0.35);
+  transform: translateY(-1px);
 }
 
 .promo-bar__cta .arrow {
-  margin-left: 3px;
-  font-size: 11px;
+  display: inline-block;
+  margin-left: 5px;
+  font-size: 13px;
 }
 
 .rc-promo-bar__cta:hover {
