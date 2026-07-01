@@ -1,0 +1,22 @@
+{{ 'promo-banner.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'promo-banner.js' | asset_url }}" defer></script>
+
+<section class="rc-promo-banner" data-promo-banner>
+  <div class="rc-promo-banner__pattern" data-promo-pattern aria-hidden="true"></div>
+  <div class="rc-promo-banner__content">
+    <h2>Prêt à rouler ?</h2>
+    <p>Livraison offerte dès 50€ • Garantie 2 ans</p>
+    <a href="/collections/all">Shop maintenant →</a>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Promo banner RC",
+  "presets": [
+    {
+      "name": "Promo banner RC"
+    }
+  ]
+}
+{% endschema %}
