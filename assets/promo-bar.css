@@ -48,6 +48,7 @@
   padding: 6px 14px;
   background: var(--color-red);
   color: var(--color-white);
+  box-shadow: none;
   font-size: 11px;
   line-height: 1;
   white-space: nowrap;
@@ -59,11 +60,16 @@
 
 .rc-promo-bar__cta {
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.3px;
   text-transform: uppercase;
   transition:
     background 0.2s var(--ease-smooth),
     color 0.2s var(--ease-smooth);
+}
+
+.rc-promo-bar__cta span {
+  margin-left: 4px;
+  font-size: 12px;
 }
 
 .rc-promo-bar__cta:hover {
