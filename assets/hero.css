@@ -179,7 +179,7 @@
   justify-content: center;
   width: min(100%, 320px);
   border-radius: 6px;
-  margin-top: 20px;
+  margin-top: 14px;
   padding: 18px 32px;
   background: var(--color-red);
   color: var(--color-white);
