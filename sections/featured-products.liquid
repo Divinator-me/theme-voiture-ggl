@@ -1,0 +1,79 @@
+{{ 'featured-products.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'featured-products.js' | asset_url }}" defer></script>
+
+<section class="rc-featured" data-featured-products>
+  <div class="rc-featured__header">
+    <h2>Top ventes</h2>
+    <span>🔥 Hot</span>
+  </div>
+
+  <div class="rc-featured__shell">
+    <button class="rc-featured__arrow rc-featured__arrow--prev" type="button" data-slider-prev aria-label="Produits précédents">←</button>
+    <div class="rc-featured__track" data-slider-track tabindex="0" aria-label="Slider top ventes">
+      {% for product in collections.all.products limit: 6 %}
+        <article class="rc-product-card">
+          <a class="rc-product-card__image" href="{{ product.url }}" aria-label="{{ product.title | escape }}">
+            {% if product.featured_image %}
+              {{
+                product.featured_image
+                | image_url: width: 700
+                | image_tag:
+                  loading: 'lazy',
+                  widths: '320, 480, 700',
+                  sizes: '(min-width: 990px) 28vw, 82vw',
+                  alt: product.title
+              }}
+            {% else %}
+              <svg viewBox="0 0 260 260" aria-hidden="true">
+                <rect width="260" height="260" rx="18" fill="#F4F4F4"/>
+                <path d="M54 158c8-31 32-49 72-55l59-8c23-3 44 10 53 31l12 32h-41c-7-17-23-28-42-28s-35 11-42 28H96c-7-17-23-28-42-28-18 0-34 11-41 28h41Z" fill="#0A0A0A"/>
+                <circle cx="74" cy="171" r="26" fill="#FF2D2D"/>
+                <circle cx="176" cy="171" r="26" fill="#FF2D2D"/>
+              </svg>
+            {% endif %}
+          </a>
+          <div class="rc-product-card__body">
+            <h3><a href="{{ product.url }}">{{ product.title }}</a></h3>
+            <p>{{ product.price | money }}</p>
+            {% form 'product', product, class: 'rc-product-card__form' %}
+              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+              <button type="submit" {% unless product.available %}disabled{% endunless %}>
+                {% if product.available %}Ajouter au panier{% else %}Épuisé{% endif %}
+              </button>
+            {% endform %}
+          </div>
+        </article>
+      {% else %}
+        {% for index in (1..4) %}
+          <article class="rc-product-card">
+            <div class="rc-product-card__image">
+              <svg viewBox="0 0 260 260" aria-hidden="true">
+                <rect width="260" height="260" rx="18" fill="#F4F4F4"/>
+                <path d="M54 158c8-31 32-49 72-55l59-8c23-3 44 10 53 31l12 32h-41c-7-17-23-28-42-28s-35 11-42 28H96c-7-17-23-28-42-28-18 0-34 11-41 28h41Z" fill="#0A0A0A"/>
+                <circle cx="74" cy="171" r="26" fill="#FF2D2D"/>
+                <circle cx="176" cy="171" r="26" fill="#FF2D2D"/>
+              </svg>
+            </div>
+            <div class="rc-product-card__body">
+              <h3>Voiture RC {{ index }}</h3>
+              <p>À partir de 49,90€</p>
+              <button type="button">Ajouter au panier</button>
+            </div>
+          </article>
+        {% endfor %}
+      {% endfor %}
+    </div>
+    <button class="rc-featured__arrow rc-featured__arrow--next" type="button" data-slider-next aria-label="Produits suivants">→</button>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured products RC",
+  "presets": [
+    {
+      "name": "Featured products RC"
+    }
+  ]
+}
+{% endschema %}
