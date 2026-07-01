@@ -107,57 +107,34 @@
 .rc-hero__carousel {
   position: relative;
   z-index: 1;
+  display: flex;
   width: 100%;
   height: 100%;
   filter: drop-shadow(0 24px 24px rgb(0 0 0 / 45%));
+  transform: translate3d(calc(var(--hero-car-index, 0) * -100%), 0, 0);
+  transition: transform 0.72s var(--ease-smooth);
   animation: rc-hero-float 4s ease-in-out 1.65s infinite;
+  will-change: transform;
 }
 
 .rc-hero__image {
-  position: absolute;
-  inset: 0;
+  position: relative;
+  flex: 0 0 100%;
   display: block;
   width: 100%;
   height: 100%;
   object-fit: contain;
   object-position: center;
-  opacity: 0;
-  transform: translate3d(110%, 0, 0) scale(0.96);
-  transform-origin: center;
-  transition:
-    opacity 0.62s var(--ease-smooth),
-    transform 0.62s var(--ease-smooth);
-  will-change: transform, opacity;
-}
-
-.rc-hero__image.is-active {
-  z-index: 2;
   opacity: 1;
-  transform: translate3d(0, 0, 0) scale(1);
-}
-
-.rc-hero__image.is-exiting {
-  z-index: 3;
-  opacity: 0;
-  transform: translate3d(-110%, 0, 0) scale(0.96);
-}
-
-.rc-hero__carousel:not(.is-js-ready) .rc-hero__image {
+  transform: none;
+  transform-origin: center;
   transition: none;
-  animation: rc-hero-car-auto 16s var(--ease-smooth) infinite;
-  animation-delay: -0.64s;
 }
 
-.rc-hero__carousel:not(.is-js-ready) .rc-hero__image:nth-child(2) {
-  animation-delay: 3.36s;
-}
-
-.rc-hero__carousel:not(.is-js-ready) .rc-hero__image:nth-child(3) {
-  animation-delay: 7.36s;
-}
-
-.rc-hero__carousel:not(.is-js-ready) .rc-hero__image:nth-child(4) {
-  animation-delay: 11.36s;
+.rc-hero__carousel:not(.is-js-ready) {
+  animation:
+    rc-hero-track-auto 16s var(--ease-smooth) infinite,
+    rc-hero-float 4s ease-in-out 1.65s infinite;
 }
 
 .rc-hero__cta {
@@ -302,27 +279,29 @@
   }
 }
 
-@keyframes rc-hero-car-auto {
-  0% {
-    opacity: 0;
-    transform: translate3d(110%, 0, 0) scale(0.96);
+@keyframes rc-hero-track-auto {
+  0%,
+  20% {
+    transform: translate3d(0, 0, 0);
   }
 
-  4%,
-  21% {
-    opacity: 1;
-    transform: translate3d(0, 0, 0) scale(1);
+  25%,
+  45% {
+    transform: translate3d(-100%, 0, 0);
   }
 
-  25% {
-    opacity: 0;
-    transform: translate3d(-110%, 0, 0) scale(0.96);
+  50%,
+  70% {
+    transform: translate3d(-200%, 0, 0);
   }
 
-  25.01%,
+  75%,
+  95% {
+    transform: translate3d(-300%, 0, 0);
+  }
+
   100% {
-    opacity: 0;
-    transform: translate3d(110%, 0, 0) scale(0.96);
+    transform: translate3d(0, 0, 0);
   }
 }
 
