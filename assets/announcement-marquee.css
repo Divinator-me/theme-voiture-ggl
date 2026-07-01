@@ -1,0 +1,99 @@
+.announcement-marquee {
+  position: relative;
+  z-index: 100;
+  display: flex;
+  align-items: stretch;
+  height: 36px !important;
+  overflow: hidden;
+  background: #ff2d2d !important;
+}
+
+.announcement-badge {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0 30px 0 14px !important;
+  background: #ffffff !important;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 12px) 100%, 0 100%) !important;
+}
+
+.announcement-badge span {
+  display: inline-flex;
+  align-items: center;
+  color: #ff2d2d !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  letter-spacing: 2px !important;
+  text-transform: uppercase !important;
+}
+
+.announcement-badge span::before {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-right: 8px;
+  background: #ff2d2d;
+  content: '';
+}
+
+.announcement-track {
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  overflow: hidden;
+}
+
+.announcement-track__inner {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  padding-left: 20px;
+  animation: marquee-scroll 30s linear infinite;
+  white-space: nowrap;
+}
+
+.announcement-track:hover .announcement-track__inner {
+  animation-play-state: paused;
+}
+
+.announcement-item {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  color: #ffffff !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.3px !important;
+  text-transform: none !important;
+  white-space: nowrap;
+}
+
+.announcement-separator {
+  display: inline-block !important;
+  flex-shrink: 0;
+  width: 10px !important;
+  height: 10px !important;
+  border-radius: 50% !important;
+  margin: 0 40px !important;
+  background: #ff00aa !important;
+  vertical-align: middle;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
