@@ -15,6 +15,7 @@
   z-index: 10 !important;
   display: flex;
   width: fit-content;
+  gap: 6px;
   align-items: center;
   justify-content: center;
   height: 100%;
@@ -25,27 +26,24 @@
   pointer-events: none;
 }
 
-.announcement-badge span {
-  display: inline-flex;
-  align-items: center;
+.announcement-badge__dot {
+  flex-shrink: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+.announcement-badge__label {
   color: #ffffff !important;
   font-family: 'Inter', sans-serif !important;
   font-size: 11px !important;
   font-weight: 800 !important;
   letter-spacing: 1px !important;
+  line-height: 1;
   text-transform: uppercase !important;
+  transform: translateY(1px);
   pointer-events: auto;
-}
-
-.announcement-badge span::before {
-  display: inline-block;
-  flex-shrink: 0;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  margin-right: 6px;
-  background: #ffffff;
-  content: '';
 }
 
 .announcement-track {
