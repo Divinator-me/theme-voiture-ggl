@@ -1,0 +1,57 @@
+{{ 'hero.css' | asset_url | stylesheet_tag }}
+
+<section class="rc-hero" aria-label="Collection voitures RC 2026">
+  <div class="rc-hero__grid" aria-hidden="true"></div>
+  <div class="rc-hero__burn" aria-hidden="true"></div>
+
+  <div class="rc-hero__inner">
+    <p class="rc-hero__tag">🏆 Collection 2026</p>
+
+    <h1 class="rc-hero__title">
+      <span class="rc-hero__line">L'adrénaline</span>
+      <span class="rc-hero__line rc-hero__line--outline">En miniature</span>
+    </h1>
+
+    <div class="rc-hero__visual">
+      <div class="rc-hero__spotlight" aria-hidden="true"></div>
+      <img
+        class="rc-hero__image"
+        src="{{ 'roroflex-image-studio.jpg' | asset_url }}"
+        alt="Voiture RC Roroflex en studio"
+        width="1000"
+        height="650"
+        loading="eager"
+        fetchpriority="high"
+      >
+    </div>
+
+    <a class="rc-hero__cta" href="{{ routes.all_products_collection_url }}">Découvrir la gamme →</a>
+    <a class="rc-hero__secondary" href="#top-ventes">Voir les meilleures ventes ↓</a>
+
+    <dl class="rc-hero__stats">
+      <div>
+        <dt>80</dt>
+        <dd>KM/H</dd>
+      </div>
+      <div>
+        <dt>4WD</dt>
+        <dd>Transmission</dd>
+      </div>
+      <div>
+        <dt>45MIN</dt>
+        <dd>Autonomie</dd>
+      </div>
+    </dl>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero RC",
+  "presets": [
+    {
+      "name": "Hero RC"
+    }
+  ]
+}
+{% endschema %}

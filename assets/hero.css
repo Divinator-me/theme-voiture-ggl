@@ -102,11 +102,14 @@
   transform: translateZ(0);
 }
 
-.rc-hero__car {
+.rc-hero__image {
   position: relative;
   z-index: 1;
+  display: block;
   width: 100%;
-  color: var(--color-white);
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
   filter: drop-shadow(0 24px 24px rgb(0 0 0 / 45%));
   opacity: 0;
   transform-origin: center;
