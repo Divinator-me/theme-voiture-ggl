@@ -87,7 +87,7 @@
   position: relative;
   display: grid;
   width: min(92vw, 360px);
-  aspect-ratio: 2560 / 1468;
+  aspect-ratio: 16 / 10;
   height: auto;
   overflow: hidden;
   margin: 28px auto 0;
@@ -108,31 +108,60 @@
 .rc-hero__carousel {
   position: relative;
   z-index: 1;
-  display: flex;
   width: 100%;
   height: 100%;
   filter: drop-shadow(0 24px 24px rgb(0 0 0 / 45%));
-  transform: translate3d(calc(var(--hero-car-index, 0) * -100%), 0, 0);
-  transition: transform 0.72s var(--ease-smooth);
-  will-change: transform;
 }
 
 .rc-hero__image {
-  position: relative;
-  flex: 0 0 100%;
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
   height: 100%;
   object-fit: contain;
   object-position: center;
-  opacity: 1;
-  transform: none;
+  opacity: 0;
+  transform: translate3d(72%, 0, 0) scale(0.98);
   transform-origin: center;
+  transition: transform 0.72s var(--ease-smooth);
+  will-change: transform;
+}
+
+.rc-hero__image.is-active {
+  z-index: 2;
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+.rc-hero__image.is-entering {
+  z-index: 4;
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+.rc-hero__image.is-exiting {
+  z-index: 3;
+  opacity: 1;
+  transform: translate3d(-72%, 0, 0) scale(0.98);
+}
+
+.rc-hero__carousel:not(.is-js-ready) .rc-hero__image {
+  animation: rc-hero-car-auto 16s var(--ease-smooth) infinite;
+  animation-delay: -0.64s;
   transition: none;
 }
 
-.rc-hero__carousel:not(.is-js-ready) {
-  animation: rc-hero-track-auto 20s var(--ease-smooth) infinite;
+.rc-hero__carousel:not(.is-js-ready) .rc-hero__image:nth-child(2) {
+  animation-delay: 3.36s;
+}
+
+.rc-hero__carousel:not(.is-js-ready) .rc-hero__image:nth-child(3) {
+  animation-delay: 7.36s;
+}
+
+.rc-hero__carousel:not(.is-js-ready) .rc-hero__image:nth-child(4) {
+  animation-delay: 11.36s;
 }
 
 .rc-hero__cta {

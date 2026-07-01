@@ -48,16 +48,6 @@
           height="573"
           loading="eager"
         >
-        <img
-          class="rc-hero__image"
-          src="{{ 'hero-rc-gtr.png' | asset_url }}"
-          alt=""
-          width="2560"
-          height="1468"
-          loading="eager"
-          aria-hidden="true"
-          data-hero-clone
-        >
       </div>
     </div>
 
@@ -92,21 +82,21 @@
     carousel.dataset.ready = 'true';
     carousel.classList.add('is-js-ready');
 
-    const realCount = cars.some((car) => car.hasAttribute('data-hero-clone')) ? cars.length - 1 : cars.length;
     let activeIndex = 0;
 
     const switchCar = () => {
-      activeIndex += 1;
-      carousel.style.setProperty('--hero-car-index', activeIndex);
+      const current = cars[activeIndex];
+      activeIndex = (activeIndex + 1) % cars.length;
+      const next = cars[activeIndex];
 
-      if (activeIndex !== realCount) return;
+      next.classList.remove('is-exiting');
+      next.classList.add('is-entering');
+      current.classList.add('is-exiting');
 
       window.setTimeout(() => {
-        carousel.style.transition = 'none';
-        activeIndex = 0;
-        carousel.style.setProperty('--hero-car-index', activeIndex);
-        carousel.offsetHeight;
-        carousel.style.transition = '';
+        current.classList.remove('is-active', 'is-exiting');
+        next.classList.remove('is-entering');
+        next.classList.add('is-active');
       }, 760);
     };
 
