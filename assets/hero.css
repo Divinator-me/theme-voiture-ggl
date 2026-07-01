@@ -94,7 +94,6 @@
   overflow: visible;
   margin: 28px auto 0;
   place-items: center;
-  animation: rc-hero-float 4s ease-in-out 1.65s infinite;
 }
 
 .rc-hero__spotlight {
@@ -342,17 +341,6 @@
     z-index: 1;
     opacity: 0;
     transform: translate3d(100%, 0, 0);
-  }
-}
-
-@keyframes rc-hero-float {
-  0%,
-  100% {
-    transform: translate3d(0, -8px, 0) scale(1);
-  }
-
-  50% {
-    transform: translate3d(0, 8px, 0) scale(1);
   }
 }
 
