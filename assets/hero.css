@@ -41,6 +41,8 @@
 }
 
 .rc-hero__tag {
+  position: relative;
+  top: -6px;
   display: inline-flex;
   width: fit-content;
   border-radius: 0;
