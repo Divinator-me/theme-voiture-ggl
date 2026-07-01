@@ -4,7 +4,7 @@
 {% assign logo_text = 'RCLAB' %}
 
 <section class="rc-main-nav" data-main-nav aria-label="Navigation principale">
-  <a class="rc-main-nav__logo" href="/" aria-label="Accueil {{ logo_text }}">{{ logo_text }}</a>
+  <a class="rc-main-nav__logo" href="{{ routes.root_url }}" aria-label="Accueil {{ logo_text }}">{{ logo_text }}</a>
 
   <form class="rc-main-nav__search" action="{{ routes.search_url }}" method="get" role="search">
     <label class="visually-hidden" for="rc-main-nav-search">Rechercher</label>
@@ -19,8 +19,8 @@
   </form>
 
   <nav class="rc-main-nav__actions" aria-label="Actions rapides">
-    <a class="rc-main-nav__pill rc-main-nav__pill--outline" href="/collections/all">Nouveautés</a>
-    <a class="rc-main-nav__pill rc-main-nav__pill--dark" href="/collections/all">Promos 🔥</a>
+    <a class="rc-main-nav__pill rc-main-nav__pill--outline" href="{{ routes.all_products_collection_url }}">Nouveautés</a>
+    <a class="rc-main-nav__pill rc-main-nav__pill--dark" href="{{ routes.all_products_collection_url }}">Promos 🔥</a>
     <a class="rc-main-nav__icon" href="/pages/wishlist" aria-label="Wishlist">♡</a>
     <a class="rc-main-nav__icon rc-main-nav__cart" href="{{ routes.cart_url }}" aria-label="Panier">
       <span>🛒</span>

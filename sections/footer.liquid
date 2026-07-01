@@ -3,17 +3,17 @@
 <footer class="rc-footer">
   <div class="rc-footer__grid">
     <div class="rc-footer__brand">
-      <a href="/" class="rc-footer__logo" aria-label="Accueil RCLAB">RCLAB</a>
+      <a href="{{ routes.root_url }}" class="rc-footer__logo" aria-label="Accueil RCLAB">RCLAB</a>
       <p>Voitures RC premium, pièces, conseils et sensations fortes pour tous les pilotes.</p>
     </div>
 
     <nav class="rc-footer__col" aria-label="Boutique">
       <h2>Boutique</h2>
-      <a href="/collections/all">Monster Truck</a>
-      <a href="/collections/all">Buggy</a>
-      <a href="/collections/all">Crawler</a>
-      <a href="/collections/all">Drift</a>
-      <a href="/collections/all">Pièces détachées</a>
+      <a href="{{ routes.all_products_collection_url }}">Monster Truck</a>
+      <a href="{{ routes.all_products_collection_url }}">Buggy</a>
+      <a href="{{ routes.all_products_collection_url }}">Crawler</a>
+      <a href="{{ routes.all_products_collection_url }}">Drift</a>
+      <a href="{{ routes.all_products_collection_url }}">Pièces détachées</a>
     </nav>
 
     <nav class="rc-footer__col" aria-label="Aide">
