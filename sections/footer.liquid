@@ -1,263 +1,57 @@
+{{ 'footer.css' | asset_url | stylesheet_tag }}
 
+<footer class="rc-footer">
+  <div class="rc-footer__grid">
+    <div class="rc-footer__brand">
+      <a href="/" class="rc-footer__logo" aria-label="Accueil RCLAB">RCLAB</a>
+      <p>Voitures RC premium, pièces, conseils et sensations fortes pour tous les pilotes.</p>
+    </div>
 
-{% liquid
-  if section.settings.background_color != blank
-    render 'contrast-override', background_color: section.settings.background_color, section_id: section.id
-  endif
-%}
+    <nav class="rc-footer__col" aria-label="Boutique">
+      <h2>Boutique</h2>
+      <a href="/collections/all">Monster Truck</a>
+      <a href="/collections/all">Buggy</a>
+      <a href="/collections/all">Crawler</a>
+      <a href="/collections/all">Drift</a>
+      <a href="/collections/all">Pièces détachées</a>
+    </nav>
 
-<div
-  class="section-background{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"
-></div>
-<div
-  class="section section--{{ section.settings.section_width }}{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"
->
-  {% liquid
-    assign total_blocks = section.blocks.size
+    <nav class="rc-footer__col" aria-label="Aide">
+      <h2>Aide</h2>
+      <a href="/pages/faq">FAQ</a>
+      <a href="/pages/contact">Contact</a>
+      <a href="/pages/livraison">Livraison</a>
+      <a href="/policies/refund-policy">Retours</a>
+    </nav>
 
-    # Grid layout calculations
-    assign grid_columns = total_blocks | at_most: 4
-
-    # Calculate last row counts using modulo arithmetic
-    # last_row_count = (total_blocks - 1) % N + 1
-    assign last_row_count = total_blocks | minus: 1 | modulo: 4 | plus: 1
-    assign tablet_last_row_count = total_blocks | minus: 1 | modulo: 2 | plus: 1
-
-    # Check if there are orphaned elements (single item in last row)
-    assign has_isolated_grid_item_desktop = false
-    assign has_isolated_grid_item_tablet = false
-
-    if total_blocks > 4 and last_row_count == 1
-      assign has_isolated_grid_item_desktop = true
-    endif
-
-    if total_blocks == 5
-      assign has_isolated_grid_item_tablet = true
-    endif
-  %}
-  <div
-    class="
-      footer-content
-      spacing-style
-      {% if has_isolated_grid_item_desktop %}footer-content--isolated-grid-item-desktop{% endif %}
-      {% if has_isolated_grid_item_tablet %}footer-content--isolated-grid-item-tablet{% endif %}
-    "
-    style="
-      {%  render 'spacing-style', settings: section.settings %}
-      --footer-gap: {{ section.settings.gap }}px;
-      --grid-columns: {{ grid_columns }};
-      --last-row-count: {{ last_row_count }};
-      --tablet-last-row-count: {{ tablet_last_row_count }};
-    "
-  >
-    {% content_for 'blocks' %}
+    <div class="rc-footer__newsletter">
+      <h2>Newsletter</h2>
+      <p>Des drops, des promos et des conseils de réglage directement dans ta boîte.</p>
+      {% form 'customer', class: 'rc-footer__form' %}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <label class="visually-hidden" for="rc-footer-email">Adresse email</label>
+        <input id="rc-footer-email" type="email" name="contact[email]" placeholder="ton@email.com" required>
+        <button type="submit">S'inscrire</button>
+      {% endform %}
+    </div>
   </div>
-</div>
 
-{% stylesheet %}
-  .footer-content {
-    contain: content;
-    content-visibility: auto;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--footer-gap);
-    align-items: start;
-  }
-
-  .footer-content .menu__heading__default {
-    font-weight: var(--font-heading--weight);
-  }
-
-  @media screen and (min-width: 750px) and (max-width: 989px) {
-    .footer-content {
-      grid-template-columns: repeat(min(var(--grid-columns), 3), 1fr);
-      grid-auto-flow: row;
-    }
-
-    .footer-content[style*='--grid-columns: 4'] {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .footer-content--isolated-grid-item-tablet > :last-child {
-      grid-column: 1 / -1;
-    }
-  }
-
-  @media screen and (min-width: 990px) {
-    .footer-content {
-      grid-template-columns: repeat(var(--grid-columns), 1fr);
-    }
-
-    /* Single item centered */
-    .footer-content[style*='--grid-columns: 1'] {
-      justify-items: center;
-    }
-
-    .footer-content--isolated-grid-item-desktop > :last-child {
-      grid-column: 1 / -1;
-    }
-  }
-{% endstylesheet %}
+  <div class="rc-footer__bottom">
+    <p>© 2026 RCLAB. Tous droits réservés.</p>
+    <div class="rc-footer__socials" aria-label="Réseaux sociaux">
+      <a href="https://www.instagram.com" aria-label="Instagram">Instagram</a>
+      <a href="https://www.tiktok.com" aria-label="TikTok">TikTok</a>
+      <a href="https://www.youtube.com" aria-label="YouTube">YouTube</a>
+    </div>
+  </div>
+</footer>
 
 {% schema %}
 {
-  "name": "t:names.footer",
-  "class": "section-wrapper",
-  "blocks": [
-    {
-      "type": "_divider"
-    },
-    {
-      "type": "@app"
-    },
-    {
-      "type": "button"
-    },
-    {
-      "type": "follow-on-shop"
-    },
-    {
-      "type": "group"
-    },
-    {
-      "type": "icon"
-    },
-    {
-      "type": "image"
-    },
-    {
-      "type": "menu"
-    },
-    {
-      "type": "payment-icons"
-    },
-    {
-      "type": "text"
-    },
-    {
-      "type": "logo"
-    },
-    {
-      "type": "jumbo-text"
-    },
-    {
-      "type": "social-links"
-    },
-    {
-      "type": "email-signup"
-    }
-  ],
-  "enabled_on": {
-    "groups": ["footer"]
-  },
-  "settings": [
-    {
-      "type": "select",
-      "id": "section_width",
-      "label": "t:settings.width",
-      "options": [
-        {
-          "value": "page-width",
-          "label": "t:options.page"
-        },
-        {
-          "value": "full-width",
-          "label": "t:options.full"
-        }
-      ],
-      "default": "page-width"
-    },
-    {
-      "type": "range",
-      "id": "gap",
-      "label": "t:settings.gap",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "default": 0
-    },
-    {
-      "type": "color",
-      "id": "background_color",
-      "label": "t:settings.background_color",
-      "default": "{{ settings.color_palette.foreground }}"
-    },
-    {
-      "type": "header",
-      "content": "t:content.padding"
-    },
-    {
-      "type": "range",
-      "id": "padding-block-start",
-      "label": "t:settings.top",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "default": 20
-    },
-    {
-      "type": "range",
-      "id": "padding-block-end",
-      "label": "t:settings.bottom",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "default": 20
-    }
-  ],
+  "name": "Footer RC",
   "presets": [
     {
-      "name": "t:names.footer",
-      "category": "t:categories.footer",
-      "settings": {
-        "gap": 20,
-        "padding-block-start": 36,
-        "padding-block-end": 36
-      },
-      "blocks": {
-        "newsletter-group": {
-          "type": "group",
-          "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "gap": 6,
-            "width": "fill"
-          },
-          "blocks": {
-            "newsletter-heading": {
-              "type": "text",
-              "settings": {
-                "text": "t:html_defaults.join_our_email_list",
-                "width": "100%",
-                "alignment": "left",
-                "type_preset": "h3"
-              }
-            },
-            "newsletter-text": {
-              "type": "text",
-              "settings": {
-                "text": "t:html_defaults.get_exclusive_deals_and_early_access_to_new_products",
-                "width": "100%",
-                "alignment": "left",
-                "type_preset": "rte"
-              }
-            }
-          },
-          "block_order": ["newsletter-heading", "newsletter-text"]
-        },
-        "newsletter-form": {
-          "type": "email-signup",
-          "settings": {
-            "width": "fill"
-          }
-        }
-      },
-      "block_order": ["newsletter-group", "newsletter-form"]
+      "name": "Footer RC"
     }
   ]
 }
