@@ -1,0 +1,120 @@
+.rc-faq {
+  padding: 38px 14px 46px;
+  background:
+    radial-gradient(circle at 85% 0%, rgb(255 45 45 / 28%) 0, transparent 34%),
+    linear-gradient(145deg, #0a0a0a 0%, #140303 100%);
+  color: var(--color-white);
+}
+
+.rc-faq__inner {
+  max-width: 363px;
+  margin: 0 auto;
+}
+
+.rc-faq__header {
+  margin-bottom: 22px;
+}
+
+.rc-faq__header span {
+  display: inline-flex;
+  margin-bottom: 10px;
+  padding: 6px 10px;
+  background: var(--color-red);
+  color: var(--color-white);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.rc-faq__header h2 {
+  margin: 0;
+  color: var(--color-white);
+  font-family: var(--font-display);
+  font-size: clamp(40px, 9vw, 56px);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.rc-faq__list {
+  display: grid;
+  gap: 10px;
+}
+
+.rc-faq__item {
+  border: 1px solid rgb(255 45 45 / 30%);
+  background: rgb(255 255 255 / 6%);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 4%);
+  color: var(--color-white);
+}
+
+.rc-faq__item summary {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 16px;
+  color: var(--color-white);
+  cursor: pointer;
+  list-style: none;
+}
+
+.rc-faq__item summary::-webkit-details-marker {
+  display: none;
+}
+
+.rc-faq__item summary span {
+  color: var(--color-white);
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 1.25;
+}
+
+.rc-faq__item summary:hover,
+.rc-faq__item summary:focus,
+.rc-faq__item summary:focus-visible,
+.rc-faq__item:not([open]) summary,
+.rc-faq__item:not([open]) summary span {
+  color: var(--color-white);
+}
+
+.rc-faq__item summary b {
+  display: grid;
+  flex: 0 0 28px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  place-items: center;
+  background: var(--color-red);
+  color: var(--color-white);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+  transition: transform 0.2s var(--ease-smooth);
+}
+
+.rc-faq__item[open] summary b {
+  transform: rotate(45deg);
+}
+
+.rc-faq__item p {
+  margin: 0;
+  padding: 0 16px 18px;
+  color: rgb(255 255 255 / 76%);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+@media (min-width: 750px) {
+  .rc-faq {
+    padding: 56px 24px 64px;
+  }
+
+  .rc-faq__inner {
+    max-width: 760px;
+  }
+}
