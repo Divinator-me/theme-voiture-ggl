@@ -37,6 +37,10 @@
       "type": "categories-grid",
       "settings": {}
     },
+    "faq_rc": {
+      "type": "faq-rc",
+      "settings": {}
+    },
     "promo_banner": {
       "type": "promo-banner",
       "settings": {}
@@ -54,6 +58,7 @@
     "hero",
     "best_sellers",
     "categories_grid",
+    "faq_rc",
     "promo_banner",
     "footer"
   ]
