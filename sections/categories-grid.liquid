@@ -1,27 +1,23 @@
 {{ 'categories-grid.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'categories-grid.js' | asset_url }}" defer></script>
 
-{% assign categories = 'MONSTER TRUCK|BUGGY|CRAWLER|DRIFT|RALLYE|PISTE' | split: '|' %}
+{% assign categories = 'Rallye|category-rallye.png|/collections/rallye||Piste|category-piste.png|/collections/piste||Dresses|category-dresses.png|/collections/dresses||Buggy|category-buggy.png|/collections/buggy||Drift|category-drift.png|/collections/drift||Monster truck / 4x4|category-monster-truck.png|/collections/monster-truck' | split: '||' %}
 
-<section class="rc-categories" data-categories>
+<section class="rc-categories" aria-label="Collections voitures RC">
   <div class="rc-categories__header">
-    <h2>Explore les catégories</h2>
-    <p>Trouve la machine qui te correspond</p>
+    <p>Parce que chaque pilote est unique, chacun trouve le bolide qui lui ressemble. Vitesse, sensations, partage: bienvenue dans notre univers !</p>
   </div>
 
-  <div class="rc-categories__grid">
+  <div class="rc-categories__list">
     {% for category in categories %}
-      <a class="rc-category-card" href="{{ routes.all_products_collection_url }}" style="--delay: {{ forloop.index0 | times: 0.1 }}s">
-        <svg viewBox="0 0 260 180" aria-hidden="true">
-          <path d="M42 108c8-28 31-45 69-50l69-9c24-3 46 10 56 32l12 27h-20c-8-22-28-38-52-38s-44 16-52 38H88c-8-22-28-38-52-38-15 0-28 6-38 16l19 22h25Z" fill="currentColor"/>
-          <path d="M99 82h62l23-20h-59L99 82Z" fill="currentColor" opacity=".75"/>
-          <circle cx="56" cy="120" r="28" fill="currentColor"/>
-          <circle cx="56" cy="120" r="12" fill="#0A0A0A"/>
-          <circle cx="176" cy="120" r="28" fill="currentColor"/>
-          <circle cx="176" cy="120" r="12" fill="#0A0A0A"/>
-        </svg>
-        <span class="rc-category-card__name">{{ category }}</span>
-        <span class="rc-category-card__link">→ Voir</span>
+      {% assign parts = category | split: '|' %}
+      <a class="rc-category-card" href="{{ parts[2] }}" aria-label="Voir la collection {{ parts[0] }}">
+        <img
+          src="{{ parts[1] | asset_url }}"
+          alt=""
+          width="363"
+          height="194"
+          loading="lazy"
+        >
       </a>
     {% endfor %}
   </div>
