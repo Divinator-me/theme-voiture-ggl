@@ -89,7 +89,7 @@
   position: relative;
   display: grid;
   width: min(92vw, 360px);
-  aspect-ratio: 2 / 1;
+  aspect-ratio: 16 / 10;
   height: auto;
   overflow: visible;
   margin: 22px auto 0;
@@ -141,8 +141,12 @@
   height: 100%;
   object-fit: contain;
   object-position: center;
-  -webkit-mask-image: radial-gradient(ellipse 78% 72% at center, #000 64%, rgb(0 0 0 / 0%) 100%);
-  mask-image: radial-gradient(ellipse 78% 72% at center, #000 64%, rgb(0 0 0 / 0%) 100%);
+}
+
+.rc-hero__slide--crawler .rc-hero__image {
+  object-position: center 92%;
+  transform: scale(1.06);
+  transform-origin: center bottom;
 }
 
 .rc-hero__cta {
