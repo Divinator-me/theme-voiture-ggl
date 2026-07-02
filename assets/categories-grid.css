@@ -6,7 +6,7 @@
 .rc-categories__header {
   max-width: 363px;
   margin: 0 auto 28px;
-  text-align: center;
+  text-align: left;
 }
 
 .rc-categories__header h2 {
