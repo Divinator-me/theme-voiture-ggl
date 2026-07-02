@@ -1,0 +1,39 @@
+{{ 'story-rc.css' | asset_url | stylesheet_tag }}
+
+<section class="rc-story" aria-label="Notre histoire">
+  <div class="rc-story__inner">
+    <figure class="rc-story__media">
+      <img
+        src="{{ 'story-team.png' | asset_url }}"
+        alt="L'équipe RCLAB sur un circuit de voitures RC"
+        width="363"
+        height="242"
+        loading="lazy"
+      >
+    </figure>
+
+    <p class="rc-story__eyebrow">L'équipe RCLAB</p>
+    <h2 class="rc-story__title">Nés d'une passion. Guidés par l'expérience.</h2>
+    <p class="rc-story__text">
+      Derrière RCLAB, il y a une équipe de passionnés de RC depuis l'enfance, qui a voulu créer la boutique qu'ils auraient rêvé d'avoir. Pas de grandes entreprises sans visage, juste de vrais passionnés qui connaissent leurs voitures sur le bout des doigts et sont là pour vous aider à trouver le bolide parfait.
+    </p>
+
+    <a class="rc-story__cta" href="{{ routes.all_products_collection_url }}">
+      <span class="rc-story__cta-inner">
+        <span class="rc-story__cta-arrow" aria-hidden="true">→</span>
+        <span>Découvrir nos productions</span>
+      </span>
+    </a>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Story RC",
+  "presets": [
+    {
+      "name": "Story RC"
+    }
+  ]
+}
+{% endschema %}

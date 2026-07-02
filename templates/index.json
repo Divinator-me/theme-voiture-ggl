@@ -41,8 +41,12 @@
       "type": "faq-rc",
       "settings": {}
     },
-    "promo_banner": {
-      "type": "promo-banner",
+    "story_rc": {
+      "type": "story-rc",
+      "settings": {}
+    },
+    "trust_end": {
+      "type": "trust-end",
       "settings": {}
     },
     "footer": {
@@ -59,7 +63,8 @@
     "best_sellers",
     "categories_grid",
     "faq_rc",
-    "promo_banner",
+    "story_rc",
+    "trust_end",
     "footer"
   ]
 }
