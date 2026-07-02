@@ -135,7 +135,9 @@
 
 .rc-hero__cta {
   display: inline-flex;
+  align-items: center;
   justify-content: center;
+  gap: 2px;
   width: min(100%, 320px);
   border-radius: 6px;
   margin-top: 14px;
@@ -152,6 +154,11 @@
   transition:
     box-shadow 0.2s var(--ease-smooth),
     transform 0.2s var(--ease-smooth);
+}
+
+.rc-hero__cta-arrow {
+  display: inline-block;
+  transform: translateY(-2px);
 }
 
 .rc-hero__cta:hover,
