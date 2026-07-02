@@ -1,0 +1,27 @@
+{{ 'promo-bar.css' | asset_url | stylesheet_tag }}
+
+<section class="rc-promo-bar" aria-label="Offre spéciale">
+  <p class="rc-promo-bar__offer">
+    <span aria-hidden="true">🎁</span>
+    <strong>Offre spéciale :</strong>
+    1 batterie offerte + 2 ans de garantie
+  </p>
+
+  <div class="rc-promo-bar__actions">
+    <span class="rc-promo-bar__date promo-bar__dates">Du 24/06 au 01/07</span>
+    <a class="rc-promo-bar__cta promo-bar__cta" href="{{ routes.all_products_collection_url }}" aria-label="Profiter de l'offre">
+      <span class="promo-bar__cta-label">J'en profite<span class="arrow" aria-hidden="true">→</span></span>
+    </a>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Promo bar",
+  "presets": [
+    {
+      "name": "Promo bar"
+    }
+  ]
+}
+{% endschema %}

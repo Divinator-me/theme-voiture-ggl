@@ -1,0 +1,35 @@
+{{ 'categories-grid.css' | asset_url | stylesheet_tag }}
+
+{% assign categories = 'Rallye|category-rallye.png|/collections/rallye||Piste|category-piste.png|/collections/piste||Dresses|category-dresses.png|/collections/dresses||Buggy|category-buggy.png|/collections/buggy||Drift|category-drift.png|/collections/drift||Monster truck / 4x4|category-monster-truck.png|/collections/monster-truck' | split: '||' %}
+
+<section class="rc-categories" aria-label="Collections voitures RC">
+  <div class="rc-categories__header">
+    <h2>Nos collections</h2>
+  </div>
+
+  <div class="rc-categories__list">
+    {% for category in categories %}
+      {% assign parts = category | split: '|' %}
+      <a class="rc-category-card" href="{{ parts[2] }}" aria-label="Voir la collection {{ parts[0] }}">
+        <img
+          src="{{ parts[1] | asset_url }}"
+          alt=""
+          width="363"
+          height="194"
+          loading="lazy"
+        >
+      </a>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Categories grid",
+  "presets": [
+    {
+      "name": "Categories grid"
+    }
+  ]
+}
+{% endschema %}

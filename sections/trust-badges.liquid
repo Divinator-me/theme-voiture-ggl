@@ -1,0 +1,29 @@
+{{ 'trust-badges.css' | asset_url | stylesheet_tag }}
+
+{% assign badges = '🚚|Livraison 24-48h|Expédition rapide depuis notre atelier||🔒|Paiement sécurisé|Transactions protégées et cryptées||💬|Conseillers experts|Une équipe RC disponible 7j/7||↩️|Retour 30 jours|Tu testes, tu valides, tu roules' | split: '||' %}
+
+<section class="rc-trust" aria-label="Avantages boutique">
+  <div class="rc-trust__grid">
+    {% for badge in badges %}
+      {% assign parts = badge | split: '|' %}
+      <article class="rc-trust__item">
+        <span class="rc-trust__icon" aria-hidden="true">{{ parts[0] }}</span>
+        <div>
+          <h2>{{ parts[1] }}</h2>
+          <p>{{ parts[2] }}</p>
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Trust badges",
+  "presets": [
+    {
+      "name": "Trust badges"
+    }
+  ]
+}
+{% endschema %}
