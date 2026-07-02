@@ -195,40 +195,41 @@
 }
 
 .rc-hero__stats {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
   width: min(100%, 360px);
   margin: 40px 0 0;
 }
 
-.rc-hero__stats div {
-  position: relative;
+.rc-hero__stats > div:not(.rc-hero__stats-sep) {
+  flex: 1 1 0;
   display: grid;
   justify-items: center;
+  min-width: 0;
   opacity: 0;
   animation: rc-hero-fade-up 0.55s var(--ease-smooth) forwards;
 }
 
-.rc-hero__stats div:nth-child(1) {
+.rc-hero__stats-sep {
+  flex: 0 0 1px;
+  align-self: stretch;
+  width: 1px;
+  margin: 8px 0;
+  background: rgb(255 45 45 / 30%);
+}
+
+.rc-hero__stats > div:not(.rc-hero__stats-sep):nth-child(1) {
   animation-delay: 1.25s;
 }
 
-.rc-hero__stats div:nth-child(2) {
+.rc-hero__stats > div:not(.rc-hero__stats-sep):nth-child(3) {
   animation-delay: 1.35s;
 }
 
-.rc-hero__stats div:nth-child(3) {
+.rc-hero__stats > div:not(.rc-hero__stats-sep):nth-child(5) {
   animation-delay: 1.45s;
-}
-
-.rc-hero__stats div + div::before {
-  position: absolute;
-  top: 8px;
-  bottom: 8px;
-  left: 0;
-  width: 1px;
-  background: rgb(255 45 45 / 30%);
-  content: "";
 }
 
 .rc-hero__stats dt {
