@@ -143,10 +143,12 @@
   object-position: center;
 }
 
+.rc-hero__slide--crawler {
+  overflow: visible;
+}
+
 .rc-hero__slide--crawler .rc-hero__image {
-  object-position: center 92%;
-  transform: scale(1.06);
-  transform-origin: center bottom;
+  object-position: center 88%;
 }
 
 .rc-hero__cta {
