@@ -29,16 +29,12 @@
       "type": "hero",
       "settings": {}
     },
-    "trust_badges": {
-      "type": "trust-badges",
+    "best_sellers": {
+      "type": "best-sellers",
       "settings": {}
     },
     "categories_grid": {
       "type": "categories-grid",
-      "settings": {}
-    },
-    "featured_products": {
-      "type": "featured-products",
       "settings": {}
     },
     "promo_banner": {
@@ -56,9 +52,8 @@
     "main_nav",
     "category_nav",
     "hero",
-    "trust_badges",
+    "best_sellers",
     "categories_grid",
-    "featured_products",
     "promo_banner",
     "footer"
   ]
