@@ -94,7 +94,6 @@
   overflow: visible;
   margin: 22px auto 0;
   place-items: center;
-  container-type: inline-size;
 }
 
 .rc-hero__spotlight {
