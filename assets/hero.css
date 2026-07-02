@@ -91,7 +91,7 @@
   width: min(92vw, 360px);
   aspect-ratio: 2 / 1;
   height: auto;
-  overflow: hidden;
+  overflow: visible;
   margin: 22px auto 0;
   place-items: center;
 }
