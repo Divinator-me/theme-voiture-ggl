@@ -1,0 +1,44 @@
+{{ 'trust-end.css' | asset_url | stylesheet_tag }}
+
+<section class="rc-trust-end" aria-label="Garanties boutique">
+  <ul class="rc-trust-end__list">
+    <li class="rc-trust-end__item">
+      <span class="rc-trust-end__icon" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 11.5 16 6l10 5.5v11L16 28l-10-5.5v-11Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M16 17.5V28M6 11.5 16 17.5l10-6" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <p>Livraison offerte en France</p>
+    </li>
+    <li class="rc-trust-end__item">
+      <span class="rc-trust-end__icon" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10 12.5H22a5 5 0 0 1 0 10H18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M13.5 9 10 12.5 13.5 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <p>Retours gratuits 30 jours</p>
+    </li>
+    <li class="rc-trust-end__item">
+      <span class="rc-trust-end__icon" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="8" y="14" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M12 14v-2a4 4 0 0 1 8 0v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <p>Paiements sécurisés</p>
+    </li>
+  </ul>
+</section>
+
+{% schema %}
+{
+  "name": "Trust end",
+  "presets": [
+    {
+      "name": "Trust end"
+    }
+  ]
+}
+{% endschema %}
