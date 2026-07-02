@@ -41,6 +41,10 @@
       "type": "faq-rc",
       "settings": {}
     },
+    "story_rc": {
+      "type": "story-rc",
+      "settings": {}
+    },
     "trust_end": {
       "type": "trust-end",
       "settings": {}
@@ -59,6 +63,7 @@
     "best_sellers",
     "categories_grid",
     "faq_rc",
+    "story_rc",
     "trust_end",
     "footer"
   ]
