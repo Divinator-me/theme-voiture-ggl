@@ -1,0 +1,45 @@
+{{ 'avis-rc.css' | asset_url | stylesheet_tag }}
+
+{% assign reviews = "Marc L.|5|Voiture solide, mon fils l'utilise tous les weekends sans souci. Livraison rapide et packaging nickel.||Sophie D.|5|On a pris le Conquer 4x4, la vitesse est bluffante pour le prix. Le SAV a répondu en moins de 24h sur une question batterie.||Thomas R.|4|Très bon rapport qualité/prix. La voiture tient bien les chocs, parfait pour débuter sans se ruiner.||Julien M.|5|Enfin une boutique RC claire, avec de vrais modèles prêts à rouler. On recommande sans hésiter." | split: '||' %}
+
+<section class="rc-avis" aria-label="Avis clients RCLAB">
+  <div class="rc-avis__inner">
+    <header class="rc-avis__header">
+      <span class="rc-avis__badge">Avis clients</span>
+      <h1>Avis RCLAB</h1>
+      <p>Des retours terrain de pilotes, parents et passionnés qui roulent avec nos voitures RC.</p>
+    </header>
+
+    <div class="rc-avis__summary">
+      <p class="rc-avis__score">4,8<span>/5</span></p>
+      <p class="rc-avis__count">Basé sur les avis vérifiés de la boutique</p>
+    </div>
+
+    <ul class="rc-avis__list">
+      {% for review in reviews %}
+        {% assign parts = review | split: '|' %}
+        {% assign rating = parts[1] | plus: 0 %}
+        <li class="rc-avis__card">
+          <div class="rc-avis__stars" aria-label="Note {{ rating }} sur 5">
+            {% for star in (1..5) %}
+              <span class="rc-avis__star{% if star <= rating %} is-filled{% endif %}" aria-hidden="true">★</span>
+            {% endfor %}
+          </div>
+          <blockquote class="rc-avis__quote">« {{ parts[2] }} »</blockquote>
+          <p class="rc-avis__author">{{ parts[0] }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Avis RCLAB",
+  "presets": [
+    {
+      "name": "Avis RCLAB"
+    }
+  ]
+}
+{% endschema %}
