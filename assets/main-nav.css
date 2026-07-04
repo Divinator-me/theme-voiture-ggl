@@ -123,15 +123,19 @@
 .rc-menu-overlay,
 .rc-search-overlay {
   position: fixed;
-  inset: 0;
-  z-index: 100;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 99;
   pointer-events: none;
   visibility: hidden;
 }
 
 .rc-menu-overlay {
+  top: var(--rc-menu-top, 0);
   background: rgb(10 10 10 / 55%);
   opacity: 0;
+  overscroll-behavior: contain;
   transition:
     opacity 0.26s var(--ease-smooth),
     visibility 0.26s var(--ease-smooth);
@@ -146,9 +150,12 @@
 .rc-menu-overlay__panel {
   width: min(86vw, 360px);
   height: 100%;
-  padding: 24px 22px;
+  padding: 18px 22px 28px;
+  overflow-y: auto;
   background: var(--color-white);
   box-shadow: 20px 0 60px rgb(0 0 0 / 22%);
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
   transform: translate3d(-100%, 0, 0);
   transition: transform 0.32s var(--ease-smooth);
 }
@@ -174,7 +181,7 @@
 
 .rc-menu-overlay__logo {
   display: inline-flex;
-  margin-top: 12px;
+  margin-top: 6px;
   font-family: var(--font-display);
   font-size: 42px;
   font-style: italic;
@@ -185,7 +192,8 @@
 .rc-menu-overlay__links {
   display: grid;
   gap: 0;
-  margin-top: 24px;
+  margin-top: 18px;
+  padding-top: 4px;
 }
 
 .rc-menu-overlay__links a {
@@ -199,6 +207,8 @@
 }
 
 .rc-search-overlay {
+  top: 0;
+  z-index: 100;
   display: grid;
   place-items: start center;
   padding: 0 16px 16px;
