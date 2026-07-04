@@ -2,6 +2,7 @@
   product: closest.product,
   block: block,
   default_livraison: block.settings.default_livraison,
+  default_fabrication: block.settings.default_fabrication,
   default_garantie: block.settings.default_garantie
 %}
 
@@ -16,13 +17,19 @@
     },
     {
       "type": "paragraph",
-      "content": "Livraison et Garantie utilisent ces textes sur tous les produits. Pour un produit spécifique, remplis le metafield RC correspondant dans la fiche produit."
+      "content": "Ces textes s'affichent sur toutes les fiches produit. Pour un produit spécifique, remplis le metafield RC correspondant dans la fiche produit."
     },
     {
       "type": "richtext",
       "id": "default_livraison",
       "label": "Livraison et retours (défaut)",
       "default": "<p><strong>Livraison</strong></p><ul><li>Livraison offerte en France : 4 à 8 jours</li><li>Livraison Suivie et assurée à Domicile avec : Colissimo / DHL / Fedex / Chronopost ou en Point Relai</li></ul><p><strong>Retours</strong></p><ul><li>30 jours pour changer d'avis</li><li>Produit non utilisé, complet et dans son emballage d'origine</li></ul>"
+    },
+    {
+      "type": "richtext",
+      "id": "default_fabrication",
+      "label": "Fabrication rigoureuse et résistante (défaut)",
+      "default": "<p>Chez RAIDER, on ne vend pas des jouets bas de gamme. Chaque voiture est sélectionnée par des passionnés et contrôlée dans des <strong>ateliers spécialisés</strong> : châssis renforcés, transmissions dimensionnées pour un usage réel, pièces métal aux points critiques (transmission, pignons, ESC), soudures propres, finitions vérifiées avant expédition.</p><p>On fait attention à chaque détail, solidité des pièces, fiabilité de l'électronique, cohérence des performances annoncées, pour que ta machine tienne dans l'herbe, la poussière et les chocs, sortie après sortie.</p><p>Le but : une RC qui roule vraiment, pas un modèle qui casse au bout de deux sessions.</p>"
     },
     {
       "type": "richtext",
