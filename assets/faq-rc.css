@@ -1,4 +1,7 @@
 .rc-faq {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   padding: 38px 14px 46px;
   background:
     radial-gradient(circle at 85% 0%, rgb(255 45 45 / 28%) 0, transparent 34%),
@@ -6,7 +9,20 @@
   color: var(--color-white);
 }
 
+.rc-faq__grid {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgb(255 45 45 / 8%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 45 45 / 8%) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
 .rc-faq__inner {
+  position: relative;
+  z-index: 1;
   max-width: 363px;
   margin: 0 auto;
 }
