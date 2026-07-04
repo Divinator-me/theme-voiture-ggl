@@ -277,13 +277,14 @@
 
     if (!list.children.length) {
       list.appendChild(
-        createAccordionItem('Description', [...source.childNodes].map((node) => node.cloneNode(true)), {
-          open: true,
-        })
+        createAccordionItem(
+          'Description',
+          [...source.childNodes].map((node) => node.cloneNode(true)),
+          { open: true }
+        )
       );
     }
 
-    bindExclusiveToggle(list);
     source.replaceWith(list);
     root.dataset.rcProductDescReady = 'true';
   };
