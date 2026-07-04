@@ -85,12 +85,6 @@
   height: 22px;
 }
 
-.rc-product-desc__emoji {
-  display: block;
-  font-size: 17px;
-  line-height: 1;
-}
-
 .rc-product-desc__label {
   color: var(--color-black);
   font-size: 15px;
