@@ -517,11 +517,17 @@
       "type": "faq-rc",
       "name": "FAQ RC",
       "settings": {}
+    },
+    "trust_end_b7dhGw": {
+      "type": "trust-end",
+      "name": "Trust end",
+      "settings": {}
     }
   },
   "order": [
     "main",
     "product_recommendations_qggXJq",
-    "faq_rc_Fp4egP"
+    "faq_rc_Fp4egP",
+    "trust_end_b7dhGw"
   ]
 }
