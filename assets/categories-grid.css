@@ -57,9 +57,9 @@
 
 .rc-categories__track {
   display: grid;
-  grid-auto-columns: minmax(220px, 68vw);
+  grid-auto-columns: minmax(190px, 56vw);
   grid-auto-flow: column;
-  gap: 12px;
+  gap: 10px;
   overflow-x: auto;
   padding: 0 14px 4px;
   scroll-behavior: smooth;
@@ -75,9 +75,9 @@
 .rc-category-card {
   position: relative;
   display: grid;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 4 / 5;
   overflow: hidden;
-  border-radius: 20px;
+  border-radius: 18px;
   background: var(--color-black);
   scroll-snap-align: start;
 }
@@ -100,15 +100,15 @@
 
 .rc-category-card__badge {
   position: absolute;
-  top: 14px;
-  left: 14px;
+  top: 10px;
+  left: 10px;
   z-index: 1;
   border-radius: 999px;
-  padding: 7px 12px;
+  padding: 5px 9px;
   backdrop-filter: blur(6px);
   background: rgb(10 10 10 / 58%);
   color: var(--color-white);
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 800;
   letter-spacing: 0.1em;
   line-height: 1;
@@ -121,17 +121,17 @@
 
 .rc-category-card__content {
   position: absolute;
-  right: 14px;
-  bottom: 14px;
-  left: 14px;
+  right: 10px;
+  bottom: 10px;
+  left: 10px;
   z-index: 1;
   display: grid;
-  gap: 10px;
+  gap: 8px;
 }
 
 .rc-category-card__title {
   font-family: var(--font-display);
-  font-size: clamp(28px, 7vw, 34px);
+  font-size: clamp(22px, 5.8vw, 28px);
   font-style: italic;
   font-weight: 400;
   letter-spacing: -0.02em;
@@ -142,23 +142,23 @@
 
 .rc-category-card__cta {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   align-items: center;
   justify-content: space-between;
   color: var(--color-white);
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 600;
 }
 
 .rc-category-card__cta b {
   display: grid;
-  width: 34px;
-  height: 34px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   place-items: center;
   background: rgb(255 255 255 / 18%);
   color: var(--color-white);
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 700;
   line-height: 1;
   transition: background 0.25s var(--ease-smooth);
