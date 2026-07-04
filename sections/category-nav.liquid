@@ -4,7 +4,16 @@
 
 <section class="rc-category-nav" aria-label="Catégories voitures RC">
   <nav class="rc-category-nav__inner">
-    <a href="{{ routes.all_products_collection_url }}" aria-label="Ouvrir le menu"><span aria-hidden="true">☰</span> Menu</a>
+    <button
+      type="button"
+      class="rc-category-nav__menu"
+      data-menu-open
+      aria-controls="rc-menu-overlay"
+      aria-expanded="false"
+      aria-label="Ouvrir le menu"
+    >
+      <span aria-hidden="true">☰</span> Menu
+    </button>
     {% for label in links %}
       <a href="{{ routes.all_products_collection_url }}">{{ label }}</a>
     {% endfor %}
