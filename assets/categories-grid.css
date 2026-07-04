@@ -96,6 +96,17 @@
   transition: transform 0.45s var(--ease-smooth);
 }
 
+.rc-category-card__image--placeholder {
+  display: grid;
+  place-items: center;
+  background: var(--color-black);
+}
+
+.rc-category-card__image--placeholder svg {
+  width: 72%;
+  height: auto;
+}
+
 .rc-category-card__shade {
   position: absolute;
   inset: 0;
@@ -119,7 +130,8 @@
   text-transform: uppercase;
 }
 
-.rc-category-card:first-child .rc-category-card__badge {
+.rc-category-card:first-child .rc-category-card__badge,
+.rc-category-card__badge--accent {
   background: var(--color-red);
 }
 
