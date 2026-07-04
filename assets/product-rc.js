@@ -3,31 +3,34 @@
   const MEDIA_SELECTOR =
     'img, picture, video, audio, iframe, embed, object, source, table, deferred-media, shopify-video, [data-shopify-video]';
 
-  const MAIN_SECTIONS = [
-    { key: 'tout savoir', label: 'Tout Savoir' },
-    { key: 'caracteristiques', label: 'Caractéristiques' },
-    { key: 'points fort', label: 'Points Fort' },
-  ];
+  const SECTION_CONFIG = {
+    tout_savoir: { label: 'Tout Savoir', group: 'main', icon: 'toutSavoir' },
+    caracteristiques: { label: 'Caractéristiques', group: 'main', icon: 'caracteristiques' },
+    points_fort: { label: 'Points Fort', group: 'main', icon: 'pointsFort' },
+    livraison_retours: { label: 'Livraison et retours', group: 'bottom', icon: 'livraison' },
+    fabrication_rigoureuse: { label: 'Fabrication hautement contrôlée', group: 'bottom', icon: 'fabrication' },
+    garantie_2_ans: { label: 'Garantie 2 ans', group: 'bottom', icon: 'garantie' },
+  };
 
-  const BOTTOM_SECTIONS = [
-    { key: 'livraison et retours', label: 'Livraison et retours' },
-    { key: 'fabrication rigoureuse et resistante', label: 'Fabrication hautement contrôlée' },
-    { key: 'garantie 2 ans', label: 'Garantie 2 ans' },
-  ];
+  const MAIN_SECTION_IDS = ['tout_savoir', 'caracteristiques', 'points_fort'];
+  const BOTTOM_SECTION_IDS = ['livraison_retours', 'fabrication_rigoureuse', 'garantie_2_ans'];
 
   const SECTION_ALIASES = {
-    'tout savoir': 'tout savoir',
+    'tout savoir': 'tout_savoir',
     caracteristiques: 'caracteristiques',
-    'points fort': 'points fort',
-    'points forts': 'points fort',
-    'livraison et retours': 'livraison et retours',
-    'livraison et retour': 'livraison et retours',
-    livraison: 'livraison et retours',
-    retours: 'livraison et retours',
-    'commande et livraison': 'livraison et retours',
-    'commande & livraison': 'livraison et retours',
-    garantie: 'garantie 2 ans',
-    'garantie 2 ans': 'garantie 2 ans',
+    'points fort': 'points_fort',
+    'points forts': 'points_fort',
+    'livraison et retours': 'livraison_retours',
+    'livraison et retour': 'livraison_retours',
+    livraison: 'livraison_retours',
+    retours: 'livraison_retours',
+    'commande et livraison': 'livraison_retours',
+    'commande & livraison': 'livraison_retours',
+    'fabrication hautement controlee': 'fabrication_rigoureuse',
+    'fabrication rigoureuse et resistante': 'fabrication_rigoureuse',
+    fabrication: 'fabrication_rigoureuse',
+    garantie: 'garantie_2_ans',
+    'garantie 2 ans': 'garantie_2_ans',
     description: null,
   };
 
@@ -42,22 +45,14 @@
       '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4.5 14.2 9l4.8.7-3.5 3.4.8 4.8L12 15.8 7.5 17.9l.8-4.8L4.8 9.7 9.6 9 12 4.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>',
     livraison:
       '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 7.5h12v9H3v-9Z" stroke="currentColor" stroke-width="1.5"/><path d="M15 10.5h3.2L21 14v2.5h-3M6.5 18.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3ZM17.5 18.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-    garantie:
-      '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4.5" y="4.5" width="15" height="15" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="m8.5 12.2 2.2 2.2 5-5.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     fabrication:
       '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s6-5.2 6-10a6 6 0 1 0-12 0c0 4.8 6 10 6 10Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="12" cy="11" r="2.25" stroke="currentColor" stroke-width="1.5"/></svg>',
+    garantie:
+      '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4.5" y="4.5" width="15" height="15" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="m8.5 12.2 2.2 2.2 5-5.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
   };
 
-
-  const ICON_MAP = {
-    Description: 'description',
-    'Tout Savoir': 'toutSavoir',
-    Caractéristiques: 'caracteristiques',
-    'Points Fort': 'pointsFort',
-    'Livraison et retours': 'livraison',
-    'Fabrication hautement contrôlée': 'fabrication',
-    'Garantie 2 ans': 'garantie',
-  };
+  const TOGGLE_ICON =
+    '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 6v12M6 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
 
   const normalize = (text) =>
     text
@@ -67,11 +62,14 @@
       .replace(/\s+/g, ' ')
       .trim();
 
-  const isMeaningfulNode = (node) => {
-    if (node.nodeType === Node.TEXT_NODE) {
-      return node.textContent.trim().length > 0;
-    }
+  const createEmptyBuckets = () => {
+    const buckets = new Map();
+    Object.keys(SECTION_CONFIG).forEach((id) => buckets.set(id, []));
+    return buckets;
+  };
 
+  const isMeaningfulNode = (node) => {
+    if (node.nodeType === Node.TEXT_NODE) return node.textContent.trim().length > 0;
     if (node.nodeType !== Node.ELEMENT_NODE) return false;
     return node.tagName !== 'HR' && node.tagName !== 'BR';
   };
@@ -79,7 +77,6 @@
   const isSectionHeading = (element) => {
     if (!element || element.nodeType !== Node.ELEMENT_NODE) return false;
     if (HEADING_TAGS.has(element.tagName)) return true;
-
     if (element.tagName !== 'P') return false;
 
     const strong = element.querySelector(':scope > strong, :scope > b');
@@ -87,7 +84,6 @@
 
     const text = element.textContent.replace(/\s+/g, ' ').trim();
     const headingText = strong.textContent.replace(/\s+/g, ' ').trim();
-
     return text === headingText && headingText.length > 0 && headingText.length <= 80;
   };
 
@@ -100,39 +96,22 @@
     return (strong || element).textContent.replace(/\s+/g, ' ').trim();
   };
 
-  const resolveSectionKey = (title) => {
+  const resolveSectionId = (title) => {
     const normalized = normalize(title);
-
     if (Object.prototype.hasOwnProperty.call(SECTION_ALIASES, normalized)) {
       return SECTION_ALIASES[normalized];
     }
-
-    if (normalized.startsWith('points fort')) {
-      return 'points fort';
-    }
-
+    if (normalized.startsWith('points fort')) return 'points_fort';
     return undefined;
   };
 
   const getParseableNodes = (body) => {
     const nodes = [...body.childNodes].filter(isMeaningfulNode);
-
-    if (nodes.length !== 1 || nodes[0].nodeType !== Node.ELEMENT_NODE) {
-      return nodes;
-    }
+    if (nodes.length !== 1 || nodes[0].nodeType !== Node.ELEMENT_NODE) return nodes;
 
     const wrapper = nodes[0];
-    const wrapperTags = new Set(['DIV', 'ARTICLE', 'SECTION', 'MAIN']);
-
-    if (!wrapperTags.has(wrapper.tagName)) {
-      return nodes;
-    }
-
-    const nestedHeadings = wrapper.querySelector(
-      ':scope > h2, :scope > h3, :scope > h4, :scope > p > strong, :scope > p > b'
-    );
-
-    if (!nestedHeadings) {
+    if (!new Set(['DIV', 'ARTICLE', 'SECTION', 'MAIN']).has(wrapper.tagName)) return nodes;
+    if (!wrapper.querySelector(':scope > h2, :scope > h3, :scope > h4, :scope > p > strong, :scope > p > b')) {
       return nodes;
     }
 
@@ -142,7 +121,6 @@
   const hasVisibleContent = (nodes) => {
     const temp = document.createElement('div');
     nodes.forEach((node) => temp.appendChild(node.cloneNode(true)));
-
     if (temp.textContent.replace(/\s+/g, '').length > 0) return true;
     return Boolean(temp.querySelector(MEDIA_SELECTOR));
   };
@@ -151,7 +129,6 @@
     root.querySelectorAll('img').forEach((image) => {
       image.loading = 'eager';
       image.decoding = 'async';
-
       if (image.dataset.src && !image.getAttribute('src')) {
         image.setAttribute('src', image.dataset.src);
       }
@@ -161,10 +138,7 @@
       if (video.dataset.src && !video.getAttribute('src')) {
         video.setAttribute('src', video.dataset.src);
       }
-
-      if (!video.hasAttribute('preload')) {
-        video.setAttribute('preload', 'metadata');
-      }
+      if (!video.hasAttribute('preload')) video.setAttribute('preload', 'metadata');
     });
 
     root.querySelectorAll('iframe').forEach((iframe) => {
@@ -174,117 +148,84 @@
     });
   };
 
-  const parseBuckets = (html) => {
-    const doc = new DOMParser().parseFromString(html, 'text/html');
-    const nodes = getParseableNodes(doc.body);
-    const buckets = new Map();
-
-    [...MAIN_SECTIONS, ...BOTTOM_SECTIONS].forEach((section) => {
-      buckets.set(section.key, []);
-    });
-
-    let currentKey = 'tout savoir';
-
-    nodes.forEach((node) => {
-      if (node.nodeType === Node.ELEMENT_NODE && isSectionHeading(node)) {
-        const title = getSectionTitle(node);
-        const key = resolveSectionKey(title);
-
-        if (key === null) {
-          return;
-        }
-
-        if (key) {
-          currentKey = key;
-          return;
-        }
-      }
-
-      buckets.get(currentKey).push(node.cloneNode(true));
-    });
-
-    return buckets;
-  };
-
-  const createSummary = (title, options = {}) => {
-    const summary = document.createElement('summary');
-    const main = document.createElement('span');
-    main.className = 'rc-product-desc__summary-main';
-
-    const icon = document.createElement('span');
-    icon.className = 'rc-product-desc__icon';
-    const iconKey = options.icon || ICON_MAP[title] || 'description';
-    icon.innerHTML = ICONS[iconKey] || ICONS.description;
-
-    const label = document.createElement('span');
-    label.className = 'rc-product-desc__label';
-    label.textContent = title;
-
-    main.append(icon, label);
-
-    const toggle = document.createElement('span');
-    toggle.className = 'rc-product-desc__toggle';
-    toggle.setAttribute('aria-hidden', 'true');
-    toggle.innerHTML =
-      '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 6v12M6 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
-
-    summary.append(main, toggle);
-    return summary;
-  };
-
   const nodesFromHtml = (html) => {
     const temp = document.createElement('div');
     temp.innerHTML = html;
     return [...temp.childNodes];
   };
 
-  const getSectionBuckets = (root) => {
-    const buckets = new Map();
+  const parseDescriptionBuckets = (html) => {
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    const nodes = getParseableNodes(doc.body);
+    const buckets = createEmptyBuckets();
+    let currentId = 'tout_savoir';
 
-    [...MAIN_SECTIONS, ...BOTTOM_SECTIONS].forEach((section) => {
-      buckets.set(section.key, []);
+    nodes.forEach((node) => {
+      if (node.nodeType === Node.ELEMENT_NODE && isSectionHeading(node)) {
+        const sectionId = resolveSectionId(getSectionTitle(node));
+        if (sectionId === null) return;
+        if (sectionId) {
+          currentId = sectionId;
+          return;
+        }
+      }
+
+      buckets.get(currentId).push(node.cloneNode(true));
     });
 
+    return buckets;
+  };
+
+  const getSectionBuckets = (root) => {
+    const buckets = createEmptyBuckets();
     const sectionsJson = root.querySelector('[data-rc-product-sections]');
 
     if (sectionsJson) {
       try {
         const data = JSON.parse(sectionsJson.textContent);
-        const keyMap = {
-          tout_savoir: 'tout savoir',
-          caracteristiques: 'caracteristiques',
-          points_fort: 'points fort',
-          livraison_retours: 'livraison et retours',
-          fabrication_rigoureuse: 'fabrication rigoureuse et resistante',
-          garantie_2_ans: 'garantie 2 ans',
-        };
-
-        Object.entries(data).forEach(([jsonKey, html]) => {
-          if (!html || typeof html !== 'string' || !html.trim()) return;
-
-          const key = keyMap[jsonKey];
-          if (!key) return;
-
-          buckets.set(key, nodesFromHtml(html));
+        Object.entries(data).forEach(([sectionId, html]) => {
+          if (!SECTION_CONFIG[sectionId] || !html || typeof html !== 'string' || !html.trim()) return;
+          buckets.set(sectionId, nodesFromHtml(html));
         });
       } catch (error) {
-        // Ignore invalid JSON and fall back to description parsing.
+        // Invalid JSON: description parsing remains available as fallback.
       }
     }
 
     const source = root.querySelector('[data-rc-product-desc-source]');
+    if (!source) return buckets;
 
-    if (source) {
-      const parsed = parseBuckets(source.innerHTML);
-
-      MAIN_SECTIONS.forEach((section) => {
-        if (!hasVisibleContent(buckets.get(section.key) || [])) {
-          buckets.set(section.key, parsed.get(section.key) || []);
-        }
-      });
-    }
+    const parsed = parseDescriptionBuckets(source.innerHTML);
+    MAIN_SECTION_IDS.forEach((sectionId) => {
+      if (!hasVisibleContent(buckets.get(sectionId) || [])) {
+        buckets.set(sectionId, parsed.get(sectionId) || []);
+      }
+    });
 
     return buckets;
+  };
+
+  const createSummary = (title, iconKey = 'description') => {
+    const summary = document.createElement('summary');
+    const main = document.createElement('span');
+    main.className = 'rc-product-desc__summary-main';
+
+    const icon = document.createElement('span');
+    icon.className = 'rc-product-desc__icon';
+    icon.innerHTML = ICONS[iconKey] || ICONS.description;
+
+    const label = document.createElement('span');
+    label.className = 'rc-product-desc__label';
+    label.textContent = title;
+
+    const toggle = document.createElement('span');
+    toggle.className = 'rc-product-desc__toggle';
+    toggle.setAttribute('aria-hidden', 'true');
+    toggle.innerHTML = TOGGLE_ICON;
+
+    main.append(icon, label);
+    summary.append(main, toggle);
+    return summary;
   };
 
   const createTabsPanel = (sections) => {
@@ -314,9 +255,8 @@
     };
 
     sections.forEach((section, index) => {
-      const slug = section.key.replace(/\s+/g, '-');
-      const tabId = `rc-desc-tab-${slug}`;
-      const panelId = `rc-desc-panel-${slug}`;
+      const tabId = `rc-desc-tab-${section.id}`;
+      const panelId = `rc-desc-panel-${section.id}`;
 
       const button = document.createElement('button');
       button.type = 'button';
@@ -334,10 +274,7 @@
       panel.setAttribute('aria-labelledby', tabId);
       panel.hidden = index !== 0;
       section.nodes.forEach((node) => panel.appendChild(node));
-
-      if (index === 0) {
-        enhanceMedia(panel);
-      }
+      if (index === 0) enhanceMedia(panel);
 
       nav.appendChild(button);
       panels.appendChild(panel);
@@ -346,101 +283,76 @@
     nav.addEventListener('click', (event) => {
       const button = event.target.closest('.rc-product-desc__tab');
       if (!button || !nav.contains(button)) return;
-
       const index = [...nav.children].indexOf(button);
-      if (index < 0) return;
-
-      activateTab(index);
+      if (index >= 0) activateTab(index);
     });
 
     wrapper.append(nav, panels);
     return wrapper;
   };
 
-  const createAccordionItem = (title, nodes, options = {}) => {
+  const createAccordionItem = (sectionId, nodes) => {
+    const config = SECTION_CONFIG[sectionId];
     const details = document.createElement('details');
     details.className = 'rc-product-desc__item';
-
-    if (options.open) {
-      details.open = true;
-    }
 
     const content = document.createElement('div');
     content.className = 'rc-product-desc__content rte';
     nodes.forEach((node) => content.appendChild(node));
-
     enhanceMedia(content);
-    details.append(createSummary(title), content);
+
+    details.append(createSummary(config.label, config.icon), content);
     return details;
   };
 
-  const buildAccordion = (root) => {
+  const buildProductDescription = (root) => {
     if (root.dataset.rcProductDescReady === 'true') return;
-    if (root.hasAttribute('data-rc-product-desc-static')) return;
 
     const buckets = getSectionBuckets(root);
     const list = document.createElement('div');
     list.className = 'rc-product-desc__list';
 
-    const descriptionGroup = document.createElement('details');
-    descriptionGroup.className = 'rc-product-desc__group';
-    descriptionGroup.append(createSummary('Description'));
-
-    const tabSections = [];
-
-    MAIN_SECTIONS.forEach((section) => {
-      const nodes = buckets.get(section.key) || [];
-      if (!hasVisibleContent(nodes)) return;
-
-      tabSections.push({ ...section, nodes });
-    });
-
-    if (!tabSections.length) {
-      const fallbackNodes = buckets.get('tout savoir') || [];
-      if (hasVisibleContent(fallbackNodes)) {
-        tabSections.push({
-          key: 'tout savoir',
-          label: 'Tout Savoir',
-          nodes: fallbackNodes,
-        });
-      }
-    }
+    const tabSections = MAIN_SECTION_IDS.map((id) => ({
+      id,
+      label: SECTION_CONFIG[id].label,
+      nodes: buckets.get(id) || [],
+    })).filter((section) => hasVisibleContent(section.nodes));
 
     if (tabSections.length) {
+      const descriptionGroup = document.createElement('details');
+      descriptionGroup.className = 'rc-product-desc__group';
+      descriptionGroup.append(createSummary('Description', 'description'));
       descriptionGroup.append(createTabsPanel(tabSections));
       list.appendChild(descriptionGroup);
     }
 
-    BOTTOM_SECTIONS.forEach((section) => {
-      const nodes = buckets.get(section.key) || [];
+    BOTTOM_SECTION_IDS.forEach((sectionId) => {
+      const nodes = buckets.get(sectionId) || [];
       if (!hasVisibleContent(nodes)) return;
-
-      list.appendChild(createAccordionItem(section.label, nodes));
+      list.appendChild(createAccordionItem(sectionId, nodes));
     });
 
-    if (!list.children.length) {
-      return;
-    }
+    if (!list.children.length) return;
 
-    const mountPoint = root.querySelector('[data-rc-product-sections]') || root.querySelector('[data-rc-product-desc-source]');
-    if (mountPoint) {
-      mountPoint.replaceWith(list);
-    } else {
-      root.appendChild(list);
-    }
-
+    const mountPoint =
+      root.querySelector('[data-rc-product-sections]') || root.querySelector('[data-rc-product-desc-source]');
+    mountPoint.replaceWith(list);
     root.dataset.rcProductDescReady = 'true';
   };
 
-  const init = () => {
-    document.querySelectorAll('[data-rc-product-desc]').forEach(buildAccordion);
+  const init = (scope = document) => {
+    scope.querySelectorAll('[data-rc-product-desc]:not([data-rc-product-desc-ready])').forEach((root) => {
+      buildProductDescription(root);
+    });
   };
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
+    document.addEventListener('DOMContentLoaded', () => init());
   } else {
     init();
   }
 
-  document.addEventListener('shopify:section:load', init);
+  document.addEventListener('shopify:section:load', (event) => {
+    init(event.target);
+  });
 })();
