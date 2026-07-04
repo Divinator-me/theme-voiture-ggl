@@ -193,7 +193,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin: 10px 0 0;
+  margin: 8px 0 0;
   padding: 0;
   list-style: none;
 }
@@ -225,7 +225,7 @@
   width: 100%;
   border: 0;
   border-radius: var(--radius-sm);
-  margin-top: 12px;
+  margin-top: 10px;
   padding: 12px 14px;
   background: var(--color-black);
   color: var(--color-white);

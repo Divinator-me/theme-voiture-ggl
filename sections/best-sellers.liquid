@@ -99,6 +99,8 @@
                 </div>
               {% endif %}
 
+              <p class="rc-best-sellers__price">{{ product.price | money }}</p>
+
               {% if color_option != null and color_option.values.size > 0 %}
                 <ul class="rc-best-sellers__colors" aria-label="Couleurs disponibles">
                   {% for value in color_option.values %}
@@ -109,7 +111,6 @@
                 </ul>
               {% endif %}
 
-              <p class="rc-best-sellers__price">{{ product.price | money }}</p>
               {% form 'product', product, class: 'rc-best-sellers__form' %}
                 <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
                 <button type="submit" {% unless product.available %}disabled{% endunless %}>
