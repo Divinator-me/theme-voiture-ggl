@@ -43,8 +43,10 @@
 
   <div class="rc-menu-overlay" id="rc-menu-overlay" data-menu-overlay aria-hidden="true">
     <div class="rc-menu-overlay__panel" role="dialog" aria-modal="true" aria-label="Menu principal">
-      <button class="rc-menu-overlay__close" type="button" data-menu-close aria-label="Fermer le menu">×</button>
-      <a class="rc-menu-overlay__logo" href="{{ routes.root_url }}">{{ logo_text }}</a>
+      <div class="rc-menu-overlay__head">
+        <a class="rc-menu-overlay__logo" href="{{ routes.root_url }}">{{ logo_text }}</a>
+        <button class="rc-menu-overlay__close" type="button" data-menu-close aria-label="Fermer le menu">×</button>
+      </div>
       <nav class="rc-menu-overlay__links" aria-label="Menu mobile">
         <a href="{{ routes.root_url }}">Accueil</a>
         <a href="{{ routes.all_products_collection_url }}">Monster Truck / 4x4</a>
