@@ -541,8 +541,9 @@ export default class VariantPicker extends Component {
       this.closest('featured-product-information') ??
       document;
 
+    const PickersClass = this.constructor;
     const pickers = Array.from(scope.querySelectorAll(`variant-picker[data-product-id="${productId}"]`)).filter(
-      (picker) => picker instanceof VariantPicker
+      (picker) => picker instanceof PickersClass
     );
 
     return pickers.length ? pickers : [this];
