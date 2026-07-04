@@ -119,6 +119,25 @@
     });
   };
 
+  const bindMenuAccordion = () => {
+    if (!menuOverlay) return;
+
+    const groups = menuOverlay.querySelectorAll('.rc-menu-overlay__group');
+
+    groups.forEach((group) => {
+      if (group.dataset.accordionBound === 'true') return;
+      group.dataset.accordionBound = 'true';
+
+      group.addEventListener('toggle', () => {
+        if (!group.open) return;
+
+        groups.forEach((other) => {
+          if (other !== group) other.open = false;
+        });
+      });
+    });
+  };
+
   const init = () => {
     nav = document.querySelector('[data-main-nav]');
     if (!nav) return;
@@ -133,6 +152,7 @@
     mountOverlay(menuOverlay);
     mountOverlay(searchOverlay);
     bindMenuLinks();
+    bindMenuAccordion();
 
     if (bound) return;
     bound = true;
