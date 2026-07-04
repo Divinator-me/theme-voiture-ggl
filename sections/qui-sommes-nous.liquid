@@ -1,0 +1,67 @@
+{{ 'qui-sommes-nous.css' | asset_url | stylesheet_tag }}
+
+<section class="rc-about" aria-label="Qui sommes-nous">
+  <div class="rc-about__hero">
+    <img
+      class="rc-about__hero-image"
+      src="{{ 'qui-sommes-nous-hero.png' | asset_url }}"
+      alt="L'équipe RCLAB sur un circuit de voitures RC"
+      width="1920"
+      height="1080"
+      loading="eager"
+      fetchpriority="high"
+    >
+    <div class="rc-about__hero-overlay" aria-hidden="true"></div>
+    <h1 class="rc-about__hero-title">Notre Histoire</h1>
+  </div>
+
+  <div class="rc-about__content">
+    <article class="rc-about__block">
+      <h2 class="rc-about__label">Qui</h2>
+      <p class="rc-about__text">
+        <strong>RCLAB</strong>, c'est parti d'un père et de trois voitures RC achetées à son fils en deux ans — toutes cassées, aucune pièce détachée, aucun SAV. Plutôt que d'en racheter une quatrième, il a monté la marque qu'il aurait voulu trouver. Aujourd'hui l'équipe, c'est une bande de mecs qui roulent depuis gamins et qui bidouillent des RC le week-end.
+      </p>
+    </article>
+
+    <article class="rc-about__block">
+      <h2 class="rc-about__label">Pourquoi</h2>
+      <p class="rc-about__text">
+        Parce que le marché de la RC est cassé en deux : le jouet Amazon à 70€ qui grille en trois sorties, et le hobby-grade à 400€ réservé aux experts. Rien au milieu. On refuse que le plaisir de rouler dépende du budget ou du niveau technique — ni qu'un gamin apprenne à jeter un jouet parce qu'aucune pièce n'existe pour le réparer.
+      </p>
+    </article>
+
+    <article class="rc-about__block">
+      <h2 class="rc-about__label">Comment</h2>
+      <p class="rc-about__text">
+        On choisit des fournisseurs qu'on teste dans la durée, on met du métal aux points critiques (transmission, pignons, ESC), on vérifie chaque lot avant expédition. Chaque RCLAB arrive avec un kit pièces détachées inclus. Le SAV répond en français sous 48h — c'est un humain, pas un formulaire.
+      </p>
+    </article>
+
+    <article class="rc-about__block">
+      <h2 class="rc-about__label">Pour qui</h2>
+      <p class="rc-about__text">
+        Pour les mordus qui préfèrent payer une fois pour une RC qui dure trois ans plutôt que trois fois pour une qui casse en trois mois.
+      </p>
+    </article>
+
+    <div class="rc-about__cta-wrap">
+      <a class="rc-about__cta" href="{{ routes.all_products_collection_url }}">
+        <span class="rc-about__cta-inner">
+          <span>Découvre la gamme et choisis ta première RCLAB</span>
+          <span class="rc-about__cta-arrow" aria-hidden="true">→</span>
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Qui sommes-nous",
+  "presets": [
+    {
+      "name": "Qui sommes-nous"
+    }
+  ]
+}
+{% endschema %}
