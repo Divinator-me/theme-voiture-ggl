@@ -306,6 +306,11 @@
   display: none;
 }
 
+.rc-product-recommendations {
+  padding-top: 44px;
+  padding-bottom: 52px;
+}
+
 .rc-product-recommendations__skeleton .rc-best-sellers__image {
   background: linear-gradient(90deg, #f2f2f2 25%, #e8e8e8 50%, #f2f2f2 75%);
   background-size: 200% 100%;
@@ -326,6 +331,13 @@
 
   100% {
     background-position: -200% 0;
+  }
+}
+
+@media (min-width: 750px) {
+  .rc-product-recommendations {
+    padding-top: 56px;
+    padding-bottom: 64px;
   }
 }
 
