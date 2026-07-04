@@ -1,0 +1,115 @@
+.rc-story {
+  padding: 34px 14px 42px;
+  background: var(--color-white);
+  color: var(--color-black);
+}
+
+.rc-story__inner {
+  display: grid;
+  gap: 18px;
+  justify-items: center;
+  max-width: 363px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.rc-story__media {
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+.rc-story__media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.rc-story__eyebrow {
+  margin: 4px 0 0;
+  color: var(--color-gray-500);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.rc-story__title {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: clamp(24px, 6.4vw, 30px);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.rc-story__text {
+  margin: 0;
+  color: var(--color-black);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.rc-story__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  max-width: 100%;
+  border: 0;
+  border-radius: 0;
+  margin-top: 8px;
+  padding: 16px 28px 16px 24px;
+  background: var(--color-red);
+  box-shadow: 0 4px 12px rgb(255 45 45 / 22%);
+  color: var(--color-white);
+  transform: skewX(-18deg);
+  transition:
+    background 0.2s var(--ease-smooth),
+    box-shadow 0.2s var(--ease-smooth),
+    transform 0.2s var(--ease-smooth);
+}
+
+.rc-story__cta-inner {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transform: skewX(18deg);
+}
+
+.rc-story__cta-arrow {
+  font-size: 15px;
+  line-height: 1;
+  transform: translateY(-1px);
+}
+
+.rc-story__cta:hover,
+.rc-story__cta:active {
+  background: var(--color-red-dark);
+  box-shadow: 0 6px 16px rgb(255 45 45 / 30%);
+  transform: skewX(-18deg) translateY(-1px);
+}
+
+@media (min-width: 750px) {
+  .rc-story {
+    padding: 48px 24px 56px;
+  }
+
+  .rc-story__inner {
+    max-width: 640px;
+    gap: 20px;
+  }
+
+  .rc-story__text {
+    max-width: 560px;
+    font-size: 15px;
+  }
+}
