@@ -497,19 +497,28 @@
   .rc-main-nav__search-submit {
     position: absolute;
     right: 5px;
-    display: grid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 38px;
     height: 38px;
     border: 0;
     border-radius: 50%;
-    place-items: center;
+    padding: 0;
     background: var(--color-red);
     color: var(--color-white);
     cursor: pointer;
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 700;
     line-height: 1;
     transition: background 0.2s var(--ease-smooth);
+  }
+
+  .rc-main-nav__search-submit::after {
+    display: block;
+    line-height: 1;
+    transform: translate(1px, -1px);
+    content: '→';
   }
 
   .rc-main-nav__search-submit:hover {
