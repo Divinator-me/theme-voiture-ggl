@@ -118,17 +118,6 @@
   transform: rotate(45deg);
 }
 
-.rc-product-desc__item--nested .rc-product-desc__toggle {
-  flex-basis: 24px;
-  width: 24px;
-  height: 24px;
-}
-
-.rc-product-desc__item--nested .rc-product-desc__toggle svg {
-  width: 11px;
-  height: 11px;
-}
-
 .rc-product-desc__tabs {
   padding: 0 0 12px;
 }
@@ -275,7 +264,9 @@
 }
 
 .rc-product-desc__content ul,
-.rc-product-desc__content ol {
+.rc-product-desc__content ol,
+.rc-product-desc__tab-panel ul,
+.rc-product-desc__tab-panel ol {
   padding-left: 1.2em;
 }
 

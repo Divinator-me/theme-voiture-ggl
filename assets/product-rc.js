@@ -327,20 +327,6 @@
     return details;
   };
 
-  const bindExclusiveToggle = (container) => {
-    container.addEventListener('toggle', (event) => {
-      const target = event.target;
-
-      if (!(target instanceof HTMLDetailsElement) || !target.open) return;
-
-      container.querySelectorAll(':scope > details[open]').forEach((item) => {
-        if (item !== target) item.open = false;
-      });
-
-      enhanceMedia(target);
-    });
-  };
-
   const buildAccordion = (root) => {
     if (root.dataset.rcProductDescReady === 'true') return;
     if (root.hasAttribute('data-rc-product-desc-static')) return;
