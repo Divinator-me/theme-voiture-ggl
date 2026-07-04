@@ -110,10 +110,6 @@
     transform 0.25s var(--ease-smooth);
 }
 
-.rc-footer__col--collections a {
-  color: var(--color-red);
-}
-
 .rc-footer__col a:hover {
   color: var(--color-red);
   transform: translate3d(3px, 0, 0);
@@ -178,6 +174,7 @@
   font-size: 12px;
 }
 
+@media (min-width: 750px) {
   .rc-footer {
     padding-top: 60px;
   }
