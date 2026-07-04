@@ -9,22 +9,6 @@
  */
 {
   "sections": {
-    "announcement_marquee": {
-      "type": "announcement-marquee",
-      "settings": {}
-    },
-    "promo_bar": {
-      "type": "promo-bar",
-      "settings": {}
-    },
-    "main_nav": {
-      "type": "main-nav",
-      "settings": {}
-    },
-    "category_nav": {
-      "type": "category-nav",
-      "settings": {}
-    },
     "hero": {
       "type": "hero",
       "settings": {}
@@ -32,14 +16,7 @@
     "best_sellers": {
       "type": "best-sellers",
       "settings": {
-        "products": [
-          "voiture-telecommandee-climbing-4x4-off-road-robuste-30-km-h",
-          "conquer-4x4-1-16-voiture-telecommandee-tout-terrain-50-km-h",
-          "drive-4x4-voiture-telecommandee-tout-terrain-70-km-h",
-          "porsche-911-gt2-1-24-voiture-telecommandee-drift-et-piste-30-km-h-mini-car",
-          "sweep-pro-4x4-voiture-telecommandee-tout-terrain-70-km-h",
-          "ford-mustang-gt-1-24-voiture-telecommandee-drift-et-piste-30-km-h"
-        ]
+        "products": []
       }
     },
     "categories_grid": {
@@ -47,8 +24,8 @@
       "settings": {
         "collections": [
           "monster-truck-4x4",
-          "drift",
           "buggy",
+          "drift",
           "crawler",
           "rallye-trophy",
           "piste"
@@ -66,23 +43,14 @@
     "trust_end": {
       "type": "trust-end",
       "settings": {}
-    },
-    "footer": {
-      "type": "footer",
-      "settings": {}
     }
   },
   "order": [
-    "announcement_marquee",
-    "promo_bar",
-    "main_nav",
-    "category_nav",
     "hero",
     "best_sellers",
     "categories_grid",
     "faq_rc",
     "story_rc",
-    "trust_end",
-    "footer"
+    "trust_end"
   ]
 }
