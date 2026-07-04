@@ -1,9 +1,17 @@
 (() => {
   const timers = document.querySelectorAll('[data-countdown]');
 
+  const getNextMidnight = () => {
+    const next = new Date();
+    next.setDate(next.getDate() + 1);
+    next.setHours(0, 0, 0, 0);
+    return next.getTime();
+  };
+
   timers.forEach((timer) => {
+    const isMidnight = timer.hasAttribute('data-countdown-midnight');
     const duration = Number(timer.dataset.duration || 604800) * 1000;
-    let endTime = Date.now() + duration;
+    let endTime = isMidnight ? getNextMidnight() : Date.now() + duration;
 
     const parts = {
       days: timer.querySelector('[data-days]'),
@@ -18,8 +26,8 @@
       let remaining = endTime - Date.now();
 
       if (remaining <= 0) {
-        endTime = Date.now() + duration;
-        remaining = duration;
+        endTime = isMidnight ? getNextMidnight() : Date.now() + duration;
+        remaining = endTime - Date.now();
       }
 
       const days = Math.floor(remaining / 86400000);
