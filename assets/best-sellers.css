@@ -205,14 +205,13 @@
   overflow: hidden;
   border: 1px solid rgb(0 0 0 / 12%);
   border-radius: 50%;
-  background: var(--swatch-color, var(--color-gray-200));
+  background: var(--swatch-background, var(--color-gray-200));
+  background-position: center;
+  background-size: cover;
 }
 
-.rc-best-sellers__color-image {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.rc-best-sellers__color.is-light {
+  border-color: rgb(0 0 0 / 20%);
 }
 
 .rc-best-sellers__price {

@@ -103,21 +103,7 @@
                 <ul class="rc-best-sellers__colors" aria-label="Couleurs disponibles">
                   {% for value in color_option.values %}
                     <li>
-                      <span
-                        class="rc-best-sellers__color"
-                        title="{{ value.name }}"
-                        {% if value.swatch.color != blank %}
-                          style="--swatch-color: {{ value.swatch.color }};"
-                        {% endif %}
-                      >
-                        {% if value.swatch.image != blank %}
-                          {{
-                            value.swatch.image
-                            | image_url: width: 40
-                            | image_tag: loading: 'lazy', alt: value.name, class: 'rc-best-sellers__color-image'
-                          }}
-                        {% endif %}
-                      </span>
+                      {% render 'rc-color-swatch', product: product, color_option: color_option, value: value %}
                     </li>
                   {% endfor %}
                 </ul>
