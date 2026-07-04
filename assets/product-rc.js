@@ -234,13 +234,59 @@
     return [...temp.childNodes];
   };
 
-  const getFallbackNodes = (root, fallbackKey) => {
-    const template = root.querySelector(`[data-rc-fallback-${fallbackKey}]`);
-    if (!template) return [];
-    return nodesFromHtml(template.innerHTML);
+  const getSectionBuckets = (root) => {
+    const buckets = new Map();
+
+    [...MAIN_SECTIONS, ...BOTTOM_SECTIONS].forEach((section) => {
+      buckets.set(section.key, []);
+    });
+
+    const sectionsJson = root.querySelector('[data-rc-product-sections]');
+
+    if (sectionsJson) {
+      try {
+        const data = JSON.parse(sectionsJson.textContent);
+        const keyMap = {
+          tout_savoir: 'tout savoir',
+          caracteristiques: 'caracteristiques',
+          points_fort: 'points fort',
+          livraison_retours: 'livraison et retours',
+          garantie_2_ans: 'garantie 2 ans',
+        };
+
+        Object.entries(data).forEach(([jsonKey, html]) => {
+          if (!html || typeof html !== 'string' || !html.trim()) return;
+
+          const key = keyMap[jsonKey];
+          if (!key) return;
+
+          buckets.set(key, nodesFromHtml(html));
+        });
+      } catch (error) {
+        // Ignore invalid JSON and fall back to description parsing.
+      }
+    }
+
+    const source = root.querySelector('[data-rc-product-desc-source]');
+
+    if (source) {
+      const parsed = parseBuckets(source.innerHTML);
+
+      [...MAIN_SECTIONS, ...BOTTOM_SECTIONS].forEach((section) => {
+        if (!hasVisibleContent(buckets.get(section.key) || [])) {
+          buckets.set(section.key, parsed.get(section.key) || []);
+        }
+      });
+    }
+
+    return buckets;
   };
 
-  const createTabsPanel = (sections) => {
+  const buildAccordion = (root) => {
+    if (root.dataset.rcProductDescReady === 'true') return;
+    if (root.hasAttribute('data-rc-product-desc-static')) return;
+
+    const buckets = getSectionBuckets(root);
     const wrapper = document.createElement('div');
     wrapper.className = 'rc-product-desc__tabs';
 

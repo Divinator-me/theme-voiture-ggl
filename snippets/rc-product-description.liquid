@@ -6,8 +6,14 @@
 
   assign mf = description_product.metafields.rc
 
+  assign tout_savoir_metafield = mf.tout_savoir.value | default: blank
+  assign caracteristiques_metafield = mf.caracteristiques.value | default: blank
+  assign points_fort_metafield = mf.points_fort.value | default: blank
+  assign livraison_metafield = mf.livraison_retours.value | default: blank
+  assign garantie_metafield = mf.garantie_2_ans.value | default: blank
+
   assign has_metafield_content = false
-  if mf.tout_savoir != blank or mf.caracteristiques != blank or mf.points_fort != blank or mf.livraison_retours != blank or mf.garantie_2_ans != blank
+  if tout_savoir_metafield != blank or caracteristiques_metafield != blank or points_fort_metafield != blank or livraison_metafield != blank or garantie_metafield != blank
     assign has_metafield_content = true
   endif
 
@@ -17,62 +23,64 @@
   endif
 %}
 
-{% if show_component %}
-  {% capture tout_savoir_html %}
-    {% if mf.tout_savoir != blank %}
-      {{ mf.tout_savoir | metafield_tag }}
-    {% endif %}
-  {% endcapture %}
+{% unless show_component %}
+  {% break %}
+{% endunless %}
 
-  {% capture caracteristiques_html %}
-    {% if mf.caracteristiques != blank %}
-      {{ mf.caracteristiques | metafield_tag }}
-    {% endif %}
-  {% endcapture %}
+{% capture tout_savoir_html %}
+  {% if tout_savoir_metafield != blank %}
+    {{ mf.tout_savoir | metafield_tag }}
+  {% endif %}
+{% endcapture %}
 
-  {% capture points_fort_html %}
-    {% if mf.points_fort != blank %}
-      {{ mf.points_fort | metafield_tag }}
-    {% endif %}
-  {% endcapture %}
+{% capture caracteristiques_html %}
+  {% if caracteristiques_metafield != blank %}
+    {{ mf.caracteristiques | metafield_tag }}
+  {% endif %}
+{% endcapture %}
 
-  {% capture livraison_html %}
-    {% if mf.livraison_retours != blank %}
-      {{ mf.livraison_retours | metafield_tag }}
-    {% elsif default_livraison != blank %}
-      {{ default_livraison }}
-    {% endif %}
-  {% endcapture %}
+{% capture points_fort_html %}
+  {% if points_fort_metafield != blank %}
+    {{ mf.points_fort | metafield_tag }}
+  {% endif %}
+{% endcapture %}
 
-  {% capture garantie_html %}
-    {% if mf.garantie_2_ans != blank %}
-      {{ mf.garantie_2_ans | metafield_tag }}
-    {% elsif default_garantie != blank %}
-      {{ default_garantie }}
-    {% endif %}
-  {% endcapture %}
+{% capture livraison_html %}
+  {% if livraison_metafield != blank %}
+    {{ mf.livraison_retours | metafield_tag }}
+  {% elsif default_livraison != blank %}
+    {{ default_livraison }}
+  {% endif %}
+{% endcapture %}
 
-  <div
-    class="rc-product-desc"
-    data-rc-product-desc
-    {% if has_metafield_content %}
-      data-rc-product-desc-mode="metafields"
-    {% endif %}
-  >
-    {% if description_product.description != blank and has_metafield_content == false %}
-      <div class="rc-product-desc__source rte" hidden data-rc-product-desc-source>
-        {{ description_product.description }}
-      </div>
-    {% endif %}
+{% capture garantie_html %}
+  {% if garantie_metafield != blank %}
+    {{ mf.garantie_2_ans | metafield_tag }}
+  {% elsif default_garantie != blank %}
+    {{ default_garantie }}
+  {% endif %}
+{% endcapture %}
 
-    <script type="application/json" data-rc-product-sections>
-      {
-        "tout_savoir": {{ tout_savoir_html | strip | json }},
-        "caracteristiques": {{ caracteristiques_html | strip | json }},
-        "points_fort": {{ points_fort_html | strip | json }},
-        "livraison_retours": {{ livraison_html | strip | json }},
-        "garantie_2_ans": {{ garantie_html | strip | json }}
-      }
-    </script>
-  </div>
-{% endif %}
+<div
+  class="rc-product-desc"
+  data-rc-product-desc
+  {% if has_metafield_content %}
+    data-rc-product-desc-mode="metafields"
+  {% endif %}
+>
+  {% if description_product.description != blank and has_metafield_content == false %}
+    <div class="rc-product-desc__source rte" hidden data-rc-product-desc-source>
+      {{ description_product.description }}
+    </div>
+  {% endif %}
+
+  <script type="application/json" data-rc-product-sections>
+    {
+      "tout_savoir": {{ tout_savoir_html | strip | json }},
+      "caracteristiques": {{ caracteristiques_html | strip | json }},
+      "points_fort": {{ points_fort_html | strip | json }},
+      "livraison_retours": {{ livraison_html | strip | json }},
+      "garantie_2_ans": {{ garantie_html | strip | json }}
+    }
+  </script>
+</div>
