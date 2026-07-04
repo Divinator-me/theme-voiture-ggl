@@ -9,100 +9,25 @@
  */
 {
   "sections": {
-    "main": {
-      "type": "main-page",
-      "disabled": true,
-      "settings": {
-        "content_direction": "column",
-        "gap": 32,
-        "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 40,
-        "padding-block-end": 80
-      }
+    "qui_sommes_nous": {
+      "type": "qui-sommes-nous",
+      "settings": {}
     },
-    "slideshow_BbxdL9": {
-      "type": "slideshow",
-      "blocks": {
-        "slide_JwYVTY": {
-          "type": "_slide",
-          "settings": {
-            "media_type_1": "image",
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "center",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
-            "background_color": "",
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
-            "padding-block-start": 48,
-            "padding-block-end": 48,
-            "padding-inline-start": 48,
-            "padding-inline-end": 48
-          },
-          "blocks": {
-            "text_WRHFgY": {
-              "type": "text",
-              "name": "t:names.heading",
-              "settings": {
-                "text": "<h3>Notre Histoire</h3>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "text_color": "",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "text_WRHFgY"
-          ]
-        }
-      },
-      "block_order": [
-        "slide_JwYVTY"
-      ],
-      "name": "t:names.slideshow_full_frame",
+    "best_sellers": {
+      "type": "best-sellers",
       "settings": {
-        "display_mode": "full_frame",
-        "section_width": "full-width",
-        "full_frame_on_mobile": false,
-        "slideshow_gap": 12,
-        "corner_radius": 0,
-        "slide_height": "medium",
-        "content_position": "on-media",
-        "background_color": "",
-        "icons_style": "arrows_large",
-        "icons_shape": "none",
-        "slideshow_controls_style": "dots",
-        "autoplay": false,
-        "autoplay_speed": 4,
-        "padding-block-start": 0,
-        "padding-block-end": 0
+        "products": [
+          "monster-truck-rc-1-16-4wd-45-km-h-tout-terrain-brushed",
+          "monster-truck-rc-1-16-4wd-75-km-h-tout-terrain-brushless",
+          "trophy-truck-rc-1-16-voiture-telecommandee-4x4-50-km-h",
+          "truggy-1-16-brushless-70-km-h-batterie-3s",
+          "conquer-4x4-1-16-voiture-telecommandee-tout-terrain-50-km-h"
+        ]
       }
     }
   },
   "order": [
-    "main",
-    "slideshow_BbxdL9"
+    "qui_sommes_nous",
+    "best_sellers"
   ]
 }
