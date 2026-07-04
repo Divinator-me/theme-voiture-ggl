@@ -335,7 +335,11 @@
             "rc_product_description": {
               "type": "rc-product-description",
               "name": "Description produit RC",
-              "settings": {}
+              "settings": {
+                "default_livraison": "<p><strong>Livraison</strong></p><ul><li>Livraison offerte en France : 4 à 8 jours</li><li>Livraison Suivie et assurée à Domicile avec : Colissimo / DHL / Fedex / Chronopost ou en Point Relai</li></ul><p><strong>Retours</strong></p><ul><li>30 jours pour changer d'avis</li><li>Produit non utilisé, complet et dans son emballage d'origine</li></ul>",
+                "default_garantie": "<p>Tous nos modèles sont couverts par une <strong>garantie 2 ans</strong> sur les défauts de fabrication et les pièces couvertes.</p><p>En cas de problème en usage normal, contacte le SAV avec une photo ou une vidéo. On te guide vers la solution la plus rapide.</p>"
+              },
+              "blocks": {}
             }
           },
           "block_order": [
