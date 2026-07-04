@@ -31,7 +31,16 @@
     },
     "best_sellers": {
       "type": "best-sellers",
-      "settings": {}
+      "settings": {
+        "products": [
+          "voiture-telecommandee-climbing-4x4-off-road-robuste-30-km-h",
+          "conquer-4x4-1-16-voiture-telecommandee-tout-terrain-50-km-h",
+          "drive-4x4-voiture-telecommandee-tout-terrain-70-km-h",
+          "porsche-911-gt2-1-24-voiture-telecommandee-drift-et-piste-30-km-h-mini-car",
+          "sweep-pro-4x4-voiture-telecommandee-tout-terrain-70-km-h",
+          "ford-mustang-gt-1-24-voiture-telecommandee-drift-et-piste-30-km-h"
+        ]
+      }
     },
     "categories_grid": {
       "type": "categories-grid",
