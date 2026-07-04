@@ -129,38 +129,63 @@
   height: 11px;
 }
 
-.rc-product-desc__group-inner {
+.rc-product-desc__tabs {
+  padding: 0 0 12px;
+}
+
+.rc-product-desc__tabs-nav {
   display: flex;
-  flex-direction: column;
-  padding: 0 0 4px 34px;
+  gap: 0;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--color-gray-200);
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
 }
 
-.rc-product-desc__item--nested {
-  border-bottom: 1px solid #efefef;
+.rc-product-desc__tabs-nav::-webkit-scrollbar {
+  display: none;
 }
 
-.rc-product-desc__item--nested:last-child {
-  border-bottom: none;
+.rc-product-desc__tab {
+  flex: 1 0 auto;
+  min-width: 0;
+  padding: 12px 10px;
+  border: none;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+  background: transparent;
+  color: var(--color-gray-500);
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  line-height: 1.2;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.2s var(--ease-smooth), border-color 0.2s var(--ease-smooth);
 }
 
-.rc-product-desc__item--nested > summary {
-  padding: 13px 0;
+.rc-product-desc__tab.is-active,
+.rc-product-desc__tab[aria-selected='true'] {
+  border-bottom-color: var(--color-red);
+  color: var(--color-red);
 }
 
-.rc-product-desc__item--nested .rc-product-desc__icon {
-  flex-basis: 18px;
-  width: 18px;
-  height: 18px;
-}
-
-.rc-product-desc__item--nested .rc-product-desc__icon svg {
-  width: 18px;
-  height: 18px;
-}
-
-.rc-product-desc__item--nested .rc-product-desc__label {
+.rc-product-desc__tab-panel {
+  padding: 16px 0 4px;
+  color: var(--color-gray-700);
   font-size: 14px;
-  font-weight: 600;
+  line-height: 1.6;
+}
+
+.rc-product-desc__tab-panel[hidden] {
+  display: none;
+}
+
+.rc-product-desc__group[open] > .rc-product-desc__tabs {
+  padding-bottom: 12px;
 }
 
 .rc-product-desc__content {
@@ -170,15 +195,8 @@
   line-height: 1.6;
 }
 
-.rc-product-desc__group .rc-product-desc__item--nested .rc-product-desc__content {
-  padding: 0 0 14px 30px;
-}
-
-.rc-product-desc__group[open] > .rc-product-desc__group-inner {
-  padding-bottom: 10px;
-}
-
-.rc-product-desc__content > :first-child {
+.rc-product-desc__content > :first-child,
+.rc-product-desc__tab-panel > :first-child {
   margin-top: 0;
 }
 

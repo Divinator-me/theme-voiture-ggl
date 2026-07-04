@@ -240,11 +240,79 @@
     return nodesFromHtml(template.innerHTML);
   };
 
+  const createTabsPanel = (sections) => {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'rc-product-desc__tabs';
+
+    const nav = document.createElement('div');
+    nav.className = 'rc-product-desc__tabs-nav';
+    nav.setAttribute('role', 'tablist');
+
+    const panels = document.createElement('div');
+    panels.className = 'rc-product-desc__tabs-panels';
+
+    const activateTab = (index) => {
+      [...nav.children].forEach((tab, tabIndex) => {
+        const isActive = tabIndex === index;
+        tab.classList.toggle('is-active', isActive);
+        tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+
+      [...panels.children].forEach((panel, panelIndex) => {
+        const isActive = panelIndex === index;
+        panel.hidden = !isActive;
+        panel.classList.toggle('is-active', isActive);
+        if (isActive) enhanceMedia(panel);
+      });
+    };
+
+    sections.forEach((section, index) => {
+      const slug = section.key.replace(/\s+/g, '-');
+      const tabId = `rc-desc-tab-${slug}`;
+      const panelId = `rc-desc-panel-${slug}`;
+
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = `rc-product-desc__tab${index === 0 ? ' is-active' : ''}`;
+      button.setAttribute('role', 'tab');
+      button.setAttribute('aria-selected', index === 0 ? 'true' : 'false');
+      button.setAttribute('aria-controls', panelId);
+      button.id = tabId;
+      button.textContent = section.label;
+
+      const panel = document.createElement('div');
+      panel.className = `rc-product-desc__tab-panel rte${index === 0 ? ' is-active' : ''}`;
+      panel.setAttribute('role', 'tabpanel');
+      panel.id = panelId;
+      panel.setAttribute('aria-labelledby', tabId);
+      panel.hidden = index !== 0;
+      section.nodes.forEach((node) => panel.appendChild(node));
+
+      if (index === 0) {
+        enhanceMedia(panel);
+      }
+
+      nav.appendChild(button);
+      panels.appendChild(panel);
+    });
+
+    nav.addEventListener('click', (event) => {
+      const button = event.target.closest('.rc-product-desc__tab');
+      if (!button || !nav.contains(button)) return;
+
+      const index = [...nav.children].indexOf(button);
+      if (index < 0) return;
+
+      activateTab(index);
+    });
+
+    wrapper.append(nav, panels);
+    return wrapper;
+  };
+
   const createAccordionItem = (title, nodes, options = {}) => {
     const details = document.createElement('details');
-    details.className = options.nested
-      ? 'rc-product-desc__item rc-product-desc__item--nested'
-      : 'rc-product-desc__item';
+    details.className = 'rc-product-desc__item';
 
     if (options.open) {
       details.open = true;
@@ -288,41 +356,29 @@
     descriptionGroup.className = 'rc-product-desc__group';
     descriptionGroup.append(createSummary('Description'));
 
-    const inner = document.createElement('div');
-    inner.className = 'rc-product-desc__group-inner';
+    const tabSections = [];
 
-    let hasMainContent = false;
-
-    MAIN_SECTIONS.forEach((section, index) => {
+    MAIN_SECTIONS.forEach((section) => {
       const nodes = buckets.get(section.key) || [];
       if (!hasVisibleContent(nodes)) return;
 
-      hasMainContent = true;
-      inner.appendChild(
-        createAccordionItem(section.label, nodes, {
-          nested: true,
-          open: false,
-        })
-      );
+      tabSections.push({ ...section, nodes });
     });
 
-    if (!hasMainContent) {
+    if (!tabSections.length) {
       const fallbackNodes = buckets.get('tout savoir') || [];
       if (hasVisibleContent(fallbackNodes)) {
-        inner.appendChild(
-          createAccordionItem('Tout Savoir', fallbackNodes, {
-            nested: true,
-            open: false,
-          })
-        );
-        hasMainContent = true;
+        tabSections.push({
+          key: 'tout savoir',
+          label: 'Tout Savoir',
+          nodes: fallbackNodes,
+        });
       }
     }
 
-    if (hasMainContent) {
-      descriptionGroup.append(inner);
+    if (tabSections.length) {
+      descriptionGroup.append(createTabsPanel(tabSections));
       list.appendChild(descriptionGroup);
-      bindExclusiveToggle(inner);
     }
 
     BOTTOM_SECTIONS.forEach((section) => {
