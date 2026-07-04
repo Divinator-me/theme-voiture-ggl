@@ -332,12 +332,10 @@
               "type": "shopify://apps/vitals/blocks/payment-logos/aeb48102-2a5a-4f39-bdbd-d8d49f4e20b8",
               "settings": {}
             },
-            "custom_liquid_product_description": {
-              "type": "custom-liquid",
-              "name": "Description produit",
-              "settings": {
-                "custom_liquid": "{% render 'rc-product-description', product: closest.product %}"
-              }
+            "rc_product_description": {
+              "type": "rc-product-description",
+              "name": "Description produit RC",
+              "settings": {}
             }
           },
           "block_order": [
@@ -349,7 +347,7 @@
             "custom_liquid_ma39Xw",
             "buy_buttons_eYQEYi",
             "vitals_payment_logos_Dtj4E6",
-            "custom_liquid_product_description"
+            "rc_product_description"
           ]
         }
       },

@@ -10,8 +10,8 @@
   ];
 
   const BOTTOM_SECTIONS = [
-    { key: 'livraison et retours', label: 'Livraison et retours', fallback: 'livraison' },
-    { key: 'garantie 2 ans', label: 'Garantie 2 ans', fallback: 'garantie' },
+    { key: 'livraison et retours', label: 'Livraison et retours' },
+    { key: 'garantie 2 ans', label: 'Garantie 2 ans' },
   ];
 
   const SECTION_ALIASES = {
@@ -282,11 +282,7 @@
     return buckets;
   };
 
-  const buildAccordion = (root) => {
-    if (root.dataset.rcProductDescReady === 'true') return;
-    if (root.hasAttribute('data-rc-product-desc-static')) return;
-
-    const buckets = getSectionBuckets(root);
+  const createTabsPanel = (sections) => {
     const wrapper = document.createElement('div');
     wrapper.className = 'rc-product-desc__tabs';
 
@@ -377,10 +373,7 @@
     if (root.dataset.rcProductDescReady === 'true') return;
     if (root.hasAttribute('data-rc-product-desc-static')) return;
 
-    const source = root.querySelector('[data-rc-product-desc-source]');
-    if (!source) return;
-
-    const buckets = parseBuckets(source.innerHTML);
+    const buckets = getSectionBuckets(root);
     const list = document.createElement('div');
     list.className = 'rc-product-desc__list';
 
@@ -414,26 +407,23 @@
     }
 
     BOTTOM_SECTIONS.forEach((section) => {
-      let nodes = buckets.get(section.key) || [];
-
-      if (!hasVisibleContent(nodes)) {
-        nodes = getFallbackNodes(root, section.fallback);
-      }
+      const nodes = buckets.get(section.key) || [];
+      if (!hasVisibleContent(nodes)) return;
 
       list.appendChild(createAccordionItem(section.label, nodes));
     });
 
     if (!list.children.length) {
-      list.appendChild(
-        createAccordionItem(
-          'Description',
-          [...source.childNodes].map((node) => node.cloneNode(true)),
-          { open: true }
-        )
-      );
+      return;
     }
 
-    source.replaceWith(list);
+    const mountPoint = root.querySelector('[data-rc-product-sections]') || root.querySelector('[data-rc-product-desc-source]');
+    if (mountPoint) {
+      mountPoint.replaceWith(list);
+    } else {
+      root.appendChild(list);
+    }
+
     root.dataset.rcProductDescReady = 'true';
   };
 
