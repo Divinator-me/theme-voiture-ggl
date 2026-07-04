@@ -62,7 +62,9 @@
 }
 
 .rc-faq__item {
+  overflow: hidden;
   border: 1px solid rgb(255 45 45 / 30%);
+  border-radius: var(--radius-md);
   background: var(--color-black);
   color: var(--color-white);
 }
