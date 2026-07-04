@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .rc-promo-bar {
   position: relative;
   z-index: 69;
@@ -287,3 +288,294 @@
     line-height: 1;
   }
 }
+=======
+.rc-promo-bar {
+  position: relative;
+  z-index: 69;
+  overflow: hidden;
+  padding: 10px 14px 8px;
+  background:
+    repeating-linear-gradient(
+      125deg,
+      transparent 0,
+      transparent 20px,
+      rgb(255 45 45 / 8%) 21px,
+      transparent 22px
+    ),
+    #070707;
+  border-bottom: 1px solid rgb(255 45 45 / 22%);
+  color: var(--color-white);
+  font-family: var(--font-body);
+  text-align: center;
+}
+
+.rc-promo-bar__mobile {
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+}
+
+.rc-promo-bar__desktop {
+  display: none;
+}
+
+.rc-promo-bar__offer {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  margin: 0;
+  color: var(--color-white);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.15;
+  text-shadow: 0 1px 0 rgb(0 0 0 / 45%);
+  white-space: nowrap;
+}
+
+.rc-promo-bar__offer > span {
+  filter: drop-shadow(0 0 6px rgb(255 45 45 / 55%));
+}
+
+.rc-promo-bar__offer strong {
+  color: var(--color-red);
+  font-weight: 900;
+}
+
+.rc-promo-bar__actions {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.rc-promo-bar__date,
+.promo-bar__dates {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 0 !important;
+  padding: 7px 16px !important;
+  color: #ff9a9a !important;
+  font-family: var(--font-body) !important;
+  font-size: 11px !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.35px !important;
+  line-height: 1 !important;
+  text-transform: uppercase !important;
+  white-space: nowrap;
+}
+
+.promo-bar__dates {
+  border: 1px solid rgb(255 45 45 / 72%) !important;
+  border-radius: 999px !important;
+  background: rgb(80 10 10 / 46%) !important;
+  box-shadow:
+    inset 0 0 0 1px rgb(0 0 0 / 20%),
+    0 0 12px rgb(255 45 45 / 10%);
+}
+
+.promo-bar__cta {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  padding: 8px 14px 8px 12px !important;
+  background: var(--color-red) !important;
+  box-shadow: 0 4px 12px rgb(255 45 45 / 22%);
+  color: #ffffff !important;
+  cursor: pointer;
+  font-family: var(--font-body) !important;
+  font-size: 11px !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.4px !important;
+  line-height: 1 !important;
+  text-transform: uppercase !important;
+  white-space: nowrap;
+  transform: skewX(-18deg);
+  transition:
+    background 0.2s var(--ease-smooth),
+    box-shadow 0.2s var(--ease-smooth),
+    transform 0.2s var(--ease-smooth);
+}
+
+.promo-bar__cta-label {
+  display: inline-flex;
+  align-items: center;
+  transform: skewX(18deg);
+}
+
+.promo-bar__cta:hover {
+  background: var(--color-red-dark) !important;
+  box-shadow: 0 6px 16px rgb(255 45 45 / 30%);
+  transform: skewX(-18deg) translateY(-1px);
+}
+
+.promo-bar__cta .arrow {
+  display: inline-block;
+  margin-left: 4px;
+  font-size: 12px;
+  line-height: 1;
+  transform: translateY(-1px);
+}
+
+.rc-promo-bar__mobile .rc-promo-bar__actions {
+  gap: 8px;
+  justify-content: center;
+  width: 100%;
+}
+
+.rc-promo-bar__mobile .rc-promo-bar__offer {
+  font-size: 12px;
+}
+
+.rc-promo-bar__mobile .promo-bar__dates {
+  padding: 7px 16px !important;
+  font-size: 11px !important;
+}
+
+.rc-promo-bar__mobile .promo-bar__cta {
+  padding: 8px 14px 8px 12px !important;
+  font-size: 11px !important;
+}
+
+@media (max-width: 374px) {
+  .rc-promo-bar {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
+  .rc-promo-bar__offer {
+    font-size: 11px;
+  }
+
+  .promo-bar__dates {
+    padding: 7px 13px !important;
+    font-size: 10px !important;
+  }
+
+  .promo-bar__cta {
+    padding: 7px 12px 7px 10px !important;
+    font-size: 10px !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .rc-promo-bar {
+    min-height: 54px;
+    padding: 10px 32px;
+    text-align: left;
+  }
+
+  .rc-promo-bar__mobile {
+    display: none;
+  }
+
+  .rc-promo-bar__desktop {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    column-gap: 32px;
+    align-items: center;
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .rc-promo-bar__origin {
+    justify-self: start;
+    margin-left: -28px;
+    color: rgb(255 255 255 / 52%);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    line-height: 1;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .rc-promo-bar__origin-mark {
+    color: var(--color-red);
+  }
+
+  .rc-promo-bar__center {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+  }
+
+  .rc-promo-bar__desktop .rc-promo-bar__offer {
+    font-size: 13px;
+  }
+
+  .rc-promo-bar__desktop .promo-bar__dates {
+    padding: 8px 18px !important;
+    font-size: 12px !important;
+  }
+
+  .rc-promo-bar__desktop .promo-bar__cta {
+    padding: 10px 20px 10px 18px !important;
+    font-size: 12px !important;
+  }
+
+  .rc-promo-bar__desktop .promo-bar__cta .arrow {
+    font-size: 13px;
+  }
+
+  .rc-promo-bar__desktop .rc-promo-bar__actions {
+    justify-self: end;
+    margin-right: -28px;
+    flex-wrap: nowrap;
+    gap: 14px;
+    width: auto;
+  }
+
+  .rc-promo-bar__countdown {
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    white-space: nowrap;
+  }
+
+  .rc-promo-bar__countdown-part {
+    display: grid;
+    gap: 2px;
+    justify-items: center;
+    color: rgb(255 255 255 / 55%);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .rc-promo-bar__countdown-part b {
+    color: var(--color-white);
+    font-size: 14px;
+    font-variant-numeric: tabular-nums;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  .rc-promo-bar__countdown-part small {
+    font-size: 8px;
+    font-weight: 700;
+  }
+
+  .rc-promo-bar__countdown-sep {
+    margin-bottom: 10px;
+    color: rgb(255 255 255 / 28%);
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 1;
+  }
+}
+>>>>>>> 5be370d (Rebuild desktop header with promo bar, nav menu, and collection links.)
