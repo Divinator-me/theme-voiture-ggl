@@ -1,0 +1,41 @@
+{% comment %}
+  Liens collections partagés — barre catégories desktop + menu latéral.
+  Usage: {% render 'rc-nav-collections', context: 'bar' %}
+{% endcomment %}
+
+{% assign nav_collections = 'Monster Truck / 4x4|monster-truck||Buggy|buggy||Rallye / Trophy Truck|rallye||Crawler|crawler||Drift|drift||Piste|piste' | split: '||' %}
+
+{% for item in nav_collections %}
+  {% assign parts = item | split: '|' %}
+  {% assign label = parts[0] %}
+  {% assign handle = parts[1] %}
+  {% assign nav_collection = collections[handle] %}
+
+  {% if nav_collection != blank %}
+    {% assign href = nav_collection.url %}
+  {% else %}
+    {% assign href = routes.collections_url | append: '/' | append: handle %}
+  {% endif %}
+
+  {% if context == 'menu' %}
+    <a
+      class="rc-menu-overlay__sub-link{% if request.page_type == 'collection' and collection.handle == handle %} is-active{% endif %}"
+      href="{{ href }}"
+      {% if request.page_type == 'collection' and collection.handle == handle %}
+        aria-current="page"
+      {% endif %}
+    >
+      {{ label }}
+    </a>
+  {% else %}
+    <a
+      class="rc-category-nav__link{% if request.page_type == 'collection' and collection.handle == handle %} is-active{% endif %}"
+      href="{{ href }}"
+      {% if request.page_type == 'collection' and collection.handle == handle %}
+        aria-current="page"
+      {% endif %}
+    >
+      {{ label }}
+    </a>
+  {% endif %}
+{% endfor %}

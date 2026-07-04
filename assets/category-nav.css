@@ -33,6 +33,7 @@
   }
 
   .rc-category-nav a,
+  .rc-category-nav__link,
   .rc-category-nav__menu {
     position: relative;
     display: inline-flex;
@@ -53,6 +54,7 @@
   }
 
   .rc-category-nav a::after,
+  .rc-category-nav__link::after,
   .rc-category-nav__menu::after {
     position: absolute;
     right: 0;
@@ -66,7 +68,13 @@
   }
 
   .rc-category-nav a:hover::after,
+  .rc-category-nav__link:hover::after,
+  .rc-category-nav__link.is-active::after,
   .rc-category-nav__menu:hover::after {
     width: 100%;
+  }
+
+  .rc-category-nav__link.is-active {
+    color: var(--color-white);
   }
 }

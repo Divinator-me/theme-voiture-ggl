@@ -1,7 +1,5 @@
 {{ 'category-nav.css' | asset_url | stylesheet_tag }}
 
-{% assign links = 'Monster Truck / 4x4|monster-truck||Buggy|buggy||Rallye / Trophy Truck|rallye||Crawler|crawler||Drift|drift||Piste|piste' | split: '||' %}
-
 <section class="rc-category-nav" aria-label="Catégories voitures RC">
   <nav class="rc-category-nav__inner">
     <button
@@ -15,17 +13,7 @@
       <span aria-hidden="true">☰</span> Menu
     </button>
 
-    {% for link in links %}
-      {% assign parts = link | split: '|' %}
-      {% assign label = parts[0] %}
-      {% assign handle = parts[1] %}
-      {% if handle == 'all' %}
-        {% assign href = routes.all_products_collection_url %}
-      {% else %}
-        {% assign href = routes.collections_url | append: '/' | append: handle %}
-      {% endif %}
-      <a href="{{ href }}">{{ label }}</a>
-    {% endfor %}
+    {% render 'rc-nav-collections', context: 'bar' %}
   </nav>
 </section>
 
