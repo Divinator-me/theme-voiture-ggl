@@ -30,6 +30,33 @@
     description: null,
   };
 
+  const ICONS = {
+    description:
+      '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 4h8l4 4v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.5"/><path d="M16 4v4h4M8 11h8M8 15h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',
+    toutSavoir:
+      '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.5"/><path d="M12 11v5M12 8.5h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
+    caracteristiques:
+      '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',
+    pointsFort:
+      '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4.5 14.2 9l4.8.7-3.5 3.4.8 4.8L12 15.8 7.5 17.9l.8-4.8L4.8 9.7 9.6 9 12 4.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>',
+    livraison:
+      '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 7.5h12v9H3v-9Z" stroke="currentColor" stroke-width="1.5"/><path d="M15 10.5h3.2L21 14v2.5h-3M6.5 18.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3ZM17.5 18.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    garantie:
+      '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4.5" y="4.5" width="15" height="15" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="m8.5 12.2 2.2 2.2 5-5.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  };
+
+  const CHEVRON =
+    '<svg class="rc-product-desc__chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 10l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  const ICON_MAP = {
+    Description: 'description',
+    'Tout Savoir': 'toutSavoir',
+    Caractéristiques: 'caracteristiques',
+    'Points Fort': 'pointsFort',
+    'Livraison et retours': 'livraison',
+    'Garantie 2 ans': 'garantie',
+  };
+
   const normalize = (text) =>
     text
       .normalize('NFD')
@@ -177,14 +204,27 @@
     return buckets;
   };
 
-  const createSummary = (title) => {
+  const createSummary = (title, options = {}) => {
     const summary = document.createElement('summary');
+    const main = document.createElement('span');
+    main.className = 'rc-product-desc__summary-main';
+
+    const icon = document.createElement('span');
+    icon.className = 'rc-product-desc__icon';
+    const iconKey = options.icon || ICON_MAP[title] || 'description';
+    icon.innerHTML = ICONS[iconKey] || ICONS.description;
+
     const label = document.createElement('span');
+    label.className = 'rc-product-desc__label';
     label.textContent = title;
-    const icon = document.createElement('b');
-    icon.setAttribute('aria-hidden', 'true');
-    icon.textContent = '+';
-    summary.append(label, icon);
+
+    main.append(icon, label);
+
+    const chevron = document.createElement('span');
+    chevron.className = 'rc-product-desc__chevron-wrap';
+    chevron.innerHTML = CHEVRON;
+
+    summary.append(main, chevron);
     return summary;
   };
 
@@ -246,7 +286,6 @@
 
     const descriptionGroup = document.createElement('details');
     descriptionGroup.className = 'rc-product-desc__group';
-    descriptionGroup.open = true;
     descriptionGroup.append(createSummary('Description'));
 
     const inner = document.createElement('div');
@@ -262,7 +301,7 @@
       inner.appendChild(
         createAccordionItem(section.label, nodes, {
           nested: true,
-          open: index === 0,
+          open: false,
         })
       );
     });
@@ -273,7 +312,7 @@
         inner.appendChild(
           createAccordionItem('Tout Savoir', fallbackNodes, {
             nested: true,
-            open: true,
+            open: false,
           })
         );
         hasMainContent = true;
