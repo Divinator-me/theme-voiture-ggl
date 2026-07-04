@@ -23,10 +23,10 @@
     display: flex;
     gap: 24px;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     min-height: 55px;
     min-width: max-content;
-    padding: 0 32px;
+    padding: 0 32px 0 20px;
   }
 
   .rc-category-nav a,
