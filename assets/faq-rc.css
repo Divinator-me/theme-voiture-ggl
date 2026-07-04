@@ -109,6 +109,7 @@
   font-size: 20px;
   font-weight: 700;
   line-height: 1;
+  transform: translateY(-2px);
   transition: transform 0.2s var(--ease-smooth);
 }
 
@@ -117,7 +118,7 @@
 }
 
 .rc-faq__item[open] summary b {
-  transform: rotate(45deg);
+  transform: translateY(-2px) rotate(45deg);
 }
 
 .rc-faq__item p {
