@@ -94,22 +94,27 @@
 }
 
 .rc-product-desc__toggle {
-  display: grid;
+  display: flex;
   flex: 0 0 26px;
+  align-items: center;
+  justify-content: center;
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  place-items: center;
   background: var(--color-red);
   color: var(--color-white);
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 1;
+}
+
+.rc-product-desc__toggle svg {
+  display: block;
+  width: 12px;
+  height: 12px;
+  transform-origin: center center;
   transition: transform 0.2s var(--ease-smooth);
 }
 
-.rc-product-desc__group[open] > summary .rc-product-desc__toggle,
-.rc-product-desc__item[open] > summary .rc-product-desc__toggle {
+.rc-product-desc__group[open] > summary .rc-product-desc__toggle svg,
+.rc-product-desc__item[open] > summary .rc-product-desc__toggle svg {
   transform: rotate(45deg);
 }
 
@@ -117,7 +122,11 @@
   flex-basis: 24px;
   width: 24px;
   height: 24px;
-  font-size: 16px;
+}
+
+.rc-product-desc__item--nested .rc-product-desc__toggle svg {
+  width: 11px;
+  height: 11px;
 }
 
 .rc-product-desc__group-inner {

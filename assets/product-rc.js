@@ -45,7 +45,6 @@
       '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4.5" y="4.5" width="15" height="15" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="m8.5 12.2 2.2 2.2 5-5.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
   };
 
-  const CHEVRON = '';
 
   const ICON_MAP = {
     Description: 'description',
@@ -219,12 +218,13 @@
 
     main.append(icon, label);
 
-    const chevron = document.createElement('b');
-    chevron.className = 'rc-product-desc__toggle';
-    chevron.setAttribute('aria-hidden', 'true');
-    chevron.textContent = '+';
+    const toggle = document.createElement('span');
+    toggle.className = 'rc-product-desc__toggle';
+    toggle.setAttribute('aria-hidden', 'true');
+    toggle.innerHTML =
+      '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 6v12M6 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
 
-    summary.append(main, chevron);
+    summary.append(main, toggle);
     return summary;
   };
 
