@@ -188,8 +188,8 @@
 
   .rc-promo-bar__desktop {
     display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    gap: 0 72px;
+    grid-template-columns: auto minmax(0, 1fr) auto minmax(0, 1fr) auto;
+    column-gap: 40px;
     align-items: center;
     width: 100%;
     max-width: 1280px;
@@ -197,6 +197,7 @@
   }
 
   .rc-promo-bar__origin {
+    grid-column: 1;
     justify-self: start;
     color: rgb(255 255 255 / 52%);
     font-size: 12px;
@@ -208,11 +209,13 @@
   }
 
   .rc-promo-bar__center {
+    grid-column: 3;
     display: flex;
     flex-wrap: nowrap;
     gap: 12px;
     align-items: center;
     justify-content: center;
+    justify-self: center;
     min-width: 0;
   }
 
@@ -235,9 +238,10 @@
   }
 
   .rc-promo-bar__desktop .rc-promo-bar__actions {
+    grid-column: 5;
     justify-self: end;
     flex-wrap: nowrap;
-    gap: 16px;
+    gap: 14px;
     width: auto;
   }
 
