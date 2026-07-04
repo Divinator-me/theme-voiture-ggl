@@ -132,7 +132,7 @@
       if (menuOverlay.classList.contains('is-open')) updateMenuTop();
     });
 
-    menuOverlay.querySelectorAll('.rc-menu-overlay__link[href], .rc-menu-overlay__sub a, .rc-menu-overlay__footer a').forEach((link) => {
+    menuOverlay.querySelectorAll('.rc-menu-overlay__links a, .rc-menu-overlay__footer a').forEach((link) => {
       link.addEventListener('click', closeAll);
     });
   }

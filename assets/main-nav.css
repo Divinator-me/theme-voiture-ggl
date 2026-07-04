@@ -152,12 +152,16 @@
   flex-direction: column;
   width: min(86vw, 360px);
   height: 100%;
-  padding: 18px 22px 0;
+  padding: 24px 22px 0;
   overflow: hidden;
   background: var(--color-white);
   box-shadow: 20px 0 60px rgb(0 0 0 / 22%);
   transform: translate3d(-100%, 0, 0);
   transition: transform 0.32s var(--ease-smooth);
+}
+
+.rc-menu-overlay.is-open .rc-menu-overlay__panel {
+  transform: translate3d(0, 0, 0);
 }
 
 .rc-menu-overlay__body {
@@ -168,24 +172,13 @@
   overscroll-behavior: contain;
 }
 
-.rc-menu-overlay.is-open .rc-menu-overlay__panel {
-  transform: translate3d(0, 0, 0);
-}
-
-.rc-menu-overlay__head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
 .rc-menu-overlay__close {
   display: grid;
-  flex: 0 0 36px;
   width: 36px;
   height: 36px;
   border: 0;
   border-radius: 50%;
+  margin-left: auto;
   place-items: center;
   background: var(--color-black);
   color: var(--color-white);
@@ -196,10 +189,9 @@
 
 .rc-menu-overlay__logo {
   display: inline-flex;
-  align-items: center;
-  margin: 0;
+  margin-top: 12px;
   font-family: var(--font-display);
-  font-size: 38px;
+  font-size: 42px;
   font-style: italic;
   line-height: 1;
   transform: skewX(-5deg);
@@ -208,116 +200,36 @@
 .rc-menu-overlay__links {
   display: grid;
   gap: 0;
-  margin: 16px -22px 0;
-  padding-top: 0;
+  margin-top: 24px;
 }
 
-.rc-menu-overlay__link {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  justify-content: space-between;
+.rc-menu-overlay__links a {
   border-bottom: 1px solid var(--color-gray-200);
-  padding: 15px 22px;
+  padding: 16px 0;
   color: var(--color-black);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 800;
-  letter-spacing: 0.05em;
-  line-height: 1.2;
-  list-style: none;
+  letter-spacing: 0.06em;
+  text-decoration: none;
   text-transform: uppercase;
-  transition:
-    background 0.2s var(--ease-smooth),
-    color 0.2s var(--ease-smooth);
+  transition: color 0.2s var(--ease-smooth);
 }
 
-.rc-menu-overlay__link--toggle {
-  cursor: pointer;
-}
-
-.rc-menu-overlay__group[open] > .rc-menu-overlay__link--toggle {
-  background: rgb(255 45 45 / 8%);
-  box-shadow: inset 4px 0 0 var(--color-red);
-  color: var(--color-red);
-}
-
-.rc-menu-overlay__link:hover,
-.rc-menu-overlay__link:focus-visible {
-  background: rgb(255 45 45 / 6%);
-  color: var(--color-red);
-}
-
-.rc-menu-overlay__group > summary {
-  list-style: none;
-}
-
-.rc-menu-overlay__group > summary::-webkit-details-marker {
-  display: none;
-}
-
-.rc-menu-overlay__chevron {
-  position: relative;
-  flex: 0 0 10px;
-  width: 10px;
-  height: 10px;
-}
-
-.rc-menu-overlay__chevron::before {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 7px;
-  height: 7px;
-  border-top: 2px solid currentcolor;
-  border-right: 2px solid currentcolor;
-  content: "";
-  transform: translate(-65%, -50%) rotate(45deg);
-}
-
-.rc-menu-overlay__chevron--toggle::before {
-  transform: translate(-50%, -35%) rotate(135deg);
-  transition: transform 0.2s var(--ease-smooth);
-}
-
-.rc-menu-overlay__group[open] .rc-menu-overlay__chevron--toggle::before {
-  transform: translate(-50%, -65%) rotate(-45deg);
-}
-
-.rc-menu-overlay__sub {
-  display: grid;
-  gap: 0;
-  background: rgb(255 45 45 / 4%);
-}
-
-.rc-menu-overlay__sub a {
-  display: block;
-  border-bottom: 1px solid rgb(0 0 0 / 6%);
-  padding: 13px 22px 13px 30px;
-  color: var(--color-black);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  line-height: 1.25;
-  text-transform: uppercase;
-  transition:
-    background 0.2s var(--ease-smooth),
-    color 0.2s var(--ease-smooth);
-}
-
-.rc-menu-overlay__sub a:hover,
-.rc-menu-overlay__sub a:focus-visible {
-  background: rgb(255 45 45 / 8%);
+.rc-menu-overlay__links a:hover,
+.rc-menu-overlay__links a:focus-visible {
   color: var(--color-red);
 }
 
 .rc-menu-overlay__footer {
   display: grid;
+  flex-shrink: 0;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 8px;
   border-top: 1px solid var(--color-gray-200);
   margin: 0 -22px;
   padding: 14px 16px 18px;
   background: var(--color-white);
+  color: var(--color-gray-500);
 }
 
 .rc-menu-overlay__footer a {
@@ -326,6 +238,7 @@
   font-weight: 500;
   line-height: 1.25;
   text-align: center;
+  text-decoration: none;
   transition: color 0.2s var(--ease-smooth);
 }
 
