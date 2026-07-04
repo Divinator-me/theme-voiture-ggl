@@ -1,5 +1,4 @@
 .rc-best-sellers {
-  --rc-best-seller-card-width: clamp(190px, 46vw, 220px);
   position: relative;
   padding: 28px 0 36px;
   background: var(--color-white);
@@ -42,7 +41,7 @@
 
 .rc-best-sellers__track {
   display: grid;
-  grid-auto-columns: var(--rc-best-seller-card-width);
+  grid-auto-columns: minmax(220px, 72vw);
   grid-auto-flow: column;
   gap: 10px;
   overflow-x: auto;
@@ -58,9 +57,6 @@
 }
 
 .rc-best-sellers__card {
-  width: var(--rc-best-seller-card-width);
-  min-width: var(--rc-best-seller-card-width);
-  max-width: var(--rc-best-seller-card-width);
   overflow: hidden;
   border: 1px solid var(--color-gray-200);
   border-radius: var(--radius-md);
@@ -279,7 +275,6 @@
 
 @media (min-width: 750px) {
   .rc-best-sellers {
-    --rc-best-seller-card-width: 240px;
     padding: 36px 0 44px;
   }
 
@@ -300,7 +295,7 @@
   }
 
   .rc-best-sellers__track {
-    grid-auto-columns: var(--rc-best-seller-card-width);
+    grid-auto-columns: minmax(240px, 30%);
     gap: 12px;
     padding: 0 24px 4px;
     scroll-padding-inline: 24px;
@@ -308,12 +303,8 @@
 }
 
 @media (min-width: 1100px) {
-  .rc-best-sellers {
-    --rc-best-seller-card-width: 260px;
-  }
-
   .rc-best-sellers__track {
-    grid-auto-columns: var(--rc-best-seller-card-width);
+    grid-auto-columns: minmax(250px, calc((100% - 90px) / 4));
   }
 
   .rc-best-sellers__arrow {
