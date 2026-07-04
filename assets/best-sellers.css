@@ -306,9 +306,10 @@
   display: none;
 }
 
-.rc-product-recommendations {
-  padding-top: 44px;
-  padding-bottom: 52px;
+rc-product-recommendations.rc-best-sellers,
+.rc-best-sellers.rc-product-recommendations {
+  display: block;
+  padding: 72px 0 80px;
 }
 
 .rc-product-recommendations__skeleton .rc-best-sellers__image {
@@ -335,9 +336,9 @@
 }
 
 @media (min-width: 750px) {
-  .rc-product-recommendations {
-    padding-top: 56px;
-    padding-bottom: 64px;
+  rc-product-recommendations.rc-best-sellers,
+  .rc-best-sellers.rc-product-recommendations {
+    padding: 88px 0 96px;
   }
 }
 
