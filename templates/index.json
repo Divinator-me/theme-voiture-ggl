@@ -15,11 +15,28 @@
     },
     "best_sellers": {
       "type": "best-sellers",
-      "settings": {}
+      "settings": {
+        "products": [
+          "monster-truck-rc-1-16-4wd-45-km-h-tout-terrain-brushed",
+          "monster-truck-rc-1-16-4wd-75-km-h-tout-terrain-brushless",
+          "trophy-truck-rc-1-16-voiture-telecommandee-4x4-50-km-h",
+          "truggy-1-16-brushless-70-km-h-batterie-3s",
+          "conquer-4x4-1-16-voiture-telecommandee-tout-terrain-50-km-h"
+        ]
+      }
     },
     "categories_grid": {
       "type": "categories-grid",
-      "settings": {}
+      "settings": {
+        "collections": [
+          "monster-truck-4x4",
+          "buggy",
+          "drift",
+          "crawler",
+          "rallye-trophy",
+          "piste"
+        ]
+      }
     },
     "faq_rc": {
       "type": "faq-rc",
