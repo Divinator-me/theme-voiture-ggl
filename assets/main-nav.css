@@ -483,7 +483,7 @@
     border: 0;
     border-radius: 999px;
     padding: 14px 56px 14px 44px;
-    background: var(--color-gray-100);
+    background: var(--color-gray-50);
     color: var(--color-black);
     font-family: var(--font-body);
     font-size: 14px;
