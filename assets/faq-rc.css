@@ -124,8 +124,7 @@
   color: var(--color-white);
 }
 
-.rc-faq__category summary b,
-.rc-faq__item summary b {
+.rc-faq__category summary b {
   display: grid;
   flex: 0 0 28px;
   width: 28px;
@@ -141,9 +140,28 @@
   transition: transform 0.2s var(--ease-smooth);
 }
 
+.rc-faq__item summary b {
+  display: grid;
+  flex: 0 0 20px;
+  width: 20px;
+  height: 20px;
+  place-items: center;
+  background: transparent;
+  color: var(--color-red);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+  transform: translateY(-1px);
+  transition: transform 0.2s var(--ease-smooth);
+}
+
 .rc-faq__category[open] > summary b,
 .rc-faq__item[open] > summary b {
   transform: translateY(-2px) rotate(45deg);
+}
+
+.rc-faq__item[open] > summary b {
+  transform: translateY(-1px) rotate(45deg);
 }
 
 .rc-faq__questions {
