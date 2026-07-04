@@ -113,20 +113,29 @@
   transition: transform 0.2s var(--ease-smooth);
 }
 
-.rc-faq__item[open] summary {
-  border-bottom: 1px solid var(--color-red);
-}
-
 .rc-faq__item[open] summary b {
   transform: translateY(-2px) rotate(45deg);
 }
 
 .rc-faq__item p {
   margin: 0;
-  padding: 16px 16px 18px;
+  padding: 0 16px 18px;
   color: rgb(255 255 255 / 76%);
   font-size: 14px;
   line-height: 1.55;
+}
+
+.rc-faq__item[open] p {
+  padding-top: 16px;
+}
+
+.rc-faq__item[open] p::before {
+  display: block;
+  width: 44px;
+  height: 2px;
+  margin-bottom: 14px;
+  background: var(--color-red);
+  content: "";
 }
 
 @media (min-width: 750px) {
