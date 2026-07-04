@@ -1,4 +1,5 @@
 {{ 'product-rc.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'product-rc.js' | asset_url }}" defer></script>
 
 <script type="application/ld+json">
   {{ closest.product | structured_data }}
