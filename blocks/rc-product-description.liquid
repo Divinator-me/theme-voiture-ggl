@@ -1,0 +1,40 @@
+{% render 'rc-product-description',
+  product: closest.product,
+  block: block,
+  default_livraison: block.settings.default_livraison,
+  default_garantie: block.settings.default_garantie
+%}
+
+{% schema %}
+{
+  "name": "Description produit RC",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Textes par défaut (tous les produits)"
+    },
+    {
+      "type": "paragraph",
+      "content": "Pour personnaliser un produit, remplis les metafields RC dans la fiche produit (Tout savoir, Caractéristiques, etc.). Sinon, la description produit est découpée automatiquement par titres H2/H3."
+    },
+    {
+      "type": "richtext",
+      "id": "default_livraison",
+      "label": "Livraison et retours (défaut)",
+      "default": "<p><strong>Livraison</strong></p><ul><li>France métropolitaine : 48 à 72h ouvrées après expédition</li><li>Livraison offerte en France</li><li>Suivi envoyé par email dès l'expédition</li></ul><p><strong>Retours</strong></p><ul><li>30 jours pour changer d'avis</li><li>Produit non utilisé, complet et dans son emballage d'origine</li><li>Retours gratuits 30 jours</li></ul><p>Produit arrivé endommagé ? Contacte le SAV avec une photo du colis et du produit.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "default_garantie",
+      "label": "Garantie 2 ans (défaut)",
+      "default": "<p>Tous nos modèles sont couverts par une <strong>garantie 2 ans</strong> sur les défauts de fabrication et les pièces couvertes.</p><p>En cas de problème en usage normal, contacte le SAV avec une photo ou une vidéo. On te guide vers la solution la plus rapide.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Description produit RC"
+    }
+  ]
+}
+{% endschema %}
