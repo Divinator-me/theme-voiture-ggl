@@ -39,7 +39,7 @@
   {% capture livraison_html %}
     {% if mf.livraison_retours != blank %}
       {{ mf.livraison_retours | metafield_tag }}
-    {% elsif default_livraison != blank %}
+    {% else %}
       {{ default_livraison }}
     {% endif %}
   {% endcapture %}
@@ -47,7 +47,7 @@
   {% capture garantie_html %}
     {% if mf.garantie_2_ans != blank %}
       {{ mf.garantie_2_ans | metafield_tag }}
-    {% elsif default_garantie != blank %}
+    {% else %}
       {{ default_garantie }}
     {% endif %}
   {% endcapture %}
