@@ -1,0 +1,15 @@
+{% liquid
+  assign description_product = product
+  if description_product == blank
+    assign description_product = closest.product
+  endif
+%}
+
+{% if description_product.description != blank %}
+  <div class="rc-product-desc" data-rc-product-desc hidden>
+    <template data-rc-product-desc-source>{{ description_product.description }}</template>
+  </div>
+  <noscript>
+    <div class="rc-product-desc__fallback rte">{{ description_product.description }}</div>
+  </noscript>
+{% endif %}
