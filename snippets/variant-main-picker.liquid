@@ -10,6 +10,23 @@
 {% assign block_settings = block.settings %}
 
 {% liquid
+  assign target_option_name = block_settings.option_name | strip | downcase
+  assign has_matching_option = false
+
+  if target_option_name == blank
+    assign has_matching_option = true
+  else
+    for product_option in product_resource.options_with_values
+      assign option_name_normalized = product_option.name | strip | downcase
+      if option_name_normalized == target_option_name
+        assign has_matching_option = true
+        break
+      endif
+    endfor
+  endif
+%}
+
+{% liquid
   # Custom styling applies to:
   #   - dropdowns + buttons when variant_style_class == 'custom' (unselected colors)
   #   - buttons only when selected_variant_style_class == 'custom' (selected colors)
@@ -24,7 +41,7 @@
   assign fieldset_index = 0
 %}
 
-{% unless product_resource.has_only_default_variant %}
+{% unless product_resource.has_only_default_variant or has_matching_option == false %}
   {% if has_custom_variant_buttons %}
     {% render 'variant-button-custom-styles', block_settings: block_settings, block_id: block.id %}
   {% endif %}
@@ -55,6 +72,11 @@
     <form class="variant-picker__form">
       {%- for product_option in product_resource.options_with_values -%}
         {%- liquid
+          assign option_name_normalized = product_option.name | strip | downcase
+          if target_option_name != blank and option_name_normalized != target_option_name
+            continue
+          endif
+
           assign swatch_count = product_option.values | map: 'swatch' | compact | size
           assign variant_style = block_settings.variant_style
 

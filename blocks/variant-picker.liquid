@@ -8,7 +8,7 @@
 -%}
 
 {% unless product_resource == blank %}
-  {% render 'variant-main-picker', product_resource: product_resource, section: section, product: product %}
+  {% render 'variant-main-picker', product_resource: product_resource, section: section, product: product, block: block %}
 {% endunless %}
 
 {% schema %}
@@ -16,6 +16,12 @@
   "name": "t:names.product_variant_picker",
   "tag": null,
   "settings": [
+    {
+      "type": "text",
+      "id": "option_name",
+      "label": "Option affichée",
+      "info": "Nom exact de l'option produit (ex: Couleur). Laissez vide pour afficher toutes les options."
+    },
     {
       "type": "header",
       "content": "t:content.type"
