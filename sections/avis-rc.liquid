@@ -1,6 +1,9 @@
 {{ 'avis-rc.css' | asset_url | stylesheet_tag }}
 
-{% assign reviews = "Marc L.|5|Voiture solide, mon fils l'utilise tous les weekends sans souci. Livraison rapide et packaging nickel.||Sophie D.|5|On a pris le Conquer 4x4, la vitesse est bluffante pour le prix. Le SAV a répondu en moins de 24h sur une question batterie.||Thomas R.|4|Très bon rapport qualité/prix. La voiture tient bien les chocs, parfait pour débuter sans se ruiner.||Julien M.|5|Enfin une boutique RC claire, avec de vrais modèles prêts à rouler. On recommande sans hésiter." | split: '||' %}
+{% capture reviews_data %}
+Marc L.|5|Voiture solide, mon fils l'utilise tous les weekends sans souci. Livraison rapide et packaging nickel.||Sophie D.|5|On a pris le Conquer 4x4, la vitesse est bluffante pour le prix. Le SAV a répondu en moins de 24h sur une question batterie.||Thomas R.|4|Très bon rapport qualité/prix. La voiture tient bien les chocs, parfait pour débuter sans se ruiner.||Julien M.|5|Enfin une boutique RC claire, avec de vrais modèles prêts à rouler. On recommande sans hésiter.
+{% endcapture %}
+{% assign reviews = reviews_data | strip | split: '||' %}
 
 <section class="rc-avis" aria-label="Avis clients RCLAB">
   <div class="rc-avis__inner">
