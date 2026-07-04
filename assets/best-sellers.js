@@ -6,6 +6,52 @@
   const track = section.querySelector('[data-slider-track]');
   const previous = section.querySelector('[data-slider-prev]');
   const next = section.querySelector('[data-slider-next]');
+  const wishlistKey = 'rc-wishlist';
+
+  const getWishlist = () => {
+    try {
+      return JSON.parse(localStorage.getItem(wishlistKey) || '[]');
+    } catch {
+      return [];
+    }
+  };
+
+  const saveWishlist = (items) => {
+    localStorage.setItem(wishlistKey, JSON.stringify(items));
+  };
+
+  const syncWishlistButtons = () => {
+    const wishlist = getWishlist();
+
+    section.querySelectorAll('[data-wishlist-toggle]').forEach((button) => {
+      const productId = button.dataset.productId;
+      const isActive = wishlist.includes(productId);
+      button.classList.toggle('is-active', isActive);
+      button.setAttribute('aria-pressed', String(isActive));
+    });
+  };
+
+  section.querySelectorAll('[data-wishlist-toggle]').forEach((button) => {
+    button.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      const productId = button.dataset.productId;
+      if (!productId) return;
+
+      const wishlist = getWishlist();
+      const isActive = wishlist.includes(productId);
+      const nextWishlist = isActive
+        ? wishlist.filter((id) => id !== productId)
+        : [...wishlist, productId];
+
+      saveWishlist(nextWishlist);
+      button.classList.toggle('is-active', !isActive);
+      button.setAttribute('aria-pressed', String(!isActive));
+    });
+  });
+
+  syncWishlistButtons();
 
   if (!track || !previous || !next) return;
 

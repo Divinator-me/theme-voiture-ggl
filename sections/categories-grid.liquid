@@ -1,31 +1,104 @@
 {{ 'categories-grid.css' | asset_url | stylesheet_tag }}
 
-{% assign categories = 'Rallye|category-rallye.png|/collections/rallye||Piste|category-piste.png|/collections/piste||Dresses|category-dresses.png|/collections/dresses||Buggy|category-buggy.png|/collections/buggy||Drift|category-drift.png|/collections/drift||Monster truck / 4x4|category-monster-truck.png|/collections/monster-truck' | split: '||' %}
+{% assign selected_collections = section.settings.collections %}
+{% assign fallback_categories = 'Monster truck / 4x4|category-monster-truck.png|/collections/monster-truck|Bestseller||Drift|category-drift.png|/collections/drift|13 voitures||Rallye|category-rallye.png|/collections/rallye|9 voitures||Buggy|category-buggy.png|/collections/buggy|11 voitures||Piste|category-piste.png|/collections/piste|7 voitures||Dresses|category-dresses.png|/collections/dresses|Nouveau' | split: '||' %}
 
 <section class="rc-categories" aria-label="Collections voitures RC">
   <div class="rc-categories__header">
-    <h2>Nos collections</h2>
+    <h2 class="rc-categories__title">Nos collections</h2>
+    <p class="rc-categories__hint">
+      <span class="rc-categories__hint-arrow" aria-hidden="true">→</span>
+      Glissez pour explorer
+    </p>
   </div>
 
-  <div class="rc-categories__list">
-    {% for category in categories %}
-      {% assign parts = category | split: '|' %}
-      <a class="rc-category-card" href="{{ parts[2] }}" aria-label="Voir la collection {{ parts[0] }}">
-        <img
-          src="{{ parts[1] | asset_url }}"
-          alt=""
-          width="363"
-          height="194"
-          loading="lazy"
-        >
-      </a>
-    {% endfor %}
+  <div class="rc-categories__track" tabindex="0" aria-label="Carrousel collections">
+    {% if selected_collections != blank and selected_collections.size > 0 %}
+      {% for collection in selected_collections %}
+        {% assign collection_image = collection.featured_image %}
+        {% if collection_image == blank and collection.products.first %}
+          {% assign collection_image = collection.products.first.featured_image %}
+        {% endif %}
+
+        {% capture collection_badge %}
+          {% if collection.products_count == 1 %}
+            {{ collection.products_count }} voiture
+          {% else %}
+            {{ collection.products_count }} voitures
+          {% endif %}
+        {% endcapture %}
+
+        <a class="rc-category-card" href="{{ collection.url }}" aria-label="Découvrir la collection {{ collection.title | escape }}">
+          {% if collection_image %}
+            {{
+              collection_image
+              | image_url: width: 700
+              | image_tag:
+                class: 'rc-category-card__image',
+                loading: 'lazy',
+                widths: '320, 480, 700',
+                sizes: '(min-width: 990px) 28vw, 46vw',
+                alt: collection.title
+            }}
+          {% else %}
+            <span class="rc-category-card__image rc-category-card__image--placeholder" aria-hidden="true">
+              <svg viewBox="0 0 260 260" fill="none">
+                <rect width="260" height="260" fill="#1A1A1A"/>
+                <path d="M54 158c8-31 32-49 72-55l59-8c23-3 44 10 53 31l12 32h-41c-7-17-23-28-42-28s-35 11-42 28H96c-7-17-23-28-42-28-18 0-34 11-41 28h41Z" fill="#FFFFFF"/>
+                <circle cx="74" cy="171" r="26" fill="#FF2D2D"/>
+                <circle cx="176" cy="171" r="26" fill="#FF2D2D"/>
+              </svg>
+            </span>
+          {% endif %}
+          <span class="rc-category-card__shade" aria-hidden="true"></span>
+          <span class="rc-category-card__badge{% if forloop.first %} rc-category-card__badge--accent{% endif %}">{{ collection_badge | strip }}</span>
+          <span class="rc-category-card__content">
+            <span class="rc-category-card__title">{{ collection.title }}</span>
+            <span class="rc-category-card__cta">
+              <span>Découvrir</span>
+              <b aria-hidden="true">→</b>
+            </span>
+          </span>
+        </a>
+      {% endfor %}
+    {% else %}
+      {% for category in fallback_categories %}
+        {% assign parts = category | split: '|' %}
+        <a class="rc-category-card" href="{{ parts[2] }}" aria-label="Découvrir la collection {{ parts[0] }}">
+          <img
+            class="rc-category-card__image"
+            src="{{ parts[1] | asset_url }}"
+            alt=""
+            width="363"
+            height="194"
+            loading="lazy"
+          >
+          <span class="rc-category-card__shade" aria-hidden="true"></span>
+          <span class="rc-category-card__badge{% if forloop.first %} rc-category-card__badge--accent{% endif %}">{{ parts[3] }}</span>
+          <span class="rc-category-card__content">
+            <span class="rc-category-card__title">{{ parts[0] }}</span>
+            <span class="rc-category-card__cta">
+              <span>Découvrir</span>
+              <b aria-hidden="true">→</b>
+            </span>
+          </span>
+        </a>
+      {% endfor %}
+    {% endif %}
   </div>
 </section>
 
 {% schema %}
 {
   "name": "Categories grid",
+  "settings": [
+    {
+      "type": "collection_list",
+      "id": "collections",
+      "label": "Collections",
+      "limit": 12
+    }
+  ],
   "presets": [
     {
       "name": "Categories grid"

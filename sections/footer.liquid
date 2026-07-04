@@ -1,27 +1,43 @@
 {{ 'footer.css' | asset_url | stylesheet_tag }}
 
 <footer class="rc-footer">
-  <div class="rc-footer__grid">
+  <div class="rc-footer__top">
     <div class="rc-footer__brand">
       <a href="{{ routes.root_url }}" class="rc-footer__logo" aria-label="Accueil RCLAB">RCLAB</a>
-      <p>Voitures RC premium, pièces, conseils et sensations fortes pour tous les pilotes.</p>
+      <p>Voitures RC premium et conseils terrain pour rouler fort, longtemps, et sans galère.</p>
     </div>
+
+    <div class="rc-footer__badge">
+      <span>Garantie 2 ans</span>
+      <span>Livraison offerte France</span>
+    </div>
+  </div>
+
+  <div class="rc-footer__grid">
+    <nav class="rc-footer__col rc-footer__col--collections" aria-label="Nos collections">
+      <h2>Nos collections</h2>
+      <a href="{{ routes.collections_url }}/monster-truck">Monster Truck / 4x4</a>
+      <a href="{{ routes.collections_url }}/drift">Drift</a>
+      <a href="{{ routes.collections_url }}/rallye">Rallye</a>
+      <a href="{{ routes.collections_url }}/buggy">Buggy</a>
+      <a href="{{ routes.collections_url }}/piste">Piste</a>
+      <a href="{{ routes.collections_url }}/crawler">Crawler</a>
+    </nav>
 
     <nav class="rc-footer__col" aria-label="Boutique">
       <h2>Boutique</h2>
-      <a href="{{ routes.all_products_collection_url }}">Monster Truck</a>
-      <a href="{{ routes.all_products_collection_url }}">Buggy</a>
-      <a href="{{ routes.all_products_collection_url }}">Crawler</a>
-      <a href="{{ routes.all_products_collection_url }}">Drift</a>
-      <a href="{{ routes.all_products_collection_url }}">Pièces détachées</a>
+      <a href="{{ routes.all_products_collection_url }}">Tous les produits</a>
+      <a href="#top-ventes">Meilleures ventes</a>
+      <a href="{{ routes.collections_url }}">Toutes les collections</a>
     </nav>
 
     <nav class="rc-footer__col" aria-label="Aide">
       <h2>Aide</h2>
-      <a href="/pages/faq">FAQ</a>
+      <a href="#faq">FAQ</a>
       <a href="/pages/contact">Contact</a>
       <a href="/pages/livraison">Livraison</a>
       <a href="/policies/refund-policy">Retours</a>
+      <a href="/policies/privacy-policy">Confidentialité</a>
     </nav>
 
     <div class="rc-footer__newsletter">
@@ -38,11 +54,6 @@
 
   <div class="rc-footer__bottom">
     <p>© 2026 RCLAB. Tous droits réservés.</p>
-    <div class="rc-footer__socials" aria-label="Réseaux sociaux">
-      <a href="https://www.instagram.com" aria-label="Instagram">Instagram</a>
-      <a href="https://www.tiktok.com" aria-label="TikTok">TikTok</a>
-      <a href="https://www.youtube.com" aria-label="YouTube">YouTube</a>
-    </div>
   </div>
 </footer>
 

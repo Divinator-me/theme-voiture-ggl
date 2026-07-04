@@ -1,0 +1,53 @@
+{%- doc -%}
+  Pastille couleur unie pour les cartes produit RC.
+  Jamais d'image produit — uniquement la couleur de la variante.
+{%- enddoc -%}
+
+{% liquid
+  assign swatch_background = null
+  assign color_name = value.name | downcase | strip
+
+  if value.swatch.color
+    assign swatch_background = 'rgb(' | append: value.swatch.color.rgb | append: ')'
+  endif
+
+  if swatch_background == null
+    if color_name == 'rouge' or color_name contains 'rouge' or color_name == 'red' or color_name contains 'red'
+      assign swatch_background = '#FF2D2D'
+    elsif color_name == 'vert' or color_name contains 'vert' or color_name == 'green' or color_name contains 'green'
+      assign swatch_background = '#16A34A'
+    elsif color_name == 'noir' or color_name contains 'noir' or color_name == 'black' or color_name contains 'black'
+      assign swatch_background = '#0A0A0A'
+    elsif color_name == 'blanc' or color_name contains 'blanc' or color_name == 'white' or color_name contains 'white'
+      assign swatch_background = '#FFFFFF'
+    elsif color_name == 'bleu' or color_name contains 'bleu' or color_name == 'blue' or color_name contains 'blue'
+      assign swatch_background = '#2563EB'
+    elsif color_name contains 'orange'
+      assign swatch_background = '#FF6B00'
+    elsif color_name == 'jaune' or color_name contains 'jaune' or color_name == 'yellow' or color_name contains 'yellow'
+      assign swatch_background = '#FACC15'
+    elsif color_name == 'gris' or color_name contains 'gris' or color_name contains 'gray' or color_name contains 'grey'
+      assign swatch_background = '#737373'
+    elsif color_name contains 'violet' or color_name contains 'purple'
+      assign swatch_background = '#7C3AED'
+    elsif color_name contains 'rose' or color_name contains 'pink'
+      assign swatch_background = '#EC4899'
+    elsif color_name contains 'argent' or color_name contains 'silver'
+      assign swatch_background = '#C0C0C0'
+    elsif color_name == 'or' or color_name == 'gold' or color_name contains 'doré' or color_name contains 'dore'
+      assign swatch_background = '#D4AF37'
+    elsif color_name contains 'camo' or color_name contains 'camouflage'
+      assign swatch_background = '#4B5320'
+    endif
+  endif
+%}
+
+<span
+  class="rc-best-sellers__color{% if swatch_background == '#FFFFFF' or swatch_background == '#FACC15' %} is-light{% endif %}"
+  title="{{ value.name }}"
+  {% if swatch_background %}
+    style="--swatch-background: {{ swatch_background }};"
+  {% endif %}
+>
+  <span class="visually-hidden">{{ value.name }}</span>
+</span>
