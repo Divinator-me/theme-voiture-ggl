@@ -1,0 +1,28 @@
+{%- doc -%}
+  Liens des 6 collections RC — source unique pour nav, footer et fallbacks.
+  Paramètre style : overlay | footer | category-nav
+{%- enddoc -%}
+
+{% liquid
+  assign rc_collections = 'Monster Truck / 4x4|monster-truck-4x4|MONSTER TRUCK||Buggy|buggy|BUGGY||Rallye / Trophy Truck|rallye-trophy|RALLYE||Crawler|crawler|CRAWLER||Drift|drift|DRIFT||Piste|piste|PISTE' | split: '||'
+%}
+
+{% case style %}
+  {% when 'category-nav' %}
+    {% for item in rc_collections %}
+      {% assign parts = item | split: '|' %}
+      <a href="{{ routes.collections_url }}/{{ parts[1] }}">{{ parts[2] }}</a>
+    {% endfor %}
+
+  {% when 'footer' %}
+    {% for item in rc_collections %}
+      {% assign parts = item | split: '|' %}
+      <a href="{{ routes.collections_url }}/{{ parts[1] }}">{{ parts[0] }}</a>
+    {% endfor %}
+
+  {% else %}
+    {% for item in rc_collections %}
+      {% assign parts = item | split: '|' %}
+      <a href="{{ routes.collections_url }}/{{ parts[1] }}">{{ parts[0] }}</a>
+    {% endfor %}
+{% endcase %}

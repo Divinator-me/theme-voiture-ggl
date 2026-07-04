@@ -1,13 +1,11 @@
 {{ 'category-nav.css' | asset_url | stylesheet_tag }}
 
-{% assign links = 'MONSTER TRUCK|BUGGY|RALLYE|CRAWLER|DRIFT|PISTE|PIÈCES DÉTACHÉES' | split: '|' %}
-
 <section class="rc-category-nav" aria-label="Catégories voitures RC">
   <nav class="rc-category-nav__inner">
-    <a href="{{ routes.all_products_collection_url }}" aria-label="Ouvrir le menu"><span aria-hidden="true">☰</span> Menu</a>
-    {% for label in links %}
-      <a href="{{ routes.all_products_collection_url }}">{{ label }}</a>
-    {% endfor %}
+    <button class="rc-category-nav__menu" type="button" data-menu-open aria-controls="rc-menu-overlay" aria-label="Ouvrir le menu">
+      <span aria-hidden="true">☰</span> Menu
+    </button>
+    {% render 'rc-collection-links', style: 'category-nav' %}
   </nav>
 </section>
 
