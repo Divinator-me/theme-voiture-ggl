@@ -1,9 +1,10 @@
 {% comment %}
   Liens collections partagés — barre catégories desktop + menu latéral.
+  Handles Shopify : monster-truck-4x4, buggy, rallye-trophy, crawler, drift, piste
   Usage: {% render 'rc-nav-collections', context: 'bar' %}
 {% endcomment %}
 
-{% assign nav_collections = 'Monster Truck / 4x4|monster-truck||Buggy|buggy||Rallye / Trophy Truck|rallye||Crawler|crawler||Drift|drift||Piste|piste' | split: '||' %}
+{% assign nav_collections = 'Monster Truck / 4x4|monster-truck-4x4||Buggy|buggy||Rallye / Trophy Truck|rallye-trophy||Crawler|crawler||Drift|drift||Piste|piste' | split: '||' %}
 
 {% for item in nav_collections %}
   {% assign parts = item | split: '|' %}
