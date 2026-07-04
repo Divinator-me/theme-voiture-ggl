@@ -10,8 +10,64 @@
     <div class="rc-product-desc__source rte" hidden data-rc-product-desc-source>
       {{ description_product.description }}
     </div>
+
+    <template data-rc-fallback-livraison>
+      <p><strong>Livraison</strong></p>
+      <ul>
+        <li>France métropolitaine : 48 à 72h ouvrées après expédition</li>
+        <li>Livraison offerte en France</li>
+        <li>Suivi envoyé par email dès l'expédition</li>
+      </ul>
+      <p><strong>Retours</strong></p>
+      <ul>
+        <li>30 jours pour changer d'avis</li>
+        <li>Produit non utilisé, complet et dans son emballage d'origine</li>
+        <li>Retours gratuits 30 jours</li>
+      </ul>
+      <p>Produit arrivé endommagé ? Contacte le SAV avec une photo du colis et du produit. On trouve une solution rapidement.</p>
+    </template>
+
+    <template data-rc-fallback-garantie>
+      <p>Tous nos modèles sont couverts par une <strong>garantie 2 ans</strong> sur les défauts de fabrication et les pièces couvertes.</p>
+      <p>En cas de problème en usage normal, contacte le SAV avec une photo ou une vidéo. On te guide vers la solution la plus rapide : pièce de remplacement, diagnostic ou prise en charge selon le cas.</p>
+    </template>
+
     <noscript>
       <div class="rc-product-desc__fallback rte">{{ description_product.description }}</div>
     </noscript>
+  </div>
+{% else %}
+  <div class="rc-product-desc" data-rc-product-desc data-rc-product-desc-static>
+    <div class="rc-product-desc__list">
+      <details class="rc-product-desc__item">
+        <summary>
+          <span>Livraison et retours</span>
+          <b aria-hidden="true">+</b>
+        </summary>
+        <div class="rc-product-desc__content rte">
+          <p><strong>Livraison</strong></p>
+          <ul>
+            <li>France métropolitaine : 48 à 72h ouvrées après expédition</li>
+            <li>Livraison offerte en France</li>
+            <li>Suivi envoyé par email dès l'expédition</li>
+          </ul>
+          <p><strong>Retours</strong></p>
+          <ul>
+            <li>30 jours pour changer d'avis</li>
+            <li>Produit non utilisé, complet et dans son emballage d'origine</li>
+            <li>Retours gratuits 30 jours</li>
+          </ul>
+        </div>
+      </details>
+      <details class="rc-product-desc__item">
+        <summary>
+          <span>Garantie 2 ans</span>
+          <b aria-hidden="true">+</b>
+        </summary>
+        <div class="rc-product-desc__content rte">
+          <p>Tous nos modèles sont couverts par une <strong>garantie 2 ans</strong> sur les défauts de fabrication et les pièces couvertes.</p>
+        </div>
+      </details>
+    </div>
   </div>
 {% endif %}

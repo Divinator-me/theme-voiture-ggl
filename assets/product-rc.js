@@ -10,8 +10,8 @@
   ];
 
   const BOTTOM_SECTIONS = [
-    { key: 'livraison et retours', label: 'Livraison et retours' },
-    { key: 'garantie 2 ans', label: 'Garantie 2 ans' },
+    { key: 'livraison et retours', label: 'Livraison et retours', fallback: 'livraison' },
+    { key: 'garantie 2 ans', label: 'Garantie 2 ans', fallback: 'garantie' },
   ];
 
   const SECTION_ALIASES = {
@@ -21,6 +21,11 @@
     'points forts': 'points fort',
     'livraison et retours': 'livraison et retours',
     'livraison et retour': 'livraison et retours',
+    livraison: 'livraison et retours',
+    retours: 'livraison et retours',
+    'commande et livraison': 'livraison et retours',
+    'commande & livraison': 'livraison et retours',
+    garantie: 'garantie 2 ans',
     'garantie 2 ans': 'garantie 2 ans',
     description: null,
   };
@@ -183,6 +188,18 @@
     return summary;
   };
 
+  const nodesFromHtml = (html) => {
+    const temp = document.createElement('div');
+    temp.innerHTML = html;
+    return [...temp.childNodes];
+  };
+
+  const getFallbackNodes = (root, fallbackKey) => {
+    const template = root.querySelector(`[data-rc-fallback-${fallbackKey}]`);
+    if (!template) return [];
+    return nodesFromHtml(template.innerHTML);
+  };
+
   const createAccordionItem = (title, nodes, options = {}) => {
     const details = document.createElement('details');
     details.className = options.nested
@@ -218,6 +235,7 @@
 
   const buildAccordion = (root) => {
     if (root.dataset.rcProductDescReady === 'true') return;
+    if (root.hasAttribute('data-rc-product-desc-static')) return;
 
     const source = root.querySelector('[data-rc-product-desc-source]');
     if (!source) return;
@@ -269,8 +287,11 @@
     }
 
     BOTTOM_SECTIONS.forEach((section) => {
-      const nodes = buckets.get(section.key) || [];
-      if (!hasVisibleContent(nodes)) return;
+      let nodes = buckets.get(section.key) || [];
+
+      if (!hasVisibleContent(nodes)) {
+        nodes = getFallbackNodes(root, section.fallback);
+      }
 
       list.appendChild(createAccordionItem(section.label, nodes));
     });
