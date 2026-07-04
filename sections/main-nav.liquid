@@ -43,11 +43,12 @@
 
   <div class="rc-menu-overlay" id="rc-menu-overlay" data-menu-overlay aria-hidden="true">
     <div class="rc-menu-overlay__panel" role="dialog" aria-modal="true" aria-label="Menu principal">
-      <div class="rc-menu-overlay__head">
-        <a class="rc-menu-overlay__logo" href="{{ routes.root_url }}">{{ logo_text }}</a>
-        <button class="rc-menu-overlay__close" type="button" data-menu-close aria-label="Fermer le menu">×</button>
-      </div>
-      <nav class="rc-menu-overlay__links" aria-label="Menu mobile">
+      <div class="rc-menu-overlay__body">
+        <div class="rc-menu-overlay__head">
+          <a class="rc-menu-overlay__logo" href="{{ routes.root_url }}">{{ logo_text }}</a>
+          <button class="rc-menu-overlay__close" type="button" data-menu-close aria-label="Fermer le menu">×</button>
+        </div>
+        <nav class="rc-menu-overlay__links" aria-label="Menu mobile">
         <a class="rc-menu-overlay__link" href="{{ routes.root_url }}">
           <span>Accueil</span>
           <span class="rc-menu-overlay__chevron" aria-hidden="true"></span>
@@ -91,6 +92,14 @@
             <a href="/policies/refund-policy">Retours</a>
           </div>
         </details>
+        </nav>
+      </div>
+
+      <nav class="rc-menu-overlay__footer" aria-label="Liens rapides">
+        <a href="{{ routes.account_url }}">Mon compte</a>
+        <a href="/pages/contact">Contact</a>
+        <a href="#faq">FAQ</a>
+        <a href="/pages/livraison">Livraison</a>
       </nav>
     </div>
   </div>
