@@ -135,6 +135,7 @@
   top: var(--rc-menu-top, 0);
   background: rgb(10 10 10 / 55%);
   opacity: 0;
+  overflow-x: hidden;
   overscroll-behavior: contain;
   transition:
     opacity 0.26s var(--ease-smooth),
@@ -163,7 +164,7 @@
 .rc-menu-overlay__body {
   flex: 1;
   min-height: 0;
-  overflow-y: auto;
+  overflow: hidden auto;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
 }
@@ -229,6 +230,11 @@
   transition:
     background 0.2s var(--ease-smooth),
     color 0.2s var(--ease-smooth);
+}
+
+.rc-menu-overlay__link span:first-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .rc-menu-overlay__link--toggle {
@@ -312,20 +318,22 @@
 
 .rc-menu-overlay__footer {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 8px;
+  flex-shrink: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 12px;
   border-top: 1px solid var(--color-gray-200);
-  margin: 0 -22px;
-  padding: 14px 16px 18px;
+  margin: 0;
+  padding: 14px 0 18px;
   background: var(--color-white);
 }
 
 .rc-menu-overlay__footer a {
-  color: var(--color-gray-500);
+  color: #a3a3a3;
   font-size: 11px;
   font-weight: 500;
   line-height: 1.25;
   text-align: center;
+  text-decoration: none;
   transition: color 0.2s var(--ease-smooth);
 }
 

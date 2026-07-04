@@ -44,7 +44,9 @@
     document.body.style.right = '0';
     document.body.style.width = '100%';
     document.body.style.overflow = 'hidden';
+    document.body.style.overflowX = 'hidden';
     document.documentElement.style.overflow = 'hidden';
+    document.documentElement.style.overflowX = 'hidden';
   };
 
   const unlockPageScroll = () => {
@@ -54,7 +56,9 @@
     document.body.style.right = '';
     document.body.style.width = '';
     document.body.style.overflow = '';
+    document.body.style.overflowX = '';
     document.documentElement.style.overflow = '';
+    document.documentElement.style.overflowX = '';
     window.scrollTo(0, lockedScrollY);
   };
 
