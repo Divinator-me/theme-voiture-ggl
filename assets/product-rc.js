@@ -3,6 +3,36 @@
   const MEDIA_SELECTOR =
     'img, picture, video, audio, iframe, embed, object, source, table, deferred-media, shopify-video, [data-shopify-video]';
 
+  const MAIN_SECTIONS = [
+    { key: 'tout savoir', label: 'Tout Savoir' },
+    { key: 'caracteristiques', label: 'Caractéristiques' },
+    { key: 'points fort', label: 'Points Fort' },
+  ];
+
+  const BOTTOM_SECTIONS = [
+    { key: 'livraison et retours', label: 'Livraison et retours' },
+    { key: 'garantie 2 ans', label: 'Garantie 2 ans' },
+  ];
+
+  const SECTION_ALIASES = {
+    'tout savoir': 'tout savoir',
+    caracteristiques: 'caracteristiques',
+    'points fort': 'points fort',
+    'points forts': 'points fort',
+    'livraison et retours': 'livraison et retours',
+    'livraison et retour': 'livraison et retours',
+    'garantie 2 ans': 'garantie 2 ans',
+    description: null,
+  };
+
+  const normalize = (text) =>
+    text
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .replace(/\s+/g, ' ')
+      .trim();
+
   const isMeaningfulNode = (node) => {
     if (node.nodeType === Node.TEXT_NODE) {
       return node.textContent.trim().length > 0;
@@ -36,6 +66,20 @@
     return (strong || element).textContent.replace(/\s+/g, ' ').trim();
   };
 
+  const resolveSectionKey = (title) => {
+    const normalized = normalize(title);
+
+    if (Object.prototype.hasOwnProperty.call(SECTION_ALIASES, normalized)) {
+      return SECTION_ALIASES[normalized];
+    }
+
+    if (normalized.startsWith('points fort')) {
+      return 'points fort';
+    }
+
+    return undefined;
+  };
+
   const getParseableNodes = (body) => {
     const nodes = [...body.childNodes].filter(isMeaningfulNode);
 
@@ -50,7 +94,10 @@
       return nodes;
     }
 
-    const nestedHeadings = wrapper.querySelector(':scope > h2, :scope > h3, :scope > h4');
+    const nestedHeadings = wrapper.querySelector(
+      ':scope > h2, :scope > h3, :scope > h4, :scope > p > strong, :scope > p > b'
+    );
+
     if (!nestedHeadings) {
       return nodes;
     }
@@ -58,9 +105,12 @@
     return [...wrapper.childNodes].filter(isMeaningfulNode);
   };
 
-  const hasVisibleContent = (element) => {
-    if (element.textContent.replace(/\s+/g, '').length > 0) return true;
-    return Boolean(element.querySelector(MEDIA_SELECTOR));
+  const hasVisibleContent = (nodes) => {
+    const temp = document.createElement('div');
+    nodes.forEach((node) => temp.appendChild(node.cloneNode(true)));
+
+    if (temp.textContent.replace(/\s+/g, '').length > 0) return true;
+    return Boolean(temp.querySelector(MEDIA_SELECTOR));
   };
 
   const enhanceMedia = (root) => {
@@ -78,7 +128,7 @@
         video.setAttribute('src', video.dataset.src);
       }
 
-      if (video.hasAttribute('preload') === false) {
+      if (!video.hasAttribute('preload')) {
         video.setAttribute('preload', 'metadata');
       }
     });
@@ -90,104 +140,151 @@
     });
   };
 
-  const parseSections = (html) => {
+  const parseBuckets = (html) => {
     const doc = new DOMParser().parseFromString(html, 'text/html');
     const nodes = getParseableNodes(doc.body);
+    const buckets = new Map();
 
-    const sections = [];
-    let current = { title: '', nodes: [] };
+    [...MAIN_SECTIONS, ...BOTTOM_SECTIONS].forEach((section) => {
+      buckets.set(section.key, []);
+    });
 
-    const pushCurrent = () => {
-      if (!current.title && current.nodes.length === 0) return;
-      sections.push(current);
-      current = { title: '', nodes: [] };
-    };
+    let currentKey = 'tout savoir';
 
     nodes.forEach((node) => {
       if (node.nodeType === Node.ELEMENT_NODE && isSectionHeading(node)) {
-        pushCurrent();
-        current.title = getSectionTitle(node);
-        return;
+        const title = getSectionTitle(node);
+        const key = resolveSectionKey(title);
+
+        if (key === null) {
+          return;
+        }
+
+        if (key) {
+          currentKey = key;
+          return;
+        }
       }
 
-      current.nodes.push(node.cloneNode(true));
+      buckets.get(currentKey).push(node.cloneNode(true));
     });
 
-    pushCurrent();
-
-    if (sections.length === 0) {
-      return [{ title: 'Description', nodes, open: true }];
-    }
-
-    if (!sections[0].title && sections[0].nodes.length > 0) {
-      sections[0].title = 'Présentation';
-    }
-
-    return sections.filter((section) => section.title || section.nodes.length > 0);
+    return buckets;
   };
 
-  const buildAccordion = (root) => {
-    if (root.dataset.rcProductDescReady === 'true') return;
+  const createSummary = (title) => {
+    const summary = document.createElement('summary');
+    const label = document.createElement('span');
+    label.textContent = title;
+    const icon = document.createElement('b');
+    icon.setAttribute('aria-hidden', 'true');
+    icon.textContent = '+';
+    summary.append(label, icon);
+    return summary;
+  };
 
-    const sourceContent = root.querySelector('[data-rc-product-desc-raw] .rc-product-desc__content');
-    const sourceList = root.querySelector('[data-rc-product-desc-source]');
-    if (!sourceContent || !sourceList) return;
+  const createAccordionItem = (title, nodes, options = {}) => {
+    const details = document.createElement('details');
+    details.className = options.nested
+      ? 'rc-product-desc__item rc-product-desc__item--nested'
+      : 'rc-product-desc__item';
 
-    const sections = parseSections(sourceContent.innerHTML);
-
-    if (sections.length <= 1 && sections[0]?.title === 'Description') {
-      enhanceMedia(sourceContent);
-      root.dataset.rcProductDescReady = 'true';
-      return;
+    if (options.open) {
+      details.open = true;
     }
 
-    const list = document.createElement('div');
-    list.className = 'rc-product-desc__list';
+    const content = document.createElement('div');
+    content.className = 'rc-product-desc__content rte';
+    nodes.forEach((node) => content.appendChild(node));
 
-    sections.forEach((section, index) => {
-      const details = document.createElement('details');
-      details.className = 'rc-product-desc__item';
-      if (index === 0 || section.open) {
-        details.open = true;
-      }
+    enhanceMedia(content);
+    details.append(createSummary(title), content);
+    return details;
+  };
 
-      const summary = document.createElement('summary');
-      const title = document.createElement('span');
-      title.textContent = section.title || 'Description';
-      const icon = document.createElement('b');
-      icon.setAttribute('aria-hidden', 'true');
-      icon.textContent = '+';
-      summary.append(title, icon);
-
-      const content = document.createElement('div');
-      content.className = 'rc-product-desc__content rte';
-      section.nodes.forEach((node) => content.appendChild(node));
-
-      if (!hasVisibleContent(content)) return;
-
-      enhanceMedia(content);
-      details.append(summary, content);
-      list.appendChild(details);
-    });
-
-    if (!list.children.length) {
-      enhanceMedia(sourceContent);
-      root.dataset.rcProductDescReady = 'true';
-      return;
-    }
-
-    list.addEventListener('toggle', (event) => {
+  const bindExclusiveToggle = (container) => {
+    container.addEventListener('toggle', (event) => {
       const target = event.target;
+
       if (!(target instanceof HTMLDetailsElement) || !target.open) return;
 
-      list.querySelectorAll('details[open]').forEach((item) => {
+      container.querySelectorAll(':scope > details[open]').forEach((item) => {
         if (item !== target) item.open = false;
       });
 
       enhanceMedia(target);
     });
+  };
 
-    sourceList.replaceWith(list);
+  const buildAccordion = (root) => {
+    if (root.dataset.rcProductDescReady === 'true') return;
+
+    const source = root.querySelector('[data-rc-product-desc-source]');
+    if (!source) return;
+
+    const buckets = parseBuckets(source.innerHTML);
+    const list = document.createElement('div');
+    list.className = 'rc-product-desc__list';
+
+    const descriptionGroup = document.createElement('details');
+    descriptionGroup.className = 'rc-product-desc__group';
+    descriptionGroup.open = true;
+    descriptionGroup.append(createSummary('Description'));
+
+    const inner = document.createElement('div');
+    inner.className = 'rc-product-desc__group-inner';
+
+    let hasMainContent = false;
+
+    MAIN_SECTIONS.forEach((section, index) => {
+      const nodes = buckets.get(section.key) || [];
+      if (!hasVisibleContent(nodes)) return;
+
+      hasMainContent = true;
+      inner.appendChild(
+        createAccordionItem(section.label, nodes, {
+          nested: true,
+          open: index === 0,
+        })
+      );
+    });
+
+    if (!hasMainContent) {
+      const fallbackNodes = buckets.get('tout savoir') || [];
+      if (hasVisibleContent(fallbackNodes)) {
+        inner.appendChild(
+          createAccordionItem('Tout Savoir', fallbackNodes, {
+            nested: true,
+            open: true,
+          })
+        );
+        hasMainContent = true;
+      }
+    }
+
+    if (hasMainContent) {
+      descriptionGroup.append(inner);
+      list.appendChild(descriptionGroup);
+      bindExclusiveToggle(inner);
+    }
+
+    BOTTOM_SECTIONS.forEach((section) => {
+      const nodes = buckets.get(section.key) || [];
+      if (!hasVisibleContent(nodes)) return;
+
+      list.appendChild(createAccordionItem(section.label, nodes));
+    });
+
+    if (!list.children.length) {
+      list.appendChild(
+        createAccordionItem('Description', [...source.childNodes].map((node) => node.cloneNode(true)), {
+          open: true,
+        })
+      );
+    }
+
+    bindExclusiveToggle(list);
+    source.replaceWith(list);
     root.dataset.rcProductDescReady = 'true';
   };
 

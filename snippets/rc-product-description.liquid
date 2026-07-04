@@ -7,16 +7,11 @@
 
 {% if description_product.description != blank %}
   <div class="rc-product-desc" data-rc-product-desc>
-    <div class="rc-product-desc__list" data-rc-product-desc-source>
-      <details class="rc-product-desc__item" open data-rc-product-desc-raw>
-        <summary>
-          <span>Description</span>
-          <b aria-hidden="true">+</b>
-        </summary>
-        <div class="rc-product-desc__content rte">
-          {{ description_product.description }}
-        </div>
-      </details>
+    <div class="rc-product-desc__source rte" hidden data-rc-product-desc-source>
+      {{ description_product.description }}
     </div>
+    <noscript>
+      <div class="rc-product-desc__fallback rte">{{ description_product.description }}</div>
+    </noscript>
   </div>
 {% endif %}
