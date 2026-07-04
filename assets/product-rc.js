@@ -11,7 +11,7 @@
 
   const BOTTOM_SECTIONS = [
     { key: 'livraison et retours', label: 'Livraison et retours' },
-    { key: 'fabrication rigoureuse et resistante', label: 'Fabrication rigoureuse et résistante' },
+    { key: 'fabrication rigoureuse et resistante', label: 'Fabrication hautement contrôlée' },
     { key: 'garantie 2 ans', label: 'Garantie 2 ans' },
   ];
 
@@ -45,7 +45,7 @@
     garantie:
       '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4.5" y="4.5" width="15" height="15" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="m8.5 12.2 2.2 2.2 5-5.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     fabrication:
-      '<span class="rc-product-desc__emoji" aria-hidden="true">📍</span>',
+      '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s6-5.2 6-10a6 6 0 1 0-12 0c0 4.8 6 10 6 10Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="12" cy="11" r="2.25" stroke="currentColor" stroke-width="1.5"/></svg>',
   };
 
 
@@ -55,7 +55,7 @@
     Caractéristiques: 'caracteristiques',
     'Points Fort': 'pointsFort',
     'Livraison et retours': 'livraison',
-    'Fabrication rigoureuse et résistante': 'fabrication',
+    'Fabrication hautement contrôlée': 'fabrication',
     'Garantie 2 ans': 'garantie',
   };
 
