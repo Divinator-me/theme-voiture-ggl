@@ -9,7 +9,7 @@
     points_fort: { label: 'Points Fort', group: 'main', icon: 'pointsFort' },
     livraison_retours: { label: 'Livraison et retours', group: 'bottom', icon: 'livraison' },
     fabrication_rigoureuse: { label: 'Fabrication hautement contrôlée', group: 'bottom', icon: 'fabrication' },
-    garantie_2_ans: { label: 'Garantie 2 ans', group: 'bottom', icon: 'garantie' },
+    garantie_2_ans: { label: 'Garantie 6 mois', group: 'bottom', icon: 'garantie' },
   };
 
   const MAIN_SECTION_IDS = ['tout_savoir', 'caracteristiques', 'points_fort'];
@@ -30,6 +30,7 @@
     'fabrication rigoureuse et resistante': 'fabrication_rigoureuse',
     fabrication: 'fabrication_rigoureuse',
     garantie: 'garantie_2_ans',
+    'garantie 6 mois': 'garantie_2_ans',
     'garantie 2 ans': 'garantie_2_ans',
     description: null,
   };
