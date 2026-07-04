@@ -153,6 +153,7 @@
 
 .rc-best-sellers__card h3 a {
   color: inherit;
+  font-weight: 800;
 }
 
 .rc-best-sellers__rating {
