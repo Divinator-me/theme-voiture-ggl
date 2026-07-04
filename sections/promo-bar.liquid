@@ -20,23 +20,24 @@
   <div class="rc-promo-bar__desktop">
     <span class="rc-promo-bar__origin">• Entreprise niçoise</span>
 
-    <p class="rc-promo-bar__offer">
-      <span aria-hidden="true">🎁</span>
-      <strong>Offre spéciale :</strong>
-      1 batterie offerte + extension garantie 2 ans pour toute voiture RC achetée
-    </p>
+    <div class="rc-promo-bar__center">
+      <p class="rc-promo-bar__offer">
+        <span aria-hidden="true">🎁</span>
+        <strong>Offre spéciale :</strong>
+        1 batterie offerte + extension garantie 2 ans pour toute voiture RC achetée
+      </p>
+      <span class="rc-promo-bar__date promo-bar__dates">Du 27/06 au 04/07</span>
+    </div>
 
     <div class="rc-promo-bar__actions">
-      <span class="rc-promo-bar__date promo-bar__dates">Du 27/06 au 04/07</span>
-
       <div class="rc-promo-bar__countdown" data-countdown data-duration="604800" aria-live="polite">
-        <span class="rc-promo-bar__countdown-part"><b data-days>00</b> jours</span>
+        <span class="rc-promo-bar__countdown-part"><b data-days>00</b><small>jours</small></span>
         <span class="rc-promo-bar__countdown-sep" aria-hidden="true">:</span>
-        <span class="rc-promo-bar__countdown-part"><b data-hours>00</b> heures</span>
+        <span class="rc-promo-bar__countdown-part"><b data-hours>00</b><small>heures</small></span>
         <span class="rc-promo-bar__countdown-sep" aria-hidden="true">:</span>
-        <span class="rc-promo-bar__countdown-part"><b data-minutes>00</b> min</span>
+        <span class="rc-promo-bar__countdown-part"><b data-minutes>00</b><small>min</small></span>
         <span class="rc-promo-bar__countdown-sep" aria-hidden="true">:</span>
-        <span class="rc-promo-bar__countdown-part"><b data-seconds>00</b> sec</span>
+        <span class="rc-promo-bar__countdown-part"><b data-seconds>00</b><small>sec</small></span>
       </div>
 
       <a class="rc-promo-bar__cta promo-bar__cta" href="{{ routes.all_products_collection_url }}" aria-label="Profiter de l'offre">
