@@ -309,7 +309,7 @@
 rc-product-recommendations.rc-best-sellers,
 .rc-best-sellers.rc-product-recommendations {
   display: block;
-  padding: 72px 0 80px;
+  padding: 40px 0 48px;
 }
 
 .rc-product-recommendations__skeleton .rc-best-sellers__image {
@@ -338,7 +338,7 @@ rc-product-recommendations.rc-best-sellers,
 @media (min-width: 750px) {
   rc-product-recommendations.rc-best-sellers,
   .rc-best-sellers.rc-product-recommendations {
-    padding: 88px 0 96px;
+    padding: 48px 0 56px;
   }
 }
 
