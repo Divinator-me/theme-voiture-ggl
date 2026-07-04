@@ -10,7 +10,7 @@
     display: block;
     overflow-x: auto;
     min-height: 55px;
-    background: var(--color-black);
+    background: #2b2b2b;
     color: var(--color-white);
     scrollbar-width: none;
   }
@@ -43,12 +43,13 @@
     background: transparent;
     color: var(--color-white);
     font-family: var(--font-body);
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     line-height: 1;
     text-transform: uppercase;
     cursor: pointer;
+    white-space: nowrap;
   }
 
   .rc-category-nav a::after,

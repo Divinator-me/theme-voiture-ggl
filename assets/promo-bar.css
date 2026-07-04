@@ -1,9 +1,6 @@
 .rc-promo-bar {
   position: relative;
   z-index: 69;
-  display: grid;
-  gap: 8px;
-  justify-items: center;
   overflow: hidden;
   padding: 10px 14px 8px;
   background:
@@ -19,6 +16,16 @@
   color: var(--color-white);
   font-family: var(--font-body);
   text-align: center;
+}
+
+.rc-promo-bar__mobile {
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+}
+
+.rc-promo-bar__desktop {
+  display: none;
 }
 
 .rc-promo-bar__offer {
@@ -63,7 +70,7 @@
   min-height: 0 !important;
   padding: 7px 16px !important;
   color: #ff9a9a !important;
-  font-family: 'Inter', sans-serif !important;
+  font-family: var(--font-body) !important;
   font-size: 11px !important;
   font-weight: 900 !important;
   letter-spacing: 0.35px !important;
@@ -93,7 +100,7 @@
   box-shadow: 0 4px 12px rgb(255 45 45 / 22%);
   color: #ffffff !important;
   cursor: pointer;
-  font-family: 'Inter', sans-serif !important;
+  font-family: var(--font-body) !important;
   font-size: 11px !important;
   font-weight: 900 !important;
   letter-spacing: 0.4px !important;
@@ -148,23 +155,97 @@
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .rc-promo-bar {
-    grid-template-columns: 1fr auto;
-    justify-items: stretch;
-    align-items: center;
     min-height: 54px;
     padding: 10px 32px;
     text-align: left;
   }
 
-  .rc-promo-bar__offer {
-    justify-content: flex-start;
+  .rc-promo-bar__mobile {
+    display: none;
+  }
+
+  .rc-promo-bar__desktop {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 24px;
+    align-items: center;
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .rc-promo-bar__origin {
+    justify-self: start;
+    color: rgb(255 255 255 / 52%);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    line-height: 1;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .rc-promo-bar__center {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+    justify-self: center;
+    min-width: 0;
+  }
+
+  .rc-promo-bar__desktop .rc-promo-bar__offer {
     font-size: 13px;
   }
 
-  .rc-promo-bar__actions {
+  .rc-promo-bar__desktop .rc-promo-bar__actions {
+    flex-wrap: nowrap;
+    gap: 12px;
     justify-content: flex-end;
+    justify-self: end;
     width: auto;
+  }
+
+  .rc-promo-bar__countdown {
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    white-space: nowrap;
+  }
+
+  .rc-promo-bar__countdown-part {
+    display: grid;
+    gap: 2px;
+    justify-items: center;
+    color: rgb(255 255 255 / 55%);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .rc-promo-bar__countdown-part b {
+    color: var(--color-white);
+    font-size: 14px;
+    font-variant-numeric: tabular-nums;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  .rc-promo-bar__countdown-part small {
+    font-size: 8px;
+    font-weight: 700;
+  }
+
+  .rc-promo-bar__countdown-sep {
+    margin-bottom: 10px;
+    color: rgb(255 255 255 / 28%);
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 1;
   }
 }
