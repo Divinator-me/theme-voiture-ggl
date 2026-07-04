@@ -123,13 +123,26 @@
 }
 
 .rc-product-desc__content img,
+.rc-product-desc__content picture,
 .rc-product-desc__content video,
-.rc-product-desc__content iframe {
+.rc-product-desc__content iframe,
+.rc-product-desc__content embed,
+.rc-product-desc__content object {
   display: block;
   max-width: 100%;
   height: auto;
   margin: 0.75em 0;
   border-radius: var(--radius-md);
+}
+
+.rc-product-desc__content deferred-media,
+.rc-product-desc__content shopify-video,
+.rc-product-desc__content .rte__video-wrapper,
+.rc-product-desc__content .media-wrapper {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin: 0.75em 0;
 }
 
 .rc-product-desc__content table {
