@@ -45,8 +45,7 @@
       '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4.5" y="4.5" width="15" height="15" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="m8.5 12.2 2.2 2.2 5-5.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
   };
 
-  const CHEVRON =
-    '<svg class="rc-product-desc__chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 10l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const CHEVRON = '';
 
   const ICON_MAP = {
     Description: 'description',
@@ -220,9 +219,10 @@
 
     main.append(icon, label);
 
-    const chevron = document.createElement('span');
-    chevron.className = 'rc-product-desc__chevron-wrap';
-    chevron.innerHTML = CHEVRON;
+    const chevron = document.createElement('b');
+    chevron.className = 'rc-product-desc__toggle';
+    chevron.setAttribute('aria-hidden', 'true');
+    chevron.textContent = '+';
 
     summary.append(main, chevron);
     return summary;
