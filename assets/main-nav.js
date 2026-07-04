@@ -1,18 +1,13 @@
 (() => {
-  const nav = document.querySelector('[data-main-nav]');
-
-  if (!nav) return;
-
-  const searchOpen = nav.querySelector('[data-search-open]');
-  const searchClose = nav.querySelector('[data-search-close]');
-  const searchOverlay = nav.querySelector('[data-search-overlay]');
-  const searchInput = nav.querySelector('[data-search-input]');
-  const menuOpens = document.querySelectorAll('[data-menu-open]');
-  const menuClose = nav.querySelector('[data-menu-close]');
-  const menuOverlay = nav.querySelector('[data-menu-overlay]');
-  const menuPanel = nav.querySelector('.rc-menu-overlay__panel');
-
+  let nav = null;
+  let menuOverlay = null;
+  let menuPanel = null;
+  let searchOverlay = null;
+  let searchOpen = null;
+  let searchClose = null;
+  let searchInput = null;
   let lockedScrollY = 0;
+  let bound = false;
 
   const getMenuTop = () => {
     const headerSelectors = ['.announcement-marquee', '.rc-promo-bar', '[data-main-nav]', '.rc-category-nav'];
@@ -28,7 +23,11 @@
       }
     });
 
-    return Math.max(bottom, nav.getBoundingClientRect().bottom);
+    if (nav) {
+      bottom = Math.max(bottom, nav.getBoundingClientRect().bottom);
+    }
+
+    return bottom;
   };
 
   const updateMenuTop = () => {
@@ -67,7 +66,9 @@
   };
 
   const setMenuState = (isOpen) => {
-    if (!menuOverlay || !menuOpens.length) return;
+    if (!menuOverlay) return;
+
+    const triggers = document.querySelectorAll('[data-menu-open]');
 
     if (isOpen) {
       updateMenuTop();
@@ -78,55 +79,103 @@
 
     menuOverlay.classList.toggle('is-open', isOpen);
     menuOverlay.setAttribute('aria-hidden', String(!isOpen));
-    menuOpens.forEach((trigger) => {
+    triggers.forEach((trigger) => {
       trigger.setAttribute('aria-expanded', String(isOpen));
     });
   };
 
   const updateSearchTop = () => {
-    if (!searchOverlay) return;
+    if (!searchOverlay || !nav) return;
     searchOverlay.style.setProperty('--rc-search-top', `${nav.getBoundingClientRect().bottom}px`);
   };
 
   const closeAll = () => {
-    setOverlayState(searchOverlay, searchOpen, false);
+    if (searchOverlay && searchOpen) {
+      setOverlayState(searchOverlay, searchOpen, false);
+    }
     setMenuState(false);
     unlockPageScroll();
   };
 
-  if (searchOpen && searchClose && searchOverlay) {
-    searchOpen.addEventListener('click', () => {
-      setMenuState(false);
-      updateSearchTop();
-      setOverlayState(searchOverlay, searchOpen, true);
-      if (searchInput) window.setTimeout(() => searchInput.focus(), 80);
+  const openMenu = () => {
+    if (searchOverlay && searchOpen) {
+      setOverlayState(searchOverlay, searchOpen, false);
+    }
+    setMenuState(true);
+  };
+
+  const mountOverlay = (overlay) => {
+    if (!overlay || overlay.parentElement === document.body) return;
+    document.body.appendChild(overlay);
+  };
+
+  const bindMenuLinks = () => {
+    if (!menuOverlay) return;
+
+    menuOverlay.querySelectorAll('.rc-menu-overlay__link[href], .rc-menu-overlay__sub a, .rc-menu-overlay__footer a').forEach((link) => {
+      if (link.dataset.menuBound === 'true') return;
+      link.dataset.menuBound = 'true';
+      link.addEventListener('click', closeAll);
+    });
+  };
+
+  const init = () => {
+    nav = document.querySelector('[data-main-nav]');
+    if (!nav) return;
+
+    menuOverlay = nav.querySelector('[data-menu-overlay]');
+    menuPanel = nav.querySelector('.rc-menu-overlay__panel');
+    searchOverlay = nav.querySelector('[data-search-overlay]');
+    searchOpen = nav.querySelector('[data-search-open]');
+    searchClose = nav.querySelector('[data-search-close]');
+    searchInput = nav.querySelector('[data-search-input]');
+
+    mountOverlay(menuOverlay);
+    mountOverlay(searchOverlay);
+    bindMenuLinks();
+
+    if (bound) return;
+    bound = true;
+
+    document.addEventListener('click', (event) => {
+      const openTrigger = event.target.closest('[data-menu-open]');
+      if (openTrigger) {
+        event.preventDefault();
+        openMenu();
+        return;
+      }
+
+      const closeTrigger = event.target.closest('[data-menu-close]');
+      if (closeTrigger) {
+        event.preventDefault();
+        closeAll();
+      }
     });
 
-    searchClose.addEventListener('click', closeAll);
-    searchOverlay.addEventListener('click', (event) => {
-      if (event.target === searchOverlay) closeAll();
-    });
-
-    window.addEventListener('resize', updateSearchTop, { passive: true });
-    window.addEventListener(
-      'scroll',
-      () => {
-        if (searchOverlay.classList.contains('is-open')) updateSearchTop();
-      },
-      { passive: true }
-    );
-  }
-
-  if (menuOpens.length && menuClose && menuOverlay) {
-    menuOpens.forEach((trigger) => {
-      trigger.addEventListener('click', () => {
-        setOverlayState(searchOverlay, searchOpen, false);
-        setMenuState(true);
+    if (searchOpen && searchClose && searchOverlay) {
+      searchOpen.addEventListener('click', () => {
+        setMenuState(false);
+        updateSearchTop();
+        setOverlayState(searchOverlay, searchOpen, true);
+        if (searchInput) window.setTimeout(() => searchInput.focus(), 80);
       });
-    });
 
-    menuClose.addEventListener('click', closeAll);
-    menuOverlay.addEventListener('click', (event) => {
+      searchClose.addEventListener('click', closeAll);
+      searchOverlay.addEventListener('click', (event) => {
+        if (event.target === searchOverlay) closeAll();
+      });
+
+      window.addEventListener('resize', updateSearchTop, { passive: true });
+      window.addEventListener(
+        'scroll',
+        () => {
+          if (searchOverlay.classList.contains('is-open')) updateSearchTop();
+        },
+        { passive: true }
+      );
+    }
+
+    menuOverlay?.addEventListener('click', (event) => {
       if (event.target === menuOverlay) closeAll();
     });
 
@@ -135,15 +184,14 @@
     });
 
     window.addEventListener('resize', () => {
-      if (menuOverlay.classList.contains('is-open')) updateMenuTop();
+      if (menuOverlay?.classList.contains('is-open')) updateMenuTop();
     });
 
-    menuOverlay.querySelectorAll('.rc-menu-overlay__link[href], .rc-menu-overlay__sub a, .rc-menu-overlay__footer a').forEach((link) => {
-      link.addEventListener('click', closeAll);
+    window.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeAll();
     });
-  }
+  };
 
-  window.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') closeAll();
-  });
+  init();
+  document.addEventListener('shopify:section:load', init);
 })();

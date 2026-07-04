@@ -133,7 +133,7 @@
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 99;
+  z-index: 999;
   pointer-events: none;
   visibility: hidden;
 }
@@ -355,7 +355,7 @@
 
 .rc-search-overlay {
   top: 0;
-  z-index: 100;
+  z-index: 1000;
   display: grid;
   place-items: start center;
   padding: 0 16px 16px;
