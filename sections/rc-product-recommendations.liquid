@@ -8,20 +8,19 @@
     assign heading = 'Produits similaires'
   endif
 
-  assign recommended_products = null
+  assign has_recommendations = false
+  assign use_collection_fallback = false
 
   if recommendations.performed and recommendations.products_count > 0
-    assign recommended_products = recommendations.products
-  elsif recommendations.performed and recommendations.products_count == 0 and current_product != blank
-    if current_product.collections.size > 0
-      assign source_collection = current_product.collections.first
-      assign recommended_products = source_collection.products | where_exp: 'item', 'item.id != current_product.id'
-    endif
+    assign has_recommendations = true
+  elsif recommendations.performed and recommendations.products_count == 0 and current_product != blank and current_product.collections.size > 0
+    assign use_collection_fallback = true
+    assign source_collection = current_product.collections.first
   endif
 %}
 
 <rc-product-recommendations
-  class="rc-best-sellers rc-product-recommendations{% if recommended_products == blank or recommended_products.size == 0 %} is-loading{% endif %}"
+  class="rc-best-sellers rc-product-recommendations{% unless has_recommendations or use_collection_fallback %} is-loading{% endunless %}"
   id="rc-product-recommendations-{{ section.id }}"
   data-rc-product-slider
   data-url="{{ routes.product_recommendations_url }}?limit={{ section.settings.max_products }}"
@@ -40,9 +39,20 @@
     <button class="rc-best-sellers__arrow rc-best-sellers__arrow--prev" type="button" data-slider-prev aria-label="Produits précédents">←</button>
 
     <div class="rc-best-sellers__track" data-slider-track tabindex="0" aria-label="{{ heading | escape }}">
-      {% if recommended_products != blank and recommended_products.size > 0 %}
-        {% for item in recommended_products limit: section.settings.max_products %}
+      {% if has_recommendations %}
+        {% for item in recommendations.products limit: section.settings.max_products %}
           {% render 'rc-product-card', product: item %}
+        {% endfor %}
+      {% elsif use_collection_fallback %}
+        {% assign rendered_count = 0 %}
+        {% for item in source_collection.products %}
+          {% if item.id != current_product.id %}
+            {% render 'rc-product-card', product: item %}
+            {% assign rendered_count = rendered_count | plus: 1 %}
+            {% if rendered_count >= section.settings.max_products %}
+              {% break %}
+            {% endif %}
+          {% endif %}
         {% endfor %}
       {% elsif recommendations.performed == false %}
         {% for index in (1..4) %}
