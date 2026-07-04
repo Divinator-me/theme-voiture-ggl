@@ -1,13 +1,14 @@
 .rc-best-sellers {
   position: relative;
-  padding: 28px 16px 36px;
+  padding: 28px 0 36px;
   background: var(--color-white);
   color: var(--color-black);
+  overflow: hidden;
 }
 
 .rc-best-sellers__header {
-  max-width: 1280px;
-  margin: 0 auto 22px;
+  margin: 0 0 18px;
+  padding: 0 14px;
 }
 
 .rc-best-sellers__header h2 {
@@ -36,18 +37,17 @@
 
 .rc-best-sellers__shell {
   position: relative;
-  max-width: 1280px;
-  margin: 0 auto;
 }
 
 .rc-best-sellers__track {
   display: grid;
   grid-auto-columns: minmax(220px, 72vw);
   grid-auto-flow: column;
-  gap: 14px;
+  gap: 10px;
   overflow-x: auto;
-  padding: 2px 0 12px;
+  padding: 0 14px 4px;
   scroll-behavior: smooth;
+  scroll-padding-inline: 14px;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
 }
@@ -275,16 +275,30 @@
 
 @media (min-width: 750px) {
   .rc-best-sellers {
-    padding: 36px 24px 44px;
+    padding: 36px 0 44px;
+  }
+
+  .rc-best-sellers__header {
+    max-width: 1280px;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 0 24px;
   }
 
   .rc-best-sellers__card h3 {
     font-size: 16px;
   }
 
+  .rc-best-sellers__shell {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
   .rc-best-sellers__track {
     grid-auto-columns: minmax(240px, 30%);
-    gap: 18px;
+    gap: 12px;
+    padding: 0 24px 4px;
+    scroll-padding-inline: 24px;
   }
 }
 
