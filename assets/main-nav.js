@@ -7,7 +7,7 @@
   const searchClose = nav.querySelector('[data-search-close]');
   const searchOverlay = nav.querySelector('[data-search-overlay]');
   const searchInput = nav.querySelector('[data-search-input]');
-  const menuOpen = nav.querySelector('[data-menu-open]');
+  const menuOpens = document.querySelectorAll('[data-menu-open]');
   const menuClose = nav.querySelector('[data-menu-close]');
   const menuOverlay = nav.querySelector('[data-menu-overlay]');
   const menuPanel = nav.querySelector('.rc-menu-overlay__panel');
@@ -15,7 +15,7 @@
   let lockedScrollY = 0;
 
   const getMenuTop = () => {
-    const headerSelectors = ['.announcement-marquee', '.rc-promo-bar', '[data-main-nav]'];
+    const headerSelectors = ['.announcement-marquee', '.rc-promo-bar', '[data-main-nav]', '.rc-category-nav'];
     let bottom = 0;
 
     headerSelectors.forEach((selector) => {
@@ -67,7 +67,7 @@
   };
 
   const setMenuState = (isOpen) => {
-    if (!menuOverlay || !menuOpen) return;
+    if (!menuOverlay || !menuOpens.length) return;
 
     if (isOpen) {
       updateMenuTop();
@@ -76,7 +76,11 @@
       unlockPageScroll();
     }
 
-    setOverlayState(menuOverlay, menuOpen, isOpen);
+    menuOverlay.classList.toggle('is-open', isOpen);
+    menuOverlay.setAttribute('aria-hidden', String(!isOpen));
+    menuOpens.forEach((trigger) => {
+      trigger.setAttribute('aria-expanded', String(isOpen));
+    });
   };
 
   const updateSearchTop = () => {
@@ -113,10 +117,12 @@
     );
   }
 
-  if (menuOpen && menuClose && menuOverlay) {
-    menuOpen.addEventListener('click', () => {
-      setOverlayState(searchOverlay, searchOpen, false);
-      setMenuState(true);
+  if (menuOpens.length && menuClose && menuOverlay) {
+    menuOpens.forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        setOverlayState(searchOverlay, searchOpen, false);
+        setMenuState(true);
+      });
     });
 
     menuClose.addEventListener('click', closeAll);
