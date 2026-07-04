@@ -202,12 +202,9 @@
   display: block;
   width: 18px;
   height: 18px;
-  overflow: hidden;
   border: 1px solid rgb(0 0 0 / 12%);
   border-radius: 50%;
-  background: var(--swatch-background, var(--color-gray-200));
-  background-position: center;
-  background-size: cover;
+  background-color: var(--swatch-background, var(--color-gray-200));
 }
 
 .rc-best-sellers__color.is-light {

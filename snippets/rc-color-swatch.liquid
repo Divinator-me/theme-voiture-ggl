@@ -1,54 +1,32 @@
 {%- doc -%}
-  Pastille couleur pour les cartes produit RC.
-  Priorité : swatch Shopify → image variante → nom de couleur → gris.
+  Pastille couleur unie pour les cartes produit RC.
+  Jamais d'image produit — uniquement la couleur de la variante.
 {%- enddoc -%}
 
 {% liquid
   assign swatch_background = null
   assign color_name = value.name | downcase | strip
-  assign swatch_option_key = 'option' | append: color_option.position
 
-  if value.swatch.image
-    assign swatch_image_url = value.swatch.image | image_url: width: 40
-    assign swatch_background = 'url(' | append: swatch_image_url | append: ')'
-  elsif value.swatch.color
+  if value.swatch.color
     assign swatch_background = 'rgb(' | append: value.swatch.color.rgb | append: ')'
   endif
 
   if swatch_background == null
-    assign variant_image = value.variant.featured_image
-
-    if variant_image == blank
-      for variant in product.variants
-        if variant[swatch_option_key] == value.name and variant.featured_image
-          assign variant_image = variant.featured_image
-          break
-        endif
-      endfor
-    endif
-
-    if variant_image
-      assign swatch_image_url = variant_image | image_url: width: 40
-      assign swatch_background = 'url(' | append: swatch_image_url | append: ')'
-    endif
-  endif
-
-  if swatch_background == null
-    if color_name contains 'rouge' or color_name contains 'red'
+    if color_name == 'rouge' or color_name contains 'rouge' or color_name == 'red' or color_name contains 'red'
       assign swatch_background = '#FF2D2D'
-    elsif color_name contains 'noir' or color_name contains 'black'
-      assign swatch_background = '#0A0A0A'
-    elsif color_name contains 'blanc' or color_name contains 'white'
-      assign swatch_background = '#FFFFFF'
-    elsif color_name contains 'bleu' or color_name contains 'blue'
-      assign swatch_background = '#2563EB'
-    elsif color_name contains 'vert' or color_name contains 'green'
+    elsif color_name == 'vert' or color_name contains 'vert' or color_name == 'green' or color_name contains 'green'
       assign swatch_background = '#16A34A'
+    elsif color_name == 'noir' or color_name contains 'noir' or color_name == 'black' or color_name contains 'black'
+      assign swatch_background = '#0A0A0A'
+    elsif color_name == 'blanc' or color_name contains 'blanc' or color_name == 'white' or color_name contains 'white'
+      assign swatch_background = '#FFFFFF'
+    elsif color_name == 'bleu' or color_name contains 'bleu' or color_name == 'blue' or color_name contains 'blue'
+      assign swatch_background = '#2563EB'
     elsif color_name contains 'orange'
       assign swatch_background = '#FF6B00'
-    elsif color_name contains 'jaune' or color_name contains 'yellow'
+    elsif color_name == 'jaune' or color_name contains 'jaune' or color_name == 'yellow' or color_name contains 'yellow'
       assign swatch_background = '#FACC15'
-    elsif color_name contains 'gris' or color_name contains 'gray' or color_name contains 'grey'
+    elsif color_name == 'gris' or color_name contains 'gris' or color_name contains 'gray' or color_name contains 'grey'
       assign swatch_background = '#737373'
     elsif color_name contains 'violet' or color_name contains 'purple'
       assign swatch_background = '#7C3AED'
@@ -65,7 +43,7 @@
 %}
 
 <span
-  class="rc-best-sellers__color{% if swatch_background == '#FFFFFF' %} is-light{% endif %}"
+  class="rc-best-sellers__color{% if swatch_background == '#FFFFFF' or swatch_background == '#FACC15' %} is-light{% endif %}"
   title="{{ value.name }}"
   {% if swatch_background %}
     style="--swatch-background: {{ swatch_background }};"
