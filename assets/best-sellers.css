@@ -219,14 +219,16 @@
   border: 0;
   border-radius: var(--radius-sm);
   margin-top: 10px;
-  padding: 12px 14px;
+  padding: 7px 10px;
   background: var(--color-black);
   color: var(--color-white);
   cursor: pointer;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 800;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.04em;
+  line-height: 1;
   text-transform: uppercase;
+  white-space: nowrap;
   transition: background 0.25s var(--ease-smooth);
 }
 
@@ -252,15 +254,17 @@
   width: 100%;
   border: 0;
   border-radius: var(--radius-sm);
-  margin-top: 12px;
-  padding: 12px 14px;
+  margin-top: 10px;
+  padding: 7px 10px;
   background: var(--color-gray-200);
   color: var(--color-gray-500);
   cursor: not-allowed;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 800;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.04em;
+  line-height: 1;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .rc-best-sellers__arrow {
