@@ -496,20 +496,19 @@
 
   .rc-main-nav__search-submit {
     position: absolute;
-    right: 4px;
+    right: 5px;
     display: grid;
-    width: 40px;
-    height: 40px;
+    width: 38px;
+    height: 38px;
     border: 0;
-    border-radius: 4px;
+    border-radius: 50%;
     place-items: center;
     background: var(--color-red);
     color: var(--color-white);
     cursor: pointer;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
     line-height: 1;
-    transform: skewX(-14deg);
     transition: background 0.2s var(--ease-smooth);
   }
 
@@ -522,6 +521,10 @@
     flex-shrink: 0;
     gap: 8px;
     align-items: center;
+  }
+
+  .rc-main-nav a.rc-main-nav__pill {
+    color: var(--color-white);
   }
 
   .rc-main-nav__pill {
