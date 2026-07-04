@@ -1,0 +1,28 @@
+{
+  "type": "header",
+  "name": "RC Header",
+  "sections": {
+    "announcement_marquee": {
+      "type": "announcement-marquee",
+      "settings": {}
+    },
+    "promo_bar": {
+      "type": "promo-bar",
+      "settings": {}
+    },
+    "main_nav": {
+      "type": "main-nav",
+      "settings": {}
+    },
+    "category_nav": {
+      "type": "category-nav",
+      "settings": {}
+    }
+  },
+  "order": [
+    "announcement_marquee",
+    "promo_bar",
+    "main_nav",
+    "category_nav"
+  ]
+}

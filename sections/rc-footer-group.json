@@ -1,0 +1,13 @@
+{
+  "type": "footer",
+  "name": "RC Footer",
+  "sections": {
+    "footer_rc": {
+      "type": "footer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "footer_rc"
+  ]
+}

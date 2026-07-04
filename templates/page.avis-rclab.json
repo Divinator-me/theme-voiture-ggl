@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "avis_rc": {
+      "type": "avis-rc",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "avis_rc"
+  ]
+}

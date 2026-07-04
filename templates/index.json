@@ -9,22 +9,6 @@
  */
 {
   "sections": {
-    "announcement_marquee": {
-      "type": "announcement-marquee",
-      "settings": {}
-    },
-    "promo_bar": {
-      "type": "promo-bar",
-      "settings": {}
-    },
-    "main_nav": {
-      "type": "main-nav",
-      "settings": {}
-    },
-    "category_nav": {
-      "type": "category-nav",
-      "settings": {}
-    },
     "hero": {
       "type": "hero",
       "settings": {}
@@ -48,23 +32,14 @@
     "trust_end": {
       "type": "trust-end",
       "settings": {}
-    },
-    "footer": {
-      "type": "footer",
-      "settings": {}
     }
   },
   "order": [
-    "announcement_marquee",
-    "promo_bar",
-    "main_nav",
-    "category_nav",
     "hero",
     "best_sellers",
     "categories_grid",
     "faq_rc",
     "story_rc",
-    "trust_end",
-    "footer"
+    "trust_end"
   ]
 }

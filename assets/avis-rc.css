@@ -1,0 +1,151 @@
+.rc-avis {
+  padding: 36px 14px 48px;
+  background: var(--color-white);
+  color: var(--color-black);
+}
+
+.rc-avis__inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.rc-avis__header {
+  margin-bottom: 22px;
+}
+
+.rc-avis__badge {
+  display: inline-flex;
+  margin-bottom: 10px;
+  padding: 6px 10px;
+  background: var(--color-red);
+  color: var(--color-white);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.rc-avis__header h1 {
+  position: relative;
+  width: fit-content;
+  margin: 0;
+  padding-bottom: 10px;
+  font-family: var(--font-display);
+  font-size: clamp(40px, 9vw, 56px);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.rc-avis__header h1::after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: var(--color-red);
+  content: "";
+}
+
+.rc-avis__header p {
+  max-width: 520px;
+  margin: 14px 0 0;
+  color: var(--color-gray-500);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.rc-avis__summary {
+  display: grid;
+  gap: 4px;
+  margin-bottom: 18px;
+  padding: 16px;
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-md);
+  background: var(--color-gray-50);
+}
+
+.rc-avis__score {
+  margin: 0;
+  color: var(--color-red);
+  font-family: var(--font-display);
+  font-size: 42px;
+  font-style: italic;
+  line-height: 1;
+}
+
+.rc-avis__score span {
+  color: var(--color-black);
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.rc-avis__count {
+  margin: 0;
+  color: var(--color-gray-500);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.rc-avis__list {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rc-avis__card {
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  background: var(--color-white);
+}
+
+.rc-avis__stars {
+  display: inline-flex;
+  gap: 2px;
+  color: #f5a623;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.rc-avis__star {
+  color: rgb(245 166 35 / 28%);
+}
+
+.rc-avis__star.is-filled {
+  color: #f5a623;
+}
+
+.rc-avis__quote {
+  margin: 12px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.55;
+}
+
+.rc-avis__author {
+  margin: 10px 0 0;
+  color: var(--color-gray-500);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+@media (min-width: 750px) {
+  .rc-avis {
+    padding: 48px 24px 64px;
+  }
+
+  .rc-avis__list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+}
