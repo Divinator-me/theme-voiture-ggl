@@ -208,6 +208,10 @@
     white-space: nowrap;
   }
 
+  .rc-promo-bar__origin-mark {
+    color: var(--color-red);
+  }
+
   .rc-promo-bar__center {
     display: flex;
     flex-wrap: nowrap;
