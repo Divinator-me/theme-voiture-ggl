@@ -328,6 +328,10 @@
               },
               "block_order": []
             },
+            "vitals_payment_logos_Dtj4E6": {
+              "type": "shopify://apps/vitals/blocks/payment-logos/aeb48102-2a5a-4f39-bdbd-d8d49f4e20b8",
+              "settings": {}
+            },
             "text_aEtTtq": {
               "type": "text",
               "name": "Product description",
@@ -363,6 +367,7 @@
             "variant_picker_batteries",
             "custom_liquid_ma39Xw",
             "buy_buttons_eYQEYi",
+            "vitals_payment_logos_Dtj4E6",
             "text_aEtTtq"
           ]
         }
