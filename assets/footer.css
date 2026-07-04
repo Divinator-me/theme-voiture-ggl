@@ -34,7 +34,7 @@
 
 .rc-footer__grid {
   display: grid;
-  gap: 12px;
+  gap: 28px;
   max-width: 1280px;
   margin: 0 auto;
 }
@@ -81,18 +81,19 @@
 }
 
 .rc-footer h2 {
-  margin: 0 0 18px;
+  margin: 0;
   color: var(--color-white);
   font-family: var(--font-display);
-  font-size: 24px;
+  font-size: 22px;
   font-style: italic;
   font-weight: 400;
   letter-spacing: -0.02em;
-  line-height: 0.95;
+  line-height: 1;
   text-transform: uppercase;
 }
 
-.rc-footer__col {
+.rc-footer__col,
+.rc-footer__newsletter {
   display: grid;
   gap: 10px;
   align-content: start;
@@ -120,19 +121,15 @@
   transform: translate3d(3px, 0, 0);
 }
 
-.rc-footer__newsletter {
-  padding: 0;
-}
-
 .rc-footer__newsletter p {
-  margin-top: 0;
+  margin: 0;
 }
 
 .rc-footer__form {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-top: 18px;
+  margin: 0;
 }
 
 .rc-footer__form input {
@@ -204,7 +201,8 @@
 
   .rc-footer__grid {
     grid-template-columns: 1.25fr 0.8fr 0.8fr 1.2fr;
-    gap: 14px;
+    gap: 32px 40px;
+    align-items: start;
   }
 
   .rc-footer__form {
