@@ -1,0 +1,41 @@
+{{ 'contact-rc.css' | asset_url | stylesheet_tag }}
+
+<section class="rc-contact" aria-label="Contact RCLAB">
+  <div class="rc-contact__inner">
+    <header class="rc-contact__header">
+      <span class="rc-contact__badge">Support</span>
+      <h1>Contact</h1>
+    </header>
+
+    <div class="rc-contact__service">
+      <p class="rc-contact__lead">Service client Français</p>
+
+      <ul class="rc-contact__meta">
+        <li class="rc-contact__meta-item">
+          <span class="rc-contact__meta-value">7j/7</span>
+          <span class="rc-contact__meta-label">Disponible</span>
+        </li>
+        <li class="rc-contact__meta-item" aria-hidden="true">
+          <span class="rc-contact__meta-divider"></span>
+        </li>
+        <li class="rc-contact__meta-item">
+          <span class="rc-contact__meta-value">9h–19h</span>
+          <span class="rc-contact__meta-label">Horaires</span>
+        </li>
+      </ul>
+
+      <p class="rc-contact__channels">Par email · téléphone · chat en direct</p>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact RCLAB",
+  "presets": [
+    {
+      "name": "Contact RCLAB"
+    }
+  ]
+}
+{% endschema %}
