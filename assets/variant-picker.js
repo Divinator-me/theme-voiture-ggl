@@ -435,7 +435,11 @@ export default class VariantPicker extends Component {
     /** @type {NewProduct | undefined} */
     let newProduct;
 
-    const newVariantPickerSource = newHtml.querySelector(this.tagName.toLowerCase());
+    const blockId = this.dataset.blockId;
+    const pickerSelector = blockId
+      ? `${this.tagName.toLowerCase()}[data-block-id="${blockId}"]`
+      : this.tagName.toLowerCase();
+    const newVariantPickerSource = newHtml.querySelector(pickerSelector);
 
     if (!newVariantPickerSource) {
       throw new Error('No new variant picker source found');
@@ -525,6 +529,44 @@ export default class VariantPicker extends Component {
   }
 
   /**
+   * @returns {VariantPicker[]}
+   */
+  #getSiblingVariantPickers() {
+    const productId = this.dataset.productId;
+    if (!productId) return [this];
+
+    const scope =
+      this.closest('.product-details') ??
+      this.closest('product-information-component') ??
+      this.closest('featured-product-information') ??
+      document;
+
+    const pickers = Array.from(scope.querySelectorAll(`variant-picker[data-product-id="${productId}"]`)).filter(
+      (picker) => picker instanceof VariantPicker
+    );
+
+    return pickers.length ? pickers : [this];
+  }
+
+  /**
+   * @returns {HTMLElement[]}
+   */
+  #getSelectedOptionElements() {
+    /** @type {HTMLElement[]} */
+    const selectedOptions = [];
+
+    for (const picker of this.#getSiblingVariantPickers()) {
+      selectedOptions.push(...Array.from(picker.querySelectorAll('select option[selected], fieldset input:checked')));
+    }
+
+    return selectedOptions.sort((a, b) => {
+      const positionA = Number.parseInt(a.dataset.inputId?.split('-')[0] ?? '0', 10);
+      const positionB = Number.parseInt(b.dataset.inputId?.split('-')[0] ?? '0', 10);
+      return positionA - positionB;
+    });
+  }
+
+  /**
    * Gets all the selected options.
    * @returns {{name: string, value: string}[]} All the currently selected options.
    */
@@ -532,21 +574,20 @@ export default class VariantPicker extends Component {
     /** @type {{name: string, value: string}[]} */
     const options = [];
 
-    // For <select> elements, use .selectedOptions to get the current selection
-    // (the [selected] HTML attribute only reflects the initial state, not user changes)
-    for (const select of this.querySelectorAll('select')) {
-      const selected = select.selectedOptions[0];
-      if (selected?.dataset?.optionName) {
-        options.push({ name: selected.dataset.optionName, value: selected.value });
+    for (const picker of this.#getSiblingVariantPickers()) {
+      for (const select of picker.querySelectorAll('select')) {
+        const selected = select.selectedOptions[0];
+        if (selected?.dataset?.optionName) {
+          options.push({ name: selected.dataset.optionName, value: selected.value });
+        }
       }
-    }
 
-    // For radio/checkbox fieldsets, :checked reflects the current state
-    /** @type {NodeListOf<HTMLInputElement>} */
-    const checkedInputs = this.querySelectorAll('fieldset input:checked');
-    for (const input of checkedInputs) {
-      if (input.dataset?.optionName) {
-        options.push({ name: input.dataset.optionName, value: input.value });
+      /** @type {NodeListOf<HTMLInputElement>} */
+      const checkedInputs = picker.querySelectorAll('fieldset input:checked');
+      for (const input of checkedInputs) {
+        if (input.dataset?.optionName) {
+          options.push({ name: input.dataset.optionName, value: input.value });
+        }
       }
     }
 
@@ -574,10 +615,7 @@ export default class VariantPicker extends Component {
    * @returns {string[]} The selected options values.
    */
   get selectedOptionsValues() {
-    /** @type HTMLElement[] */
-    const selectedOptions = Array.from(this.querySelectorAll('select option[selected], fieldset input:checked'));
-
-    return selectedOptions.map((option) => {
+    return this.#getSelectedOptionElements().map((option) => {
       const { optionValueId } = option.dataset;
 
       if (!optionValueId) throw new Error('No option value ID found');
