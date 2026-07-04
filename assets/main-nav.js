@@ -7,7 +7,7 @@
   const searchClose = nav.querySelector('[data-search-close]');
   const searchOverlay = nav.querySelector('[data-search-overlay]');
   const searchInput = nav.querySelector('[data-search-input]');
-  const menuOpenTriggers = document.querySelectorAll('[data-menu-open]');
+  const menuOpen = nav.querySelector('[data-menu-open]');
   const menuClose = nav.querySelector('[data-menu-close]');
   const menuOverlay = nav.querySelector('[data-menu-overlay]');
   const menuPanel = nav.querySelector('.rc-menu-overlay__panel');
@@ -67,7 +67,7 @@
   };
 
   const setMenuState = (isOpen) => {
-    if (!menuOverlay || !menuOpenTriggers.length) return;
+    if (!menuOverlay || !menuOpen) return;
 
     if (isOpen) {
       updateMenuTop();
@@ -76,9 +76,7 @@
       unlockPageScroll();
     }
 
-    menuOpenTriggers.forEach((trigger) => {
-      setOverlayState(menuOverlay, trigger, isOpen);
-    });
+    setOverlayState(menuOverlay, menuOpen, isOpen);
   };
 
   const updateSearchTop = () => {
@@ -115,12 +113,10 @@
     );
   }
 
-  if (menuOpenTriggers.length && menuClose && menuOverlay) {
-    menuOpenTriggers.forEach((trigger) => {
-      trigger.addEventListener('click', () => {
-        setOverlayState(searchOverlay, searchOpen, false);
-        setMenuState(true);
-      });
+  if (menuOpen && menuClose && menuOverlay) {
+    menuOpen.addEventListener('click', () => {
+      setOverlayState(searchOverlay, searchOpen, false);
+      setMenuState(true);
     });
 
     menuClose.addEventListener('click', closeAll);
