@@ -1,7 +1,9 @@
 {{ 'featured-products.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'featured-products.js' | asset_url }}" defer></script>
 
-<section class="rc-featured" id="top-ventes" data-featured-products>
+{% assign selected_products = section.settings.products %}
+
+<section class="rc-featured" data-featured-products>
   <div class="rc-featured__header">
     <h2>Top ventes</h2>
     <span>🔥 Hot</span>
@@ -10,7 +12,13 @@
   <div class="rc-featured__shell">
     <button class="rc-featured__arrow rc-featured__arrow--prev" type="button" data-slider-prev aria-label="Produits précédents">←</button>
     <div class="rc-featured__track" data-slider-track tabindex="0" aria-label="Slider top ventes">
-      {% for product in collections.all.products limit: 6 %}
+      {% if selected_products != blank and selected_products.size > 0 %}
+        {% assign products = selected_products %}
+      {% else %}
+        {% assign products = collections.all.products %}
+      {% endif %}
+
+      {% for product in products limit: 6 %}
         <article class="rc-product-card">
           <a class="rc-product-card__image" href="{{ product.url }}" aria-label="{{ product.title | escape }}">
             {% if product.featured_image %}
@@ -70,6 +78,14 @@
 {% schema %}
 {
   "name": "Featured products RC",
+  "settings": [
+    {
+      "type": "product_list",
+      "id": "products",
+      "label": "Produits",
+      "limit": 6
+    }
+  ],
   "presets": [
     {
       "name": "Featured products RC"
