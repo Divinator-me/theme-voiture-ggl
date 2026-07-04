@@ -332,29 +332,12 @@
               "type": "shopify://apps/vitals/blocks/payment-logos/aeb48102-2a5a-4f39-bdbd-d8d49f4e20b8",
               "settings": {}
             },
-            "text_aEtTtq": {
-              "type": "text",
-              "name": "Product description",
+            "rc_product_description": {
+              "type": "rc-product-description",
+              "name": "Description produit RC",
               "settings": {
-                "text": "{{ closest.product.description }}",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-primary--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "text_color": "",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "default_livraison": "<p><strong>Livraison</strong></p><ul><li>Livraison offerte en France : 4 à 8 jours</li><li>Livraison Suivie et assurée à Domicile avec : Colissimo / DHL / Fedex / Chronopost ou en Point Relai</li></ul><p><strong>Retours</strong></p><ul><li>30 jours pour changer d'avis</li><li>Produit non utilisé, complet et dans son emballage d'origine</li></ul>",
+                "default_garantie": "<p>Tous nos modèles sont couverts par une <strong>garantie 2 ans</strong> sur les défauts de fabrication et les pièces couvertes.</p><p>En cas de problème en usage normal, contacte le SAV avec une photo ou une vidéo. On te guide vers la solution la plus rapide.</p>"
               },
               "blocks": {}
             }
@@ -368,7 +351,7 @@
             "custom_liquid_ma39Xw",
             "buy_buttons_eYQEYi",
             "vitals_payment_logos_Dtj4E6",
-            "text_aEtTtq"
+            "rc_product_description"
           ]
         }
       },
