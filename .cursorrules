@@ -23,3 +23,9 @@ NE JAMAIS :
 - Toucher au checkout
 - Modifier la logique produit/panier de base sans que je le demande
 - Utiliser des CDN externes pour libs critiques (préférer /assets)
+
+HANDLES COLLECTIONS SHOPIFY (URLs /collections/{handle}) :
+- Monster Truck / 4x4 → monster-truck-4x4
+- Rallye / Trophy Truck → rallye-trophy
+- Buggy → buggy | Crawler → crawler | Drift → drift | Piste → piste
+- Source unique des liens nav : snippets/rc-nav-collections.liquid
