@@ -146,14 +146,15 @@
 .rc-best-sellers__card h3 {
   margin: 0;
   color: var(--color-black);
+  font-family: var(--font-body);
   font-size: 14px;
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1.35;
 }
 
 .rc-best-sellers__card h3 a {
   color: inherit;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .rc-best-sellers__rating {
