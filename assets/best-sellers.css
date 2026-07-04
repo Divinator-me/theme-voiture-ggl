@@ -68,12 +68,17 @@
   position: relative;
 }
 
-.rc-best-sellers__image {
-  display: grid;
+.rc-best-sellers__image-wrap {
+  position: relative;
   aspect-ratio: 1;
   overflow: hidden;
-  place-items: center;
   background: var(--color-white);
+}
+
+.rc-best-sellers__image {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .rc-best-sellers__image svg {
@@ -100,6 +105,8 @@
   height: 34px;
   border: 0;
   border-radius: 50%;
+  margin: 0;
+  padding: 0;
   place-items: center;
   background: var(--color-white);
   box-shadow: 0 4px 14px rgb(0 0 0 / 12%);

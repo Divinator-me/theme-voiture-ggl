@@ -29,39 +29,41 @@
 
           <article class="rc-best-sellers__card rc-best-sellers__card--live">
             <div class="rc-best-sellers__media">
-              <a class="rc-best-sellers__image" href="{{ product.url }}" aria-label="{{ product.title | escape }}">
-                {% if product.featured_image %}
-                  {{
-                    product.featured_image
-                    | image_url: width: 700
-                    | image_tag:
-                      loading: 'lazy',
-                      widths: '320, 480, 700',
-                      sizes: '(min-width: 990px) 28vw, 72vw',
-                      alt: product.title
-                  }}
-                {% else %}
-                  <svg viewBox="0 0 260 260" aria-hidden="true">
-                    <rect width="260" height="260" rx="18" fill="#F4F4F4"/>
-                    <path d="M54 158c8-31 32-49 72-55l59-8c23-3 44 10 53 31l12 32h-41c-7-17-23-28-42-28s-35 11-42 28H96c-7-17-23-28-42-28-18 0-34 11-41 28h41Z" fill="#0A0A0A"/>
-                    <circle cx="74" cy="171" r="26" fill="#FF2D2D"/>
-                    <circle cx="176" cy="171" r="26" fill="#FF2D2D"/>
-                  </svg>
-                {% endif %}
-              </a>
+              <div class="rc-best-sellers__image-wrap">
+                <a class="rc-best-sellers__image" href="{{ product.url }}" aria-label="{{ product.title | escape }}">
+                  {% if product.featured_image %}
+                    {{
+                      product.featured_image
+                      | image_url: width: 700
+                      | image_tag:
+                        loading: 'lazy',
+                        widths: '320, 480, 700',
+                        sizes: '(min-width: 990px) 28vw, 72vw',
+                        alt: product.title
+                    }}
+                  {% else %}
+                    <svg viewBox="0 0 260 260" aria-hidden="true">
+                      <rect width="260" height="260" rx="18" fill="#F4F4F4"/>
+                      <path d="M54 158c8-31 32-49 72-55l59-8c23-3 44 10 53 31l12 32h-41c-7-17-23-28-42-28s-35 11-42 28H96c-7-17-23-28-42-28-18 0-34 11-41 28h41Z" fill="#0A0A0A"/>
+                      <circle cx="74" cy="171" r="26" fill="#FF2D2D"/>
+                      <circle cx="176" cy="171" r="26" fill="#FF2D2D"/>
+                    </svg>
+                  {% endif %}
+                </a>
 
-              <button
-                type="button"
-                class="rc-best-sellers__wishlist"
-                data-wishlist-toggle
-                data-product-id="{{ product.id }}"
-                aria-label="Ajouter {{ product.title | escape }} aux favoris"
-                aria-pressed="false"
-              >
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M20.8 4.6c-1.8-1.7-4.7-1.7-6.5.1L12 7l-2.3-2.3c-1.8-1.8-4.7-1.8-6.5-.1-1.9 1.8-2 4.9-.1 6.8L12 20l8.9-8.6c1.9-1.9 1.8-5-.1-6.8Z"></path>
-                </svg>
-              </button>
+                <button
+                  type="button"
+                  class="rc-best-sellers__wishlist"
+                  data-wishlist-toggle
+                  data-product-id="{{ product.id }}"
+                  aria-label="Ajouter {{ product.title | escape }} aux favoris"
+                  aria-pressed="false"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20.8 4.6c-1.8-1.7-4.7-1.7-6.5.1L12 7l-2.3-2.3c-1.8-1.8-4.7-1.8-6.5-.1-1.9 1.8-2 4.9-.1 6.8L12 20l8.9-8.6c1.9-1.9 1.8-5-.1-6.8Z"></path>
+                  </svg>
+                </button>
+              </div>
             </div>
 
             <div class="rc-best-sellers__body">
