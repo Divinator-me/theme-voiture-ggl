@@ -1,0 +1,112 @@
+{{ 'best-sellers.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'rc-product-recommendations.js' | asset_url }}" defer></script>
+
+{% liquid
+  assign current_product = section.settings.product | default: product
+  assign heading = section.settings.title
+  if heading == blank
+    assign heading = 'Produits similaires'
+  endif
+
+  assign recommended_products = null
+
+  if recommendations.performed and recommendations.products_count > 0
+    assign recommended_products = recommendations.products
+  elsif recommendations.performed and recommendations.products_count == 0 and current_product != blank
+    if current_product.collections.size > 0
+      assign source_collection = current_product.collections.first
+      assign recommended_products = source_collection.products | where_exp: 'item', 'item.id != current_product.id'
+    endif
+  endif
+%}
+
+<rc-product-recommendations
+  class="rc-best-sellers rc-product-recommendations{% if recommended_products == blank or recommended_products.size == 0 %} is-loading{% endif %}"
+  id="rc-product-recommendations-{{ section.id }}"
+  data-rc-product-slider
+  data-url="{{ routes.product_recommendations_url }}?limit={{ section.settings.max_products }}"
+  data-section-id="{{ section.id }}"
+  data-product-id="{{ current_product.id }}"
+  data-intent="{{ section.settings.recommendation_type }}"
+  data-recommendations-performed="{{ recommendations.performed }}"
+  aria-label="{{ heading | escape }}"
+  {{ section.shopify_attributes }}
+>
+  <div class="rc-best-sellers__header">
+    <h2>{{ heading }}</h2>
+  </div>
+
+  <div class="rc-best-sellers__shell">
+    <button class="rc-best-sellers__arrow rc-best-sellers__arrow--prev" type="button" data-slider-prev aria-label="Produits précédents">←</button>
+
+    <div class="rc-best-sellers__track" data-slider-track tabindex="0" aria-label="{{ heading | escape }}">
+      {% if recommended_products != blank and recommended_products.size > 0 %}
+        {% for item in recommended_products limit: section.settings.max_products %}
+          {% render 'rc-product-card', product: item %}
+        {% endfor %}
+      {% elsif recommendations.performed == false %}
+        {% for index in (1..4) %}
+          <article class="rc-best-sellers__card rc-product-recommendations__skeleton" aria-hidden="true">
+            <div class="rc-best-sellers__media">
+              <div class="rc-best-sellers__image-wrap">
+                <div class="rc-best-sellers__image"></div>
+              </div>
+            </div>
+            <div class="rc-best-sellers__body">
+              <h3>&nbsp;</h3>
+              <p class="rc-best-sellers__price">&nbsp;</p>
+            </div>
+          </article>
+        {% endfor %}
+      {% endif %}
+    </div>
+
+    <button class="rc-best-sellers__arrow rc-best-sellers__arrow--next" type="button" data-slider-next aria-label="Produits suivants">→</button>
+  </div>
+</rc-product-recommendations>
+
+{% schema %}
+{
+  "name": "Recommandations RC",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Produit"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre de section",
+      "default": "Nos autres monster truck"
+    },
+    {
+      "type": "select",
+      "id": "recommendation_type",
+      "label": "Type",
+      "options": [
+        { "value": "related", "label": "Produits similaires" },
+        { "value": "complementary", "label": "Produits complémentaires" }
+      ],
+      "default": "related"
+    },
+    {
+      "type": "range",
+      "id": "max_products",
+      "label": "Nombre de produits",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "default": 8
+    }
+  ],
+  "presets": [
+    {
+      "name": "Recommandations RC"
+    }
+  ]
+}
+{% endschema %}

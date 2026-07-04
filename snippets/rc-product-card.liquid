@@ -1,0 +1,110 @@
+{%- doc -%}
+  Carte produit RC — design partagé (meilleures ventes, recommandations produit).
+{%- enddoc -%}
+
+{% liquid
+  assign rating_value = product.metafields.reviews.rating.value.rating
+  assign rating_count = product.metafields.reviews.rating_count
+  assign color_option = null
+
+  for option in product.options_with_values
+    assign option_name = option.name | downcase
+    if option_name contains 'couleur' or option_name contains 'color' or option_name contains 'colour'
+      assign color_option = option
+      break
+    endif
+  endfor
+%}
+
+<article class="rc-best-sellers__card rc-best-sellers__card--live">
+  <div class="rc-best-sellers__media">
+    <div class="rc-best-sellers__image-wrap">
+      <a class="rc-best-sellers__image" href="{{ product.url }}" aria-label="{{ product.title | escape }}">
+        {% if product.featured_image %}
+          {{
+            product.featured_image
+            | image_url: width: 700
+            | image_tag:
+              loading: 'lazy',
+              widths: '320, 480, 700',
+              sizes: '(min-width: 990px) 28vw, 72vw',
+              alt: product.title
+          }}
+        {% else %}
+          <svg viewBox="0 0 260 260" aria-hidden="true">
+            <rect width="260" height="260" rx="18" fill="#F4F4F4"/>
+            <path d="M54 158c8-31 32-49 72-55l59-8c23-3 44 10 53 31l12 32h-41c-7-17-23-28-42-28s-35 11-42 28H96c-7-17-23-28-42-28-18 0-34 11-41 28h41Z" fill="#0A0A0A"/>
+            <circle cx="74" cy="171" r="26" fill="#FF2D2D"/>
+            <circle cx="176" cy="171" r="26" fill="#FF2D2D"/>
+          </svg>
+        {% endif %}
+      </a>
+
+      <button
+        type="button"
+        class="rc-best-sellers__wishlist"
+        data-wishlist-toggle
+        data-product-id="{{ product.id }}"
+        aria-label="Ajouter {{ product.title | escape }} aux favoris"
+        aria-pressed="false"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M20.8 4.6c-1.8-1.7-4.7-1.7-6.5.1L12 7l-2.3-2.3c-1.8-1.8-4.7-1.8-6.5-.1-1.9 1.8-2 4.9-.1 6.8L12 20l8.9-8.6c1.9-1.9 1.8-5-.1-6.8Z"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="rc-best-sellers__body">
+    <h3><a href="{{ product.url }}">{{ product.title }}</a></h3>
+
+    {% if rating_value != blank and rating_count != blank %}
+      {% liquid
+        assign rating_floor = rating_value | floor
+        assign rating_decimal = rating_value | modulo: 1
+        assign rating_half = false
+        assign rating_next = rating_floor | plus: 1
+
+        if rating_decimal >= 0.3 and rating_decimal <= 0.7
+          assign rating_half = true
+        elsif rating_decimal > 0.7
+          assign rating_floor = rating_floor | plus: 1
+          assign rating_next = rating_floor | plus: 1
+        endif
+      %}
+      <div class="rc-best-sellers__rating" aria-label="Note {{ rating_value }} sur 5, {{ rating_count }} avis">
+        <span class="rc-best-sellers__stars" aria-hidden="true">
+          {% for star in (1..5) %}
+            {% if star <= rating_floor %}
+              <span class="rc-best-sellers__star is-filled">★</span>
+            {% elsif rating_half and star == rating_next %}
+              <span class="rc-best-sellers__star is-half">★</span>
+            {% else %}
+              <span class="rc-best-sellers__star">★</span>
+            {% endif %}
+          {% endfor %}
+        </span>
+        <span class="rc-best-sellers__reviews">({{ rating_count }})</span>
+      </div>
+    {% endif %}
+
+    <p class="rc-best-sellers__price">{{ product.price | money }}</p>
+
+    {% form 'product', product, class: 'rc-best-sellers__form' %}
+      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+      <button type="submit" {% unless product.available %}disabled{% endunless %}>
+        {% if product.available %}Ajouter au panier{% else %}Épuisé{% endif %}
+      </button>
+    {% endform %}
+
+    {% if color_option != null and color_option.values.size > 0 %}
+      <ul class="rc-best-sellers__colors" aria-label="Couleurs disponibles">
+        {% for value in color_option.values %}
+          <li>
+            {% render 'rc-color-swatch', product: product, color_option: color_option, value: value %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+</article>
