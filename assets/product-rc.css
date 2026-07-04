@@ -28,34 +28,32 @@
 
 .rc-product-desc {
   width: 100%;
-  margin-top: 12px;
+  margin-top: 8px;
 }
 
 .rc-product-desc__list {
-  display: flex;
-  flex-direction: column;
-  border-top: 1px solid var(--color-gray-200);
+  display: grid;
+  gap: 8px;
 }
 
 .rc-product-desc__group,
 .rc-product-desc__item {
-  border: none;
-  border-radius: 0;
-  border-bottom: 1px solid var(--color-gray-200);
-  background: transparent;
+  overflow: hidden;
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
 }
 
 .rc-product-desc__group > summary,
 .rc-product-desc__item > summary {
   display: flex;
-  gap: 12px;
+  gap: 14px;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 0;
+  padding: 14px 14px;
   color: var(--color-black);
   cursor: pointer;
   list-style: none;
-  user-select: none;
 }
 
 .rc-product-desc__group > summary::-webkit-details-marker,
@@ -63,102 +61,68 @@
   display: none;
 }
 
-.rc-product-desc__summary-main {
-  display: flex;
-  flex: 1;
-  gap: 12px;
-  align-items: center;
-  min-width: 0;
-}
-
-.rc-product-desc__icon {
-  display: grid;
-  flex: 0 0 22px;
-  width: 22px;
-  height: 22px;
+.rc-product-desc__group > summary span,
+.rc-product-desc__item > summary span {
   color: var(--color-black);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  line-height: 1.3;
+  text-transform: uppercase;
 }
 
-.rc-product-desc__icon svg {
-  display: block;
-  width: 22px;
-  height: 22px;
-}
-
-.rc-product-desc__label {
-  color: var(--color-black);
-  font-size: 15px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  line-height: 1.25;
-}
-
-.rc-product-desc__chevron-wrap {
+.rc-product-desc__group > summary b,
+.rc-product-desc__item > summary b {
   display: grid;
-  flex: 0 0 20px;
+  flex: 0 0 26px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
   place-items: center;
-  color: var(--color-black);
-}
-
-.rc-product-desc__chevron {
-  display: block;
-  width: 18px;
-  height: 18px;
+  background: var(--color-red);
+  color: var(--color-white);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
   transition: transform 0.2s var(--ease-smooth);
 }
 
-.rc-product-desc__group[open] > summary .rc-product-desc__chevron,
-.rc-product-desc__item[open] > summary .rc-product-desc__chevron {
-  transform: rotate(180deg);
+.rc-product-desc__group[open] > summary b,
+.rc-product-desc__item[open] > summary b {
+  transform: rotate(45deg);
 }
 
 .rc-product-desc__group-inner {
-  display: flex;
-  flex-direction: column;
-  padding: 0 0 4px 34px;
+  display: grid;
+  gap: 8px;
+  padding: 0 10px 12px;
 }
 
 .rc-product-desc__item--nested {
-  border-bottom: 1px solid #efefef;
-}
-
-.rc-product-desc__item--nested:last-child {
-  border-bottom: none;
+  border-color: #ececec;
+  background: var(--color-gray-50);
 }
 
 .rc-product-desc__item--nested > summary {
-  padding: 13px 0;
+  padding: 12px 12px;
 }
 
-.rc-product-desc__item--nested .rc-product-desc__icon {
-  flex-basis: 18px;
-  width: 18px;
-  height: 18px;
-}
-
-.rc-product-desc__item--nested .rc-product-desc__icon svg {
-  width: 18px;
-  height: 18px;
-}
-
-.rc-product-desc__item--nested .rc-product-desc__label {
-  font-size: 14px;
-  font-weight: 600;
+.rc-product-desc__item--nested > summary span {
+  font-size: 12px;
+  letter-spacing: 0.05em;
 }
 
 .rc-product-desc__content {
-  padding: 0 0 18px;
+  padding: 0 14px 16px;
   color: var(--color-gray-700);
   font-size: 14px;
   line-height: 1.6;
 }
 
-.rc-product-desc__group .rc-product-desc__item--nested .rc-product-desc__content {
-  padding: 0 0 14px 30px;
-}
-
-.rc-product-desc__group[open] > .rc-product-desc__group-inner {
-  padding-bottom: 10px;
+.rc-product-desc__group[open] .rc-product-desc__item--nested[open] .rc-product-desc__content,
+.rc-product-desc__item[open] .rc-product-desc__content {
+  border-top: 1px solid var(--color-gray-200);
+  padding-top: 14px;
 }
 
 .rc-product-desc__content > :first-child {
@@ -179,9 +143,10 @@
   font-family: var(--font-body);
   font-size: 13px;
   font-style: normal;
-  font-weight: 700;
-  letter-spacing: 0.02em;
+  font-weight: 800;
+  letter-spacing: 0.05em;
   line-height: 1.35;
+  text-transform: uppercase;
 }
 
 .rc-product-desc__content img,
