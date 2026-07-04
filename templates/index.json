@@ -44,7 +44,16 @@
     },
     "categories_grid": {
       "type": "categories-grid",
-      "settings": {}
+      "settings": {
+        "collections": [
+          "monster-truck-4x4",
+          "drift",
+          "buggy",
+          "crawler",
+          "rallye-trophy",
+          "piste"
+        ]
+      }
     },
     "faq_rc": {
       "type": "faq-rc",
