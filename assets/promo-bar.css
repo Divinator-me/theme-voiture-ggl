@@ -62,50 +62,41 @@
   width: 100%;
 }
 
-.rc-promo-bar__date,
-.promo-bar__dates {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  min-height: 0 !important;
-  padding: 7px 16px !important;
-  color: #ff9a9a !important;
-  font-family: var(--font-body) !important;
-  font-size: 11px !important;
-  font-weight: 900 !important;
-  letter-spacing: 0.35px !important;
-  line-height: 1 !important;
-  text-transform: uppercase !important;
-  white-space: nowrap;
-}
-
-.promo-bar__dates {
-  border: 1px solid rgb(255 45 45 / 72%) !important;
-  border-radius: 999px !important;
-  background: rgb(80 10 10 / 46%) !important;
+.rc-promo-bar__date {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 16px;
+  border: 1px solid rgb(255 45 45 / 72%);
+  border-radius: 999px;
+  background: rgb(80 10 10 / 46%);
   box-shadow:
     inset 0 0 0 1px rgb(0 0 0 / 20%),
     0 0 12px rgb(255 45 45 / 10%);
+  color: #ff9a9a;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.35px;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
-.promo-bar__cta {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  min-height: 0 !important;
-  border: 0 !important;
-  border-radius: 0 !important;
-  padding: 8px 14px 8px 12px !important;
-  background: var(--color-red) !important;
+.rc-promo-bar__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  padding: 8px 14px 8px 12px;
+  background: var(--color-red);
   box-shadow: 0 4px 12px rgb(255 45 45 / 22%);
-  color: #ffffff !important;
+  color: var(--color-white);
   cursor: pointer;
-  font-family: var(--font-body) !important;
-  font-size: 11px !important;
-  font-weight: 900 !important;
-  letter-spacing: 0.4px !important;
-  line-height: 1 !important;
-  text-transform: uppercase !important;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.4px;
+  line-height: 1;
+  text-transform: uppercase;
   white-space: nowrap;
   transform: skewX(-18deg);
   transition:
@@ -114,19 +105,13 @@
     transform 0.2s var(--ease-smooth);
 }
 
-.promo-bar__cta-label {
+.rc-promo-bar__cta-label {
   display: inline-flex;
   align-items: center;
   transform: skewX(18deg);
 }
 
-.promo-bar__cta:hover {
-  background: var(--color-red-dark) !important;
-  box-shadow: 0 6px 16px rgb(255 45 45 / 30%);
-  transform: skewX(-18deg) translateY(-1px);
-}
-
-.promo-bar__cta .arrow {
+.rc-promo-bar__cta-arrow {
   display: inline-block;
   margin-left: 4px;
   font-size: 12px;
@@ -134,24 +119,12 @@
   transform: translateY(-1px);
 }
 
-.rc-promo-bar__mobile .rc-promo-bar__actions {
-  gap: 8px;
-  justify-content: center;
-  width: 100%;
-}
-
-.rc-promo-bar__mobile .rc-promo-bar__offer {
-  font-size: 12px;
-}
-
-.rc-promo-bar__mobile .promo-bar__dates {
-  padding: 7px 16px !important;
-  font-size: 11px !important;
-}
-
-.rc-promo-bar__mobile .promo-bar__cta {
-  padding: 8px 14px 8px 12px !important;
-  font-size: 11px !important;
+.rc-promo-bar__cta:hover,
+.rc-promo-bar__cta:focus-visible {
+  background: var(--color-red-dark);
+  box-shadow: 0 6px 16px rgb(255 45 45 / 30%);
+  color: var(--color-white);
+  transform: skewX(-18deg) translateY(-1px);
 }
 
 @media (max-width: 374px) {
@@ -164,14 +137,14 @@
     font-size: 11px;
   }
 
-  .promo-bar__dates {
-    padding: 7px 13px !important;
-    font-size: 10px !important;
+  .rc-promo-bar__date {
+    padding: 7px 13px;
+    font-size: 10px;
   }
 
-  .promo-bar__cta {
-    padding: 7px 12px 7px 10px !important;
-    font-size: 10px !important;
+  .rc-promo-bar__cta {
+    padding: 7px 12px 7px 10px;
+    font-size: 10px;
   }
 }
 
@@ -225,17 +198,17 @@
     font-size: 13px;
   }
 
-  .rc-promo-bar__desktop .promo-bar__dates {
-    padding: 8px 18px !important;
-    font-size: 12px !important;
+  .rc-promo-bar__desktop .rc-promo-bar__date {
+    padding: 8px 18px;
+    font-size: 12px;
   }
 
-  .rc-promo-bar__desktop .promo-bar__cta {
-    padding: 10px 20px 10px 18px !important;
-    font-size: 12px !important;
+  .rc-promo-bar__desktop .rc-promo-bar__cta {
+    padding: 10px 20px 10px 18px;
+    font-size: 12px;
   }
 
-  .rc-promo-bar__desktop .promo-bar__cta .arrow {
+  .rc-promo-bar__desktop .rc-promo-bar__cta-arrow {
     font-size: 13px;
   }
 

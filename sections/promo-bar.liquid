@@ -12,9 +12,10 @@
 
   assign promo_offset = promo_week_index | times: promo_week_seconds
   assign promo_week_start = promo_anchor | plus: promo_offset
-  assign promo_week_end = promo_week_start | plus: 518400
+  assign promo_week_last_day = promo_week_start | plus: 518400
+  assign promo_week_end = promo_week_start | plus: 604799
   assign promo_date_start = promo_week_start | date: '%d/%m'
-  assign promo_date_end = promo_week_end | date: '%d/%m'
+  assign promo_date_end = promo_week_last_day | date: '%d/%m'
   assign promo_dates_label = 'Du ' | append: promo_date_start | append: ' au ' | append: promo_date_end
 -%}
 
