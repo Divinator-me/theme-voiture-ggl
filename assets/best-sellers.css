@@ -141,6 +141,7 @@
 
 .rc-best-sellers__card h3 {
   margin: 0;
+  min-height: 4.05em;
   color: var(--color-black);
   font-family: var(--font-body);
   font-size: 15px;
@@ -149,6 +150,10 @@
 }
 
 .rc-best-sellers__card h3 a {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
   color: inherit;
   font-weight: 700;
 }
@@ -219,23 +224,6 @@
 .rc-best-sellers__card:not(.rc-best-sellers__card--live) .rc-best-sellers__price {
   color: var(--color-black);
   opacity: 0.35;
-}
-
-.rc-best-sellers__card:not(.rc-best-sellers__card--live) button {
-  width: 100%;
-  border: 0;
-  border-radius: var(--radius-sm);
-  margin-top: 10px;
-  padding: 7px 10px;
-  background: var(--color-gray-200);
-  color: var(--color-gray-500);
-  cursor: not-allowed;
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  line-height: 1;
-  text-transform: uppercase;
-  white-space: nowrap;
 }
 
 .rc-best-sellers__arrow {
