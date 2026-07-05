@@ -1,13 +1,20 @@
 {%- liquid
   assign logo_modifier = modifier | default: 'nav'
   assign logo_class = 'rc-logo rc-logo--' | append: logo_modifier
+  assign logo_theme = theme | default: 'light'
+
+  if logo_theme == 'dark'
+    assign logo_asset = 'rclab-logo-dark.png'
+  else
+    assign logo_asset = 'rclab-logo.png'
+  endif
 -%}
 <img
   class="{{ logo_class }}"
-  src="{{ 'rclab-logo.png' | asset_url }}"
+  src="{{ logo_asset | asset_url }}"
   alt="RCLAB"
-  width="120"
-  height="120"
+  width="180"
+  height="72"
   loading="eager"
-  fetchpriority="high"
+  {% if logo_modifier == 'nav' %}fetchpriority="high"{% endif %}
 >

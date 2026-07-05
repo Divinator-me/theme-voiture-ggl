@@ -20,7 +20,6 @@
 .rc-logo--footer {
   height: 56px;
   width: auto;
-  border-radius: 6px;
 }
 
 @media (min-width: 768px) {
