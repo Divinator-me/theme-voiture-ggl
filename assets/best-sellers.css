@@ -135,10 +135,6 @@
   stroke: var(--color-red);
 }
 
-.rc-best-sellers__form {
-  margin: 0;
-}
-
 .rc-best-sellers__body {
   padding: 14px 16px 16px;
 }
@@ -214,33 +210,6 @@
   color: var(--color-red);
   font-size: 16px;
   font-weight: 800;
-}
-
-.rc-best-sellers__form button {
-  width: 100%;
-  border: 0;
-  border-radius: var(--radius-sm);
-  margin-top: 10px;
-  padding: 7px 10px;
-  background: var(--color-black);
-  color: var(--color-white);
-  cursor: pointer;
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  line-height: 1;
-  text-transform: uppercase;
-  white-space: nowrap;
-  transition: background 0.25s var(--ease-smooth);
-}
-
-.rc-best-sellers__form button:hover {
-  background: var(--color-red);
-}
-
-.rc-best-sellers__form button:disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
 }
 
 .rc-best-sellers__card:not(.rc-best-sellers__card--live) h3 {
