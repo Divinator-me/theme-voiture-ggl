@@ -31,9 +31,10 @@
 }
 
 .rc-main-nav__brand {
-  display: grid;
+  display: flex;
   flex: 0 0 auto;
-  justify-items: center;
+  align-items: center;
+  justify-content: center;
   color: var(--color-black);
   line-height: 1;
 }
@@ -208,11 +209,7 @@
   display: inline-flex;
   align-items: center;
   margin: 0;
-  font-family: var(--font-display);
-  font-size: 38px;
-  font-style: italic;
   line-height: 1;
-  transform: skewX(-5deg);
 }
 
 .rc-menu-overlay__links {

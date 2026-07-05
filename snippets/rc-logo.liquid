@@ -1,0 +1,13 @@
+{%- liquid
+  assign logo_modifier = modifier | default: 'nav'
+  assign logo_class = 'rc-logo rc-logo--' | append: logo_modifier
+-%}
+<img
+  class="{{ logo_class }}"
+  src="{{ 'rclab-logo.png' | asset_url }}"
+  alt="RCLAB"
+  width="120"
+  height="120"
+  loading="eager"
+  fetchpriority="high"
+>

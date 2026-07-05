@@ -1,7 +1,6 @@
 {{ 'main-nav.css' | asset_url | stylesheet_tag }}
+{{ 'rclab-logo.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'main-nav.js' | asset_url }}" defer></script>
-
-{% assign logo_text = 'RCLAB' %}
 
 <section class="rc-main-nav" data-main-nav aria-label="Navigation principale">
   <div class="rc-main-nav__mobile">
@@ -21,9 +20,8 @@
       </button>
     </div>
 
-    <a class="rc-main-nav__brand" href="{{ routes.root_url }}" aria-label="Accueil {{ logo_text }}">
-      <span class="rc-main-nav__logo">{{ logo_text }}</span>
-      <span class="rc-main-nav__baseline">Team RC Pro</span>
+    <a class="rc-main-nav__brand" href="{{ routes.root_url }}" aria-label="Accueil RCLAB">
+      {% render 'rc-logo', modifier: 'nav' %}
     </a>
 
     <nav class="rc-main-nav__side rc-main-nav__side--right" aria-label="Actions rapides">
@@ -44,9 +42,8 @@
   </div>
 
   <div class="rc-main-nav__desktop">
-    <a class="rc-main-nav__brand rc-main-nav__brand--desktop" href="{{ routes.root_url }}" aria-label="Accueil {{ logo_text }}">
-      <span class="rc-main-nav__logo">{{ logo_text }}</span>
-      <span class="rc-main-nav__baseline">Team RC Pro</span>
+    <a class="rc-main-nav__brand rc-main-nav__brand--desktop" href="{{ routes.root_url }}" aria-label="Accueil RCLAB">
+      {% render 'rc-logo', modifier: 'nav' %}
     </a>
 
     <form class="rc-main-nav__search" action="{{ routes.search_url }}" method="get" role="search">
@@ -92,7 +89,9 @@
     <div class="rc-menu-overlay__panel" role="dialog" aria-modal="true" aria-label="Menu principal">
       <div class="rc-menu-overlay__body">
         <div class="rc-menu-overlay__head">
-          <a class="rc-menu-overlay__logo" href="{{ routes.root_url }}">{{ logo_text }}</a>
+          <a class="rc-menu-overlay__logo" href="{{ routes.root_url }}" aria-label="Accueil RCLAB">
+            {% render 'rc-logo', modifier: 'menu' %}
+          </a>
           <button class="rc-menu-overlay__close" type="button" data-menu-close aria-label="Fermer le menu">×</button>
         </div>
         <nav class="rc-menu-overlay__links" aria-label="Menu mobile">
