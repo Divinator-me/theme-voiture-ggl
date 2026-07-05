@@ -27,7 +27,7 @@ body.template-index .content-for-layout {
   overflow: clip;
 }
 
-body :is(.rc-main-nav, .rc-menu-overlay, .rc-footer, .rc-hero, .rc-categories, .rc-best-sellers, .rc-faq, .rc-story, .rc-trust-end, .announcement-marquee, .rc-promo-bar, .rc-category-nav) a {
+body :is(.rc-main-nav, .rc-menu-overlay, .rc-footer, .rc-hero, .rc-categories, .rc-best-sellers, .rc-faq, .rc-story, .rc-trust-end, .announcement-marquee, .rc-promo-bar, .rc-category-nav) a:not([class*='__cta']) {
   color: inherit;
   text-decoration: none;
 }

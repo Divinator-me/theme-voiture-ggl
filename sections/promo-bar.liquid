@@ -1,5 +1,25 @@
+{%- liquid
+  assign promo_week_seconds = 604800
+  assign promo_anchor = '2026-06-29' | date: '%s' | plus: 0
+  assign promo_now = 'now' | date: '%s' | plus: 0
+  assign promo_diff = promo_now | minus: promo_anchor
+
+  if promo_diff < 0
+    assign promo_week_index = 0
+  else
+    assign promo_week_index = promo_diff | divided_by: promo_week_seconds
+  endif
+
+  assign promo_offset = promo_week_index | times: promo_week_seconds
+  assign promo_week_start = promo_anchor | plus: promo_offset
+  assign promo_week_end = promo_week_start | plus: 518400
+  assign promo_date_start = promo_week_start | date: '%d/%m'
+  assign promo_date_end = promo_week_end | date: '%d/%m'
+  assign promo_dates_label = 'Du ' | append: promo_date_start | append: ' au ' | append: promo_date_end
+-%}
+
 {{ 'promo-bar.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'countdown.js' | asset_url }}" defer></script>
+<script src="{{ 'promo-bar.js' | asset_url }}" defer></script>
 
 <section class="rc-promo-bar" aria-label="Offre spéciale">
   <div class="rc-promo-bar__mobile">
@@ -10,9 +30,9 @@
     </p>
 
     <div class="rc-promo-bar__actions">
-      <span class="rc-promo-bar__date promo-bar__dates">Du 29/06 au 05/07</span>
-      <a class="rc-promo-bar__cta promo-bar__cta" href="{{ routes.all_products_collection_url }}" aria-label="Profiter de l'offre">
-        <span class="promo-bar__cta-label">J'en profite<span class="arrow" aria-hidden="true">→</span></span>
+      <span class="rc-promo-bar__date">{{ promo_dates_label }}</span>
+      <a class="rc-promo-bar__cta" href="{{ routes.all_products_collection_url }}" aria-label="Profiter de l'offre">
+        <span class="rc-promo-bar__cta-label">J'en profite<span class="rc-promo-bar__cta-arrow" aria-hidden="true">→</span></span>
       </a>
     </div>
   </div>
@@ -26,11 +46,16 @@
         <strong>Offre spéciale :</strong>
         1 batterie offerte + extension garantie 2 ans pour toute voiture RC achetée
       </p>
-      <span class="rc-promo-bar__date promo-bar__dates">Du 29/06 au 05/07</span>
+      <span class="rc-promo-bar__date">{{ promo_dates_label }}</span>
     </div>
 
     <div class="rc-promo-bar__actions">
-      <div class="rc-promo-bar__countdown" data-countdown="week-end" aria-live="polite">
+      <div
+        class="rc-promo-bar__countdown"
+        data-promo-countdown
+        data-countdown-end="{{ promo_week_end }}"
+        aria-live="polite"
+      >
         <span class="rc-promo-bar__countdown-part"><b data-days>00</b><small>jours</small></span>
         <span class="rc-promo-bar__countdown-sep" aria-hidden="true">:</span>
         <span class="rc-promo-bar__countdown-part"><b data-hours>00</b><small>heures</small></span>
@@ -40,8 +65,8 @@
         <span class="rc-promo-bar__countdown-part"><b data-seconds>00</b><small>sec</small></span>
       </div>
 
-      <a class="rc-promo-bar__cta promo-bar__cta" href="{{ routes.all_products_collection_url }}" aria-label="Profiter de l'offre">
-        <span class="promo-bar__cta-label">J'en profite<span class="arrow" aria-hidden="true">→</span></span>
+      <a class="rc-promo-bar__cta" href="{{ routes.all_products_collection_url }}" aria-label="Profiter de l'offre">
+        <span class="rc-promo-bar__cta-label">J'en profite<span class="rc-promo-bar__cta-arrow" aria-hidden="true">→</span></span>
       </a>
     </div>
   </div>
