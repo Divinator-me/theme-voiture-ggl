@@ -523,7 +523,9 @@
     align-items: center;
   }
 
-  .rc-main-nav a.rc-main-nav__pill {
+  .rc-main-nav a.rc-main-nav__pill,
+  .rc-main-nav a.rc-main-nav__pill:hover,
+  .rc-main-nav a.rc-main-nav__pill:focus-visible {
     color: var(--color-white);
   }
 
