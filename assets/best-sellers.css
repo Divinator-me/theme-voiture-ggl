@@ -221,23 +221,6 @@
   opacity: 0.35;
 }
 
-.rc-best-sellers__card:not(.rc-best-sellers__card--live) button {
-  width: 100%;
-  border: 0;
-  border-radius: var(--radius-sm);
-  margin-top: 10px;
-  padding: 7px 10px;
-  background: var(--color-gray-200);
-  color: var(--color-gray-500);
-  cursor: not-allowed;
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  line-height: 1;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
 .rc-best-sellers__arrow {
   display: none;
 }
