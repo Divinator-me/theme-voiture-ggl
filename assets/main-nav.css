@@ -431,14 +431,6 @@
     height: 76px;
     padding: 0 32px;
   }
-
-  .rc-main-nav__logo {
-    font-size: 34px;
-  }
-
-  .rc-main-nav__baseline {
-    font-size: 9px;
-  }
 }
 
 @media (min-width: 1024px) {
