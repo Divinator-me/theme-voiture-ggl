@@ -52,6 +52,18 @@
   line-height: 1.6;
 }
 
+.rc-story a.rc-story__cta,
+.rc-story a.rc-story__cta:hover,
+.rc-story a.rc-story__cta:focus-visible,
+.rc-story a.rc-story__cta:active {
+  color: var(--color-white);
+}
+
+.rc-story__cta-inner,
+.rc-story__cta-arrow {
+  color: inherit;
+}
+
 .rc-story__cta {
   display: inline-flex;
   align-items: center;
@@ -64,7 +76,6 @@
   padding: 16px 28px 16px 24px;
   background: var(--color-red);
   box-shadow: 0 4px 12px rgb(255 45 45 / 22%);
-  color: var(--color-white);
   transform: skewX(-18deg);
   transition:
     background 0.2s var(--ease-smooth),
