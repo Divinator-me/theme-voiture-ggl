@@ -1,0 +1,36 @@
+.rc-logo {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.rc-logo--nav {
+  height: 32px;
+  width: auto;
+  border-radius: 4px;
+}
+
+.rc-logo--menu {
+  height: 40px;
+  width: auto;
+  border-radius: 4px;
+}
+
+.rc-logo--footer {
+  height: 56px;
+  width: auto;
+  border-radius: 6px;
+}
+
+@media (min-width: 768px) {
+  .rc-logo--nav {
+    height: 40px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .rc-logo--nav {
+    height: 44px;
+  }
+}
