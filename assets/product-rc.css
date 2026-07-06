@@ -27,7 +27,7 @@
 }
 
 .product-information .product-details product-price.text-block.paragraph {
-  --font-paragraph--size: clamp(34px, 6vw, 46px);
+  --font-paragraph--size: clamp(30px, 5.2vw, 40px);
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1;
@@ -35,7 +35,7 @@
 }
 
 .product-information .product-details product-price.text-block.paragraph :is(.price, .price-item--regular, .price-item--sale, .price-item--last, .compare-at-price) {
-  font-size: clamp(34px, 6vw, 46px);
+  font-size: clamp(30px, 5.2vw, 40px);
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1;
