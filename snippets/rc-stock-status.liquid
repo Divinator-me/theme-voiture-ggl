@@ -4,7 +4,7 @@
 
   if variant.available
     assign stock_modifier = 'is-available'
-    assign stock_message = 'En stock. Prêt à être expédié aujourd'hui !'
+    assign stock_message = "En stock. Prêt à être expédié aujourd'hui !"
 
     if variant.inventory_management == 'shopify' and variant.inventory_quantity > 0
       assign stock_level = variant.inventory_quantity | times: 100 | divided_by: 40
