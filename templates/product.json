@@ -198,16 +198,11 @@
                 "custom_liquid_EtK73f"
               ]
             },
-            "divider_VJhene": {
-              "type": "_divider",
-              "name": "t:names.divider",
+            "custom_liquid_stock": {
+              "type": "custom-liquid",
+              "name": "Stock status",
               "settings": {
-                "thickness": 1,
-                "corner_radius": "square",
-                "divider_color": "{{ settings.color_palette.color2 }}",
-                "width_percent": 100,
-                "padding-block-start": 0,
-                "padding-block-end": 0
+                "custom_liquid": "{% render 'rc-stock-status', product: product %}"
               },
               "blocks": {}
             },
@@ -347,7 +342,7 @@
           "block_order": [
             "custom_liquid_f4Ek6f",
             "group_icgrde",
-            "divider_VJhene",
+            "custom_liquid_stock",
             "variant_picker_couleur",
             "variant_picker_batteries",
             "custom_liquid_ma39Xw",

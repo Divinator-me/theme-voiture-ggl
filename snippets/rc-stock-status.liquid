@@ -1,0 +1,38 @@
+{%- liquid
+  assign variant = product.selected_or_first_available_variant
+  assign stock_level = 72
+
+  if variant.available
+    assign stock_modifier = 'is-available'
+    assign stock_message = 'En stock. Prêt à être expédié aujourd'hui !'
+
+    if variant.inventory_management == 'shopify' and variant.inventory_quantity > 0
+      assign stock_level = variant.inventory_quantity | times: 100 | divided_by: 40
+      if stock_level > 100
+        assign stock_level = 100
+      endif
+      if stock_level < 38
+        assign stock_level = 38
+      endif
+    endif
+  else
+    assign stock_modifier = 'is-unavailable'
+    assign stock_message = 'Rupture de stock — réapprovisionnement en cours'
+    assign stock_level = 12
+  endif
+-%}
+
+<div
+  class="rc-stock-status rc-stock-status--{{ stock_modifier }}"
+  role="status"
+  aria-live="polite"
+  data-rc-stock-status
+>
+  <div class="rc-stock-status__row">
+    <span class="rc-stock-status__icon" aria-hidden="true"></span>
+    <span class="rc-stock-status__text">{{ stock_message }}</span>
+  </div>
+  <div class="rc-stock-status__bar" aria-hidden="true">
+    <span class="rc-stock-status__fill" style="--rc-stock-fill: {{ stock_level }}%;"></span>
+  </div>
+</div>
