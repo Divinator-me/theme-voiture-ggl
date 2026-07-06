@@ -5,11 +5,11 @@
 @media (min-width: 1024px) {
   .rc-category-nav {
     position: sticky;
-    top: 74px;
+    top: 64px;
     z-index: 67;
     display: block;
     overflow-x: auto;
-    min-height: 48px;
+    min-height: 42px;
     background: #2b2b2b;
     color: var(--color-white);
     scrollbar-width: none;
@@ -26,7 +26,7 @@
     justify-content: flex-start;
     width: 100%;
     max-width: 1280px;
-    min-height: 48px;
+    min-height: 42px;
     margin: 0 auto;
     padding: 0 32px;
     box-sizing: border-box;
@@ -40,7 +40,7 @@
     gap: 8px;
     align-items: center;
     border: 0;
-    padding: 14px 0;
+    padding: 11px 0;
     background: transparent;
     color: var(--color-white);
     font-family: var(--font-body);
@@ -58,7 +58,7 @@
   .rc-category-nav__menu::after {
     position: absolute;
     right: 0;
-    bottom: 9px;
+    bottom: 7px;
     left: 0;
     width: 0;
     height: 2px;
