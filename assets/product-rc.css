@@ -27,7 +27,7 @@
 }
 
 .product-information .product-details product-price.paragraph {
-  font-size: clamp(32px, 5.8vw, 42px);
+  font-size: clamp(26px, 4.8vw, 34px);
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1;
@@ -40,51 +40,6 @@
   font-size: inherit;
   font-weight: inherit;
   line-height: inherit;
-}
-
-.product-information .product-details .payment-installments {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: -12px;
-  color: #475569;
-  font-family: var(--font-body);
-  font-size: 15px;
-  line-height: 1.35;
-}
-
-.product-information .product-details .payment-installments .price {
-  color: #1e293b;
-  font-size: 16px;
-  font-weight: 600;
-}
-
-.product-information .product-details .payment-logos {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.product-information .product-details .payment-logos img {
-  width: auto;
-  height: 22px;
-}
-
-.product-information .product-details .payment-logos .paypal-card {
-  padding: 4px 7px;
-  border: 1px solid #e2e8f0;
-  border-radius: 4px;
-  background: white;
-}
-
-.product-information .product-details .payment-logos .klarna-card {
-  width: auto;
-  height: 22px;
-}
-
-.product-information .product-details .payment-logos span {
-  color: #64748b;
-  font-size: 14px;
 }
 
 .rc-stock-status {
@@ -134,7 +89,7 @@
 .rc-stock-status__text {
   color: var(--color-black);
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
   letter-spacing: -0.01em;
   line-height: 1.35;
