@@ -322,6 +322,7 @@
     if (tabSections.length) {
       const descriptionGroup = document.createElement('details');
       descriptionGroup.className = 'rc-product-desc__group';
+      descriptionGroup.open = true;
       descriptionGroup.append(createSummary('Description', 'description'));
       descriptionGroup.append(createTabsPanel(tabSections));
       list.appendChild(descriptionGroup);
