@@ -233,18 +233,26 @@
     const wrapper = document.createElement('div');
     wrapper.className = 'rc-product-desc__tabs';
 
-    const nav = document.createElement('div');
-    nav.className = 'rc-product-desc__tabs-nav';
-    nav.setAttribute('role', 'tablist');
+    const navTop = document.createElement('div');
+    navTop.className = 'rc-product-desc__tabs-nav rc-product-desc__tabs-nav--top';
+    navTop.setAttribute('role', 'tablist');
+
+    const navBottom = document.createElement('div');
+    navBottom.className = 'rc-product-desc__tabs-nav rc-product-desc__tabs-nav--bottom';
+    navBottom.setAttribute('role', 'tablist');
 
     const panels = document.createElement('div');
     panels.className = 'rc-product-desc__tabs-panels';
 
-    const activateTab = (index) => {
-      [...nav.children].forEach((tab, tabIndex) => {
-        const isActive = tabIndex === index;
-        tab.classList.toggle('is-active', isActive);
-        tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    const navs = [navTop, navBottom];
+
+    const activateTab = (index, { scrollToPanel = false } = {}) => {
+      navs.forEach((navEl) => {
+        [...navEl.children].forEach((tab, tabIndex) => {
+          const isActive = tabIndex === index;
+          tab.classList.toggle('is-active', isActive);
+          tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
       });
 
       [...panels.children].forEach((panel, panelIndex) => {
@@ -253,42 +261,59 @@
         panel.classList.toggle('is-active', isActive);
         if (isActive) enhanceMedia(panel);
       });
+
+      if (!scrollToPanel || !panels.children[index]) return;
+
+      requestAnimationFrame(() => {
+        panels.children[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
     };
 
-    sections.forEach((section, index) => {
-      const tabId = `rc-desc-tab-${section.id}`;
-      const panelId = `rc-desc-panel-${section.id}`;
-
+    const createTabButton = (section, index, panelId, suffix = '') => {
       const button = document.createElement('button');
       button.type = 'button';
       button.className = `rc-product-desc__tab${index === 0 ? ' is-active' : ''}`;
       button.setAttribute('role', 'tab');
       button.setAttribute('aria-selected', index === 0 ? 'true' : 'false');
       button.setAttribute('aria-controls', panelId);
-      button.id = tabId;
+      button.id = `rc-desc-tab-${section.id}${suffix}`;
       button.textContent = section.label;
+      return button;
+    };
+
+    sections.forEach((section, index) => {
+      const panelId = `rc-desc-panel-${section.id}`;
+
+      navTop.appendChild(createTabButton(section, index, panelId));
+      navBottom.appendChild(createTabButton(section, index, panelId, '-bottom'));
 
       const panel = document.createElement('div');
       panel.className = `rc-product-desc__tab-panel rte${index === 0 ? ' is-active' : ''}`;
       panel.setAttribute('role', 'tabpanel');
       panel.id = panelId;
-      panel.setAttribute('aria-labelledby', tabId);
+      panel.setAttribute('aria-labelledby', `rc-desc-tab-${section.id}`);
       panel.hidden = index !== 0;
       section.nodes.forEach((node) => panel.appendChild(node));
       if (index === 0) enhanceMedia(panel);
 
-      nav.appendChild(button);
       panels.appendChild(panel);
     });
 
-    nav.addEventListener('click', (event) => {
+    navTop.addEventListener('click', (event) => {
       const button = event.target.closest('.rc-product-desc__tab');
-      if (!button || !nav.contains(button)) return;
-      const index = [...nav.children].indexOf(button);
+      if (!button || !navTop.contains(button)) return;
+      const index = [...navTop.children].indexOf(button);
       if (index >= 0) activateTab(index);
     });
 
-    wrapper.append(nav, panels);
+    navBottom.addEventListener('click', (event) => {
+      const button = event.target.closest('.rc-product-desc__tab');
+      if (!button || !navBottom.contains(button)) return;
+      const index = [...navBottom.children].indexOf(button);
+      if (index >= 0) activateTab(index, { scrollToPanel: true });
+    });
+
+    wrapper.append(navTop, panels, navBottom);
     return wrapper;
   };
 
