@@ -30,13 +30,13 @@
           <path d="M20.8 4.6c-1.8-1.7-4.7-1.7-6.5.1L12 7l-2.3-2.3c-1.8-1.8-4.7-1.8-6.5-.1-1.9 1.8-2 4.9-.1 6.8L12 20l8.9-8.6c1.9-1.9 1.8-5-.1-6.8Z"></path>
         </svg>
       </a>
-      <a class="rc-main-nav__button rc-main-nav__cart" href="{{ routes.cart_url }}" aria-label="Panier">
+      <a class="rc-main-nav__button rc-main-nav__cart" href="{{ routes.cart_url }}" data-rc-cart-open aria-label="Panier">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M6 6h15l-2 8H8L6 3H3"></path>
           <circle cx="9" cy="20" r="1.5"></circle>
           <circle cx="18" cy="20" r="1.5"></circle>
         </svg>
-        <b>{{ cart.item_count | default: 0 }}</b>
+        <b data-rc-cart-count>{{ cart.item_count | default: 0 }}</b>
       </a>
     </nav>
   </div>
@@ -74,13 +74,13 @@
           <path d="M20.8 4.6c-1.8-1.7-4.7-1.7-6.5.1L12 7l-2.3-2.3c-1.8-1.8-4.7-1.8-6.5-.1-1.9 1.8-2 4.9-.1 6.8L12 20l8.9-8.6c1.9-1.9 1.8-5-.1-6.8Z"></path>
         </svg>
       </a>
-      <a class="rc-main-nav__button rc-main-nav__cart" href="{{ routes.cart_url }}" aria-label="Panier">
+      <a class="rc-main-nav__button rc-main-nav__cart" href="{{ routes.cart_url }}" data-rc-cart-open aria-label="Panier">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M6 6h15l-2 8H8L6 3H3"></path>
           <circle cx="9" cy="20" r="1.5"></circle>
           <circle cx="18" cy="20" r="1.5"></circle>
         </svg>
-        <b>{{ cart.item_count | default: 0 }}</b>
+        <b data-rc-cart-count>{{ cart.item_count | default: 0 }}</b>
       </a>
     </nav>
   </div>

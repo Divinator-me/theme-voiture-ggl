@@ -1,8 +1,33 @@
 /**
  * Horizon overrides for Shopify.actions:
  * - updateCart: emit events from the cart drawer scope.
- * - openCart: open the cart drawer (fall back to /cart when absent).
+ * - openCart: open Upcart when installed, otherwise Horizon drawer or /cart.
  */
+
+const openStoreCart = async () => {
+  if (typeof window.RCLAB?.openCart === 'function') {
+    window.RCLAB.openCart();
+    return;
+  }
+
+  if (typeof window.upcartOpenCart === 'function') {
+    if (typeof window.upcartRefreshCart === 'function') {
+      window.upcartRefreshCart();
+    }
+    window.upcartOpenCart();
+    return;
+  }
+
+  /** @type {HTMLElement & { open?: () => void } | null} */
+  const drawer = document.querySelector('theme-drawer#cart-drawer');
+
+  if (drawer?.open) {
+    drawer.open();
+    return;
+  }
+
+  window.location.href = Theme.routes.cart_url || '/cart';
+};
 
 function init() {
   const actions = window.Shopify?.actions;
@@ -13,16 +38,7 @@ function init() {
   });
 
   actions.openCart.configure({
-    async handler() {
-      /** @type {HTMLElement & {open?: () => void} | null} */
-      const drawer = document.querySelector('theme-drawer#cart-drawer');
-
-      if (drawer?.open) {
-        drawer.open();
-      } else {
-        window.location.href = Theme.routes.cart_url || '/cart';
-      }
-    },
+    handler: openStoreCart,
   });
 }
 
