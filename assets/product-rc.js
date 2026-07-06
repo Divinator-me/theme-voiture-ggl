@@ -9,7 +9,7 @@
     points_fort: { label: 'Points Fort', group: 'main', icon: 'pointsFort' },
     livraison_retours: { label: 'Livraison et retours', group: 'bottom', icon: 'livraison' },
     fabrication_rigoureuse: { label: 'Fabrication hautement contrôlée', group: 'bottom', icon: 'fabrication' },
-    garantie_2_ans: { label: 'Garantie 6 mois', group: 'bottom', icon: 'garantie' },
+    garantie_2_ans: { label: 'Garantie 2 ans', group: 'bottom', icon: 'garantie' },
   };
 
   const MAIN_SECTION_IDS = ['tout_savoir', 'caracteristiques', 'points_fort'];
