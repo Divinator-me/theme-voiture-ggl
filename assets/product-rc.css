@@ -6,7 +6,7 @@
   padding: 4px 0 4px 10px;
   border-left: 4px solid var(--color-red);
   font-family: var(--font-display);
-  font-size: clamp(34px, 9vw, 54px);
+  font-size: clamp(28px, 7.2vw, 44px);
   font-style: italic;
   font-weight: 400;
   letter-spacing: -0.03em;
