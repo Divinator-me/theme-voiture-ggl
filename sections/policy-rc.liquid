@@ -1,0 +1,53 @@
+{{ 'policy-rc.css' | asset_url | stylesheet_tag }}
+
+{%- assign current_policy = nil -%}
+{%- for pol in shop.policies -%}
+  {%- if pol.url == request.path -%}
+    {%- assign current_policy = pol -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{% assign policy_handle = request.path | split: '/' | last %}
+
+<section class="rc-policy" aria-label="{% if current_policy %}{{ current_policy.title | escape }}{% else %}Politique{% endif %}">
+  <div class="rc-policy__inner">
+    <header class="rc-policy__header">
+      <span class="rc-policy__badge">Informations légales</span>
+      <h1>
+        {%- if current_policy -%}
+          {{ current_policy.title }}
+        {%- else -%}
+          Politique
+        {%- endif -%}
+      </h1>
+    </header>
+
+    <div class="rc-policy__content rte">
+      {% case policy_handle %}
+        {% when 'refund-policy' %}
+          {% render 'policy-refund-rc' %}
+        {% when 'shipping-policy' %}
+          {% render 'policy-shipping-rc' %}
+        {% when 'privacy-policy' %}
+          {% render 'policy-privacy-rc' %}
+        {% when 'terms-of-service' %}
+          {% render 'policy-terms-rc' %}
+        {% else %}
+          {%- if current_policy -%}
+            {{ current_policy.body }}
+          {%- endif -%}
+      {% endcase %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Politique RCLAB",
+  "presets": [
+    {
+      "name": "Politique RCLAB"
+    }
+  ]
+}
+{% endschema %}
