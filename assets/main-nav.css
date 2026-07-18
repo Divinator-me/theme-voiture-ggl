@@ -439,10 +439,10 @@
   }
 
   .rc-main-nav__desktop {
-    display: grid;
-    grid-template-columns: auto minmax(320px, 1fr) auto auto;
-    gap: 14px;
+    display: flex;
+    gap: 24px;
     align-items: center;
+    justify-content: center;
     width: 100%;
     max-width: 1280px;
     height: 64px;
@@ -453,15 +453,17 @@
   }
 
   .rc-main-nav__brand--desktop {
-    justify-items: start;
     flex-shrink: 0;
+    justify-items: start;
   }
 
   .rc-main-nav__search {
     position: relative;
     display: flex;
+    flex: 0 1 380px;
     align-items: center;
     width: 100%;
+    max-width: 420px;
     min-width: 0;
   }
 
