@@ -1,0 +1,155 @@
+.rc-policy {
+  padding: 36px 16px 72px;
+  background: var(--color-white);
+  color: var(--color-black);
+}
+
+.rc-policy__inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.rc-policy__header {
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.rc-policy__badge {
+  display: inline-flex;
+  margin-bottom: 12px;
+  padding: 6px 10px;
+  background: var(--color-red);
+  color: var(--color-white);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.rc-policy__header h1 {
+  position: relative;
+  width: fit-content;
+  margin: 0 auto;
+  padding-bottom: 12px;
+  font-family: var(--font-display);
+  font-size: clamp(32px, 7vw, 48px);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.rc-policy__header h1::after {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 56px;
+  height: 5px;
+  background: var(--color-red);
+  content: "";
+  transform: translateX(-50%);
+}
+
+.rc-policy__content {
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.rc-policy__content h2 {
+  margin: 2rem 0 0.75rem;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.rc-policy__content h3 {
+  margin: 1.5rem 0 0.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.rc-policy__content p {
+  margin: 0 0 1rem;
+}
+
+.rc-policy__content ul,
+.rc-policy__content ol {
+  margin: 0 0 1rem;
+  padding-left: 1.25rem;
+}
+
+.rc-policy__content li {
+  margin-bottom: 0.35rem;
+}
+
+.rc-policy__content a {
+  color: var(--color-red);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.rc-policy__content a:hover {
+  text-decoration-thickness: 2px;
+}
+
+.rc-policy__notice {
+  margin-bottom: 1.5rem;
+  padding: 14px 16px;
+  border-left: 4px solid var(--color-red);
+  background: var(--color-gray-100, #f5f5f5);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.rc-policy__contact {
+  margin-top: 2rem;
+  padding: 20px;
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-md);
+  background: var(--color-gray-50, #fafafa);
+}
+
+.rc-policy__contact h3 {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.rc-policy__contact ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rc-policy__contact li {
+  margin-bottom: 0.35rem;
+}
+
+.rc-policy__faq-item {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
+.rc-policy__faq-item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.rc-policy__faq-item strong {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 15px;
+}
+
+@media (min-width: 750px) {
+  .rc-policy {
+    padding: 48px 24px 96px;
+  }
+}
