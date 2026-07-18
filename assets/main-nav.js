@@ -10,7 +10,7 @@
   let bound = false;
 
   const getMenuTop = () => {
-    const headerSelectors = ['.announcement-marquee', '.rc-promo-bar', '[data-main-nav]', '.rc-category-nav'];
+    const headerSelectors = ['.announcement-marquee', '[data-main-nav]', '.rc-category-nav'];
     let bottom = 0;
 
     headerSelectors.forEach((selector) => {
