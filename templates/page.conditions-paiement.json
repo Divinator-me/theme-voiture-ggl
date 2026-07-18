@@ -9,12 +9,12 @@
  */
 {
   "sections": {
-    "policy_billing": {
-      "type": "policy-billing-rc",
+    "policy_legal": {
+      "type": "policy-legal-rc",
       "settings": {}
     }
   },
   "order": [
-    "policy_billing"
+    "policy_legal"
   ]
 }

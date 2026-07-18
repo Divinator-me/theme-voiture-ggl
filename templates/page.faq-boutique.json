@@ -9,12 +9,12 @@
  */
 {
   "sections": {
-    "policy_faq": {
-      "type": "policy-faq-gmc-rc",
+    "policy_legal": {
+      "type": "policy-legal-rc",
       "settings": {}
     }
   },
   "order": [
-    "policy_faq"
+    "policy_legal"
   ]
 }

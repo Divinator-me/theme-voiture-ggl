@@ -14,6 +14,12 @@
     when 'cgv'
       assign legal_title = 'Conditions générales de vente'
       assign legal_badge = 'Informations légales'
+    when 'conditions-paiement'
+      assign legal_title = 'Conditions de facturation et de paiement'
+      assign legal_badge = 'Informations légales'
+    when 'faq-boutique'
+      assign legal_title = 'FAQ boutique'
+      assign legal_badge = 'Aide'
     else
       assign legal_title = page.title
       assign legal_badge = 'Informations légales'
@@ -37,6 +43,10 @@
           {% render 'policy-privacy-rc' %}
         {% when 'cgv' %}
           {% render 'policy-terms-rc' %}
+        {% when 'conditions-paiement' %}
+          {% render 'policy-billing-rc' %}
+        {% when 'faq-boutique' %}
+          {% render 'policy-faq-gmc-rc' %}
         {% else %}
           {{ page.content }}
       {% endcase %}

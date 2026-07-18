@@ -43,18 +43,13 @@
     <nav class="rc-footer__col" aria-label="Aide">
       <h2>Aide</h2>
       <a href="{{ routes.root_url }}#faq">FAQ</a>
-      <a href="/pages/faq-boutique">FAQ boutique</a>
       <a href="/pages/contact">Contact</a>
       <a href="/apps/parcelpanel">Suivi de commande</a>
     </nav>
 
     <nav class="rc-footer__col" aria-label="Informations légales">
       <h2>Légal</h2>
-      <a href="{% if shop.refund_policy != blank %}{{ shop.refund_policy.url }}{% else %}/pages/retours-remboursements{% endif %}">Retours &amp; remboursements</a>
-      <a href="{% if shop.shipping_policy != blank %}{{ shop.shipping_policy.url }}{% else %}/pages/politique-livraison{% endif %}">Politique de livraison</a>
-      <a href="{% if shop.terms_of_service != blank %}{{ shop.terms_of_service.url }}{% else %}/pages/cgv{% endif %}">CGV</a>
-      <a href="{% if shop.privacy_policy != blank %}{{ shop.privacy_policy.url }}{% else %}/pages/politique-confidentialite{% endif %}">Confidentialité</a>
-      <a href="/pages/conditions-paiement">Paiement</a>
+      {% render 'footer-legal-links-rc' %}
     </nav>
 
     <div class="rc-footer__newsletter">
