@@ -1,0 +1,25 @@
+{{ 'policy-rc.css' | asset_url | stylesheet_tag }}
+
+<section class="rc-policy" aria-label="Conditions de facturation et de paiement">
+  <div class="rc-policy__inner">
+    <header class="rc-policy__header">
+      <span class="rc-policy__badge">Informations légales</span>
+      <h1>Conditions de facturation et de paiement</h1>
+    </header>
+
+    <div class="rc-policy__content rte">
+      {% render 'policy-billing-rc' %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Politique paiement RCLAB",
+  "presets": [
+    {
+      "name": "Politique paiement RCLAB"
+    }
+  ]
+}
+{% endschema %}
