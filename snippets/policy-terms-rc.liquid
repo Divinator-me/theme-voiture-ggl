@@ -33,7 +33,14 @@
 <p>En soumettant un avis, commentaire ou idée, tu nous accordes l'autorisation de l'utiliser et de le diffuser sans restriction. Tu t'engages à ne pas soumettre de contenu illégal, diffamatoire ou nuisible.</p>
 
 <h2>10. Informations personnelles</h2>
-<p>La soumission de tes informations personnelles est régie par notre <a href="/pages/politique-confidentialite">Politique de Confidentialité</a>.</p>
+{%- liquid
+  assign confidentialite_page = pages['confidentialite']
+  if confidentialite_page == blank
+    assign confidentialite_page = pages['politique-confidentialite']
+  endif
+  assign confidentialite_url = confidentialite_page.url | default: '/pages/confidentialite'
+-%}
+<p>La soumission de tes informations personnelles est régie par notre <a href="{{ confidentialite_url }}">Politique de Confidentialité</a>.</p>
 
 <h2>11. Erreurs, inexactitudes et omissions</h2>
 <p>Nous nous réservons le droit de corriger toute erreur ou omission, et de modifier ou mettre à jour les informations à tout moment sans préavis.</p>
