@@ -97,15 +97,6 @@
   text-decoration-thickness: 2px;
 }
 
-.rc-policy__notice {
-  margin-bottom: 1.5rem;
-  padding: 14px 16px;
-  border-left: 4px solid var(--color-red);
-  background: var(--color-gray-100, #f5f5f5);
-  font-size: 13px;
-  line-height: 1.6;
-}
-
 .rc-policy__contact {
   margin-top: 2rem;
   padding: 20px;
