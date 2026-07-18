@@ -1,0 +1,56 @@
+{{ 'policy-rc.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  case template.suffix
+    when 'retours-remboursements'
+      assign legal_title = 'Politique de retour et remboursement'
+      assign legal_badge = 'Informations légales'
+    when 'politique-livraison'
+      assign legal_title = 'Politique de livraison'
+      assign legal_badge = 'Informations légales'
+    when 'politique-confidentialite'
+      assign legal_title = 'Politique de confidentialité'
+      assign legal_badge = 'Informations légales'
+    when 'cgv'
+      assign legal_title = 'Conditions générales de vente'
+      assign legal_badge = 'Informations légales'
+    else
+      assign legal_title = page.title
+      assign legal_badge = 'Informations légales'
+  endcase
+-%}
+
+<section class="rc-policy" aria-label="{{ legal_title | escape }}">
+  <div class="rc-policy__inner">
+    <header class="rc-policy__header">
+      <span class="rc-policy__badge">{{ legal_badge }}</span>
+      <h1>{{ legal_title }}</h1>
+    </header>
+
+    <div class="rc-policy__content rte">
+      {% case template.suffix %}
+        {% when 'retours-remboursements' %}
+          {% render 'policy-refund-rc' %}
+        {% when 'politique-livraison' %}
+          {% render 'policy-shipping-rc' %}
+        {% when 'politique-confidentialite' %}
+          {% render 'policy-privacy-rc' %}
+        {% when 'cgv' %}
+          {% render 'policy-terms-rc' %}
+        {% else %}
+          {{ page.content }}
+      {% endcase %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Politique légale RCLAB",
+  "presets": [
+    {
+      "name": "Politique légale RCLAB"
+    }
+  ]
+}
+{% endschema %}
