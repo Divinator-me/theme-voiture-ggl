@@ -460,10 +460,10 @@
   .rc-main-nav__search {
     position: relative;
     display: flex;
-    flex: 0 1 380px;
+    flex: 0 1 520px;
     align-items: center;
     width: 100%;
-    max-width: 420px;
+    max-width: 560px;
     min-width: 0;
   }
 
