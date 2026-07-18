@@ -387,3 +387,37 @@
   font-size: 14px;
   line-height: 1.6;
 }
+
+.rc-payment-trust {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.rc-payment-trust__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rc-payment-trust__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  height: 28px;
+  padding: 4px 8px;
+  border: 1px solid var(--color-gray-200);
+  border-radius: 4px;
+  background: var(--color-white);
+}
+
+.rc-payment-trust__icon {
+  display: block;
+  width: auto;
+  height: 18px;
+}

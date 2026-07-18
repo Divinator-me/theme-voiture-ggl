@@ -1,0 +1,11 @@
+{%- if shop.enabled_payment_types.size > 0 -%}
+  <div class="rc-payment-trust">
+    <ul class="rc-payment-trust__list" role="list">
+      {%- for type in shop.enabled_payment_types -%}
+        <li class="rc-payment-trust__item">
+          {{ type | payment_type_svg_tag: class: 'rc-payment-trust__icon' }}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+{%- endif -%}
