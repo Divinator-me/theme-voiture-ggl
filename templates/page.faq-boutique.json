@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "policy_faq": {
+      "type": "policy-faq-gmc-rc",
+      "settings": {}
+    }
+  },
+  "order": [
+    "policy_faq"
+  ]
+}

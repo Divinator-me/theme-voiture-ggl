@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "policy_billing": {
+      "type": "policy-billing-rc",
+      "settings": {}
+    }
+  },
+  "order": [
+    "policy_billing"
+  ]
+}
