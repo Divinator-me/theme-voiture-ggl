@@ -6,10 +6,6 @@
       "type": "announcement-marquee",
       "settings": {}
     },
-    "promo_bar": {
-      "type": "promo-bar",
-      "settings": {}
-    },
     "main_nav": {
       "type": "main-nav",
       "settings": {}
@@ -21,7 +17,6 @@
   },
   "order": [
     "announcement_marquee",
-    "promo_bar",
     "main_nav",
     "category_nav"
   ]

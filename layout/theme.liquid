@@ -25,6 +25,7 @@
     {% endif %}
 
     {%- render 'meta-tags' -%}
+    <meta name="google-site-verification" content="pskfJiRxMrbi6G3zY9AI6Up0jictfr8H2EMGf_eWVjg" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -63,19 +64,7 @@
         data-product-transition="{{ settings.transition_to_main_product }}"
         data-template="{{ template }}"
       >
-        {%- liquid
-          assign is_rc_policy = false
-          if shop.refund_policy != blank and request.path == shop.refund_policy.url
-            assign is_rc_policy = true
-          elsif shop.shipping_policy != blank and request.path == shop.shipping_policy.url
-            assign is_rc_policy = true
-          elsif shop.privacy_policy != blank and request.path == shop.privacy_policy.url
-            assign is_rc_policy = true
-          elsif shop.terms_of_service != blank and request.path == shop.terms_of_service.url
-            assign is_rc_policy = true
-          endif
-        -%}
-        {%- if is_rc_policy -%}
+        {%- if request.path contains '/policies/' -%}
           {% section 'policy-rc' %}
         {%- else -%}
           {{ content_for_layout }}

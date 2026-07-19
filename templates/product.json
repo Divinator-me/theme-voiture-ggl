@@ -87,14 +87,6 @@
             "padding-inline-end": 0
           },
           "blocks": {
-            "custom_liquid_f4Ek6f": {
-              "type": "custom-liquid",
-              "name": "t:names.custom_liquid",
-              "settings": {
-                "custom_liquid": "<a href=\"#shopify-section-template--20012964675850__trustpilot_7FTrR8\"\nstyle=\"text-decoration: none;\">\n<div style=\"display: flex; align-items: center; margin-top: 0px; margin-bottom: 0px;\nfont-family: inherit;\">\n<img src=\"https://cdn.shopify.com/s/files/1/0776/3751/7627/files/avis.png?v=1687213619\"\nalt=\"\" style=\"height: 16px; width: auto; margin-right: 6px;\">\n<span style=\"font-size: 12px; color: inherit; font-weight: normal;\"><strong>4.7/5</strong>\nbasé sur 469 avis vérifiés</span>\n</div>\n</a>"
-              },
-              "blocks": {}
-            },
             "group_icgrde": {
               "type": "group",
               "name": "Header",
@@ -324,9 +316,13 @@
               },
               "block_order": []
             },
-            "vitals_payment_logos_Dtj4E6": {
-              "type": "shopify://apps/vitals/blocks/payment-logos/aeb48102-2a5a-4f39-bdbd-d8d49f4e20b8",
-              "settings": {}
+            "rc_payment_trust": {
+              "type": "custom-liquid",
+              "name": "Icônes paiement",
+              "settings": {
+                "custom_liquid": "{% render 'rc-payment-trust' %}"
+              },
+              "blocks": {}
             },
             "rc_product_description": {
               "type": "rc-product-description",
@@ -340,14 +336,13 @@
             }
           },
           "block_order": [
-            "custom_liquid_f4Ek6f",
             "group_icgrde",
             "custom_liquid_stock",
             "variant_picker_couleur",
             "variant_picker_batteries",
             "custom_liquid_ma39Xw",
             "buy_buttons_eYQEYi",
-            "vitals_payment_logos_Dtj4E6",
+            "rc_payment_trust",
             "rc_product_description"
           ]
         }

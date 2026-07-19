@@ -1,0 +1,19 @@
+{%- liquid
+  assign retours_page = pages['retours-remboursements']
+  assign livraison_page = pages['politique-de-livraison']
+  if livraison_page == blank
+    assign livraison_page = pages['politique-livraison']
+  endif
+  assign cgv_page = pages['cgv']
+  assign confidentialite_page = pages['confidentialite']
+  if confidentialite_page == blank
+    assign confidentialite_page = pages['politique-confidentialite']
+  endif
+  assign paiement_page = pages['conditions-paiement']
+-%}
+
+<a href="{% if retours_page != blank %}{{ retours_page.url }}{% else %}/pages/retours-remboursements{% endif %}">Retours &amp; remboursements</a>
+<a href="{% if livraison_page != blank %}{{ livraison_page.url }}{% else %}/pages/politique-de-livraison{% endif %}">Politique de livraison</a>
+<a href="{% if cgv_page != blank %}{{ cgv_page.url }}{% else %}/pages/cgv{% endif %}">CGV</a>
+<a href="{% if confidentialite_page != blank %}{{ confidentialite_page.url }}{% else %}/pages/confidentialite{% endif %}">Confidentialité</a>
+<a href="{% if paiement_page != blank %}{{ paiement_page.url }}{% else %}/pages/conditions-paiement{% endif %}">Paiement</a>

@@ -9,11 +9,6 @@
       </a>
       <p>Voitures RC premium et conseils terrain pour rouler fort, longtemps, et sans galère.</p>
     </div>
-
-    <div class="rc-footer__badge">
-      <span>Garantie 2 ans</span>
-      <span>Livraison offerte France</span>
-    </div>
   </div>
 
   <div class="rc-footer__grid">
@@ -43,18 +38,13 @@
     <nav class="rc-footer__col" aria-label="Aide">
       <h2>Aide</h2>
       <a href="{{ routes.root_url }}#faq">FAQ</a>
-      <a href="/pages/faq-boutique">FAQ boutique</a>
       <a href="/pages/contact">Contact</a>
       <a href="/apps/parcelpanel">Suivi de commande</a>
     </nav>
 
     <nav class="rc-footer__col" aria-label="Informations légales">
       <h2>Légal</h2>
-      <a href="/policies/refund-policy">Retours &amp; remboursements</a>
-      <a href="/policies/shipping-policy">Politique de livraison</a>
-      <a href="/policies/terms-of-service">CGV</a>
-      <a href="/policies/privacy-policy">Confidentialité</a>
-      <a href="/pages/conditions-paiement">Paiement</a>
+      {% render 'footer-legal-links-rc' %}
     </nav>
 
     <div class="rc-footer__newsletter">

@@ -439,10 +439,10 @@
   }
 
   .rc-main-nav__desktop {
-    display: grid;
-    grid-template-columns: auto minmax(320px, 1fr) auto auto;
-    gap: 14px;
+    display: flex;
+    gap: 24px;
     align-items: center;
+    justify-content: center;
     width: 100%;
     max-width: 1280px;
     height: 64px;
@@ -453,15 +453,17 @@
   }
 
   .rc-main-nav__brand--desktop {
-    justify-items: start;
     flex-shrink: 0;
+    justify-items: start;
   }
 
   .rc-main-nav__search {
     position: relative;
     display: flex;
+    flex: 0 1 520px;
     align-items: center;
     width: 100%;
+    max-width: 560px;
     min-width: 0;
   }
 
@@ -515,52 +517,6 @@
 
   .rc-main-nav__search-submit:hover {
     background: var(--color-red-dark);
-  }
-
-  .rc-main-nav__pills {
-    display: flex;
-    flex-shrink: 0;
-    gap: 10px;
-    align-items: center;
-  }
-
-  .rc-main-nav a.rc-main-nav__pill,
-  .rc-main-nav a.rc-main-nav__pill:hover,
-  .rc-main-nav a.rc-main-nav__pill:focus-visible {
-    color: var(--color-white);
-  }
-
-  .rc-main-nav__pill {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 34px;
-    padding: 8px 18px;
-    color: var(--color-white);
-    font-size: 14px;
-    font-weight: 900;
-    letter-spacing: 0.05em;
-    line-height: 1;
-    text-transform: uppercase;
-    white-space: nowrap;
-    transform: skewX(-14deg);
-    transition: background 0.2s var(--ease-smooth);
-  }
-
-  .rc-main-nav__pill--new {
-    background: var(--color-red);
-  }
-
-  .rc-main-nav__pill--new:hover {
-    background: var(--color-red-dark);
-  }
-
-  .rc-main-nav__pill--promo {
-    background: var(--color-black);
-  }
-
-  .rc-main-nav__pill--promo:hover {
-    background: #222;
   }
 
   .rc-main-nav__side--desktop {

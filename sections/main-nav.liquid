@@ -63,11 +63,6 @@
       </button>
     </form>
 
-    <div class="rc-main-nav__pills">
-      <a class="rc-main-nav__pill rc-main-nav__pill--new" href="{{ routes.all_products_collection_url }}">Nouveauté</a>
-      <a class="rc-main-nav__pill rc-main-nav__pill--promo" href="#top-ventes">Promos <span aria-hidden="true">🔥</span></a>
-    </div>
-
     <nav class="rc-main-nav__side rc-main-nav__side--right rc-main-nav__side--desktop" aria-label="Actions rapides">
       <a class="rc-main-nav__button" href="/pages/wishlist" aria-label="Wishlist">
         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -131,7 +126,8 @@
               <span class="rc-menu-overlay__chevron rc-menu-overlay__chevron--toggle" aria-hidden="true"></span>
             </summary>
             <div class="rc-menu-overlay__sub">
-              <a href="/apps/parcelpanel">Suivre ma Commande</a>
+              <a href="/apps/parcelpanel">Suivre ma commande</a>
+              <a href="/pages/contact">Page contact</a>
             </div>
           </details>
         </nav>
@@ -139,9 +135,7 @@
 
       <nav class="rc-menu-overlay__footer" aria-label="Liens rapides">
         <a href="{{ routes.account_url }}">Mon compte</a>
-        <a href="/pages/contact">Contact</a>
         <a href="{{ routes.root_url }}#faq">FAQ</a>
-        <a href="/apps/parcelpanel">Livraison</a>
       </nav>
     </div>
   </div>
