@@ -64,11 +64,7 @@
         data-product-transition="{{ settings.transition_to_main_product }}"
         data-template="{{ template }}"
       >
-        {%- if request.path contains '/policies/' -%}
-          {% section 'policy-rc' %}
-        {%- else -%}
-          {{ content_for_layout }}
-        {%- endif -%}
+        {{ content_for_layout }}
       </main>
 
       <footer id="rc-footer-group">

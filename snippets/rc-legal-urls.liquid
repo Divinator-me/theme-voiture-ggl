@@ -1,0 +1,38 @@
+{%- comment -%}
+  URLs canoniques légales RCLAB (GMC) — source unique pour éviter les doublons /policies/* vs /pages/*.
+  Utiliser : {% render 'rc-legal-urls', part: 'contact' %}
+{%- endcomment -%}
+
+{%- liquid
+  assign rc_contact_page = pages['contact']
+  assign rc_retours_page = pages['retours-remboursements']
+  assign rc_livraison_page = pages['politique-de-livraison']
+  if rc_livraison_page == blank
+    assign rc_livraison_page = pages['politique-livraison']
+  endif
+  assign rc_cgv_page = pages['cgv']
+  assign rc_confidentialite_page = pages['confidentialite']
+  if rc_confidentialite_page == blank
+    assign rc_confidentialite_page = pages['politique-confidentialite']
+  endif
+  assign rc_paiement_page = pages['conditions-paiement']
+  assign rc_faq_boutique_page = pages['faq-boutique']
+
+  assign rc_contact_url = rc_contact_page.url | default: '/pages/contact'
+  assign rc_retours_url = rc_retours_page.url | default: '/pages/retours-remboursements'
+  assign rc_livraison_url = rc_livraison_page.url | default: '/pages/politique-de-livraison'
+  assign rc_cgv_url = rc_cgv_page.url | default: '/pages/cgv'
+  assign rc_confidentialite_url = rc_confidentialite_page.url | default: '/pages/confidentialite'
+  assign rc_paiement_url = rc_paiement_page.url | default: '/pages/conditions-paiement'
+  assign rc_faq_boutique_url = rc_faq_boutique_page.url | default: '/pages/faq-boutique'
+-%}
+
+{%- case part -%}
+  {%- when 'contact' -%}{{ rc_contact_url }}
+  {%- when 'retours' -%}{{ rc_retours_url }}
+  {%- when 'livraison' -%}{{ rc_livraison_url }}
+  {%- when 'cgv' -%}{{ rc_cgv_url }}
+  {%- when 'confidentialite' -%}{{ rc_confidentialite_url }}
+  {%- when 'paiement' -%}{{ rc_paiement_url }}
+  {%- when 'faq-boutique' -%}{{ rc_faq_boutique_url }}
+{%- endcase -%}

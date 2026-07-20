@@ -9,9 +9,13 @@
     when 'politique-livraison'
       assign legal_title = 'Politique de livraison'
       assign legal_badge = 'Informations légales'
+    when 'politique-de-livraison'
+      assign legal_title = 'Politique de livraison'
+      assign legal_badge = 'Informations légales'
     when 'politique-confidentialite'
       assign legal_title = 'Politique de confidentialité'
       assign legal_badge = 'Informations légales'
+    when 'confidentialite'
     when 'cgv'
       assign legal_title = 'Conditions générales de vente'
       assign legal_badge = 'Informations légales'
@@ -40,7 +44,11 @@
           {% render 'policy-refund-rc' %}
         {% when 'politique-livraison' %}
           {% render 'policy-shipping-rc' %}
+        {% when 'politique-de-livraison' %}
+          {% render 'policy-shipping-rc' %}
         {% when 'politique-confidentialite' %}
+          {% render 'policy-privacy-rc' %}
+        {% when 'confidentialite' %}
           {% render 'policy-privacy-rc' %}
         {% when 'cgv' %}
           {% render 'policy-terms-rc' %}
