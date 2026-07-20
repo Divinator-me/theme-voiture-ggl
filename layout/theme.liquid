@@ -76,7 +76,11 @@
         data-product-transition="{{ settings.transition_to_main_product }}"
         data-template="{{ template }}"
       >
-        {{ content_for_layout }}
+        {%- if rc_redirect_frontpage_collection -%}
+          <script>window.location.replace({{ routes.root_url | json }});</script>
+        {%- else -%}
+          {{ content_for_layout }}
+        {%- endif -%}
       </main>
 
       <footer id="rc-footer-group">

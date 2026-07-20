@@ -61,6 +61,23 @@
   line-height: 1.5;
 }
 
+/* Ancien encadré (cache page Shopify) — masqué jusqu'à invalidation */
+.rc-contact__service {
+  display: none !important;
+}
+
+.rc-contact__header:not(:has(.rc-contact__intro))::after {
+  display: block;
+  max-width: 36ch;
+  margin: 16px auto 0;
+  color: var(--color-gray-500);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.5;
+  white-space: normal;
+  content: "Service client français — on te répond sous 1 à 2 jours ouvrés.";
+}
+
 .rc-contact-legal {
   padding: 8px 16px 48px;
   background: var(--color-white);
