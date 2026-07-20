@@ -1,0 +1,19 @@
+{{ 'policy-rc.css' | asset_url | stylesheet_tag }}
+{{ 'contact-rc.css' | asset_url | stylesheet_tag }}
+
+<section class="rc-contact-legal" aria-label="Coordonnées RCLAB">
+  <div class="rc-contact-legal__inner">
+    {% render 'policy-contact-rc' %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact légal RCLAB",
+  "presets": [
+    {
+      "name": "Contact légal RCLAB"
+    }
+  ]
+}
+{% endschema %}
