@@ -52,71 +52,12 @@
   transform: translateX(-50%);
 }
 
-.rc-contact__service {
-  display: grid;
-  gap: 16px;
-  padding: 22px 20px;
-  border: 1px solid var(--color-gray-200);
-  border-radius: var(--radius-md);
-  background: var(--color-gray-50);
-}
-
-.rc-contact__lead {
-  margin: 0;
+.rc-contact__intro {
+  max-width: 36ch;
+  margin: 16px auto 0;
+  color: var(--color-gray-500);
   font-size: 15px;
-  font-weight: 800;
-  letter-spacing: 0.02em;
-  line-height: 1.3;
-  text-transform: uppercase;
-}
-
-.rc-contact__meta {
-  display: flex;
-  gap: 0;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.rc-contact__meta-item {
-  display: grid;
-  gap: 2px;
-  justify-items: center;
-}
-
-.rc-contact__meta-divider {
-  display: block;
-  width: 1px;
-  height: 34px;
-  margin: 0 20px;
-  background: var(--color-gray-200);
-}
-
-.rc-contact__meta-value {
-  color: var(--color-red);
-  font-family: var(--font-display);
-  font-size: 28px;
-  font-style: italic;
-  font-weight: 400;
-  line-height: 1;
-  text-transform: uppercase;
-}
-
-.rc-contact__meta-label {
-  color: var(--color-gray-500);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  line-height: 1.2;
-  text-transform: uppercase;
-}
-
-.rc-contact__timezone {
-  margin: 0 0 12px;
-  color: var(--color-gray-500);
-  font-size: 13px;
+  font-weight: 500;
   line-height: 1.5;
 }
 
@@ -134,16 +75,6 @@
 .rc-contact-legal .rc-policy__contact {
   margin-top: 0;
   width: 100%;
-}
-
-.rc-contact__channels {
-  margin: 0;
-  padding-top: 4px;
-  border-top: 1px solid var(--color-gray-200);
-  color: var(--color-gray-500);
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.5;
 }
 
 /* Form spacing on contact template */
@@ -205,16 +136,8 @@
     padding: 48px 24px 32px;
   }
 
-  .rc-contact__service {
-    padding: 24px 28px;
-  }
-
-  .rc-contact__lead {
+  .rc-contact__intro {
     font-size: 16px;
-  }
-
-  .rc-contact__channels {
-    font-size: 15px;
   }
 
   .rc-contact-legal {
