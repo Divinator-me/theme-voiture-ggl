@@ -1,4 +1,10 @@
 <!doctype html>
+{%- liquid
+  assign rc_redirect_frontpage_collection = false
+  if template.name == 'collection' and collection.handle == 'frontpage' and request.design_mode == false
+    assign rc_redirect_frontpage_collection = true
+  endif
+-%}
 <html
   {% if request.design_mode %}
     class="shopify-design-mode"
@@ -44,6 +50,28 @@
     {% endif %}
 
     {{ content_for_header }}
+
+    {%- if template.name == 'page' and page.handle == 'contact' -%}
+      <style>
+        .rc-contact__service { display: none !important; }
+        .rc-contact__header:not(:has(.rc-contact__intro))::after {
+          display: block;
+          max-width: 36ch;
+          margin: 16px auto 0;
+          color: #737373;
+          font-size: 15px;
+          font-weight: 500;
+          line-height: 1.5;
+          content: "Service client français — on te répond sous 1 à 2 jours ouvrés.";
+        }
+      </style>
+    {%- endif -%}
+
+    {%- if rc_redirect_frontpage_collection -%}
+      <meta http-equiv="refresh" content="0;url={{ routes.root_url }}">
+      <meta name="robots" content="noindex, follow">
+      <link rel="canonical" href="{{ shop.url }}{{ routes.root_url }}">
+    {%- endif -%}
   </head>
 
   <body class="template-{{ template.name }} page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }}">
@@ -64,8 +92,8 @@
         data-product-transition="{{ settings.transition_to_main_product }}"
         data-template="{{ template }}"
       >
-        {%- if request.path contains '/policies/' -%}
-          {% section 'policy-rc' %}
+        {%- if rc_redirect_frontpage_collection -%}
+          <script>window.location.replace({{ routes.root_url | json }});</script>
         {%- else -%}
           {{ content_for_layout }}
         {%- endif -%}

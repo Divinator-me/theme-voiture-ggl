@@ -8,8 +8,8 @@
  * ------------------------------------------------------------
  */{
   "sections": {
-    "contact_rc": {
-      "type": "contact-rc",
+    "contact_header_rc": {
+      "type": "contact-header-rc",
       "settings": {}
     },
     "form": {
@@ -74,7 +74,7 @@
         "overlay_style": "solid",
         "gradient_direction": "to top",
         "padding-block-start": 0,
-        "padding-block-end": 32
+        "padding-block-end": 16
       }
     },
     "contact_legal": {
@@ -83,7 +83,7 @@
     }
   },
   "order": [
-    "contact_rc",
+    "contact_header_rc",
     "form",
     "contact_legal"
   ]

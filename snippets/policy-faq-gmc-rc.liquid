@@ -1,30 +1,23 @@
-{%- liquid
-  assign livraison_page = pages['politique-de-livraison']
-  if livraison_page == blank
-    assign livraison_page = pages['politique-livraison']
-  endif
-  assign livraison_url = livraison_page.url | default: '/pages/politique-de-livraison'
--%}
 <p>Bienvenue sur la page FAQ de RCLAB. On répond ici à tes questions pour t'assurer la meilleure expérience d'achat. Besoin d'aide supplémentaire ? N'hésite pas à nous contacter.</p>
 
 <div class="rc-policy__faq-item">
   <strong>Q1. Combien de temps pour recevoir ma commande ?</strong>
-  <p>Traitement 0 à 1 jour ouvré (lun.–ven.), acheminement 4 à 7 jours ouvrés (lun.–ven.), soit 4 à 8 jours ouvrés au total. Heure limite de commande : 12h00 ({% render 'rc-timezone-fr' %}). Plus de détails sur notre <a href="{{ livraison_url }}">Politique de Livraison</a>.</p>
+  <p>Traitement 0 à 1 jour ouvré (lun.–ven.), acheminement 4 à 7 jours ouvrés (lun.–ven.), soit 4 à 8 jours ouvrés au total. Heure limite de commande : 12h00 ({% render 'rc-timezone-fr' %}). Plus de détails sur notre <a href="{% render 'rc-legal-urls', part: 'livraison' %}">Politique de Livraison</a>.</p>
 </div>
 
 <div class="rc-policy__faq-item">
   <strong>Q2. La livraison est-elle offerte ?</strong>
-  <p>Oui, la livraison est offerte sur toutes les commandes en France métropolitaine. Plus d'infos sur notre <a href="{{ livraison_url }}">Politique de Livraison</a>.</p>
+  <p>Oui, la livraison est offerte sur toutes les commandes en France métropolitaine, en 4 à 8 jours ouvrés. Plus d'infos sur notre <a href="{% render 'rc-legal-urls', part: 'livraison' %}">Politique de Livraison</a>.</p>
 </div>
 
 <div class="rc-policy__faq-item">
   <strong>Q3. Où est basée RCLAB ?</strong>
-  <p>RCLAB est une entreprise basée en France, proposant une sélection de voitures RC fiables, avec livraison en France métropolitaine.</p>
+  <p>RCLAB est une entreprise basée en France, proposant une sélection de voitures RC fiables, avec livraison offerte en France métropolitaine en 4 à 8 jours ouvrés.</p>
 </div>
 
 <div class="rc-policy__faq-item">
   <strong>Q4. Que faire si je reçois un produit défectueux ?</strong>
-  <p>Si tu reçois un article défectueux, on le remplace sans frais. Contacte-nous et retourne l'article sous 30 jours. Plus de détails sur notre <a href="/pages/retours-remboursements">Politique de Retour</a>.</p>
+  <p>Si tu reçois un article défectueux, on le remplace sans frais. Contacte-nous et retourne l'article sous 30 jours. Plus de détails sur notre <a href="{% render 'rc-legal-urls', part: 'retours' %}">Politique de Retour</a>.</p>
 </div>
 
 <div class="rc-policy__faq-item">
@@ -34,22 +27,22 @@
 
 <div class="rc-policy__faq-item">
   <strong>Q6. Quelle est votre politique de retour ?</strong>
-  <p>Le retour est simple et sans complication. Tous les détails sur notre <a href="/pages/retours-remboursements">Politique de Retour</a>.</p>
+  <p>Le retour est simple et sans complication. Tous les détails sur notre <a href="{% render 'rc-legal-urls', part: 'retours' %}">Politique de Retour</a>.</p>
 </div>
 
 <div class="rc-policy__faq-item">
   <strong>Q7. Quand vais-je recevoir mon remboursement après un retour ?</strong>
-  <p>Une fois ton retour reçu et inspecté, le remboursement est déclenché. Il apparaît généralement sous 7 jours ouvrés sur ton moyen de paiement d'origine. Voir notre <a href="/pages/retours-remboursements">Politique de Remboursement</a> pour plus de détails.</p>
+  <p>Une fois ton retour reçu et inspecté, le remboursement est déclenché. Il apparaît généralement sous 7 jours ouvrés sur ton moyen de paiement d'origine. Voir notre <a href="{% render 'rc-legal-urls', part: 'retours' %}">Politique de Remboursement</a> pour plus de détails.</p>
 </div>
 
 <div class="rc-policy__faq-item">
-  <strong>Q8. Proposez-vous une garantie sur vos produits ?</strong>
-  <p>Oui, nous offrons une garantie de 30 jours sur tous nos achats. Plus d'infos sur notre <a href="/pages/retours-remboursements">Politique de Retour</a>.</p>
+  <strong>Q8. Proposez-vous un retour gratuit ?</strong>
+  <p>Oui, tu bénéficies d'un retour gratuit sous 30 jours sur tous nos achats. Plus d'infos sur notre <a href="{% render 'rc-legal-urls', part: 'retours' %}">Politique de Retour</a>.</p>
 </div>
 
 <div class="rc-policy__faq-item">
   <strong>Q9. Comment contacter le service client ?</strong>
-  <p>Tu peux nous joindre via notre <a href="/pages/contact">Page Contact</a> ou par email à <a href="mailto:support@rclab-car.com">support@rclab-car.com</a>.</p>
+  <p>Tu peux nous joindre via notre <a href="{% render 'rc-legal-urls', part: 'contact' %}">Page Contact</a> ou par email à <a href="mailto:support@rclab-car.com">support@rclab-car.com</a>.</p>
 </div>
 
 <div class="rc-policy__faq-item">
@@ -69,7 +62,7 @@
 
 <div class="rc-policy__faq-item">
   <strong>Q13. Quel est le processus d'échange d'un produit ?</strong>
-  <p>Pour tous les détails sur les échanges, consulte notre <a href="/pages/retours-remboursements">Politique de Retour</a>.</p>
+  <p>Pour tous les détails sur les échanges, consulte notre <a href="{% render 'rc-legal-urls', part: 'retours' %}">Politique de Retour</a>.</p>
 </div>
 
 <div class="rc-policy__faq-item">

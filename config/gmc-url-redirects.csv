@@ -1,0 +1,9 @@
+Redirect from,Redirect to
+/contact,/pages/contact
+/pages/contact-nous,/pages/contact
+/pages/nous-contacter,/pages/contact
+/policies/terms-of-service,/pages/cgv
+/policies/shipping-policy,/pages/politique-de-livraison
+/policies/refund-policy,/pages/retours-remboursements
+/policies/privacy-policy,/pages/confidentialite
+/collections/frontpage,/
