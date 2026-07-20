@@ -74,12 +74,17 @@
         "overlay_style": "solid",
         "gradient_direction": "to top",
         "padding-block-start": 0,
-        "padding-block-end": 72
+        "padding-block-end": 32
       }
+    },
+    "contact_legal": {
+      "type": "contact-legal-rc",
+      "settings": {}
     }
   },
   "order": [
     "contact_rc",
-    "form"
+    "form",
+    "contact_legal"
   ]
 }
