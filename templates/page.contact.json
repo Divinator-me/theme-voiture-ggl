@@ -8,8 +8,8 @@
  * ------------------------------------------------------------
  */{
   "sections": {
-    "contact_rc": {
-      "type": "contact-rc",
+    "contact_header_rc": {
+      "type": "contact-header-rc",
       "settings": {}
     },
     "form": {
@@ -83,7 +83,7 @@
     }
   },
   "order": [
-    "contact_rc",
+    "contact_header_rc",
     "form",
     "contact_legal"
   ]
