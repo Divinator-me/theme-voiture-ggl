@@ -7,7 +7,7 @@
     tout_savoir: { label: 'Tout Savoir', group: 'main', icon: 'toutSavoir' },
     caracteristiques: { label: 'Caractéristiques', group: 'main', icon: 'caracteristiques' },
     points_fort: { label: 'Points Fort', group: 'main', icon: 'pointsFort' },
-    livraison_retours: { label: 'Livraison et retours', group: 'bottom', icon: 'livraison' },
+    livraison_retours: { label: 'Livraison et retours (4 à 8 jours ouvrés)', group: 'bottom', icon: 'livraison' },
     fabrication_rigoureuse: { label: 'Fabrication hautement contrôlée', group: 'bottom', icon: 'fabrication' },
     garantie_2_ans: { label: '↩️ Retour gratuit', group: 'bottom', icon: 'garantie' },
   };
