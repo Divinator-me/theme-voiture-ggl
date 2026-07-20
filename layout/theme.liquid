@@ -1,4 +1,10 @@
 <!doctype html>
+{%- liquid
+  assign rc_redirect_frontpage_collection = false
+  if template.name == 'collection' and collection.handle == 'frontpage' and request.design_mode == false
+    assign rc_redirect_frontpage_collection = true
+  endif
+-%}
 <html
   {% if request.design_mode %}
     class="shopify-design-mode"
@@ -44,6 +50,12 @@
     {% endif %}
 
     {{ content_for_header }}
+
+    {%- if rc_redirect_frontpage_collection -%}
+      <meta http-equiv="refresh" content="0;url={{ routes.root_url }}">
+      <meta name="robots" content="noindex, follow">
+      <link rel="canonical" href="{{ shop.url }}{{ routes.root_url }}">
+    {%- endif -%}
   </head>
 
   <body class="template-{{ template.name }} page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }}">
