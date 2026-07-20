@@ -18,7 +18,7 @@
 <p>Les prix de nos produits peuvent être modifiés sans préavis. Nous nous réservons le droit de modifier ou d'interrompre le service à tout moment sans préavis.</p>
 
 <h2>5. Produits et services</h2>
-<p>Certains produits ou services peuvent être disponibles exclusivement en ligne. Ces produits peuvent être proposés en quantités limitées et sont soumis à retour ou échange conformément à notre <a href="/pages/retours-remboursements">Politique de Retour</a>.</p>
+<p>Certains produits ou services peuvent être disponibles exclusivement en ligne. Ces produits peuvent être proposés en quantités limitées et sont soumis à retour ou échange conformément à notre <a href="{% render 'rc-legal-urls', part: 'retours' %}">Politique de Retour</a>.</p>
 
 <h2>6. Exactitude des informations de facturation et de compte</h2>
 <p>Nous nous réservons le droit de refuser ou d'annuler toute commande. Tu t'engages à fournir des informations d'achat et de compte exactes et à jour pour toutes tes transactions.</p>
@@ -33,14 +33,7 @@
 <p>En soumettant un avis, commentaire ou idée, tu nous accordes l'autorisation de l'utiliser et de le diffuser sans restriction. Tu t'engages à ne pas soumettre de contenu illégal, diffamatoire ou nuisible.</p>
 
 <h2>10. Informations personnelles</h2>
-{%- liquid
-  assign confidentialite_page = pages['confidentialite']
-  if confidentialite_page == blank
-    assign confidentialite_page = pages['politique-confidentialite']
-  endif
-  assign confidentialite_url = confidentialite_page.url | default: '/pages/confidentialite'
--%}
-<p>La soumission de tes informations personnelles est régie par notre <a href="{{ confidentialite_url }}">Politique de Confidentialité</a>.</p>
+<p>La soumission de tes informations personnelles est régie par notre <a href="{% render 'rc-legal-urls', part: 'confidentialite' %}">Politique de Confidentialité</a>.</p>
 
 <h2>11. Erreurs, inexactitudes et omissions</h2>
 <p>Nous nous réservons le droit de corriger toute erreur ou omission, et de modifier ou mettre à jour les informations à tout moment sans préavis.</p>
