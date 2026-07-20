@@ -1,4 +1,5 @@
 {{ 'contact-rc.css' | asset_url | stylesheet_tag }}
+{{ 'policy-rc.css' | asset_url | stylesheet_tag }}
 
 <section class="rc-contact" aria-label="Contact RCLAB">
   <div class="rc-contact__inner">
@@ -33,6 +34,10 @@
         ·
         chat en direct
       </p>
+    </div>
+
+    <div class="rc-contact__legal">
+      {% render 'policy-contact-rc' %}
     </div>
   </div>
 </section>

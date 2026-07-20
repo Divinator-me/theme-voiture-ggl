@@ -120,6 +120,14 @@
   line-height: 1.5;
 }
 
+.rc-contact__legal {
+  margin-top: 28px;
+}
+
+.rc-contact__legal .rc-policy__contact {
+  margin-top: 0;
+}
+
 .rc-contact__channels {
   margin: 0;
   padding-top: 4px;
