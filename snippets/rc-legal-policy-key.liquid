@@ -1,0 +1,44 @@
+{%- comment -%}
+  Détecte quelle politique RCLAB afficher.
+  Sortie : rc_policy_key (retours, livraison, confidentialite, cgv, paiement, faq-boutique)
+{%- endcomment -%}
+
+{%- liquid
+  assign rc_policy_key = ''
+
+  if template.name == 'policy'
+    assign rc_policy_path = request.path | split: '/policies/' | last | split: '?' | first
+
+    case rc_policy_path
+      when 'refund-policy'
+        assign rc_policy_key = 'retours'
+      when 'shipping-policy'
+        assign rc_policy_key = 'livraison'
+      when 'privacy-policy'
+        assign rc_policy_key = 'confidentialite'
+      when 'terms-of-service'
+        assign rc_policy_key = 'cgv'
+    endcase
+
+    if rc_policy_key == blank and policy != blank
+      if shop.refund_policy != blank and policy.url == shop.refund_policy.url
+        assign rc_policy_key = 'retours'
+      elsif shop.shipping_policy != blank and policy.url == shop.shipping_policy.url
+        assign rc_policy_key = 'livraison'
+      elsif shop.privacy_policy != blank and policy.url == shop.privacy_policy.url
+        assign rc_policy_key = 'confidentialite'
+      elsif shop.terms_of_service != blank and policy.url == shop.terms_of_service.url
+        assign rc_policy_key = 'cgv'
+      endif
+    endif
+  endif
+
+  if rc_policy_key == blank
+    case template.suffix
+      when 'conditions-paiement'
+        assign rc_policy_key = 'paiement'
+      when 'faq-boutique'
+        assign rc_policy_key = 'faq-boutique'
+    endcase
+  endif
+-%}

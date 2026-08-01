@@ -1,30 +1,9 @@
 {%- comment -%} Politiques légales RCLAB — /policies/* (Shopify) + pages custom {%- endcomment -%}
 {{ 'policy-rc.css' | asset_url | stylesheet_tag }}
 
+{%- render 'rc-legal-policy-key' -%}
+
 {%- liquid
-  assign rc_policy_key = ''
-
-  if template.name == 'policy' and policy != blank
-    if shop.refund_policy != blank and policy.url == shop.refund_policy.url
-      assign rc_policy_key = 'retours'
-    elsif shop.shipping_policy != blank and policy.url == shop.shipping_policy.url
-      assign rc_policy_key = 'livraison'
-    elsif shop.privacy_policy != blank and policy.url == shop.privacy_policy.url
-      assign rc_policy_key = 'confidentialite'
-    elsif shop.terms_of_service != blank and policy.url == shop.terms_of_service.url
-      assign rc_policy_key = 'cgv'
-    endif
-  endif
-
-  if rc_policy_key == blank
-    case template.suffix
-      when 'conditions-paiement'
-        assign rc_policy_key = 'paiement'
-      when 'faq-boutique'
-        assign rc_policy_key = 'faq-boutique'
-    endcase
-  endif
-
   case rc_policy_key
     when 'retours'
       assign legal_title = 'Politique de retour et remboursement'

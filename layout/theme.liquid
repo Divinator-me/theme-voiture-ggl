@@ -99,6 +99,8 @@
       >
         {%- if rc_redirect_url != blank -%}
           <script>window.location.replace({{ rc_redirect_url | json }});</script>
+        {%- elsif template.name == 'policy' -%}
+          {% section 'policy-legal-rc' %}
         {%- else -%}
           {{ content_for_layout }}
         {%- endif -%}
