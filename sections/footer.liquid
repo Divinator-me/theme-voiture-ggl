@@ -1,8 +1,5 @@
-{{ 'footer.css' | asset_url | stylesheet_tag }}
-{{ 'rclab-logo.css' | asset_url | stylesheet_tag }}
-
 <footer class="rc-footer">
-  <div class="rc-footer__top">
+  <div class="rc-footer__grid">
     <div class="rc-footer__brand">
       <a href="{{ routes.root_url }}" class="rc-footer__logo" aria-label="Accueil RCLAB">
         {% render 'rc-logo', modifier: 'footer', theme: 'dark' %}
@@ -14,9 +11,7 @@
         <a href="tel:+33756884492">07 56 88 44 92</a>
       </address>
     </div>
-  </div>
 
-  <div class="rc-footer__grid">
     <nav class="rc-footer__col rc-footer__col--collections" aria-label="Nos collections">
       <h2>Nos collections</h2>
       {% assign footer_collections = 'Monster Truck / 4x4|monster-truck-4x4||Drift|drift||Rallye / Trophy Truck|rallye-trophy||Buggy|buggy||Piste|piste||Crawler|crawler' | split: '||' %}
