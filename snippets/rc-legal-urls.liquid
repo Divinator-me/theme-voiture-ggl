@@ -7,14 +7,8 @@
   assign rc_contact_page = pages['contact']
   assign rc_retours_page = pages['retours-remboursements']
   assign rc_livraison_page = pages['politique-de-livraison']
-  if rc_livraison_page == blank
-    assign rc_livraison_page = pages['politique-livraison']
-  endif
   assign rc_cgv_page = pages['cgv']
   assign rc_confidentialite_page = pages['confidentialite']
-  if rc_confidentialite_page == blank
-    assign rc_confidentialite_page = pages['politique-confidentialite']
-  endif
   assign rc_paiement_page = pages['conditions-paiement']
   assign rc_faq_boutique_page = pages['faq-boutique']
 
