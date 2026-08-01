@@ -24,6 +24,12 @@ NE JAMAIS :
 - Modifier la logique produit/panier de base sans que je le demande
 - Utiliser des CDN externes pour libs critiques (préférer /assets)
 
+TON DE VOIX (textes visibles client) :
+- Français naturel, direct, pro. Pas de style IA.
+- Pas de tiret cadratin (—), pas de points de suspension (...).
+- Préférer virgule, point, ou ! si l'intonation le demande.
+- Pas de superlatifs creux ("premium", "révolutionnaire", etc.).
+
 HANDLES COLLECTIONS SHOPIFY (URLs /collections/{handle}) :
 - Monster Truck / 4x4 → monster-truck-4x4
 - Rallye / Trophy Truck → rallye-trophy
