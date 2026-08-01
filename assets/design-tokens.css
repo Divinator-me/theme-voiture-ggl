@@ -24,7 +24,16 @@ body {
 }
 
 body.template-index .content-for-layout {
-  overflow: clip;
+  overflow: visible;
+}
+
+#rc-footer-group {
+  background: var(--color-black);
+  color: var(--color-white);
+}
+
+#rc-footer-group .shopify-section {
+  background: transparent;
 }
 
 body :is(.rc-main-nav, .rc-menu-overlay, .rc-footer, .rc-hero, .rc-categories, .rc-best-sellers, .rc-faq, .rc-story, .rc-trust-end, .rc-policy, .announcement-marquee, .rc-promo-bar, .rc-category-nav) a:not([class*='__cta']):not([class*='__pill']) {

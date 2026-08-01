@@ -2,7 +2,9 @@
   position: relative;
   overflow: hidden;
   padding: 48px 16px 22px;
+  background: #0a0a0a;
   background: var(--color-black);
+  color: #ffffff;
   color: var(--color-white);
 }
 
@@ -134,6 +136,7 @@
 
 .rc-footer__newsletter p {
   margin: 0;
+  color: var(--color-gray-200);
 }
 
 .rc-footer__form {
@@ -197,8 +200,7 @@
   }
 
   .rc-footer__top {
-    grid-template-columns: 1fr auto;
-    align-items: end;
+    align-items: start;
   }
 
   .rc-footer__grid {
