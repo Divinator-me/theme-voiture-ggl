@@ -57,6 +57,27 @@
   line-height: 1.7;
 }
 
+.rc-footer__address {
+  display: grid;
+  gap: 4px;
+  max-width: 390px;
+  margin: 14px 0 0;
+  color: var(--color-gray-200);
+  font-size: 13px;
+  font-style: normal;
+  line-height: 1.6;
+}
+
+.rc-footer__address a {
+  color: var(--color-gray-200);
+  text-decoration: none;
+}
+
+.rc-footer__address a:hover {
+  color: var(--color-white);
+  text-decoration: underline;
+}
+
 .rc-footer__badge {
   display: flex;
   flex-wrap: wrap;
