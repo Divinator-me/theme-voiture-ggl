@@ -1,19 +1,36 @@
-{%- comment -%} Pages légales RCLAB (GMC) {%- endcomment -%}
+{%- comment -%} Politiques légales RCLAB — /policies/* (Shopify) + pages custom {%- endcomment -%}
 {{ 'policy-rc.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
-  case template.suffix
-    when 'retours-remboursements'
+  assign rc_policy_key = ''
+
+  if template.name == 'policy' and policy != blank
+    if shop.refund_policy != blank and policy.url == shop.refund_policy.url
+      assign rc_policy_key = 'retours'
+    elsif shop.shipping_policy != blank and policy.url == shop.shipping_policy.url
+      assign rc_policy_key = 'livraison'
+    elsif shop.privacy_policy != blank and policy.url == shop.privacy_policy.url
+      assign rc_policy_key = 'confidentialite'
+    elsif shop.terms_of_service != blank and policy.url == shop.terms_of_service.url
+      assign rc_policy_key = 'cgv'
+    endif
+  endif
+
+  if rc_policy_key == blank
+    case template.suffix
+      when 'conditions-paiement'
+        assign rc_policy_key = 'paiement'
+      when 'faq-boutique'
+        assign rc_policy_key = 'faq-boutique'
+    endcase
+  endif
+
+  case rc_policy_key
+    when 'retours'
       assign legal_title = 'Politique de retour et remboursement'
       assign legal_badge = 'Informations légales'
-    when 'politique-livraison'
+    when 'livraison'
       assign legal_title = 'Politique de livraison'
-      assign legal_badge = 'Informations légales'
-    when 'politique-de-livraison'
-      assign legal_title = 'Politique de livraison'
-      assign legal_badge = 'Informations légales'
-    when 'politique-confidentialite'
-      assign legal_title = 'Politique de confidentialité'
       assign legal_badge = 'Informations légales'
     when 'confidentialite'
       assign legal_title = 'Politique de confidentialité'
@@ -21,14 +38,14 @@
     when 'cgv'
       assign legal_title = 'Conditions générales de vente'
       assign legal_badge = 'Informations légales'
-    when 'conditions-paiement'
+    when 'paiement'
       assign legal_title = 'Conditions de facturation et de paiement'
       assign legal_badge = 'Informations légales'
     when 'faq-boutique'
       assign legal_title = 'FAQ boutique'
       assign legal_badge = 'Aide'
     else
-      assign legal_title = page.title
+      assign legal_title = policy.title | default: page.title
       assign legal_badge = 'Informations légales'
   endcase
 -%}
@@ -41,25 +58,25 @@
     </header>
 
     <div class="rc-policy__content rte">
-      {% case template.suffix %}
-        {% when 'retours-remboursements' %}
+      {% case rc_policy_key %}
+        {% when 'retours' %}
           {% render 'policy-refund-rc' %}
-        {% when 'politique-livraison' %}
+        {% when 'livraison' %}
           {% render 'policy-shipping-rc' %}
-        {% when 'politique-de-livraison' %}
-          {% render 'policy-shipping-rc' %}
-        {% when 'politique-confidentialite' %}
-          {% render 'policy-privacy-rc' %}
         {% when 'confidentialite' %}
           {% render 'policy-privacy-rc' %}
         {% when 'cgv' %}
           {% render 'policy-terms-rc' %}
-        {% when 'conditions-paiement' %}
+        {% when 'paiement' %}
           {% render 'policy-billing-rc' %}
         {% when 'faq-boutique' %}
           {% render 'policy-faq-gmc-rc' %}
         {% else %}
-          {{ page.content }}
+          {% if policy.body != blank %}
+            {{ policy.body }}
+          {% else %}
+            {{ page.content }}
+          {% endif %}
       {% endcase %}
 
       {% render 'policy-contact-rc' %}
