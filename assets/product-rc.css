@@ -387,3 +387,151 @@
   font-size: 14px;
   line-height: 1.6;
 }
+
+/* ==========================================================================
+   Descriptions RCLAB reformulées (voir scripts/content/template.mjs)
+   ========================================================================== */
+
+.rc-product-desc-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25em;
+}
+
+.rc-desc-section__label {
+  margin: 1.5em 0 0.25em;
+  padding-bottom: 0.4em;
+  border-bottom: 1px solid var(--color-gray-200);
+  color: var(--color-black);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.rc-desc-section__label:first-child {
+  margin-top: 0;
+}
+
+.rc-desc-section__pitch {
+  margin: 0.35em 0 0.75em;
+  color: var(--color-black);
+  font-family: var(--font-heading, var(--font-body));
+  font-size: clamp(18px, 2.4vw, 22px);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.005em;
+}
+
+.rc-desc-section__intro {
+  margin: 0 0 0.6em;
+  color: var(--color-gray-700, var(--color-black));
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.rc-desc-section__title {
+  margin: 1em 0 0.4em;
+  color: var(--color-black);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.35;
+}
+
+.rc-desc-section__body {
+  margin: 0 0 0.85em;
+  color: var(--color-black);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.rc-desc-section__age {
+  margin-top: 1em;
+  padding: 10px 14px;
+  border-left: 3px solid var(--color-black);
+  background: var(--color-gray-100, #f5f5f5);
+  color: var(--color-black);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* Points forts en cartes */
+.rc-highlights-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 10px;
+  margin: 0.5em 0 0.85em;
+  padding: 0;
+  list-style: none;
+}
+
+.rc-highlight-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px;
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-md, 10px);
+  background: var(--color-white, #fff);
+}
+
+.rc-highlight-card__title {
+  color: var(--color-black);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.005em;
+}
+
+.rc-highlight-card__body {
+  color: var(--color-gray-700, var(--color-black));
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* Caractéristiques en table */
+.rc-spec-table {
+  display: table;
+  width: 100%;
+  overflow-x: auto;
+  margin: 0.5em 0 0.85em;
+  border: 1px solid var(--color-gray-200);
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.rc-spec-table th,
+.rc-spec-table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--color-gray-200);
+  vertical-align: top;
+  text-align: left;
+  line-height: 1.5;
+}
+
+.rc-spec-table th {
+  width: 42%;
+  background: var(--color-gray-100, #f5f5f5);
+  color: var(--color-black);
+  font-weight: 600;
+  letter-spacing: 0.005em;
+}
+
+.rc-spec-table td {
+  color: var(--color-gray-800, var(--color-black));
+}
+
+.rc-spec-table tr:last-child th,
+.rc-spec-table tr:last-child td {
+  border-bottom: 0;
+}
+
+@media (max-width: 560px) {
+  .rc-highlights-cards {
+    grid-template-columns: 1fr;
+  }
+  .rc-spec-table th {
+    width: 48%;
+  }
+}
+
