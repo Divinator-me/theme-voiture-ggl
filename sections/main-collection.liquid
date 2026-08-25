@@ -1,4 +1,5 @@
-
+{{ 'rc-product-card.css' | asset_url | stylesheet_tag }}
+{{ 'collection-rc.css' | asset_url | stylesheet_tag }}
 
 <script
   src="{{ 'results-list.js' | asset_url }}"
@@ -43,7 +44,7 @@
     {% render 'skip-to-content-link', href: '#ResultsList', text: 'accessibility.skip_to_results_list' %}
 
     <div
-      class="collection-wrapper grid gap-style{% if section.settings.product_grid_width == 'full-width' %} collection-wrapper--grid-full-width{% endif %}"
+      class="rc-collection collection-wrapper grid gap-style{% if section.settings.product_grid_width == 'full-width' %} collection-wrapper--grid-full-width{% endif %}"
     >
       {% content_for 'block',
         type: 'filters',
@@ -68,12 +69,7 @@
               data-product-id="{{ product.id }}"
               ref="cards[]"
             >
-              {% content_for 'block',
-                type: '_product-card',
-                id: 'product-card',
-                closest.product: product,
-                product_view_context: 'collection'
-              %}
+              {% render 'rc-product-card', product: product %}
             </li>
           {% endfor %}
         {% endcapture %}

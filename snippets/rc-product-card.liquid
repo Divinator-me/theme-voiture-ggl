@@ -1,11 +1,16 @@
 {%- doc -%}
-  Carte produit RC — design partagé (meilleures ventes, recommandations produit).
+  Carte produit RC — design partagé (landing, collections, recommandations).
 {%- enddoc -%}
 
 {% liquid
   assign rating_value = product.metafields.reviews.rating.value.rating
   assign rating_count = product.metafields.reviews.rating_count
   assign color_option = null
+  assign on_sale = false
+
+  if product.compare_at_price > product.price
+    assign on_sale = true
+  endif
 
   for option in product.options_with_values
     assign option_name = option.name | downcase
@@ -16,10 +21,14 @@
   endfor
 %}
 
-<article class="rc-best-sellers__card rc-best-sellers__card--live">
-  <div class="rc-best-sellers__media">
-    <div class="rc-best-sellers__image-wrap">
-      <a class="rc-best-sellers__image" href="{{ product.url }}" aria-label="{{ product.title | escape }}">
+<article class="rc-product-card rc-product-card--live">
+  <div class="rc-product-card__media">
+    <div class="rc-product-card__image-wrap">
+      {% if on_sale %}
+        <span class="rc-product-card__badge">Promo</span>
+      {% endif %}
+
+      <a class="rc-product-card__image" href="{{ product.url }}" aria-label="{{ product.title | escape }}">
         {% if product.featured_image %}
           {{
             product.featured_image
@@ -42,7 +51,7 @@
 
       <button
         type="button"
-        class="rc-best-sellers__wishlist"
+        class="rc-product-card__wishlist"
         data-wishlist-toggle
         data-product-id="{{ product.id }}"
         aria-label="Ajouter {{ product.title | escape }} aux favoris"
@@ -55,7 +64,7 @@
     </div>
   </div>
 
-  <div class="rc-best-sellers__body">
+  <div class="rc-product-card__body">
     <h3><a href="{{ product.url }}">{{ product.title }}</a></h3>
 
     {% if rating_value != blank and rating_count != blank %}
@@ -72,26 +81,31 @@
           assign rating_next = rating_floor | plus: 1
         endif
       %}
-      <div class="rc-best-sellers__rating" aria-label="Note {{ rating_value }} sur 5, {{ rating_count }} avis">
-        <span class="rc-best-sellers__stars" aria-hidden="true">
+      <div class="rc-product-card__rating" aria-label="Note {{ rating_value }} sur 5, {{ rating_count }} avis">
+        <span class="rc-product-card__stars" aria-hidden="true">
           {% for star in (1..5) %}
             {% if star <= rating_floor %}
-              <span class="rc-best-sellers__star is-filled">★</span>
+              <span class="rc-product-card__star is-filled">★</span>
             {% elsif rating_half and star == rating_next %}
-              <span class="rc-best-sellers__star is-half">★</span>
+              <span class="rc-product-card__star is-half">★</span>
             {% else %}
-              <span class="rc-best-sellers__star">★</span>
+              <span class="rc-product-card__star">★</span>
             {% endif %}
           {% endfor %}
         </span>
-        <span class="rc-best-sellers__reviews">({{ rating_count }})</span>
+        <span class="rc-product-card__reviews">({{ rating_count }})</span>
       </div>
     {% endif %}
 
-    <p class="rc-best-sellers__price">{{ product.price | money }}</p>
+    <p class="rc-product-card__price">
+      {{ product.price | money }}
+      {% if on_sale %}
+        <span class="rc-product-card__price-compare"><s>{{ product.compare_at_price | money }}</s></span>
+      {% endif %}
+    </p>
 
     {% if color_option != null and color_option.values.size > 0 %}
-      <ul class="rc-best-sellers__colors" aria-label="Couleurs disponibles">
+      <ul class="rc-product-card__colors" aria-label="Couleurs disponibles">
         {% for value in color_option.values %}
           <li>
             {% render 'rc-color-swatch', product: product, color_option: color_option, value: value %}
