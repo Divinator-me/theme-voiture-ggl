@@ -60,7 +60,7 @@
     root.dataset.sliderBound = 'true';
 
     const getStep = () => {
-      const card = track.querySelector('.rc-best-sellers__card');
+      const card = track.querySelector('.rc-product-card');
       const gap = Number.parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap) || 10;
       return card ? card.getBoundingClientRect().width + gap : 320;
     };

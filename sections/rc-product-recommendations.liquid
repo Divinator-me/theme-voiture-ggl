@@ -1,3 +1,4 @@
+{{ 'rc-product-card.css' | asset_url | stylesheet_tag }}
 {{ 'best-sellers.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'rc-product-recommendations.js' | asset_url }}" defer></script>
 
@@ -56,15 +57,15 @@
         {% endfor %}
       {% elsif recommendations.performed == false %}
         {% for index in (1..4) %}
-          <article class="rc-best-sellers__card rc-product-recommendations__skeleton" aria-hidden="true">
-            <div class="rc-best-sellers__media">
-              <div class="rc-best-sellers__image-wrap">
-                <div class="rc-best-sellers__image"></div>
+          <article class="rc-product-card rc-product-recommendations__skeleton" aria-hidden="true">
+            <div class="rc-product-card__media">
+              <div class="rc-product-card__image-wrap">
+                <div class="rc-product-card__image"></div>
               </div>
             </div>
-            <div class="rc-best-sellers__body">
+            <div class="rc-product-card__body">
               <h3>&nbsp;</h3>
-              <p class="rc-best-sellers__price">&nbsp;</p>
+              <p class="rc-product-card__price">&nbsp;</p>
             </div>
           </article>
         {% endfor %}
