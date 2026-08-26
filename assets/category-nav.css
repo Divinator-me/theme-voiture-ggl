@@ -20,28 +20,15 @@
   }
 
   .rc-category-nav__inner {
-    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: clamp(20px, 2.2vw, 32px);
     width: 100%;
     min-height: 56px;
     margin: 0;
     padding: 0 40px;
     box-sizing: border-box;
-  }
-
-  .rc-category-nav__menu {
-    position: absolute;
-    left: 40px;
-  }
-
-  .rc-category-nav__links {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: clamp(20px, 2.2vw, 32px);
-    max-width: 100%;
   }
 
   .rc-category-nav__link,
