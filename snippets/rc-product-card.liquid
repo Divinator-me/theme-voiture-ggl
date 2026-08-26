@@ -64,21 +64,21 @@
   <div class="rc-product-card__body">
     <h3><a href="{{ product.url }}">{{ product.title }}</a></h3>
 
-    {% if color_option != null and color_option.values.size > 0 %}
-      <ul class="rc-product-card__colors" aria-label="Couleurs disponibles">
-        {% for value in color_option.values %}
-          <li>
-            {% render 'rc-color-swatch', product: product, color_option: color_option, value: value %}
-          </li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <div class="rc-product-card__colors-spacer" aria-hidden="true"></div>
-    {% endif %}
+    <div class="rc-product-card__meta">
+      <p class="rc-product-card__price">
+        <span class="rc-product-card__price-current">{{ product.price | money }}</span>
+      </p>
 
-    <p class="rc-product-card__price">
-      <span class="rc-product-card__price-current">{{ product.price | money }}</span>
-    </p>
+      {% if color_option != null and color_option.values.size > 0 %}
+        <ul class="rc-product-card__colors" aria-label="Couleurs disponibles">
+          {% for value in color_option.values %}
+            <li>
+              {% render 'rc-color-swatch', product: product, color_option: color_option, value: value %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
 
     <div class="rc-product-card__footer">
       <button
