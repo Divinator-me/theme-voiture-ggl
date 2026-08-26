@@ -307,40 +307,6 @@
   width: 100%;
 }
 
-.rc-quiz__result-card-top {
-  position: relative;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  height: 88px;
-  padding-bottom: 16px;
-  background: var(--color-black);
-}
-
-.rc-quiz__result-card-top--loading {
-  height: 72px;
-  padding-bottom: 0;
-  align-items: center;
-}
-
-.rc-quiz__result-card-grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgb(255 45 45 / 9%) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(255 45 45 / 9%) 1px, transparent 1px);
-  background-size: 28px 28px;
-}
-
-.rc-quiz__result-card-glow {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  height: 70%;
-  background: linear-gradient(to top, rgb(255 45 45 / 18%), transparent);
-}
-
 .rc-quiz__result-card-body {
   padding: 28px 26px 34px;
   text-align: center;
