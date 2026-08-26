@@ -264,42 +264,6 @@ button.rc-menu-overlay__link {
   color: var(--color-red);
 }
 
-.rc-menu-overlay__quiz {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: calc(100% - 44px);
-  margin: 12px 22px 4px;
-  border: 0;
-  border-radius: 999px;
-  padding: 14px 18px 15px;
-  background: linear-gradient(180deg, #ff4a4a 0%, var(--color-red) 52%, var(--color-red-dark) 100%);
-  box-shadow: 0 8px 22px rgb(255 45 45 / 24%);
-  color: var(--color-white);
-  cursor: pointer;
-  font-family: var(--font-display);
-  font-size: 15px;
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: 0.03em;
-  line-height: 1;
-  text-transform: uppercase;
-  transition:
-    transform 0.25s var(--ease-smooth),
-    box-shadow 0.25s var(--ease-smooth),
-    background 0.25s var(--ease-smooth);
-}
-
-.rc-menu-overlay__quiz:hover,
-.rc-menu-overlay__quiz:focus-visible {
-  transform: translateY(-1px);
-  box-shadow: 0 12px 28px rgb(255 45 45 / 34%);
-}
-
-.rc-menu-overlay__quiz:active {
-  transform: translateY(0);
-}
-
 .rc-menu-overlay__group > summary {
   list-style: none;
 }
