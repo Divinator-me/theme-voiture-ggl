@@ -205,13 +205,13 @@
 }
 
 .rc-hero__cta-note {
-  max-width: 280px;
   margin: 12px 0 0;
   color: var(--color-white);
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 1.45;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.2;
   text-align: center;
+  white-space: nowrap;
   opacity: 0;
   animation: rc-hero-fade-up 0.48s var(--ease-smooth) 1.1s forwards;
 }
@@ -374,6 +374,10 @@
   .rc-hero__visual {
     width: min(89vw, 310px);
     margin-top: 20px;
+  }
+
+  .rc-hero__cta-note {
+    font-size: 10px;
   }
 
   .rc-hero__stats dt {
