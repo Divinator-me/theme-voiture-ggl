@@ -23,7 +23,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: clamp(20px, 2.2vw, 32px);
+    gap: clamp(24px, 2.6vw, 38px);
     width: 100%;
     min-height: 56px;
     margin: 0;
