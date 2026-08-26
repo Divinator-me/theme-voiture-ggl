@@ -154,28 +154,18 @@
 }
 
 .rc-quiz__stage {
-  display: grid;
-  grid-template: 1fr / 1fr;
   flex: 1;
   min-height: 0;
   overflow: hidden;
 }
 
-.rc-quiz__panel {
-  grid-area: 1 / 1;
-  display: none;
-  flex-direction: column;
-  min-height: 0;
-  overflow-y: auto;
-}
-
-.rc-quiz__panel.is-active {
-  display: flex;
-}
-
 .rc-quiz__body {
+  display: flex;
+  flex-direction: column;
   gap: 24px;
+  height: 100%;
   padding: 26px 28px 30px;
+  overflow-y: auto;
 }
 
 .rc-quiz__body.is-leaving {
