@@ -97,6 +97,10 @@
   color: var(--color-red);
 }
 
+.rc-quiz__eyebrow[hidden] {
+  display: none;
+}
+
 .rc-quiz__eyebrow-sep {
   color: rgb(10 10 10 / 24%);
 }
