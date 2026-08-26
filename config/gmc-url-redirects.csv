@@ -2,11 +2,15 @@ Redirect from,Redirect to
 /contact,/pages/contact
 /pages/contact-nous,/pages/contact
 /pages/nous-contacter,/pages/contact
-/pages/cgv,/pages/conditions-generales-de-vente
-/policies/terms-of-service,/pages/conditions-generales-de-vente
+/pages/cgv,/policies/terms-of-sale
+/pages/conditions-generales-de-vente,/policies/terms-of-sale
+/pages/conditions-de-vente,/policies/terms-of-sale
+/policies/terms-of-service,/policies/terms-of-sale
 /pages/politique-de-livraison,/policies/shipping-policy
 /pages/retours-remboursements,/policies/refund-policy
 /pages/confidentialite,/policies/privacy-policy
+/pages/mentions-legales,/policies/legal-notice
+/pages/mention-legale,/policies/legal-notice
 /pages/faq-boutique,/
 /collections/frontpage,/
 /collections/crawler,/collections/monster-truck-4x4

@@ -11,6 +11,13 @@
       assign rc_policy_key = 'livraison'
     elsif shop.privacy_policy != blank and policy.id == shop.privacy_policy.id
       assign rc_policy_key = 'confidentialite'
+    else
+      for shop_policy in shop.policies
+        if shop_policy.url contains 'terms-of-sale' and policy.id == shop_policy.id
+          assign rc_policy_key = 'cgv'
+          break
+        endif
+      endfor
     endif
   endif
 
@@ -26,6 +33,8 @@
         assign rc_policy_key = 'confidentialite'
       when 'legal-notice'
         assign rc_policy_key = 'mentions-legales'
+      when 'terms-of-sale'
+        assign rc_policy_key = 'cgv'
     endcase
   endif
 
@@ -33,8 +42,6 @@
     case template.suffix
       when 'conditions-paiement'
         assign rc_policy_key = 'paiement'
-      when 'conditions-generales-de-vente', 'conditions-de-vente'
-        assign rc_policy_key = 'cgv'
       when 'mentions-legales'
         assign rc_policy_key = 'mentions-legales'
       when 'faq-boutique'
