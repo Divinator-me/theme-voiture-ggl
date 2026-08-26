@@ -24,6 +24,8 @@
         assign rc_policy_key = 'livraison'
       when 'privacy-policy'
         assign rc_policy_key = 'confidentialite'
+      when 'legal-notice'
+        assign rc_policy_key = 'mentions-legales'
     endcase
   endif
 
@@ -33,6 +35,8 @@
         assign rc_policy_key = 'paiement'
       when 'conditions-generales-de-vente', 'conditions-de-vente'
         assign rc_policy_key = 'cgv'
+      when 'mentions-legales'
+        assign rc_policy_key = 'mentions-legales'
       when 'faq-boutique'
         assign rc_policy_key = 'faq-boutique'
     endcase
@@ -47,6 +51,9 @@
       assign legal_badge = 'Informations légales'
     when 'confidentialite'
       assign legal_title = 'Politique de confidentialité'
+      assign legal_badge = 'Informations légales'
+    when 'mentions-legales'
+      assign legal_title = 'Mentions légales'
       assign legal_badge = 'Informations légales'
     when 'cgv'
       assign legal_title = 'Conditions générales de vente'
@@ -78,6 +85,8 @@
           {% render 'policy-shipping-rc' %}
         {% when 'confidentialite' %}
           {% render 'policy-privacy-rc' %}
+        {% when 'mentions-legales' %}
+          {% render 'policy-legal-notice-rc' %}
         {% when 'cgv' %}
           {% render 'policy-terms-rc' %}
         {% when 'paiement' %}

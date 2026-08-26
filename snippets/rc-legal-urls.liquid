@@ -23,6 +23,7 @@
   assign rc_livraison_url = shop.shipping_policy.url | default: '/policies/shipping-policy'
   assign rc_cgv_url = rc_cgv_page.url | default: '/pages/conditions-generales-de-vente'
   assign rc_confidentialite_url = shop.privacy_policy.url | default: '/policies/privacy-policy'
+  assign rc_mentions_legales_url = '/policies/legal-notice'
   assign rc_paiement_url = rc_paiement_page.url | default: '/pages/conditions-paiement'
   assign rc_about_url = rc_about_page.url | default: '/pages/qui-sommes-nous'
   if rc_faq_boutique_page != blank
@@ -38,6 +39,7 @@
   {%- when 'livraison' -%}{{ rc_livraison_url }}
   {%- when 'cgv' -%}{{ rc_cgv_url }}
   {%- when 'confidentialite' -%}{{ rc_confidentialite_url }}
+  {%- when 'mentions-legales' -%}{{ rc_mentions_legales_url }}
   {%- when 'paiement' -%}{{ rc_paiement_url }}
   {%- when 'faq-boutique' -%}{{ rc_faq_boutique_url }}
   {%- when 'a-propos' -%}{{ rc_about_url }}
