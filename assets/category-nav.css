@@ -23,12 +23,11 @@
     display: flex;
     gap: 0;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
     width: 100%;
-    max-width: 1180px;
     min-height: 56px;
-    margin: 0 auto;
-    padding: 0 56px;
+    margin: 0;
+    padding: 0 40px;
     box-sizing: border-box;
   }
 
@@ -40,10 +39,9 @@
     gap: 8px;
     align-items: center;
     justify-content: center;
-    flex: 1 1 0;
-    min-width: 0;
+    flex: 0 0 auto;
     border: 0;
-    padding: 17px 10px;
+    padding: 17px 0;
     background: transparent;
     color: var(--color-white);
     font-family: var(--font-body);
@@ -61,7 +59,6 @@
   .rc-category-nav__link::after,
   .rc-category-nav__menu::after {
     position: absolute;
-    right: 0;
     bottom: 10px;
     left: 0;
     width: 0;
