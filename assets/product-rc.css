@@ -54,13 +54,13 @@
 }
 
 .product-information .sticky-add-to-cart__title {
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  line-height: 1.25;
-  text-transform: none;
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  text-transform: uppercase;
 }
 
 /* Bandeau fixe bas de page */
@@ -260,7 +260,7 @@ body.has-sticky-atc-visible {
   }
 
   .sticky-add-to-cart__title {
-    font-size: 13px;
+    font-size: 15px;
   }
 
   .sticky-add-to-cart__button {
