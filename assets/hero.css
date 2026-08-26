@@ -168,7 +168,7 @@
   box-shadow: 0 4px 12px rgb(255 45 45 / 22%);
   color: var(--color-white);
   font-family: var(--font-body);
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 900;
   letter-spacing: 0.4px;
   line-height: 1;
@@ -192,9 +192,9 @@
 .rc-hero__cta-arrow {
   display: inline-block;
   margin-left: 6px;
-  font-size: 29px;
+  font-size: 26px;
   line-height: 1;
-  transform: translateY(-1px);
+  transform: translateY(-3px);
 }
 
 .rc-hero__cta:hover,
