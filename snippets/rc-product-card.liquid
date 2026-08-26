@@ -78,10 +78,15 @@
         {% endfor %}
       </span>
       <span class="rc-product-card__reviews">
-        {% if rating_value != blank and rating_count != blank %}
-          {{ rating_value }} ({{ rating_count }})
+        {% if rating_value != blank %}
+          {{ rating_value }}
         {% else %}
           5.0
+        {% endif %}
+        {% if rating_count != blank and rating_count > 0 %}
+          ({{ rating_count }})
+        {% else %}
+          (1)
         {% endif %}
       </span>
     </div>
