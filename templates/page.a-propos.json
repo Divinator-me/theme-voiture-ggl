@@ -15,15 +15,7 @@
     },
     "best_sellers": {
       "type": "best-sellers",
-      "settings": {
-        "products": [
-          "monster-truck-rc-1-16-brushed-45-rclab",
-          "monster-truck-rc-1-16-brushless-75-rclab",
-          "trophy-truck-rc-1-16-50-kmh-rclab",
-          "truggy-1-16-brushless-70-kmh-3s-rclab",
-          "4x4-tout-terrain-1-16-50-km-h"
-        ]
-      }
+      "settings": {}
     }
   },
   "order": [
