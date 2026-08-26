@@ -41,3 +41,16 @@ body :focus-visible {
   outline: 2px solid var(--color-red);
   outline-offset: 4px;
 }
+
+/* Prix RC LAB : pas de promo barrée, prix vente en vert */
+.compare-at-price,
+.price-item--regular.compare-at-price,
+s.compare-at-price {
+  display: none !important;
+}
+
+.color-custom-badge-sale,
+.rc-product-card__badge,
+.sticky-add-to-cart__badge-promo {
+  display: none !important;
+}

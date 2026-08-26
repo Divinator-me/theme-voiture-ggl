@@ -15,9 +15,6 @@
   assign compare_at_price = selected_variant.compare_at_price
 
   assign show_compare_price = false
-  if compare_at_price > price
-    assign show_compare_price = true
-  endif
 
   if product_resource == blank
     assign price = 1999
