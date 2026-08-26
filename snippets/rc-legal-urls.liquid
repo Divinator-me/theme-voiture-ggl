@@ -27,7 +27,7 @@
   assign rc_confidentialite_url = shop.privacy_policy.url | default: '/policies/privacy-policy'
   assign rc_mentions_legales_url = '/policies/legal-notice'
   assign rc_paiement_url = rc_paiement_page.url | default: '/pages/conditions-paiement'
-  assign rc_about_url = rc_about_page.url | default: '/pages/qui-sommes-nous'
+  assign rc_about_url = rc_about_page.url | default: '/pages/a-propos'
   if rc_faq_boutique_page != blank
     assign rc_faq_boutique_url = rc_faq_boutique_page.url
   else

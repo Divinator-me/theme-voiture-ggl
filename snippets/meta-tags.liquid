@@ -24,8 +24,11 @@
   assign seo_title = page_title | default: rc_brand
 
   if request.page_type == 'page'
-    if page.handle == 'qui-sommes-nous' or page.handle == 'a-propos'
+    if page.handle == 'qui-sommes-nous' or page.handle == 'a-propos' or page.title contains 'Qui sommes'
       assign seo_title = 'À propos'
+      unless page_description
+        assign og_description = 'RCLAB, marque française de voitures télécommandées. Découvre qui on est, pourquoi on existe, et comment on conçoit des RC fiables.'
+      endunless
     endif
   endif
 
@@ -51,7 +54,7 @@
   assign og_title = seo_title
   assign og_url = canonical_url | default: request.origin
   assign og_type = 'website'
-  assign og_description = page_description | default: shop.description | default: shop.name
+  assign og_description = og_description | default: page_description | default: shop.description | default: shop.name
 
   if request.page_type == 'product'
     assign og_type = 'product'
@@ -143,5 +146,10 @@
   <meta
     name="description"
     content="{{ page_description | escape }}"
+  >
+{% elsif og_description != blank %}
+  <meta
+    name="description"
+    content="{{ og_description | escape }}"
   >
 {% endif %}
