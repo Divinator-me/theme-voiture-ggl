@@ -82,22 +82,51 @@
 
       <div class="rc-quiz__result rc-quiz__panel" data-rc-quiz-result data-rc-quiz-panel="result" aria-live="polite">
         <div class="rc-quiz__result-loading" data-rc-quiz-result-loading>
-          <div class="rc-quiz__loader" aria-hidden="true">
-            <span></span>
-            <span></span>
-            <span></span>
+          <div class="rc-quiz__result-card-top rc-quiz__result-card-top--loading" aria-hidden="true">
+            <div class="rc-quiz__result-card-grid"></div>
+            <div class="rc-quiz__result-card-glow"></div>
           </div>
-          <p class="rc-quiz__loading-text">Personnalisation...</p>
+          <div class="rc-quiz__result-loading-body">
+            <div class="rc-quiz__loader" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <p class="rc-quiz__loading-text">Personnalisation...</p>
+          </div>
         </div>
 
         <div class="rc-quiz__result-content" data-rc-quiz-result-content hidden>
-          <p class="rc-quiz__result-eyebrow" data-rc-quiz-result-eyebrow>Ta gamme RC est prête</p>
-          <h2 class="rc-quiz__result-title" data-rc-quiz-result-title>On a matché tes envies avec le catalogue</h2>
-          <p class="rc-quiz__result-text" data-rc-quiz-result-text>Découvre les modèles qui correspondent à ton profil.</p>
-          <button type="button" class="rc-quiz__result-cta" data-rc-quiz-cta>
-            Voici ta gamme RC
-            <span aria-hidden="true"> →</span>
-          </button>
+          <div class="rc-quiz__result-card">
+            <div class="rc-quiz__result-card-top" aria-hidden="true">
+              <div class="rc-quiz__result-card-grid"></div>
+              <div class="rc-quiz__result-card-glow"></div>
+              <span class="rc-quiz__result-badge">Match trouvé</span>
+            </div>
+
+            <div class="rc-quiz__result-card-body">
+              <p class="rc-quiz__result-kicker" data-rc-quiz-result-eyebrow>Ta gamme est prête</p>
+
+              <h2 class="rc-quiz__result-title">
+                <span class="rc-quiz__result-title-line">Ta gamme</span>
+                <span
+                  class="rc-quiz__result-title-line rc-quiz__result-title-line--accent"
+                  data-rc-quiz-result-collection
+                >
+                  Buggy
+                </span>
+              </h2>
+
+              <p class="rc-quiz__result-quote" data-rc-quiz-result-text></p>
+
+              <button type="button" class="rc-quiz__result-cta" data-rc-quiz-cta>
+                <span class="rc-quiz__result-cta-inner">
+                  <span data-rc-quiz-cta-label>Voici ta gamme RC</span>
+                  <span class="rc-quiz__result-cta-arrow" aria-hidden="true">→</span>
+                </span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

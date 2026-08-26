@@ -73,8 +73,9 @@
       this.backButton = root.querySelector('[data-rc-quiz-back]');
       this.cta = root.querySelector('[data-rc-quiz-cta]');
       this.resultEyebrow = root.querySelector('[data-rc-quiz-result-eyebrow]');
-      this.resultTitle = root.querySelector('[data-rc-quiz-result-title]');
+      this.resultCollection = root.querySelector('[data-rc-quiz-result-collection]');
       this.resultText = root.querySelector('[data-rc-quiz-result-text]');
+      this.ctaLabel = root.querySelector('[data-rc-quiz-cta-label]');
       this.panels = root.querySelectorAll('[data-rc-quiz-panel]');
 
       this.currentIndex = 0;
@@ -266,16 +267,16 @@
         this.match.url = this.#collectionUrl(this.match.handle);
 
         if (this.resultEyebrow) {
-          this.resultEyebrow.textContent = `${this.match.label} · ta gamme est prête`;
+          this.resultEyebrow.textContent = `${this.match.label} · profil validé`;
         }
-        if (this.resultTitle) {
-          this.resultTitle.textContent = this.match.resultTitle;
+        if (this.resultCollection) {
+          this.resultCollection.textContent = this.match.label;
         }
         if (this.resultText) {
           this.resultText.textContent = this.match.resultText;
         }
-        if (this.cta) {
-          this.cta.innerHTML = `${this.match.cta}<span aria-hidden="true"> →</span>`;
+        if (this.ctaLabel) {
+          this.ctaLabel.textContent = this.match.cta;
         }
 
         if (this.resultLoading) this.resultLoading.hidden = true;
