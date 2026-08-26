@@ -1,0 +1,23 @@
+{{ 'quiz-cta.css' | asset_url | stylesheet_tag }}
+
+<section class="rc-quiz-cta" aria-label="Quiz voiture RC">
+  <button type="button" class="rc-quiz-cta__button" data-rc-quiz-open>
+    <span class="rc-quiz-cta__label">
+      <span class="rc-quiz-cta__title">
+        Trouver ma voiture RC<span class="rc-quiz-cta__arrow" aria-hidden="true"> →</span>
+      </span>
+      <span class="rc-quiz-cta__note">Un quiz personnalisé de 20 secondes pour trouver ta gamme RC</span>
+    </span>
+  </button>
+</section>
+
+{% schema %}
+{
+  "name": "Quiz CTA",
+  "presets": [
+    {
+      "name": "Quiz CTA"
+    }
+  ]
+}
+{% endschema %}
