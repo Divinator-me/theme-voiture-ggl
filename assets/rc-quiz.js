@@ -46,6 +46,7 @@
       this.stepEl = root.querySelector('[data-rc-quiz-step]');
       this.totalEl = root.querySelector('[data-rc-quiz-total]');
       this.progressEl = root.querySelector('[data-rc-quiz-progress]');
+      this.progressBar = root.querySelector('.rc-quiz__progress');
       this.eyebrow = root.querySelector('[data-rc-quiz-eyebrow]');
       this.backButton = root.querySelector('[data-rc-quiz-back]');
       this.cta = root.querySelector('[data-rc-quiz-cta]');
@@ -127,6 +128,7 @@
       const isQuestion = view === 'question';
       this.eyebrow.hidden = !isQuestion;
       this.backButton.hidden = !isQuestion || this.currentIndex === 0;
+      if (this.progressBar) this.progressBar.hidden = !isQuestion;
     }
 
     #reset() {
@@ -224,6 +226,7 @@
     }
 
     #showResult() {
+      this.result.classList.remove('is-visible');
       this.#setView('result');
       requestAnimationFrame(() => this.result.classList.add('is-visible'));
     }
