@@ -53,7 +53,8 @@ export default class ResultsList extends PaginatedList {
   #setLayout(value) {
     const { grid } = this.refs;
     if (!grid) return;
-    grid.setAttribute('product-grid-view', value);
+    const layout = value === 'zoom-out' ? 'default' : value;
+    grid.setAttribute('product-grid-view', layout);
   }
 
   /**
@@ -62,9 +63,12 @@ export default class ResultsList extends PaginatedList {
    * @param {MediaQueryListEvent} event
    */
   #handleMediaQueryChange = (event) => {
-    const targetElement = event.matches
-      ? this.querySelector('[data-grid-layout="desktop-default-option"]')
-      : this.querySelector('[data-grid-layout="mobile-option"]');
+    if (event.matches) {
+      this.#setLayout('default');
+      return;
+    }
+
+    const targetElement = this.querySelector('[data-grid-layout="mobile-option"]');
 
     if (!(targetElement instanceof HTMLInputElement)) return;
 
