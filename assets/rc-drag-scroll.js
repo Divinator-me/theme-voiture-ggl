@@ -21,6 +21,9 @@
         isDragging = true;
         track.classList.add('is-drag-scroll-active');
         suppressClick = true;
+        try {
+          track.setPointerCapture(pointerId);
+        } catch (_) {}
       }
 
       event.preventDefault();
@@ -35,6 +38,10 @@
       window.removeEventListener('pointercancel', endPointer);
 
       track.classList.remove('is-drag-scroll-active');
+
+      try {
+        track.releasePointerCapture(pointerId);
+      } catch (_) {}
 
       if (isDragging) {
         suppressClick = true;
