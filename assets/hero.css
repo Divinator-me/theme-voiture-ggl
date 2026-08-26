@@ -525,20 +525,15 @@
     margin: 0;
   }
 
-  .rc-hero__cta {
-    justify-self: start;
-    margin-top: 28px;
+  .rc-hero__cta,
+  .rc-hero__stats {
+    justify-self: center;
   }
 
   .rc-hero__stats {
-    justify-content: flex-start;
-    width: auto;
-    margin-top: 28px;
-  }
-
-  .rc-hero__stats > div {
-    flex: 0 0 auto;
-    min-width: 88px;
+    justify-content: center;
+    width: min(100%, 360px);
+    margin-top: 40px;
   }
 }
 
