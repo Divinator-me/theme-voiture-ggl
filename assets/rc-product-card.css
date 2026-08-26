@@ -259,7 +259,7 @@
   color: var(--color-white);
   cursor: pointer;
   font: italic 400 clamp(16px, 2.4vw, 18px) / 0.95 var(--font-display);
-  letter-spacing: -0.03em;
+  letter-spacing: 0.02em;
   text-align: center;
   text-transform: uppercase;
   transition:
