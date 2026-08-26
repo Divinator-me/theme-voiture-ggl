@@ -118,6 +118,7 @@
   background: var(--color-red);
   box-shadow: 0 4px 12px rgb(255 45 45 / 22%);
   color: var(--color-white);
+  cursor: pointer;
   text-decoration: none;
   transform: skewX(-18deg);
   transition:
