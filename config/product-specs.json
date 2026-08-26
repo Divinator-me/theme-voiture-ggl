@@ -1,7 +1,7 @@
 {
-  "volkswagen-polo-r-wrc-1-14-voiture-telecommandee-de-rallye-et-drift": {
+  "polo-r-wrc-1-14-rc-rallye-rclab": {
     "id": 15988358971774,
-    "handle": "volkswagen-polo-r-wrc-1-14-voiture-telecommandee-de-rallye-et-drift",
+    "handle": "polo-r-wrc-1-14-rc-rallye-rclab",
     "currentTitle": "Volkswagen Polo R WRC 1/14 – Voiture télécommandée de rallye et drift",
     "priceMin": 179.9,
     "variantCount": 4,
@@ -31,9 +31,9 @@
       "remoteFreq": "2.4"
     }
   },
-  "voiture-telecommandee-buggy-off-road-4x4-1-16": {
+  "buggy-off-road-4x4-1-16-rclab": {
     "id": 15988358840702,
-    "handle": "voiture-telecommandee-buggy-off-road-4x4-1-16",
+    "handle": "buggy-off-road-4x4-1-16-rclab",
     "currentTitle": "Voiture Télécommandée Buggy Off-Road 4x4 1:16",
     "priceMin": 129.9,
     "variantCount": 4,
@@ -64,9 +64,9 @@
       "remoteFreq": "2.4"
     }
   },
-  "truggy-1-16-brushless-70-km-h-batterie-3s": {
+  "truggy-1-16-brushless-70-kmh-3s-rclab": {
     "id": 15988358807934,
-    "handle": "truggy-1-16-brushless-70-km-h-batterie-3s",
+    "handle": "truggy-1-16-brushless-70-kmh-3s-rclab",
     "currentTitle": "Truggy 1/16 brushless 70 km/h batterie 3S",
     "priceMin": 169.9,
     "variantCount": 4,
@@ -93,9 +93,9 @@
       "remoteFreq": "2.4"
     }
   },
-  "trophy-truck-rc-1-16-voiture-telecommandee-4x4-50-km-h": {
+  "trophy-truck-rc-1-16-50-kmh-rclab": {
     "id": 15988358709630,
-    "handle": "trophy-truck-rc-1-16-voiture-telecommandee-4x4-50-km-h",
+    "handle": "trophy-truck-rc-1-16-50-kmh-rclab",
     "currentTitle": "Trophy Truck RC 1:16 – Voiture Télécommandée 4x4 50 km/h",
     "priceMin": 119.9,
     "variantCount": 4,
@@ -124,9 +124,9 @@
       "remoteFreq": "2.4"
     }
   },
-  "monster-truck-telecommande-4wd-blackzon-slyder-1-16-rtr": {
+  "monster-truck-blackzon-slyder-1-16-rclab": {
     "id": 15988358054270,
-    "handle": "monster-truck-telecommande-4wd-blackzon-slyder-1-16-rtr",
+    "handle": "monster-truck-blackzon-slyder-1-16-rclab",
     "currentTitle": "Monster Truck télécommandé 4WD Blackzon Slyder 1/16 RTR",
     "priceMin": 121.9,
     "variantCount": 16,
@@ -153,9 +153,9 @@
       "remoteFreq": null
     }
   },
-  "monster-truck-rc-1-16-4wd-75-km-h-tout-terrain-brushless": {
+  "monster-truck-rc-1-16-brushless-75-rclab": {
     "id": 15988358021502,
-    "handle": "monster-truck-rc-1-16-4wd-75-km-h-tout-terrain-brushless",
+    "handle": "monster-truck-rc-1-16-brushless-75-rclab",
     "currentTitle": "Monster Truck RC 1/16 4WD 75 km/h — Tout-Terrain Brushless",
     "priceMin": 149.9,
     "variantCount": 8,
@@ -183,9 +183,9 @@
       "remoteFreq": "2.4"
     }
   },
-  "monster-truck-rc-1-16-4wd-45-km-h-tout-terrain-brushed": {
+  "monster-truck-rc-1-16-brushed-45-rclab": {
     "id": 15988357988734,
-    "handle": "monster-truck-rc-1-16-4wd-45-km-h-tout-terrain-brushed",
+    "handle": "monster-truck-rc-1-16-brushed-45-rclab",
     "currentTitle": "Monster Truck RC 1/16 4WD 45 km/h — Tout-Terrain Brushed",
     "priceMin": 119.9,
     "variantCount": 8,
@@ -213,9 +213,9 @@
       "remoteFreq": "2.4"
     }
   },
-  "force-13-1-12-buggy-telecommande-4x4-haute-vitesse-75-km-h": {
+  "force-13-buggy-4x4-75-kmh-rclab": {
     "id": 15988357792126,
-    "handle": "force-13-1-12-buggy-telecommande-4x4-haute-vitesse-75-km-h",
+    "handle": "force-13-buggy-4x4-75-kmh-rclab",
     "currentTitle": "FORCE 13 1/12 – Buggy télécommandé 4x4 haute vitesse 75 km/h",
     "priceMin": 184.9,
     "variantCount": 4,
@@ -242,9 +242,9 @@
       "remoteFreq": "2.4"
     }
   },
-  "buggy-mantis-voiture-telecommandee-1-16-4wd": {
+  "buggy-mantis-1-16-4wd-rclab": {
     "id": 15988357398910,
-    "handle": "buggy-mantis-voiture-telecommandee-1-16-4wd",
+    "handle": "buggy-mantis-1-16-4wd-rclab",
     "currentTitle": "Buggy MANTIS – Voiture télécommandée 1/16 4wd",
     "priceMin": 119.9,
     "variantCount": 4,
@@ -391,9 +391,9 @@
       "remoteFreq": "2.4"
     }
   },
-  "trophy-truck-rc-1-16-brushless-voiture-telecommandee-4x4-70-km-h": {
+  "trophy-truck-rc-1-16-brushless-70-rclab": {
     "id": 15988358742398,
-    "handle": "trophy-truck-rc-1-16-brushless-voiture-telecommandee-4x4-70-km-h",
+    "handle": "trophy-truck-rc-1-16-brushless-70-rclab",
     "currentTitle": "Trophy Truck RC 1:16 Brushless – Voiture Télécommandée 4x4 70 km/h",
     "priceMin": 159.9,
     "variantCount": 4,
@@ -421,9 +421,9 @@
       "remoteFreq": "2.4"
     }
   },
-  "traxxas-mini-maxx-bl-2s": {
+  "traxxas-mini-maxx-bl-2s-rclab": {
     "id": 15988358644094,
-    "handle": "traxxas-mini-maxx-bl-2s",
+    "handle": "traxxas-mini-maxx-bl-2s-rclab",
     "currentTitle": "Traxxas Mini Maxx BL-2S",
     "priceMin": 349.9,
     "variantCount": 16,
@@ -450,9 +450,9 @@
       "remoteFreq": null
     }
   },
-  "sweep-pro-4x4-voiture-telecommandee-tout-terrain-70-km-h": {
+  "sweep-pro-4x4-70-kmh-rclab": {
     "id": 15988358480254,
-    "handle": "sweep-pro-4x4-voiture-telecommandee-tout-terrain-70-km-h",
+    "handle": "sweep-pro-4x4-70-kmh-rclab",
     "currentTitle": "Sweep Pro 4x4 – Voiture Télécommandée Tout-Terrain 70 km/h",
     "priceMin": 164.9,
     "variantCount": 4,
@@ -480,9 +480,9 @@
       "remoteFreq": "2.4"
     }
   },
-  "rapidly-4x4-1-16-voiture-telecommandee-tout-terrain-50-km-h": {
+  "rapidly-4x4-1-16-50-kmh-rclab": {
     "id": 15988358349182,
-    "handle": "rapidly-4x4-1-16-voiture-telecommandee-tout-terrain-50-km-h",
+    "handle": "rapidly-4x4-1-16-50-kmh-rclab",
     "currentTitle": "Rapidly 4x4 1/16 – Voiture Télécommandée Tout-Terrain 50 km/h",
     "priceMin": 129.9,
     "variantCount": 4,
@@ -511,9 +511,9 @@
       "remoteFreq": "2.4"
     }
   },
-  "porsche-911-gt3-r-1-24-voiture-telecommandee-drift-et-piste-30-km-h": {
+  "porsche-911-gt3-r-1-24-rc-drift-rclab": {
     "id": 15988358283646,
-    "handle": "porsche-911-gt3-r-1-24-voiture-telecommandee-drift-et-piste-30-km-h",
+    "handle": "porsche-911-gt3-r-1-24-rc-drift-rclab",
     "currentTitle": "Porsche 911 GT3 R 1/24 – Voiture Télécommandée Drift et Piste 30 km/h",
     "priceMin": 59.9,
     "variantCount": 8,
@@ -581,9 +581,9 @@
       "remoteFreq": "2.4"
     }
   },
-  "lancia-delta-martini-racing-1-14-voiture-telecommandee-de-rallye-et-drift": {
+  "lancia-delta-martini-1-14-rc-rclab": {
     "id": 15988357857662,
-    "handle": "lancia-delta-martini-racing-1-14-voiture-telecommandee-de-rallye-et-drift",
+    "handle": "lancia-delta-martini-1-14-rc-rclab",
     "currentTitle": "Lancia Delta Martini Racing 1/14 – Voiture télécommandée de rallye et drift",
     "priceMin": 179.9,
     "variantCount": 4,
@@ -613,9 +613,9 @@
       "remoteFreq": "2.4"
     }
   },
-  "ford-mustang-gt-1-24-voiture-telecommandee-drift-et-piste-30-km-h": {
+  "ford-mustang-gt-1-24-rc-drift-rclab": {
     "id": 15988357824894,
-    "handle": "ford-mustang-gt-1-24-voiture-telecommandee-drift-et-piste-30-km-h",
+    "handle": "ford-mustang-gt-1-24-rc-drift-rclab",
     "currentTitle": "Ford Mustang GT 1/24 – Voiture Télécommandée Drift et Piste 30 km/h",
     "priceMin": 59.9,
     "variantCount": 8,
@@ -678,9 +678,9 @@
       "remoteFreq": "2.4"
     }
   },
-  "crawler-4x4-telecommande-tout-terrain-replique-jeep-wrangler": {
+  "crawler-jeep-wrangler-1-12-rclab": {
     "id": 15988357693822,
-    "handle": "crawler-4x4-telecommande-tout-terrain-replique-jeep-wrangler",
+    "handle": "crawler-jeep-wrangler-1-12-rclab",
     "currentTitle": "Crawler 4x4 Télécommandé Tout-Terrain – Réplique Jeep Wrangler",
     "priceMin": 179.9,
     "variantCount": 8,
@@ -708,9 +708,9 @@
       "remoteFreq": "2.4"
     }
   },
-  "crawler-4x4-1-16-voiture-telecommandee-tout-terrain-a-double-moteur": {
+  "crawler-4x4-1-16-double-moteur-rclab": {
     "id": 15988357661054,
-    "handle": "crawler-4x4-1-16-voiture-telecommandee-tout-terrain-a-double-moteur",
+    "handle": "crawler-4x4-1-16-double-moteur-rclab",
     "currentTitle": "Crawler 4x4 1/16 – Voiture télécommandée tout-terrain à double moteur",
     "priceMin": 59.9,
     "variantCount": 12,
@@ -741,9 +741,9 @@
       "remoteFreq": "2.4"
     }
   },
-  "crawler-4x4-voiture-telecommandee-tout-terrain-pour-jeune-enfant": {
+  "crawler-4x4-jeune-enfant-rclab": {
     "id": 15988357595518,
-    "handle": "crawler-4x4-voiture-telecommandee-tout-terrain-pour-jeune-enfant",
+    "handle": "crawler-4x4-jeune-enfant-rclab",
     "currentTitle": "Crawler 4x4 – Voiture télécommandée tout-terrain pour jeune enfant",
     "priceMin": 39.9,
     "variantCount": 12,
@@ -802,9 +802,9 @@
       "remoteFreq": "2.4"
     }
   },
-  "citroen-c3-wrc-1-14-voiture-telecommandee-de-rallye-et-drift": {
+  "citroen-c3-wrc-1-14-rc-rallye-rclab": {
     "id": 15988357529982,
-    "handle": "citroen-c3-wrc-1-14-voiture-telecommandee-de-rallye-et-drift",
+    "handle": "citroen-c3-wrc-1-14-rc-rallye-rclab",
     "currentTitle": "Citroën C3 WRC 1/14 – Voiture télécommandée de rallye et drift",
     "priceMin": 179.9,
     "variantCount": 4,
@@ -834,9 +834,9 @@
       "remoteFreq": "2.4"
     }
   },
-  "buggy-rc-match-1-10-voiture-telecommandee-4x4": {
+  "buggy-rc-match-1-10-4x4-rclab": {
     "id": 15988357431678,
-    "handle": "buggy-rc-match-1-10-voiture-telecommandee-4x4",
+    "handle": "buggy-rc-match-1-10-4x4-rclab",
     "currentTitle": "Buggy RC MATCH 1:10 – Voiture Télécommandée 4x4",
     "priceMin": 244.9,
     "variantCount": 4,
@@ -894,9 +894,9 @@
       "remoteFreq": "2.4"
     }
   },
-  "bmw-m4-gt3-1-24-voiture-telecommandee-drift-et-piste-30-km-h": {
+  "bmw-m4-gt3-1-24-rc-drift-rclab": {
     "id": 15988357235070,
-    "handle": "bmw-m4-gt3-1-24-voiture-telecommandee-drift-et-piste-30-km-h",
+    "handle": "bmw-m4-gt3-1-24-rc-drift-rclab",
     "currentTitle": "BMW M4 GT3 1/24 – Voiture Télécommandée Drift et Piste 30 km/h",
     "priceMin": 59.9,
     "variantCount": 8,
@@ -929,9 +929,9 @@
       "remoteFreq": "2.4"
     }
   },
-  "4x4-off-road-1-16-voiture-telecommandee-brushless-70-km-h": {
+  "4x4-rc-1-16-brushless-70-kmh-rclab": {
     "id": 15988357169534,
-    "handle": "4x4-off-road-1-16-voiture-telecommandee-brushless-70-km-h",
+    "handle": "4x4-rc-1-16-brushless-70-kmh-rclab",
     "currentTitle": "4x4 Off-Road 1/16 – Voiture Télécommandée Brushless 70 km/h",
     "priceMin": 164.9,
     "variantCount": 4,
@@ -959,9 +959,9 @@
       "remoteFreq": "2.4"
     }
   },
-  "4x4-off-road-1-14-voiture-telecommandee-brushless-60-km-h": {
+  "4x4-rc-1-14-brushless-60-kmh-rclab": {
     "id": 15988357136766,
-    "handle": "4x4-off-road-1-14-voiture-telecommandee-brushless-60-km-h",
+    "handle": "4x4-rc-1-14-brushless-60-kmh-rclab",
     "currentTitle": "4x4 Off-Road 1/14 – Voiture Télécommandée Brushless 60 km/h",
     "priceMin": 154.9,
     "variantCount": 4,
