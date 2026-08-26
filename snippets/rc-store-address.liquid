@@ -1,0 +1,24 @@
+{%- doc -%}
+  Adresse RCLAB — lien Google Maps cliquable (GMC).
+  @param {string} [style] - footer, contact, legal (défaut)
+  @param {string} [class] - classe CSS optionnelle
+{%- enddoc -%}
+
+{%- liquid
+  assign rc_store_address_style = style | default: 'legal'
+  assign rc_store_address_class = class | default: ''
+  assign rc_store_maps_url = 'https://www.google.com/maps/search/?api=1&query=47+rue+Vivienne,+75002+Paris,+France'
+
+  if rc_store_address_style == 'footer' or rc_store_address_style == 'contact'
+    assign rc_store_address_label = 'RCLAB, 47 rue Vivienne, 75002 Paris'
+  else
+    assign rc_store_address_label = '47 rue Vivienne, 75002 Paris, France'
+  endif
+-%}
+
+<a
+  class="rc-store-address{% if rc_store_address_class != blank %} {{ rc_store_address_class }}{% endif %}"
+  href="{{ rc_store_maps_url }}"
+  target="_blank"
+  rel="noopener noreferrer"
+>{{ rc_store_address_label }}</a>
