@@ -65,7 +65,7 @@
           assign needles = alias_list | split: '|'
           for needle in needles
             assign padded = ' ' | append: needle | append: ' '
-            if haystack contains padded
+            if haystack contains padded or haystack contains needle
               assign matched = color_name
               break
             endif

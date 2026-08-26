@@ -125,8 +125,33 @@
               {% if product_option_value.size > longest_value and option_id_attribute %}
                 {% assign longest_value = product_option_value.size %}
               {% endif %}
+              {%- liquid
+                assign rc_swatch = ''
+                assign rc_swatch_light = false
+                if option_name_normalized == 'couleur' or option_name_normalized == 'color' or option_name_normalized == 'colour' or option_name_normalized contains 'couleur'
+                  if product_option_value.swatch.color
+                    assign rc_swatch = 'rgb(' | append: product_option_value.swatch.color.rgb | append: ')'
+                  else
+                    capture rc_swatch
+                      render 'rc-color-hex', name: product_option_value.name
+                    endcapture
+                    assign rc_swatch = rc_swatch | strip
+                  endif
+                  assign rc_swatch_name = product_option_value.name | downcase
+                  if rc_swatch_name contains 'blanc' or rc_swatch_name contains 'white' or rc_swatch_name contains 'jaune' or rc_swatch_name contains 'yellow' or rc_swatch_name contains 'argent' or rc_swatch_name contains 'silver'
+                    assign rc_swatch_light = true
+                  endif
+                endif
+              -%}
               <label
                 class="variant-option__button-label{% if variant_style == 'swatch' %} variant-option__button-label--has-swatch{% endif %}"
+                {% if rc_swatch != blank %}
+                  data-rc-swatch
+                  {% if rc_swatch_light %}
+                    data-rc-swatch-light
+                  {% endif %}
+                  style="--rc-swatch: {{ rc_swatch }}; --color-selected-variant-background: {{ rc_swatch }}; --color-selected-variant-border: {{ rc_swatch }}; --color-selected-variant-hover-background: {{ rc_swatch }}; --color-selected-variant-hover-border: {{ rc_swatch }};"
+                {% endif %}
               >
                 <input
                   type="radio"

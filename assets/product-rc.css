@@ -32,6 +32,27 @@
   font-size: clamp(18px, 2.2vw, 22px);
 }
 
+.product-information .variant-option__button-label[data-rc-swatch] .variant-option__button-label__text {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.product-information .variant-option__button-label[data-rc-swatch]:has(:checked) {
+  --color-selected-variant-text: #ffffff;
+  --color-selected-variant-hover-text: #ffffff;
+  background-color: var(--rc-swatch);
+  color: #ffffff;
+}
+
+.product-information .variant-option__button-label[data-rc-swatch-light]:has(:checked) {
+  --color-selected-variant-text: var(--color-black);
+  --color-selected-variant-hover-text: var(--color-black);
+  color: var(--color-black);
+}
+
 .product-information .sticky-add-to-cart__title {
   font-family: var(--font-body);
   font-size: 14px;
