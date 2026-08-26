@@ -21,14 +21,23 @@
 
   .rc-category-nav__inner {
     display: flex;
-    gap: 0;
+    gap: 36px;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     width: 100%;
     min-height: 56px;
     margin: 0;
     padding: 0 40px;
     box-sizing: border-box;
+  }
+
+  .rc-category-nav__links {
+    display: flex;
+    flex: 1;
+    gap: clamp(18px, 2vw, 28px);
+    align-items: center;
+    justify-content: flex-start;
+    min-width: 0;
   }
 
   .rc-category-nav__link,
