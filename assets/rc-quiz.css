@@ -477,11 +477,11 @@
 }
 
 .rc-quiz__result.is-ready.is-visible .rc-quiz__result-title-line:nth-child(1) {
-  animation: rc-quiz-result-in 0.52s var(--ease-smooth) 0.1s forwards;
+  animation: rc-quiz-result-title-in 0.52s var(--ease-smooth) 0.1s forwards;
 }
 
 .rc-quiz__result.is-ready.is-visible .rc-quiz__result-title-line--accent {
-  animation: rc-quiz-result-in 0.56s var(--ease-smooth) 0.18s forwards;
+  animation: rc-quiz-result-title-in 0.56s var(--ease-smooth) 0.18s forwards;
 }
 
 .rc-quiz__result.is-ready.is-visible .rc-quiz__result-quote {
@@ -506,6 +506,18 @@
 
 .rc-quiz__result.is-ready.is-visible .rc-quiz__result-cta {
   animation-name: rc-quiz-result-cta-in;
+}
+
+@keyframes rc-quiz-result-title-in {
+  from {
+    opacity: 0;
+    transform: skewX(-4deg) translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: skewX(-4deg) translateY(0);
+  }
 }
 
 @keyframes rc-quiz-result-cta-in {
@@ -655,7 +667,11 @@ body.rc-quiz-open {
 
   .rc-quiz__result.is-ready.is-visible .rc-quiz__result-kicker,
   .rc-quiz__result.is-ready.is-visible .rc-quiz__result-title-line,
-  .rc-quiz__result.is-ready.is-visible .rc-quiz__result-title-line--accent,
+  .rc-quiz__result.is-ready.is-visible .rc-quiz__result-title-line--accent {
+    opacity: 1;
+    transform: skewX(-4deg);
+    animation: none;
+  }
   .rc-quiz__result.is-ready.is-visible .rc-quiz__result-quote,
   .rc-quiz__result.is-ready.is-visible .rc-quiz__result-cta {
     opacity: 1;
