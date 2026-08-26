@@ -67,6 +67,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  -webkit-user-drag: none;
+  user-select: none;
   transition:
     opacity 0.35s var(--ease-smooth),
     transform 0.55s var(--ease-smooth);
@@ -102,7 +104,8 @@
   display: flex;
   flex: 1;
   flex-direction: column;
-  padding: 14px 16px 16px;
+  min-height: 168px;
+  padding: 14px 16px 18px;
 }
 
 .rc-product-card h3 {
@@ -209,6 +212,75 @@
   font-weight: 700;
   letter-spacing: 0;
   line-height: 1;
+}
+
+.rc-product-card__footer {
+  margin-top: auto;
+  padding-top: 14px;
+}
+
+.rc-product-card__cta {
+  display: block;
+  width: 100%;
+  border: 0;
+  border-radius: 999px;
+  padding: 14px 18px;
+  background: linear-gradient(180deg, #ff4a4a 0%, var(--color-red) 52%, var(--color-red-dark) 100%);
+  box-shadow: 0 8px 22px rgb(255 45 45 / 28%);
+  color: var(--color-white);
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  text-align: center;
+  transition:
+    transform 0.28s var(--ease-smooth),
+    box-shadow 0.28s var(--ease-smooth),
+    background 0.28s var(--ease-smooth),
+    opacity 0.28s var(--ease-smooth);
+}
+
+.rc-product-card__cta:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgb(255 45 45 / 38%);
+}
+
+.rc-product-card__cta:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.rc-product-card__cta:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.rc-product-card__cta.is-loading {
+  pointer-events: none;
+  opacity: 0.72;
+}
+
+.rc-product-card__cta.is-in-cart {
+  background: var(--color-red);
+  box-shadow: 0 8px 22px rgb(255 45 45 / 24%);
+}
+
+.rc-product-card__cta.is-in-cart:hover:not(:disabled) {
+  background: var(--color-black);
+  box-shadow: 0 12px 28px rgb(0 0 0 / 22%);
+}
+
+.rc-product-card__cta:not(.is-in-cart) [data-label-in-cart] {
+  display: none;
+}
+
+.rc-product-card__cta.is-in-cart [data-label-default] {
+  display: none;
+}
+
+.rc-product-card__cta.is-in-cart [data-label-in-cart] {
+  display: inline;
 }
 
 .rc-product-card:not(.rc-product-card--live) h3 {

@@ -7,6 +7,7 @@
   assign rating_count = product.metafields.reviews.rating_count
   assign color_option = null
   assign on_sale = false
+  assign card_variant = product.selected_or_first_available_variant
 
   if product.compare_at_price > product.price
     assign on_sale = true
@@ -109,6 +110,22 @@
           (1)
         {% endif %}
       </span>
+    </div>
+
+    <div class="rc-product-card__footer">
+      <button
+        type="button"
+        class="rc-product-card__cta"
+        data-product-id="{{ product.id }}"
+        data-variant-id="{{ card_variant.id }}"
+        aria-label="Ajouter au panier"
+        {% unless card_variant.available %}
+          disabled
+        {% endunless %}
+      >
+        <span class="rc-product-card__cta-text" data-label-default>Ajouter au panier</span>
+        <span class="rc-product-card__cta-text" data-label-in-cart hidden>Voir le panier</span>
+      </button>
     </div>
   </div>
 </article>
