@@ -1,9 +1,7 @@
 (() => {
-  const LOADING_DURATION = 900;
-
   const FALLBACK_CONFIG = {
     collections: {
-      buggy: { name: 'Buggy', handle: 'buggy', cta: 'Voir les Buggy' },
+      buggy: { name: 'Buggy', handle: 'buggy' },
     },
     questions: {},
     routing_table: {},
@@ -46,9 +44,6 @@
       handle: collection.handle,
       label: collection.name,
       hook,
-      resultTitle: `Ta gamme ${collection.name}`,
-      resultText: hook,
-      cta: collection.cta || `Voir ${collection.name}`,
     };
   }
 
@@ -60,9 +55,6 @@
       this.collectionUrls = parseCollectionUrls(root);
       this.dialog = root.querySelector('.rc-quiz__dialog');
       this.body = root.querySelector('[data-rc-quiz-body]');
-      this.result = root.querySelector('[data-rc-quiz-result]');
-      this.resultLoading = root.querySelector('[data-rc-quiz-result-loading]');
-      this.resultContent = root.querySelector('[data-rc-quiz-result-content]');
       this.optionsContainer = root.querySelector('[data-rc-quiz-options]');
       this.questionEl = root.querySelector('[data-rc-quiz-question]');
       this.stepEl = root.querySelector('[data-rc-quiz-step]');
@@ -71,14 +63,9 @@
       this.progressBar = root.querySelector('.rc-quiz__progress');
       this.eyebrow = root.querySelector('[data-rc-quiz-eyebrow]');
       this.backButton = root.querySelector('[data-rc-quiz-back]');
-      this.cta = root.querySelector('[data-rc-quiz-cta]');
-      this.resultCollection = root.querySelector('[data-rc-quiz-result-collection]');
-      this.ctaLabel = root.querySelector('[data-rc-quiz-cta-label]');
-      this.panels = root.querySelectorAll('[data-rc-quiz-panel]');
 
       this.currentIndex = 0;
       this.answers = {};
-      this.match = null;
       this.lastFocus = null;
       this.isOpen = false;
 
@@ -113,8 +100,6 @@
           this.close();
         }
       });
-
-      this.cta?.addEventListener('click', () => this.#handleCtaClick());
     }
 
     open() {
@@ -149,36 +134,22 @@
       window.setTimeout(finish, 500);
     }
 
-    #setView(view) {
-      this.panels.forEach((panel) => {
-        panel.classList.toggle('is-active', panel.dataset.rcQuizPanel === view);
-      });
-
-      const isQuestion = view === 'question';
-      this.eyebrow.hidden = !isQuestion;
-      this.backButton.hidden = !isQuestion || this.currentIndex === 0;
-      if (this.progressBar) this.progressBar.hidden = !isQuestion;
-    }
-
-    #resetResultPanel() {
-      this.result.classList.remove('is-ready', 'is-visible');
-      if (this.resultLoading) this.resultLoading.hidden = false;
-      if (this.resultContent) this.resultContent.hidden = true;
+    #updateChrome() {
+      this.eyebrow.hidden = false;
+      this.backButton.hidden = this.currentIndex === 0;
+      if (this.progressBar) this.progressBar.hidden = false;
     }
 
     #reset() {
       this.currentIndex = 0;
       this.answers = {};
-      this.match = null;
-      this.#resetResultPanel();
-      this.#setView('question');
+      this.#updateChrome();
       this.#renderQuestion(0, { skipAnimation: true });
     }
 
     #goBack() {
       if (this.currentIndex === 0) return;
       this.currentIndex -= 1;
-      this.#setView('question');
       this.#renderQuestion(this.currentIndex);
     }
 
@@ -250,41 +221,16 @@
           this.currentIndex += 1;
           this.#renderQuestion(this.currentIndex);
         } else {
-          this.#showResult();
+          this.#completeQuiz();
         }
       }, 260);
     }
 
-    #showResult() {
-      this.#resetResultPanel();
-      this.#setView('result');
-      this.progressEl.style.width = '100%';
-
-      window.setTimeout(() => {
-        this.match = resolveCollection(this.answers, this.config);
-        this.match.url = this.#collectionUrl(this.match.handle);
-
-        if (this.resultCollection) {
-          this.resultCollection.textContent = this.match.label;
-        }
-        if (this.ctaLabel) {
-          this.ctaLabel.textContent = this.match.cta;
-        }
-
-        if (this.resultLoading) this.resultLoading.hidden = true;
-        if (this.resultContent) this.resultContent.hidden = false;
-
-        this.result.classList.add('is-ready');
-        requestAnimationFrame(() => this.result.classList.add('is-visible'));
-      }, LOADING_DURATION);
-    }
-
-    #handleCtaClick() {
-      const match = this.match || resolveCollection(this.answers, this.config);
+    #completeQuiz() {
+      const match = resolveCollection(this.answers, this.config);
       match.url = this.#collectionUrl(match.handle);
 
       window.RcQuiz?.dispatchResult?.(this.answers, match);
-      this.close();
       window.location.assign(match.url);
     }
   }
