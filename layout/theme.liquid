@@ -18,6 +18,12 @@
         assign rc_legal_page_redirect = shop.terms_of_service.url | default: '/policies/terms-of-service'
       when '/pages/faq-boutique'
         assign rc_legal_page_redirect = routes.root_url | append: '#faq'
+      when '/pages/qui-sommes-nous'
+        if pages['a-propos'] != blank
+          assign rc_legal_page_redirect = pages['a-propos'].url
+        else
+          assign rc_legal_page_redirect = '/pages/a-propos'
+        endif
     endcase
   endif
 

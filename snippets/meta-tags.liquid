@@ -23,7 +23,7 @@
   assign rc_home_title = 'RC LAB | Voitures Télécommandées Premium'
   assign seo_title = page_title | default: rc_brand
 
-  if request.page_type == 'page' and page.handle == 'qui-sommes-nous'
+  if request.page_type == 'page' and page.handle == 'qui-sommes-nous' or page.handle == 'a-propos'
     assign seo_title = 'À propos'
   endif
 
