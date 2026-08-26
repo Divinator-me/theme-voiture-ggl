@@ -21,7 +21,7 @@
   <div class="rc-footer__grid">
     <nav class="rc-footer__col rc-footer__col--collections" aria-label="Nos collections">
       <h2>Nos collections</h2>
-      {% assign footer_collections = 'Monster Truck / 4x4|monster-truck-4x4||Drift|drift||Rallye / Trophy Truck|rallye-trophy||Buggy|buggy||Piste|piste||Crawler|crawler' | split: '||' %}
+      {% assign footer_collections = 'Monster Truck / 4x4|monster-truck-4x4||Drift|drift||Rallye / Trophy Truck|rallye-trophy||Buggy|buggy||Piste|piste' | split: '||' %}
       {% for item in footer_collections %}
         {% assign parts = item | split: '|' %}
         {% assign label = parts[0] %}
