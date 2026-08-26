@@ -501,9 +501,9 @@
   }
 
   .rc-hero__stage {
-    grid-template-columns: minmax(0, 1fr) minmax(340px, 1.05fr);
+    grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.95fr);
     align-items: center;
-    gap: 32px 48px;
+    gap: 28px 36px;
   }
 
   .rc-hero__copy {
@@ -512,11 +512,19 @@
 
   .rc-hero__tag {
     top: 0;
-    margin-bottom: 18px;
+    margin-bottom: 22px;
+    padding: 9px 18px;
+    font-size: 14px;
+    letter-spacing: 0.16em;
   }
 
   .rc-hero__title {
-    font-size: clamp(64px, 6.4vw, 104px);
+    font-size: clamp(78px, 8.6vw, 128px);
+  }
+
+  .rc-hero__line--outline {
+    -webkit-text-stroke-width: 3px;
+    text-stroke-width: 3px;
   }
 
   .rc-hero__visual {
