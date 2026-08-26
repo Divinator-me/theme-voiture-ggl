@@ -204,6 +204,18 @@
   transform: skewX(-18deg) translateY(-1px);
 }
 
+.rc-hero__cta-note {
+  max-width: 280px;
+  margin: 12px 0 0;
+  color: var(--color-white);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.45;
+  text-align: center;
+  opacity: 0;
+  animation: rc-hero-fade-up 0.48s var(--ease-smooth) 1.1s forwards;
+}
+
 .rc-hero__secondary {
   display: inline-flex;
   border-bottom: 1px solid rgb(255 255 255 / 35%);
