@@ -1,0 +1,94 @@
+{
+  "quiz_name": "Trouver ma voiture RC",
+  "description": "Quiz de 3 questions redirigeant vers une des 3 collections Shopify actives. Q1 ne participe pas au routage : elle sert uniquement à personnaliser le message d'accroche affiché sur la page de résultat.",
+
+  "collections": {
+    "monster_truck_4x4": {
+      "name": "Monster Truck / 4x4",
+      "handle": "monster-truck-4x4",
+      "cta": "Voir les Monster Truck / 4x4"
+    },
+    "buggy": {
+      "name": "Buggy",
+      "handle": "buggy",
+      "cta": "Voir les Buggy"
+    },
+    "rallye_trophy": {
+      "name": "Rallye / Trophy Truck",
+      "handle": "rallye-trophy",
+      "cta": "Voir le Rallye / Trophy"
+    }
+  },
+
+  "questions": {
+    "q1": {
+      "id": "q1",
+      "text": "Cette RC, c'est pour qui ?",
+      "affects_routing": false,
+      "options": [
+        { "id": "for_myself", "emoji": "🧑", "label": "Pour moi, je suis un passionné" },
+        { "id": "for_child", "emoji": "👦", "label": "Pour mon enfant (moins de 12 ans)" },
+        { "id": "for_teen", "emoji": "🧑‍🎓", "label": "Pour un ado (13-17 ans)" },
+        { "id": "gift_unknown", "emoji": "🎁", "label": "Un cadeau, je sais pas encore pour qui exactement" }
+      ]
+    },
+    "q2": {
+      "id": "q2",
+      "text": "Tu vas rouler où le plus souvent ?",
+      "affects_routing": true,
+      "options": [
+        { "id": "forest", "emoji": "🌲", "label": "Forêt, chemins accidentés, gros obstacles" },
+        { "id": "sand_dirt", "emoji": "🏜️", "label": "Terre, sable, chemins rapides" },
+        { "id": "asphalt", "emoji": "🛣️", "label": "Bitume, parking, piste lisse" },
+        { "id": "rocks", "emoji": "🪨", "label": "Rochers, pentes techniques, franchissement lent" }
+      ]
+    },
+    "q3": {
+      "id": "q3",
+      "text": "Ce qui te fait le plus kiffer dans une RC ?",
+      "affects_routing": true,
+      "options": [
+        { "id": "impact", "emoji": "💥", "label": "Écraser tout sur son passage, sauter fort" },
+        { "id": "drift", "emoji": "🌀", "label": "Glisser, driver, faire des figures" },
+        { "id": "speed", "emoji": "🚀", "label": "Foncer le plus vite possible" },
+        { "id": "climb", "emoji": "🧗", "label": "Grimper méthodiquement, franchir un obstacle par un autre" }
+      ]
+    }
+  },
+
+  "routing_table": {
+    "forest": {
+      "impact": "monster_truck_4x4",
+      "drift": "monster_truck_4x4",
+      "speed": "monster_truck_4x4",
+      "climb": "monster_truck_4x4"
+    },
+    "sand_dirt": {
+      "impact": "rallye_trophy",
+      "drift": "buggy",
+      "speed": "buggy",
+      "climb": "rallye_trophy"
+    },
+    "asphalt": {
+      "impact": "monster_truck_4x4",
+      "drift": "buggy",
+      "speed": "rallye_trophy",
+      "climb": "rallye_trophy"
+    },
+    "rocks": {
+      "impact": "monster_truck_4x4",
+      "drift": "rallye_trophy",
+      "speed": "monster_truck_4x4",
+      "climb": "rallye_trophy"
+    }
+  },
+
+  "display_hooks_by_q1": {
+    "for_myself": "Toi, tu cherches pas un jouet. Tu cherches une machine qui tient la route.",
+    "for_child": "Pour ton enfant, la règle est simple : ça doit rouler longtemps, pas juste le jour de Noël.",
+    "for_teen": "À cet âge, ça doit envoyer, mais pas casser à la première sortie.",
+    "gift_unknown": "Le cadeau qui fait mouche : pas juste joli sous le sapin, un truc qui va vraiment servir."
+  },
+
+  "fallback_collection": "buggy"
+}
