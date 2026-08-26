@@ -148,7 +148,8 @@
               // No need to read the window width if no custom layouts were saved.
               if (storedLayoutMobile === 'default' && storedLayoutDesktop === 'default') return;
 
-              const storedLayout = window.innerWidth >= 750 ? storedLayoutDesktop : storedLayoutMobile;
+              let storedLayout = window.innerWidth >= 750 ? storedLayoutDesktop : storedLayoutMobile;
+              if (storedLayout === 'zoom-out') storedLayout = 'default';
               if (storedLayout === 'default') return;
 
               grid.setAttribute('product-grid-view', storedLayout);
