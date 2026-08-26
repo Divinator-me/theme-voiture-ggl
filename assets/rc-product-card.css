@@ -240,7 +240,7 @@
 
   .rc-product-card:hover .rc-product-card__footer,
   .rc-product-card:focus-within .rc-product-card__footer {
-    max-height: 72px;
+    max-height: 84px;
     padding-top: 14px;
     opacity: 1;
     pointer-events: auto;
@@ -253,17 +253,13 @@
   width: 100%;
   border: 0;
   border-radius: 999px;
-  padding: 14px 18px;
+  padding: 13px 18px 14px;
   background: linear-gradient(180deg, #ff4a4a 0%, var(--color-red) 52%, var(--color-red-dark) 100%);
   box-shadow: 0 8px 22px rgb(255 45 45 / 28%);
   color: var(--color-white);
   cursor: pointer;
-  font-family: var(--font-display);
-  font-size: 15px;
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: -0.02em;
-  line-height: 1;
+  font: italic 400 clamp(16px, 2.4vw, 18px) / 0.95 var(--font-display);
+  letter-spacing: -0.03em;
   text-align: center;
   text-transform: uppercase;
   transition:
