@@ -255,6 +255,8 @@ class StickyAddToCartComponent extends Component {
           this.#targetAddToCartButton = productForm.querySelector('[ref="addToCartButton"]');
         }
 
+        this.#syncVariantSelect();
+
         if (variant == null) {
           this.#handleVariantUnavailable();
         }
@@ -271,6 +273,9 @@ class StickyAddToCartComponent extends Component {
    */
   #handleVariantUnavailable = () => {
     this.dataset.currentVariantId = '';
+    const variantSelect = this.refs.variantSelect;
+    if (variantSelect instanceof HTMLSelectElement) return;
+
     const variantTitleElement = this.querySelector('.sticky-add-to-cart__variant');
     const productId = this.dataset.productId;
     const variantPicker = document.querySelector(`variant-picker[data-product-id="${productId}"]`);
@@ -318,12 +323,93 @@ class StickyAddToCartComponent extends Component {
   };
 
   /**
+   * Handles variant selection from the sticky dropdown.
+   * @param {Event} event
+   */
+  handleVariantSelectChange = (event) => {
+    if (!(event.target instanceof HTMLSelectElement)) return;
+    this.#selectVariantById(event.target.value);
+  };
+
+  /**
+   * Selects a variant in the main product form pickers.
+   * @param {string} variantId
+   */
+  #selectVariantById(variantId) {
+    const productId = this.dataset.productId;
+    if (!productId || !variantId) return;
+
+    const pickers = document.querySelectorAll(`variant-picker[data-product-id="${productId}"]`);
+    if (!pickers.length) return;
+
+    for (const picker of pickers) {
+      const input = picker.querySelector(`input[type="radio"][data-variant-id="${variantId}"]`);
+      if (input instanceof HTMLInputElement && !input.checked) {
+        input.checked = true;
+        input.dispatchEvent(new Event('change', { bubbles: true }));
+        return;
+      }
+    }
+
+    const variantsJson = this.querySelector('[data-variants-json]');
+    if (!variantsJson?.textContent) return;
+
+    let variants;
+    try {
+      variants = JSON.parse(variantsJson.textContent);
+    } catch {
+      return;
+    }
+
+    const variant = variants.find((item) => String(item.id) === String(variantId));
+    if (!variant) return;
+
+    const optionValues = [variant.option1, variant.option2, variant.option3].filter(Boolean);
+
+    for (const picker of pickers) {
+      for (const optionValue of optionValues) {
+        const radio = picker.querySelector(`input[type="radio"][value="${CSS.escape(optionValue)}"]`);
+        if (radio instanceof HTMLInputElement && !radio.checked) {
+          radio.checked = true;
+          radio.dispatchEvent(new Event('change', { bubbles: true }));
+          break;
+        }
+
+        const select = picker.querySelector('select.variant-option__select');
+        if (select instanceof HTMLSelectElement) {
+          const hasOption = Array.from(select.options).some((option) => option.value === optionValue);
+          if (hasOption && select.value !== optionValue) {
+            select.value = optionValue;
+            select.dispatchEvent(new Event('change', { bubbles: true }));
+          }
+          break;
+        }
+      }
+    }
+  }
+
+  /**
+   * Syncs sticky variant dropdown with the current variant.
+   */
+  #syncVariantSelect() {
+    const { variantSelect } = this.refs;
+    const variantId = this.dataset.currentVariantId;
+    if (!(variantSelect instanceof HTMLSelectElement) || !variantId) return;
+
+    const option = Array.from(variantSelect.options).find((item) => item.value === String(variantId));
+    if (option && !option.disabled) {
+      variantSelect.value = String(variantId);
+    }
+  }
+
+  /**
    * Shows the sticky bar with animation
    */
   #showStickyBar() {
     const { stickyBar } = this.refs;
     this.#isStuck = true;
     stickyBar.dataset.stuck = 'true';
+    document.body.classList.add('has-sticky-atc-visible');
   }
 
   /**
@@ -333,6 +419,7 @@ class StickyAddToCartComponent extends Component {
     const { stickyBar } = this.refs;
     this.#isStuck = false;
     stickyBar.dataset.stuck = 'false';
+    document.body.classList.remove('has-sticky-atc-visible');
   }
 
   // Helper methods
