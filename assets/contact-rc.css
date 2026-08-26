@@ -121,6 +121,21 @@
   line-height: 1.5;
 }
 
+.rc-contact__address {
+  margin: 0;
+  color: var(--color-gray-500);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.rc-contact__address a.rc-store-address {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
 .rc-contact__channels {
   margin: 0;
   padding-top: 4px;
