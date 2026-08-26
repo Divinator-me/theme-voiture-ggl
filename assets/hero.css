@@ -40,6 +40,13 @@
   text-align: center;
 }
 
+.rc-hero__stage,
+.rc-hero__copy {
+  display: grid;
+  justify-items: center;
+  width: 100%;
+}
+
 .rc-hero__tag {
   position: relative;
   top: -30px;
@@ -484,15 +491,54 @@
 
 @media (min-width: 1024px) {
   .rc-hero {
-    min-height: 720px;
+    min-height: 0;
   }
 
   .rc-hero__inner {
-    padding-top: 64px;
+    justify-items: start;
+    padding: 56px 32px 48px;
+    text-align: left;
+  }
+
+  .rc-hero__stage {
+    grid-template-columns: minmax(0, 1fr) minmax(340px, 1.05fr);
+    align-items: center;
+    gap: 32px 48px;
+  }
+
+  .rc-hero__copy {
+    justify-items: start;
+  }
+
+  .rc-hero__tag {
+    top: 0;
+    margin-bottom: 18px;
+  }
+
+  .rc-hero__title {
+    font-size: clamp(64px, 6.4vw, 104px);
   }
 
   .rc-hero__visual {
-    width: min(60vw, 680px);
+    width: 100%;
+    max-width: none;
+    margin: 0;
+  }
+
+  .rc-hero__cta {
+    justify-self: start;
+    margin-top: 28px;
+  }
+
+  .rc-hero__stats {
+    justify-content: flex-start;
+    width: auto;
+    margin-top: 28px;
+  }
+
+  .rc-hero__stats > div {
+    flex: 0 0 auto;
+    min-width: 88px;
   }
 }
 
