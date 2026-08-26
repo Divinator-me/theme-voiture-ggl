@@ -26,8 +26,29 @@
 {%- endif -%}
 {%- liquid
   assign selected_product = closest.product
-  assign selected_variant_media = selected_product.selected_or_first_available_variant.featured_media
+  assign current_variant = selected_product.selected_or_first_available_variant
+  assign selected_variant_media = current_variant.featured_media
   assign first_3d_model = selected_product.media | where: 'media_type', 'model' | first
+  assign rc_color_option = false
+  assign rc_selected_color = ''
+
+  for option in selected_product.options_with_values
+    assign option_name = option.name | downcase
+    if option_name == 'couleur' or option_name == 'color' or option_name == 'colour' or option_name contains 'couleur'
+      assign rc_color_option = true
+      break
+    endif
+  endfor
+
+  if rc_color_option
+    for sel in current_variant.selected_options
+      assign option_name = sel.name | downcase
+      if option_name == 'couleur' or option_name == 'color' or option_name == 'colour' or option_name contains 'couleur'
+        assign rc_selected_color = sel.value | downcase | strip
+        break
+      endif
+    endfor
+  endif
 
   if block_settings.hide_variants
     assign variant_images = selected_product.images | where: 'attached_to_variant?', true | map: 'src'
@@ -102,22 +123,38 @@
   endif
 
   assign sorted_media = '' | split: ','
-  if selected_variant_media
-    assign sorted_media = sorted_media | concat: selected_product.media | where: 'id', selected_variant_media.id
+  assign deferred_media = '' | split: ','
 
-    for media in selected_product.media
-      if block_settings.hide_variants and variant_images contains media.src and sorted_media.size > 0
-        continue
-      endif
+  for media in selected_product.media
+    assign skip_media = false
 
-      if media.id != selected_variant_media.id
-        assign found_media = selected_product.media | where: 'id', media.id
-        assign sorted_media = sorted_media | concat: found_media
+    if rc_color_option and rc_selected_color != blank
+      capture media_color
+        render 'rc-media-color-key', media: media, product: selected_product
+      endcapture
+      assign media_color = media_color | strip | downcase
+      if media_color != blank and media_color != rc_selected_color
+        assign skip_media = true
       endif
-    endfor
-  else
-    assign sorted_media = selected_product.media
-  endif
+    elsif block_settings.hide_variants and variant_images contains media.src
+      if selected_variant_media == blank or media.id != selected_variant_media.id
+        assign skip_media = true
+      endif
+    endif
+
+    if skip_media
+      continue
+    endif
+
+    assign found_media = selected_product.media | where: 'id', media.id
+    if selected_variant_media and media.id == selected_variant_media.id
+      assign sorted_media = sorted_media | concat: found_media
+    else
+      assign deferred_media = deferred_media | concat: found_media
+    endif
+  endfor
+
+  assign sorted_media = sorted_media | concat: deferred_media
   assign has_image_drop = sorted_media | has: 'media_type', 'image'
 
   # Determine if we're in single column mode (carousel or grid with one column)
