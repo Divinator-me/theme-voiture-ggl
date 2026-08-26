@@ -20,6 +20,7 @@
         if (Math.abs(delta) <= DRAG_THRESHOLD) return;
         isDragging = true;
         track.classList.add('is-drag-scroll-active');
+        suppressClick = true;
       }
 
       event.preventDefault();
@@ -37,11 +38,17 @@
 
       if (isDragging) {
         suppressClick = true;
+      } else {
+        suppressClick = false;
       }
 
       pointerId = null;
       isDragging = false;
     };
+
+    track.addEventListener('dragstart', (event) => {
+      event.preventDefault();
+    });
 
     track.addEventListener('pointerdown', (event) => {
       if (event.button !== 0) return;

@@ -68,7 +68,7 @@
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
   cursor: grab;
-  touch-action: pan-y;
+  touch-action: pan-x;
 }
 
 .rc-categories__track.is-drag-scroll-active {

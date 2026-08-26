@@ -51,10 +51,14 @@
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
   cursor: grab;
-  touch-action: pan-y;
+  touch-action: pan-x;
 }
 
-.rc-best-sellers__track.is-drag-scroll-active {
+.rc-best-sellers__track img,
+.rc-categories__track img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
   cursor: grabbing;
   scroll-behavior: auto;
   scroll-snap-type: none;
