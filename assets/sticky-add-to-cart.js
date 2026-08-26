@@ -31,6 +31,7 @@ import { StandardEvents, ProductSelectEvent, CartLinesUpdateEvent, CartErrorEven
  * @property {HTMLElement} quantityDisplay - Quantity display container
  * @property {HTMLElement} quantityNumber - Quantity number element
  * @property {HTMLImageElement} productImage - Product image element
+ * @property {HTMLSelectElement} [variantSelect] - Sticky variant dropdown
  */
 
 /**
