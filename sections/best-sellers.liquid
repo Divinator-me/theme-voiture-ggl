@@ -4,7 +4,25 @@
 <script src="{{ 'rc-drag-scroll.js' | asset_url }}" defer></script>
 <script src="{{ 'best-sellers.js' | asset_url }}" defer></script>
 
-{% assign selected_products = section.settings.products %}
+{% liquid
+  assign rc_best_seller_handles = 'monster-truck-4x4,buggy,rallye-trophy,drift,piste' | split: ','
+  assign rc_picked = ','
+  assign rc_pick_count = 0
+
+  for handle in rc_best_seller_handles
+    assign rc_collection = collections[handle]
+    if rc_collection != blank and rc_collection.products_count > 0
+      assign rc_ranked = rc_collection.products | sort: 'price' | reverse
+      for product in rc_ranked limit: 3
+        assign rc_token = product.handle | prepend: ',' | append: ','
+        unless rc_picked contains rc_token
+          assign rc_picked = rc_picked | append: product.handle | append: ','
+          assign rc_pick_count = rc_pick_count | plus: 1
+        endunless
+      endfor
+    endif
+  endfor
+%}
 
 <section class="rc-best-sellers" id="top-ventes" data-best-sellers aria-label="Meilleures ventes">
   <div class="rc-best-sellers__header">
@@ -18,9 +36,13 @@
       </svg>
     </button>
     <div class="rc-best-sellers__track" data-slider-track tabindex="0" aria-label="Carrousel meilleures ventes">
-      {% if selected_products != blank and selected_products.size > 0 %}
-        {% for product in selected_products %}
-          {% render 'rc-product-card', product: product %}
+      {% if rc_pick_count > 0 %}
+        {% assign rc_catalog = collections.all.products | sort: 'price' | reverse %}
+        {% for product in rc_catalog %}
+          {% assign rc_token = product.handle | prepend: ',' | append: ',' %}
+          {% if rc_picked contains rc_token %}
+            {% render 'rc-product-card', product: product %}
+          {% endif %}
         {% endfor %}
       {% else %}
         {% for index in (1..6) %}
@@ -54,14 +76,7 @@
 {% schema %}
 {
   "name": "Best sellers",
-  "settings": [
-    {
-      "type": "product_list",
-      "id": "products",
-      "label": "Produits",
-      "limit": 6
-    }
-  ],
+  "settings": [],
   "presets": [
     {
       "name": "Best sellers"
