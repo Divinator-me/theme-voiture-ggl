@@ -6,7 +6,21 @@
 {{ 'rc-quiz.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'rc-quiz.js' | asset_url }}" defer></script>
 
-<div class="rc-quiz" data-rc-quiz hidden aria-hidden="true">
+<div
+  class="rc-quiz"
+  data-rc-quiz
+  data-rc-quiz-config-url="{{ 'rc-quiz-config.json' | asset_url }}"
+  data-rc-quiz-collection-urls='{
+    "monster-truck-4x4": {{ collections['monster-truck-4x4'].url | default: '/collections/monster-truck-4x4' | json }},
+    "buggy": {{ collections.buggy.url | default: '/collections/buggy' | json }},
+    "rallye-trophy": {{ collections['rallye-trophy'].url | default: '/collections/rallye-trophy' | json }},
+    "crawler": {{ collections.crawler.url | default: '/collections/crawler' | json }},
+    "drift": {{ collections.drift.url | default: '/collections/drift' | json }},
+    "piste": {{ collections.piste.url | default: '/collections/piste' | json }}
+  }'
+  hidden
+  aria-hidden="true"
+>
   <div class="rc-quiz__overlay" data-rc-quiz-close></div>
 
   <div
@@ -79,9 +93,9 @@
       </div>
 
       <div class="rc-quiz__result rc-quiz__panel" data-rc-quiz-result data-rc-quiz-panel="result">
-        <p class="rc-quiz__result-eyebrow">Ta gamme RC est prête</p>
-        <h2 class="rc-quiz__result-title">On a matché tes<br>envies avec le catalogue</h2>
-        <p class="rc-quiz__result-text">Découvre les modèles qui correspondent à ton profil.</p>
+        <p class="rc-quiz__result-eyebrow" data-rc-quiz-result-eyebrow>Ta gamme RC est prête</p>
+        <h2 class="rc-quiz__result-title" data-rc-quiz-result-title>On a matché tes envies avec le catalogue</h2>
+        <p class="rc-quiz__result-text" data-rc-quiz-result-text>Découvre les modèles qui correspondent à ton profil.</p>
         <button type="button" class="rc-quiz__result-cta" data-rc-quiz-cta>
           Voici ta gamme RC
           <span aria-hidden="true"> →</span>
