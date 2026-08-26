@@ -341,7 +341,7 @@
   background: linear-gradient(to top, rgb(255 45 45 / 18%), transparent);
 }
 
-.rc-quiz__result-card-glow {
+.rc-quiz__result-card-body {
   padding: 28px 26px 34px;
   text-align: center;
 }
