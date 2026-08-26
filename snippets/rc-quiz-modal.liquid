@@ -1,0 +1,71 @@
+{%- doc -%}
+  Quiz modal RCLAB, chargé une seule fois via le layout.
+  Ouvert par tout élément avec [data-rc-quiz-open].
+{%- enddoc -%}
+
+{{ 'rc-quiz.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'rc-quiz.js' | asset_url }}" defer></script>
+
+<div class="rc-quiz" data-rc-quiz hidden aria-hidden="true">
+  <div class="rc-quiz__overlay" data-rc-quiz-close></div>
+
+  <div
+    class="rc-quiz__dialog"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="rc-quiz-title"
+    tabindex="-1"
+  >
+    <div class="rc-quiz__progress" aria-hidden="true">
+      <span class="rc-quiz__progress-fill" data-rc-quiz-progress></span>
+    </div>
+
+    <header class="rc-quiz__header">
+      <p class="rc-quiz__eyebrow">
+        <span data-rc-quiz-step>1</span>
+        <span class="rc-quiz__eyebrow-sep">/</span>
+        <span data-rc-quiz-total>3</span>
+      </p>
+      <button
+        type="button"
+        class="rc-quiz__close"
+        data-rc-quiz-close
+        aria-label="Fermer le quiz"
+      >
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path
+            d="M6 6L18 18M18 6L6 18"
+            stroke="currentColor"
+            stroke-width="2.4"
+            stroke-linecap="round"
+          />
+        </svg>
+      </button>
+    </header>
+
+    <div class="rc-quiz__body" data-rc-quiz-body>
+      <h2 class="rc-quiz__title" id="rc-quiz-title" data-rc-quiz-question></h2>
+
+      <div class="rc-quiz__options" data-rc-quiz-options role="list"></div>
+    </div>
+
+    <div class="rc-quiz__loading" data-rc-quiz-loading hidden aria-live="polite">
+      <div class="rc-quiz__loader" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <p class="rc-quiz__loading-text">On analyse ton profil</p>
+    </div>
+
+    <div class="rc-quiz__result" data-rc-quiz-result hidden>
+      <p class="rc-quiz__result-eyebrow">Ta gamme RC est prête</p>
+      <h2 class="rc-quiz__result-title">On a matché tes<br>envies avec le catalogue</h2>
+      <p class="rc-quiz__result-text">Découvre les modèles qui correspondent à ton profil.</p>
+      <button type="button" class="rc-quiz__result-cta" data-rc-quiz-cta>
+        Voici ta gamme RC
+        <span aria-hidden="true"> →</span>
+      </button>
+    </div>
+  </div>
+</div>
