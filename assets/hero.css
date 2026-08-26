@@ -252,6 +252,9 @@
   font-size: 44px;
   font-weight: 400;
   line-height: 0.9;
+  -webkit-text-stroke: 1px var(--color-white);
+  text-stroke: 1px var(--color-white);
+  paint-order: stroke fill;
 }
 
 .rc-hero__stats dd {
