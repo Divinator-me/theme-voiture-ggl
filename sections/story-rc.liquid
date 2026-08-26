@@ -1,4 +1,5 @@
 {{ 'story-rc.css' | asset_url | stylesheet_tag }}
+{{ 'quiz-cta.css' | asset_url | stylesheet_tag }}
 
 <section class="rc-story" aria-label="Notre histoire">
   <div class="rc-story__inner">
@@ -18,12 +19,14 @@
       À l'origine de RCLAB, une bande de mecs qui bidouillent des RC depuis qu'ils ont dix ans. On en a cassé, réparé, upgradé, revendu, racheté. On en connaît les défauts par cœur, et c'est pour ça qu'on sélectionne nos partenaires un par un, plutôt que de fabriquer nous-mêmes. Pas de call center à l'autre bout du monde : quand tu nous écris, c'est un passionné qui te répond, avec sa RC posée sur le bureau.
     </p>
 
-    <a class="rc-story__cta" href="{{ routes.all_products_collection_url }}">
-      <span class="rc-story__cta-inner">
-        <span>Découvrir nos modèles</span>
-        <span class="rc-story__cta-arrow" aria-hidden="true">→</span>
+    <button type="button" class="rc-quiz-cta__button rc-story__quiz" data-rc-quiz-open>
+      <span class="rc-quiz-cta__label">
+        <span class="rc-quiz-cta__title">
+          Trouver ma voiture RC<span class="rc-quiz-cta__arrow" aria-hidden="true"> →</span>
+        </span>
+        <span class="rc-quiz-cta__note">Un quiz personnalisé de 20 secondes pour trouver ta gamme RC</span>
       </span>
-    </a>
+    </button>
   </div>
 </section>
 

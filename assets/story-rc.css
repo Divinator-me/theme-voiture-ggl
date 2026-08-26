@@ -52,50 +52,9 @@
   line-height: 1.6;
 }
 
-.rc-story__cta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: auto;
-  max-width: 100%;
-  border: 0;
-  border-radius: 0;
+.rc-story__quiz {
   margin-top: 8px;
-  padding: 16px 28px 16px 24px;
-  background: var(--color-red);
-  box-shadow: 0 4px 12px rgb(255 45 45 / 22%);
-  color: var(--color-white);
-  transform: skewX(-18deg);
-  transition:
-    background 0.2s var(--ease-smooth),
-    box-shadow 0.2s var(--ease-smooth),
-    transform 0.2s var(--ease-smooth);
-}
-
-.rc-story__cta-inner {
-  display: inline-flex;
-  gap: 6px;
-  align-items: center;
-  font-size: 13px;
-  font-weight: 900;
-  letter-spacing: 0.08em;
-  line-height: 1;
-  text-transform: uppercase;
-  white-space: nowrap;
-  transform: skewX(18deg);
-}
-
-.rc-story__cta-arrow {
-  font-size: 15px;
-  line-height: 1;
-  transform: translateY(-2px);
-}
-
-.rc-story__cta:hover,
-.rc-story__cta:active {
-  background: var(--color-red-dark);
-  box-shadow: 0 6px 16px rgb(255 45 45 / 30%);
-  transform: skewX(-18deg) translateY(-1px);
+  width: min(100%, 460px);
 }
 
 @media (min-width: 750px) {
