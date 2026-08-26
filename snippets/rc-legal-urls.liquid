@@ -19,7 +19,7 @@
   assign rc_cgv_url = shop.terms_of_service.url | default: '/policies/terms-of-service'
   assign rc_confidentialite_url = shop.privacy_policy.url | default: '/policies/privacy-policy'
   assign rc_paiement_url = rc_paiement_page.url | default: '/pages/conditions-paiement'
-  assign rc_about_url = rc_about_page.url | default: '/pages/a-propos'
+  assign rc_about_url = rc_about_page.url | default: '/pages/qui-sommes-nous'
   if rc_faq_boutique_page != blank
     assign rc_faq_boutique_url = rc_faq_boutique_page.url
   else

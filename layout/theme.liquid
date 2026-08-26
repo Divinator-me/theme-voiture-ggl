@@ -21,8 +21,6 @@
       when '/pages/qui-sommes-nous'
         if pages['a-propos'] != blank
           assign rc_legal_page_redirect = pages['a-propos'].url
-        else
-          assign rc_legal_page_redirect = '/pages/a-propos'
         endif
     endcase
   endif

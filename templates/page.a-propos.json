@@ -1,0 +1,33 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "qui_sommes_nous": {
+      "type": "qui-sommes-nous",
+      "settings": {}
+    },
+    "best_sellers": {
+      "type": "best-sellers",
+      "settings": {
+        "products": [
+          "monster-truck-rc-1-16-brushed-45-rclab",
+          "monster-truck-rc-1-16-brushless-75-rclab",
+          "trophy-truck-rc-1-16-50-kmh-rclab",
+          "truggy-1-16-brushless-70-kmh-3s-rclab",
+          "4x4-tout-terrain-1-16-50-km-h"
+        ]
+      }
+    }
+  },
+  "order": [
+    "qui_sommes_nous",
+    "best_sellers"
+  ]
+}
