@@ -19,7 +19,26 @@
 >
 
 {%- liquid
-  assign og_title = page_title | default: shop.name
+  assign rc_brand = 'RC LAB'
+  assign rc_home_title = 'RC LAB | Voitures Télécommandées Premium'
+  assign seo_title = page_title | default: rc_brand
+
+  if request.page_type == 'index'
+    assign seo_title = rc_home_title
+  else
+    if current_tags
+      assign rc_tag_list = current_tags | join: ', '
+      assign seo_title = seo_title | append: ' – tagged "' | append: rc_tag_list | append: '"'
+    endif
+    if current_page != 1
+      assign seo_title = seo_title | append: ' – Page ' | append: current_page
+    endif
+    unless seo_title contains rc_brand
+      assign seo_title = seo_title | append: ' | ' | append: rc_brand
+    endunless
+  endif
+
+  assign og_title = seo_title
   assign og_url = canonical_url | default: request.origin
   assign og_type = 'website'
   assign og_description = page_description | default: shop.description | default: shop.name
@@ -103,12 +122,7 @@
   content="{{ og_description | escape }}"
 >
 
-<title>
-  {{ page_title }}
-  {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
-  {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
-  {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
-</title>
+<title>{{ seo_title | escape }}</title>
 
 <link
   rel="canonical"
