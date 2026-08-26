@@ -36,8 +36,9 @@ LA MARQUE¤Vous êtes qui exactement ?@@Une boutique RC pensée pour les passion
 
           <details class="rc-faq__category">
             <summary>
-              <span>{{ category_parts[0] }}</span>
-              <b aria-hidden="true">+</b>
+              <span class="rc-faq__index">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+              <span class="rc-faq__cat-title">{{ category_parts[0] }}</span>
+              <i class="rc-faq__plus" aria-hidden="true"></i>
             </summary>
 
             <div class="rc-faq__questions">
@@ -46,7 +47,7 @@ LA MARQUE¤Vous êtes qui exactement ?@@Une boutique RC pensée pour les passion
                 <details class="rc-faq__item">
                   <summary>
                     <span>{{ question_parts[0] }}</span>
-                    <b aria-hidden="true">+</b>
+                    <i class="rc-faq__plus rc-faq__plus--small" aria-hidden="true"></i>
                   </summary>
                   <p>{{ question_parts[1] }}</p>
                 </details>
