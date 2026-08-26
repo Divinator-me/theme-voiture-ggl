@@ -41,7 +41,7 @@
     justify-content: center;
     flex: 0 0 auto;
     border: 0;
-    padding: 17px 0;
+    padding: 16px 0;
     background: transparent;
     color: var(--color-white);
     font-family: var(--font-body);
@@ -53,6 +53,12 @@
     text-transform: uppercase;
     cursor: pointer;
     white-space: nowrap;
+  }
+
+  .rc-category-nav__link {
+    font-size: 16px;
+    font-weight: 900;
+    letter-spacing: 0.06em;
   }
 
   .rc-category-nav a::after,
