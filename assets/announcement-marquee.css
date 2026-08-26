@@ -5,7 +5,7 @@
   height: 34px;
   overflow: hidden;
   border-bottom: 2px solid #ff2d2d;
-  background: #ffffff;
+  background: #2b2b2b;
 }
 
 .announcement-badge {
@@ -53,7 +53,7 @@
   align-items: center;
   overflow: hidden;
   padding-left: 92px;
-  background: #ffffff;
+  background: #2b2b2b;
 }
 
 .announcement-track__inner {
@@ -73,7 +73,7 @@
   display: inline-flex !important;
   align-items: center !important;
   gap: 6px !important;
-  color: #0a0a0a !important;
+  color: #ffffff !important;
   font-family: 'Inter', sans-serif !important;
   font-size: 12px !important;
   font-weight: 600 !important;
@@ -87,7 +87,7 @@
   width: 14px;
   height: 10px;
   border-radius: 1px;
-  box-shadow: 0 0 0 1px rgb(0 0 0 / 10%);
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 20%);
 }
 
 .announcement-separator {
