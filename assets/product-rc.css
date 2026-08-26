@@ -16,6 +16,22 @@
   color: var(--color-black);
 }
 
+.product-information .add-to-cart-button.button,
+.product-information .add-to-cart-text,
+.product-information .add-to-cart-text__content,
+.product-information .add-to-cart-text__content span {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.product-information .add-to-cart-button.button {
+  font-size: clamp(18px, 2.2vw, 22px);
+}
+
 .product-information .sticky-add-to-cart__title {
   font-family: var(--font-body);
   font-size: 14px;
@@ -100,32 +116,6 @@
   white-space: nowrap;
 }
 
-.sticky-add-to-cart__rating {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-}
-
-.sticky-add-to-cart__stars {
-  display: inline-flex;
-  gap: 1px;
-  color: #f5b301;
-  font-size: 12px;
-  line-height: 1;
-}
-
-.sticky-add-to-cart__star {
-  display: block;
-}
-
-.sticky-add-to-cart__reviews {
-  color: var(--color-gray-700);
-  font-family: var(--font-body);
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 1;
-}
-
 .sticky-add-to-cart__actions {
   display: flex;
   flex: 0 0 auto;
@@ -162,10 +152,13 @@
   border-radius: 12px;
   background: var(--color-black);
   color: var(--color-white);
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0.02em;
   line-height: 1;
+  text-transform: uppercase;
   white-space: nowrap;
   cursor: pointer;
   transition: background 0.2s var(--ease-smooth);
@@ -187,7 +180,11 @@
 }
 
 .sticky-add-to-cart__button-label {
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
 .sticky-add-to-cart__button-sep {
@@ -262,10 +259,6 @@ body.has-sticky-atc-visible {
     flex-basis: 48px;
     width: 48px;
     height: 48px;
-  }
-
-  .sticky-add-to-cart__reviews {
-    font-size: 11px;
   }
 
   .sticky-add-to-cart__compare {
