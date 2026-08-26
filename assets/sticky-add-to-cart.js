@@ -100,6 +100,7 @@ class StickyAddToCartComponent extends Component {
     this.#buyButtonsIntersectionObserver?.disconnect();
     this.#mainBottomObserver?.disconnect();
     this.#abortController.abort();
+    document.body.classList.remove('has-sticky-atc-visible');
     if (this.#animationTimeout) {
       clearTimeout(this.#animationTimeout);
     }
@@ -273,20 +274,6 @@ class StickyAddToCartComponent extends Component {
    */
   #handleVariantUnavailable = () => {
     this.dataset.currentVariantId = '';
-    const variantSelect = this.refs.variantSelect;
-    if (variantSelect instanceof HTMLSelectElement) return;
-
-    const variantTitleElement = this.querySelector('.sticky-add-to-cart__variant');
-    const productId = this.dataset.productId;
-    const variantPicker = document.querySelector(`variant-picker[data-product-id="${productId}"]`);
-    if (!variantTitleElement || !variantPicker) return;
-
-    const selectedOptions = Array.from(variantPicker.querySelectorAll('input:checked'))
-      .map((option) => /** @type {HTMLInputElement} */ (option).value)
-      .filter((value) => value !== '')
-      .join(' / ');
-    if (!selectedOptions) return;
-    variantTitleElement.textContent = selectedOptions;
   };
 
   /**

@@ -249,15 +249,7 @@ body.has-sticky-atc-visible {
     gap: 8px;
     min-height: 44px;
     padding: 0 14px;
-    font-size: 13px;
-  }
-
-  .sticky-add-to-cart__button-sep {
-    display: none;
-  }
-
-  .sticky-add-to-cart__button-label {
-    display: none;
+    font-size: 12px;
   }
 
   .sticky-add-to-cart__price-current {
