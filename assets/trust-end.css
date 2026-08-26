@@ -73,9 +73,16 @@
   }
 
   .rc-trust-end__list {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 14px;
     width: 100%;
-    max-width: 840px;
+    max-width: 574px;
+  }
+}
+
+@media (min-width: 1100px) {
+  .rc-trust-end__list {
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 1120px;
   }
 }
