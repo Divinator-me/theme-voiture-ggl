@@ -1,15 +1,33 @@
-{% assign announcement_items = '📦 Livraison OFFERTE en France||🚚 Expédition suivie 4 à 8 jours||🇫🇷 Support client 100% humain français||↩️ Retour GRATUIT sous 30 jours||🏎️ +290 références||🏁 Des milliers de bolides livrés' | split: '||' %}
-
 {{ 'announcement-marquee.css' | asset_url | stylesheet_tag }}
 
 <section class="announcement-marquee" aria-label="Informations boutique">
   <div class="announcement-track" aria-hidden="true">
     <div class="announcement-track__inner">
       {% for _loop in (1..2) %}
-        {% for item in announcement_items %}
-          <span class="announcement-item">{{ item }}</span>
-          <span class="announcement-separator"></span>
-        {% endfor %}
+        <span class="announcement-item">📦 Livraison OFFERTE en France</span>
+        <span class="announcement-separator"></span>
+
+        <span class="announcement-item">🚚 Expédition suivie 4 à 8 jours</span>
+        <span class="announcement-separator"></span>
+
+        <span class="announcement-item announcement-item--with-flag">
+          <svg class="announcement-flag" viewBox="0 0 3 2" aria-hidden="true" focusable="false">
+            <rect width="1" height="2" fill="#002395"></rect>
+            <rect x="1" width="1" height="2" fill="#ffffff"></rect>
+            <rect x="2" width="1" height="2" fill="#ed2939"></rect>
+          </svg>
+          Support client 100% humain français
+        </span>
+        <span class="announcement-separator"></span>
+
+        <span class="announcement-item">↩️ Retour GRATUIT sous 30 jours</span>
+        <span class="announcement-separator"></span>
+
+        <span class="announcement-item">🏎️ +290 références</span>
+        <span class="announcement-separator"></span>
+
+        <span class="announcement-item">🏁 Des milliers de bolides livrés</span>
+        <span class="announcement-separator"></span>
       {% endfor %}
     </div>
   </div>

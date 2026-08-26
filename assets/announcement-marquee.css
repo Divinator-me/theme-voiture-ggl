@@ -82,6 +82,14 @@
   white-space: nowrap;
 }
 
+.announcement-flag {
+  flex-shrink: 0;
+  width: 14px;
+  height: 10px;
+  border-radius: 1px;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 10%);
+}
+
 .announcement-separator {
   display: inline-block !important;
   flex-shrink: 0;
