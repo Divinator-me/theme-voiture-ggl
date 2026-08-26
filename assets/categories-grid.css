@@ -78,10 +78,6 @@
   user-select: none;
 }
 
-.rc-categories__track.is-drag-scroll-active a {
-  pointer-events: none;
-}
-
 .rc-categories__track::-webkit-scrollbar {
   display: none;
 }

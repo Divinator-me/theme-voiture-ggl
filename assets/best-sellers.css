@@ -61,10 +61,6 @@
   user-select: none;
 }
 
-.rc-best-sellers__track.is-drag-scroll-active a {
-  pointer-events: none;
-}
-
 .rc-best-sellers__track::-webkit-scrollbar {
   display: none;
 }
