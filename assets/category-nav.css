@@ -9,7 +9,7 @@
     z-index: 67;
     display: block;
     overflow-x: auto;
-    min-height: 54px;
+    min-height: 56px;
     background: #2b2b2b;
     color: var(--color-white);
     scrollbar-width: none;
@@ -25,9 +25,10 @@
     align-items: center;
     justify-content: space-evenly;
     width: 100%;
-    min-height: 54px;
+    max-width: 1180px;
+    min-height: 56px;
     margin: 0 auto;
-    padding: 0 40px;
+    padding: 0 56px;
     box-sizing: border-box;
   }
 
@@ -42,13 +43,13 @@
     flex: 1 1 0;
     min-width: 0;
     border: 0;
-    padding: 16px 8px;
+    padding: 17px 10px;
     background: transparent;
     color: var(--color-white);
     font-family: var(--font-body);
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.07em;
     line-height: 1;
     text-align: center;
     text-transform: uppercase;
