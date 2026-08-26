@@ -100,7 +100,9 @@
 .rc-policy__content a.rc-support-email,
 .rc-contact__channels a.rc-support-email,
 .rc-policy__content a.rc-store-address,
-.rc-policy__contact a.rc-store-address {
+.rc-policy__contact a.rc-store-address,
+.rc-policy__content a.rc-support-phone,
+.rc-policy__contact a.rc-support-phone {
   cursor: pointer;
 }
 

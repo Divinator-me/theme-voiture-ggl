@@ -136,6 +136,13 @@
   cursor: pointer;
 }
 
+.rc-contact__channels a.rc-support-phone {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
 .rc-contact__channels {
   margin: 0;
   padding-top: 4px;

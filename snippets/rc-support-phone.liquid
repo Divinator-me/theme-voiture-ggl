@@ -1,0 +1,15 @@
+{%- doc -%}
+  Téléphone SAV RCLAB — lien tel: cliquable (GMC).
+  @param {string} [class] - classe CSS optionnelle
+{%- enddoc -%}
+
+{%- liquid
+  assign rc_support_phone_display = '+33 7 56 88 44 92'
+  assign rc_support_phone_href = '+33756884492'
+  assign rc_support_phone_class = class | default: ''
+-%}
+
+<a
+  class="rc-support-phone{% if rc_support_phone_class != blank %} {{ rc_support_phone_class }}{% endif %}"
+  href="tel:{{ rc_support_phone_href }}"
+>{{ rc_support_phone_display }}</a>
