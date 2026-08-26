@@ -147,14 +147,6 @@
   mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%);
 }
 
-.rc-hero__slide--crawler {
-  overflow: visible;
-}
-
-.rc-hero__slide--crawler .rc-hero__image {
-  object-position: center 88%;
-}
-
 .rc-hero__cta {
   display: inline-flex;
   align-items: center;
