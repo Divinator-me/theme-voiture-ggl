@@ -31,7 +31,6 @@
     box-sizing: border-box;
   }
 
-  .rc-category-nav a,
   .rc-category-nav__link,
   .rc-category-nav__menu {
     position: relative;
@@ -41,7 +40,7 @@
     justify-content: center;
     flex: 0 0 auto;
     border: 0;
-    padding: 16px 0;
+    padding: 15px 0;
     background: transparent;
     color: var(--color-white);
     font-family: var(--font-body);
@@ -55,13 +54,12 @@
     white-space: nowrap;
   }
 
-  .rc-category-nav__link {
-    font-size: 16px;
+  .rc-category-nav .rc-category-nav__link {
+    font-size: 17px;
     font-weight: 900;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.055em;
   }
 
-  .rc-category-nav a::after,
   .rc-category-nav__link::after,
   .rc-category-nav__menu::after {
     position: absolute;
@@ -74,7 +72,6 @@
     transition: width 0.3s var(--ease-smooth);
   }
 
-  .rc-category-nav a:hover::after,
   .rc-category-nav__link:hover::after,
   .rc-category-nav__link.is-active::after,
   .rc-category-nav__menu:hover::after {
