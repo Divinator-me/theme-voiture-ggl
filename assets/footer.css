@@ -78,6 +78,12 @@
   text-decoration: underline;
 }
 
+.rc-footer__address a.rc-support-email {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
 .rc-footer__badge {
   display: flex;
   flex-wrap: wrap;

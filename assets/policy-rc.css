@@ -97,6 +97,11 @@
   text-decoration-thickness: 2px;
 }
 
+.rc-policy__content a.rc-support-email,
+.rc-contact__channels a.rc-support-email {
+  cursor: pointer;
+}
+
 .rc-policy__contact {
   margin-top: 2rem;
   padding: 20px;
