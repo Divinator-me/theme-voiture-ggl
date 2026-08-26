@@ -185,7 +185,7 @@
 }
 
 .rc-product-card__price-current {
-  color: #39ff14;
+  color: var(--color-price);
   font-family: var(--font-body);
   font-size: 16px;
   font-weight: 800;

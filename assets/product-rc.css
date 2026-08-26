@@ -222,7 +222,7 @@
 }
 
 .sticky-add-to-cart__price-current {
-  color: #39ff14;
+  color: var(--color-price);
   font-size: 16px;
   font-weight: 800;
   letter-spacing: -0.02em;
@@ -304,7 +304,7 @@ body.has-sticky-atc-visible {
 }
 
 .product-information .product-details product-price.text-block.paragraph :is(.price-item--sale, .price-item--last, .price__regular .price-item--regular) {
-  color: #39ff14;
+  color: var(--color-price);
 }
 
 .rc-stock-status {
