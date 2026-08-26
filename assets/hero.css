@@ -509,6 +509,7 @@
   .rc-hero__copy {
     justify-items: start;
     margin-top: -10px;
+    padding-left: 16px;
   }
 
   .rc-hero__tag {
