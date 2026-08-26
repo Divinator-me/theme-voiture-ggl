@@ -1,7 +1,8 @@
-.rc-collection-header {
+.shopify-section .rc-collection-header.section {
   position: relative;
   overflow: hidden;
-  padding: 28px 0 22px;
+  min-height: auto;
+  padding-block: 28px 22px;
   background:
     linear-gradient(180deg, rgb(10 10 10 / 3%) 0%, transparent 42%),
     var(--color-white);
@@ -11,6 +12,7 @@
 .rc-collection-header__inner {
   position: relative;
   z-index: 1;
+  grid-column: 2;
   box-sizing: border-box;
   width: 100%;
   max-width: 1280px;
@@ -102,6 +104,7 @@
   position: absolute;
   top: -40px;
   right: -80px;
+  z-index: 0;
   width: 280px;
   height: 280px;
   border-radius: 50%;
@@ -223,8 +226,8 @@
 }
 
 @media (min-width: 750px) {
-  .rc-collection-header {
-    padding: 40px 0 28px;
+  .shopify-section .rc-collection-header.section {
+    padding-block: 40px 28px;
   }
 
   .rc-collection-header__inner {
