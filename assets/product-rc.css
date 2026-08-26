@@ -180,7 +180,7 @@
   cursor: not-allowed;
 }
 
-.sticky-add-to-cart__button .add-to-cart-text {
+.sticky-add-to-cart__button .sticky-add-to-cart__button-content {
   display: inline-flex;
   gap: 12px;
   align-items: center;

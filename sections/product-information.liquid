@@ -134,14 +134,14 @@
 
           <button
             type="button"
-            class="sticky-add-to-cart__button add-to-cart-button"
+            class="sticky-add-to-cart__button"
             ref="addToCartButton"
             on:click="/handleAddToCartClick"
             {% unless current_variant.available %}
               disabled
             {% endunless %}
           >
-            <span class="add-to-cart-text">
+            <span class="sticky-add-to-cart__button-content">
               <span class="sticky-add-to-cart__button-label">
                 {%- if current_variant.available -%}
                   Ajouter au panier
@@ -171,11 +171,6 @@
                 {% endif %}
               >
                 <span ref="quantityNumber">{{- initial_quantity -}}</span>
-              </span>
-            </span>
-            <span class="add-to-cart__added">
-              <span class="svg-wrapper add-to-cart__added-icon">
-                {{- 'icon-checkmark-burst.svg' | inline_asset_content -}}
               </span>
             </span>
           </button>

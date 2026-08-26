@@ -73,6 +73,7 @@ class StickyAddToCartComponent extends Component {
   connectedCallback() {
     super.connectedCallback();
 
+    this.#resetButtonState();
     this.#setupIntersectionObserver();
 
     const { signal } = this.#abortController;
@@ -82,6 +83,7 @@ class StickyAddToCartComponent extends Component {
     document.addEventListener(StandardEvents.cartLinesUpdate, this.#handleCartAddComplete, { signal });
     document.addEventListener(StandardEvents.cartError, this.#handleCartAddComplete, { signal });
     document.addEventListener(ThemeEvents.quantitySelectorUpdate, this.#handleQuantityUpdate, { signal });
+    window.addEventListener('pageshow', this.#handlePageShow, { signal });
 
     this.#getInitialQuantity();
 
@@ -179,18 +181,11 @@ class StickyAddToCartComponent extends Component {
     if (!this.#targetAddToCartButton) return;
     this.#targetAddToCartButton.dataset.puppet = 'true';
     this.#targetAddToCartButton.click();
+
     const cartIcon = document.querySelector('.header-actions__cart-icon');
-
-    if (this.refs.addToCartButton.dataset.added !== 'true') {
-      this.refs.addToCartButton.dataset.added = 'true';
-    }
-
-    if (!cartIcon || !this.refs.addToCartButton || !this.refs.productImage) return;
-    if (this.#resetTimeout) clearTimeout(this.#resetTimeout);
+    if (!cartIcon || !this.refs.productImage) return;
 
     const flyToCartElement = /** @type {FlyToCart} */ (document.createElement('fly-to-cart'));
-    const sourceStyles = getComputedStyle(this.refs.productImage);
-
     flyToCartElement.classList.add('fly-to-cart--sticky');
     flyToCartElement.style.setProperty('background-image', `url(${this.refs.productImage.src})`);
     flyToCartElement.useSourceSize = 'true';
@@ -198,11 +193,24 @@ class StickyAddToCartComponent extends Component {
     flyToCartElement.destination = cartIcon;
 
     document.body.appendChild(flyToCartElement);
+    await onAnimationEnd(flyToCartElement);
+    flyToCartElement.remove();
+  };
 
-    await onAnimationEnd([this.refs.addToCartButton, flyToCartElement]);
-    this.#resetTimeout = setTimeout(() => {
-      this.refs.addToCartButton.removeAttribute('data-added');
-    }, 800);
+  /**
+   * Restores button state after bfcache navigation.
+   * @param {PageTransitionEvent} event
+   */
+  #handlePageShow = (event) => {
+    if (!event.persisted) return;
+    this.#resetButtonState();
+  };
+
+  /**
+   * Ensures sticky CTA text is always visible.
+   */
+  #resetButtonState() {
+    this.refs.addToCartButton?.removeAttribute('data-added');
   };
 
   /**
@@ -257,6 +265,7 @@ class StickyAddToCartComponent extends Component {
         }
 
         this.#syncVariantSelect();
+        this.#resetButtonState();
 
         if (variant == null) {
           this.#handleVariantUnavailable();
