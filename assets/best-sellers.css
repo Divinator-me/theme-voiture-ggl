@@ -59,6 +59,8 @@
   -webkit-user-drag: none;
   user-select: none;
 }
+
+.rc-best-sellers__track.is-drag-scroll-active {
   cursor: grabbing;
   scroll-behavior: auto;
   scroll-snap-type: none;
