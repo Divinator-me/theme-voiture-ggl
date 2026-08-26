@@ -3,7 +3,7 @@
   padding: 28px 0 36px;
   background: var(--color-white);
   color: var(--color-black);
-  overflow: hidden;
+  overflow: visible;
 }
 
 .rc-best-sellers__header {
@@ -39,6 +39,10 @@
   position: relative;
 }
 
+.rc-best-sellers__arrow {
+  display: none;
+}
+
 .rc-best-sellers__track {
   display: grid;
   grid-auto-columns: minmax(220px, 72vw);
@@ -68,10 +72,6 @@
 }
 
 .rc-best-sellers__track::-webkit-scrollbar {
-  display: none;
-}
-
-.rc-best-sellers__arrow {
   display: none;
 }
 
