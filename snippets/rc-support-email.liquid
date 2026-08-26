@@ -1,0 +1,14 @@
+{%- doc -%}
+  Email SAV RCLAB — lien mailto: cliquable (exigence GMC).
+  @param {string} [class] - classe CSS optionnelle
+{%- enddoc -%}
+
+{%- liquid
+  assign rc_support_email = 'support@rclab-car.com'
+  assign rc_support_email_class = class | default: ''
+-%}
+
+<a
+  class="rc-support-email{% if rc_support_email_class != blank %} {{ rc_support_email_class }}{% endif %}"
+  href="mailto:{{ rc_support_email }}"
+>{{ rc_support_email }}</a>
