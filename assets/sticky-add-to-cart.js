@@ -49,9 +49,6 @@ class StickyAddToCartComponent extends Component {
   /** @type {IntersectionObserver | null} */
   #mainBottomObserver = null;
 
-  /** @type {number | undefined} */
-  #resetTimeout;
-
   /** @type {boolean} */
   #isStuck = false;
 
