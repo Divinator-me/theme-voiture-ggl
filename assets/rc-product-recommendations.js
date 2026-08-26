@@ -192,6 +192,10 @@
 
     initSection(next);
 
+    window.RcProductCard?.bind?.(next);
+
+    window.RcProductCard?.refresh?.();
+
   }
 
   }
