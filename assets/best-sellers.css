@@ -170,15 +170,22 @@ rc-product-recommendations.rc-best-sellers,
     place-items: center;
     align-self: start;
     margin-top: var(--rc-slider-arrow-offset);
+    padding: 0;
     background: var(--color-black);
     color: var(--color-white);
     cursor: pointer;
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 1;
     transition:
       background 0.25s var(--ease-smooth),
       transform 0.25s var(--ease-smooth);
+  }
+
+  .rc-best-sellers__arrow-icon {
+    display: block;
+    transform: translateX(-1px);
+  }
+
+  .rc-best-sellers__arrow--next .rc-best-sellers__arrow-icon {
+    transform: translateX(1px);
   }
 
   .rc-best-sellers__arrow:hover {
