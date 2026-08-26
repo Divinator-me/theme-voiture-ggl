@@ -67,6 +67,19 @@
   scroll-padding-inline: 14px;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
+  cursor: grab;
+  touch-action: pan-y;
+}
+
+.rc-categories__track.is-drag-scroll-active {
+  cursor: grabbing;
+  scroll-behavior: auto;
+  scroll-snap-type: none;
+  user-select: none;
+}
+
+.rc-categories__track.is-drag-scroll-active a {
+  pointer-events: none;
 }
 
 .rc-categories__track::-webkit-scrollbar {
