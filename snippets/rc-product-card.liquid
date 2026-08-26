@@ -3,8 +3,6 @@
 {%- enddoc -%}
 
 {% liquid
-  assign rating_value = product.metafields.reviews.rating.value.rating
-  assign rating_count = product.metafields.reviews.rating_count
   assign color_option = null
   assign card_variant = product.selected_or_first_available_variant
 
@@ -81,26 +79,6 @@
     <p class="rc-product-card__price">
       <span class="rc-product-card__price-current">{{ product.price | money }}</span>
     </p>
-
-    <div class="rc-product-card__rating" aria-label="Note produit">
-      <span class="rc-product-card__stars" aria-hidden="true">
-        {% for star in (1..5) %}
-          <span class="rc-product-card__star is-filled">★</span>
-        {% endfor %}
-      </span>
-      <span class="rc-product-card__reviews">
-        {% if rating_value != blank %}
-          {{ rating_value }}
-        {% else %}
-          5.0
-        {% endif %}
-        {% if rating_count != blank and rating_count > 0 %}
-          ({{ rating_count }})
-        {% else %}
-          (1)
-        {% endif %}
-      </span>
-    </div>
 
     <div class="rc-product-card__footer">
       <button

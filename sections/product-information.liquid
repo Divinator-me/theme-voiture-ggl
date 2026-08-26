@@ -29,8 +29,6 @@
     assign current_variant = product.selected_or_first_available_variant
     assign initial_quantity = current_variant.quantity_rule.min | default: 1
     assign image_to_show = current_variant.featured_image | default: product.featured_image
-    assign rating_value = product.metafields.reviews.rating.value.rating
-    assign rating_count = product.metafields.reviews.rating_count
   %}
 
   <sticky-add-to-cart
@@ -79,26 +77,6 @@
             <p class="sticky-add-to-cart__title" data-testid="sticky-product-title">
               {{ product.title | escape }}
             </p>
-
-            <div class="sticky-add-to-cart__rating" aria-label="Note produit">
-              <span class="sticky-add-to-cart__stars" aria-hidden="true">
-                {% for star in (1..5) %}
-                  <span class="sticky-add-to-cart__star">★</span>
-                {% endfor %}
-              </span>
-              <span class="sticky-add-to-cart__reviews">
-                {% if rating_value != blank %}
-                  {{ rating_value }}
-                {% else %}
-                  5.0
-                {% endif %}
-                {% if rating_count != blank and rating_count > 0 %}
-                  ({{ rating_count }})
-                {% else %}
-                  (1)
-                {% endif %}
-              </span>
-            </div>
           </div>
         </div>
 
