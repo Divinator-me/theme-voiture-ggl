@@ -83,6 +83,8 @@
           </li>
         {% endfor %}
       </ul>
+    {% else %}
+      <div class="rc-product-card__colors-spacer" aria-hidden="true"></div>
     {% endif %}
 
     <p class="rc-product-card__price">
@@ -119,6 +121,7 @@
         data-product-id="{{ product.id }}"
         data-variant-id="{{ card_variant.id }}"
         aria-label="Ajouter au panier"
+        data-available="{% if card_variant.available %}true{% else %}false{% endif %}"
         {% unless card_variant.available %}
           disabled
         {% endunless %}
