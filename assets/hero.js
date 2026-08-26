@@ -4,37 +4,31 @@
 
   const carousel = hero.querySelector('[data-hero-carousel]');
   const track = hero.querySelector('[data-hero-carousel-track]');
-  const slides = track ? [...track.querySelectorAll('.rc-hero__slide')] : [];
+  const slides = track
+    ? [...track.querySelectorAll('.rc-hero__slide')].filter((slide) => !slide.querySelector('[data-hero-clone]'))
+    : [];
 
   if (carousel && track && slides.length > 1) {
     carousel.classList.add('is-js-ready');
 
     let activeIndex = 0;
-    const lastIndex = slides.length - 1;
 
-    const moveTo = (index, animate = true) => {
-      track.style.transition = animate ? 'transform 0.72s var(--ease-smooth)' : 'none';
-      track.style.transform = `translate3d(-${index * carousel.clientWidth}px, 0, 0)`;
+    const setActive = (index) => {
+      slides.forEach((slide, slideIndex) => {
+        slide.classList.toggle('is-active', slideIndex === index);
+      });
     };
 
     const switchCar = () => {
-      activeIndex += 1;
-      moveTo(activeIndex);
-
-      if (activeIndex !== lastIndex) return;
-
-      window.setTimeout(() => {
-        activeIndex = 0;
-        moveTo(0, false);
-      }, 760);
+      activeIndex = (activeIndex + 1) % slides.length;
+      setActive(activeIndex);
     };
 
-    moveTo(0, false);
-    window.setInterval(switchCar, 4000);
+    setActive(0);
 
-    window.addEventListener('resize', () => {
-      moveTo(activeIndex, false);
-    });
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      window.setInterval(switchCar, 4000);
+    }
   }
 
   const reveal = () => hero.classList.add('is-visible');

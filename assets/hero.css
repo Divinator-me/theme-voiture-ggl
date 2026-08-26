@@ -123,7 +123,27 @@
 }
 
 .rc-hero__carousel.is-js-ready .rc-hero__carousel-track {
+  display: block;
+  position: relative;
+  height: 100%;
   animation: none;
+  transform: none !important;
+}
+
+.rc-hero__carousel.is-js-ready .rc-hero__slide {
+  position: absolute;
+  inset: 0;
+  flex: none;
+  width: 100%;
+  opacity: 0;
+  transition: opacity 0.85s var(--ease-smooth);
+  pointer-events: none;
+}
+
+.rc-hero__carousel.is-js-ready .rc-hero__slide.is-active {
+  z-index: 1;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .rc-hero__slide {
