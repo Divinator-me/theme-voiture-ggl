@@ -113,6 +113,8 @@
   height: 100%;
   overflow: hidden;
   filter: drop-shadow(0 24px 24px rgb(0 0 0 / 45%));
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%);
 }
 
 .rc-hero__carousel-track {
@@ -123,27 +125,7 @@
 }
 
 .rc-hero__carousel.is-js-ready .rc-hero__carousel-track {
-  display: block;
-  position: relative;
-  height: 100%;
   animation: none;
-  transform: none !important;
-}
-
-.rc-hero__carousel.is-js-ready .rc-hero__slide {
-  position: absolute;
-  inset: 0;
-  flex: none;
-  width: 100%;
-  opacity: 0;
-  transition: opacity 0.85s var(--ease-smooth);
-  pointer-events: none;
-}
-
-.rc-hero__carousel.is-js-ready .rc-hero__slide.is-active {
-  z-index: 1;
-  opacity: 1;
-  pointer-events: auto;
 }
 
 .rc-hero__slide {
@@ -153,6 +135,8 @@
   height: 100%;
   place-items: center;
   overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 16%, #000 84%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 16%, #000 84%, transparent 100%);
 }
 
 .rc-hero__image {
