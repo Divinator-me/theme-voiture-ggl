@@ -13,10 +13,15 @@
     assign rc_about_page = pages['qui-sommes-nous']
   endif
 
+  assign rc_cgv_page = pages['conditions-generales-de-vente']
+  if rc_cgv_page == blank
+    assign rc_cgv_page = pages['conditions-de-vente']
+  endif
+
   assign rc_contact_url = rc_contact_page.url | default: '/pages/contact'
   assign rc_retours_url = shop.refund_policy.url | default: '/policies/refund-policy'
   assign rc_livraison_url = shop.shipping_policy.url | default: '/policies/shipping-policy'
-  assign rc_cgv_url = shop.terms_of_service.url | default: '/policies/terms-of-service'
+  assign rc_cgv_url = rc_cgv_page.url | default: '/pages/conditions-generales-de-vente'
   assign rc_confidentialite_url = shop.privacy_policy.url | default: '/policies/privacy-policy'
   assign rc_paiement_url = rc_paiement_page.url | default: '/pages/conditions-paiement'
   assign rc_about_url = rc_about_page.url | default: '/pages/qui-sommes-nous'

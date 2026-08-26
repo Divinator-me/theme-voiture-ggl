@@ -6,6 +6,12 @@
   endif
 
   assign rc_legal_page_redirect = ''
+  assign rc_cgv_page = pages['conditions-generales-de-vente']
+  if rc_cgv_page == blank
+    assign rc_cgv_page = pages['conditions-de-vente']
+  endif
+  assign rc_cgv_page_url = rc_cgv_page.url | default: '/pages/conditions-generales-de-vente'
+
   if request.design_mode == false
     case request.path
       when '/pages/retours-remboursements'
@@ -15,7 +21,9 @@
       when '/pages/confidentialite'
         assign rc_legal_page_redirect = shop.privacy_policy.url | default: '/policies/privacy-policy'
       when '/pages/cgv'
-        assign rc_legal_page_redirect = shop.terms_of_service.url | default: '/policies/terms-of-service'
+        assign rc_legal_page_redirect = rc_cgv_page_url
+      when '/policies/terms-of-service'
+        assign rc_legal_page_redirect = rc_cgv_page_url
       when '/pages/faq-boutique'
         assign rc_legal_page_redirect = routes.root_url | append: '#faq'
       when '/pages/qui-sommes-nous'
