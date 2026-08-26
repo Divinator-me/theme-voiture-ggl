@@ -1,58 +1,14 @@
 (() => {
-  const QUESTIONS = [
-    {
-      id: 'target',
-      question: "Cette RC, c'est pour qui ?",
-      options: [
-        { id: 'me', emoji: '🧑', label: 'Pour moi, je suis un passionné' },
-        { id: 'kid', emoji: '👦', label: 'Pour mon enfant (moins de 12 ans)' },
-        { id: 'teen', emoji: '🧑‍🎓', label: 'Pour un ado (13-17 ans)' },
-        { id: 'gift', emoji: '🎁', label: 'Un cadeau, je sais pas encore pour qui exactement' },
-      ],
-    },
-    {
-      id: 'terrain',
-      question: 'Tu vas rouler où le plus souvent ?',
-      options: [
-        { id: 'forest', emoji: '🌲', label: 'Forêt, chemins accidentés, gros obstacles' },
-        { id: 'dirt', emoji: '🏜️', label: 'Terre, sable, chemins rapides' },
-        { id: 'road', emoji: '🛣️', label: 'Bitume, parking, piste lisse' },
-        { id: 'rocks', emoji: '🪨', label: 'Rochers, pentes techniques, franchissement lent' },
-      ],
-    },
-    {
-      id: 'style',
-      question: 'Ce qui te fait le plus kiffer dans une RC ?',
-      options: [
-        { id: 'smash', emoji: '💥', label: 'Écraser tout sur son passage, sauter fort' },
-        { id: 'drift', emoji: '🌀', label: 'Glisser, driver, faire des figures' },
-        { id: 'speed', emoji: '🚀', label: 'Foncer le plus vite possible' },
-        { id: 'climb', emoji: '🧗', label: 'Grimper méthodiquement, franchir un obstacle par un autre' },
-      ],
-    },
-  ];
-
   const LOADING_DURATION = 900;
-  const COLLECTION_PRIORITY = [
-    'monster-truck-4x4',
-    'buggy',
-    'rallye-trophy',
-    'crawler',
-    'drift',
-    'piste',
-  ];
 
   const FALLBACK_CONFIG = {
     collections: {
-      buggy: {
-        label: 'Buggy',
-        resultTitle: 'Ta gamme Buggy',
-        resultText: 'Découvre les modèles qui correspondent à ton profil.',
-        cta: 'Voir les Buggy',
-      },
+      buggy: { name: 'Buggy', handle: 'buggy', cta: 'Voir les Buggy' },
     },
-    scores: {},
-    fallback: 'buggy',
+    questions: {},
+    routing_table: {},
+    display_hooks_by_q1: {},
+    fallback_collection: 'buggy',
   };
 
   function parseCollectionUrls(root) {
@@ -65,33 +21,34 @@
     }
   }
 
+  function buildQuestions(config) {
+    const order = ['q1', 'q2', 'q3'];
+    return order
+      .map((id) => config.questions?.[id])
+      .filter(Boolean)
+      .map((question) => ({
+        id: question.id,
+        question: question.text,
+        options: question.options,
+      }));
+  }
+
   function resolveCollection(answers, config) {
-    const totals = {};
-
-    for (const [questionId, optionId] of Object.entries(answers)) {
-      const weights = config.scores?.[questionId]?.[optionId];
-      if (!weights) continue;
-
-      for (const [handle, points] of Object.entries(weights)) {
-        totals[handle] = (totals[handle] || 0) + points;
-      }
-    }
-
-    const ranked = Object.entries(totals).sort((a, b) => {
-      if (b[1] !== a[1]) return b[1] - a[1];
-      return COLLECTION_PRIORITY.indexOf(a[0]) - COLLECTION_PRIORITY.indexOf(b[0]);
-    });
-
-    const handle = ranked[0]?.[0] || config.fallback || 'buggy';
-    const meta = config.collections?.[handle] || FALLBACK_CONFIG.collections.buggy;
+    const terrain = answers.q2;
+    const style = answers.q3;
+    const collectionKey =
+      config.routing_table?.[terrain]?.[style] || config.fallback_collection || 'buggy';
+    const collection = config.collections?.[collectionKey] || config.collections?.buggy;
+    const hook = config.display_hooks_by_q1?.[answers.q1] || '';
 
     return {
-      handle,
-      label: meta.label,
-      resultTitle: meta.resultTitle,
-      resultText: meta.resultText,
-      cta: meta.cta,
-      scores: totals,
+      key: collectionKey,
+      handle: collection.handle,
+      label: collection.name,
+      hook,
+      resultTitle: `Ta gamme ${collection.name}`,
+      resultText: hook,
+      cta: collection.cta || `Voir ${collection.name}`,
     };
   }
 
@@ -99,6 +56,7 @@
     constructor(root, config) {
       this.root = root;
       this.config = config;
+      this.questions = buildQuestions(config);
       this.collectionUrls = parseCollectionUrls(root);
       this.dialog = root.querySelector('.rc-quiz__dialog');
       this.body = root.querySelector('[data-rc-quiz-body]');
@@ -124,7 +82,7 @@
       this.lastFocus = null;
       this.isOpen = false;
 
-      if (this.totalEl) this.totalEl.textContent = String(QUESTIONS.length);
+      if (this.totalEl) this.totalEl.textContent = String(this.questions.length);
 
       this.#bindGlobal();
     }
@@ -219,13 +177,13 @@
     }
 
     #renderQuestion(index, { skipAnimation = false } = {}) {
-      const question = QUESTIONS[index];
+      const question = this.questions[index];
       if (!question) return;
 
       const paint = () => {
         this.questionEl.textContent = question.question;
         this.stepEl.textContent = String(index + 1);
-        this.progressEl.style.width = `${((index + 1) / QUESTIONS.length) * 100}%`;
+        this.progressEl.style.width = `${((index + 1) / this.questions.length) * 100}%`;
         this.backButton.hidden = index === 0;
 
         this.optionsContainer.innerHTML = '';
@@ -282,7 +240,7 @@
       button.classList.add('is-selected');
 
       window.setTimeout(() => {
-        if (this.currentIndex < QUESTIONS.length - 1) {
+        if (this.currentIndex < this.questions.length - 1) {
           this.currentIndex += 1;
           this.#renderQuestion(this.currentIndex);
         } else {
