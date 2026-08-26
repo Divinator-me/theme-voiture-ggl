@@ -31,23 +31,26 @@
   assign first_3d_model = selected_product.media | where: 'media_type', 'model' | first
   assign rc_color_option = false
   assign rc_selected_color = ''
+  assign rc_color_position = 0
 
   for option in selected_product.options_with_values
     assign option_name = option.name | downcase
     if option_name == 'couleur' or option_name == 'color' or option_name == 'colour' or option_name contains 'couleur'
       assign rc_color_option = true
+      assign rc_color_position = option.position
       break
     endif
   endfor
 
   if rc_color_option
-    for sel in current_variant.selected_options
-      assign option_name = sel.name | downcase
-      if option_name == 'couleur' or option_name == 'color' or option_name == 'colour' or option_name contains 'couleur'
-        assign rc_selected_color = sel.value | downcase | strip
-        break
-      endif
-    endfor
+    if rc_color_position == 1
+      assign rc_selected_color = current_variant.option1
+    elsif rc_color_position == 2
+      assign rc_selected_color = current_variant.option2
+    elsif rc_color_position == 3
+      assign rc_selected_color = current_variant.option3
+    endif
+    assign rc_selected_color = rc_selected_color | downcase | strip | split: ' ' | first
   endif
 
   if block_settings.hide_variants
@@ -127,12 +130,51 @@
 
   for media in selected_product.media
     assign skip_media = false
+    assign media_color = ''
 
     if rc_color_option and rc_selected_color != blank
-      capture media_color
-        render 'rc-media-color-key', media: media, product: selected_product
-      endcapture
-      assign media_color = media_color | strip | downcase
+      assign media_src = media.preview_image.src | default: media.src | default: '' | split: '?' | first
+      assign media_filename = media_src | split: '/' | last | downcase
+      assign media_alt = media.alt | default: '' | append: ' ' | append: media.preview_image.alt | default: '' | downcase
+      assign media_haystack = media_filename | append: media_alt | replace: '-', '' | replace: '_', '' | replace: '.', '' | replace: ' ', ''
+
+      for option in selected_product.options_with_values
+        assign option_name = option.name | downcase
+        if option_name == 'couleur' or option_name == 'color' or option_name == 'colour' or option_name contains 'couleur'
+          for value in option.values
+            assign color_name = value.name | default: value | downcase | strip
+            assign color_stem = color_name | split: ' ' | first
+            assign color_needles = color_stem
+            case color_stem
+              when 'noir', 'black'
+                assign color_needles = 'noir,black'
+              when 'bleu', 'blue'
+                assign color_needles = 'bleu,blue'
+              when 'vert', 'green'
+                assign color_needles = 'vert,green'
+              when 'blanc', 'white'
+                assign color_needles = 'blanc,white'
+              when 'rouge', 'red'
+                assign color_needles = 'rouge,red'
+            endcase
+            assign color_needle_list = color_needles | split: ','
+            for color_needle in color_needle_list
+              assign media_haystack_check = media_haystack | replace: color_needle, ''
+              if media_haystack_check != media_haystack
+                assign media_color = color_stem
+                break
+              endif
+            endfor
+            if media_color != blank
+              break
+            endif
+          endfor
+        endif
+        if media_color != blank
+          break
+        endif
+      endfor
+
       if media_color != blank and media_color != rc_selected_color
         assign skip_media = true
       endif
