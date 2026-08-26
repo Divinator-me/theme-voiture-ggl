@@ -6,12 +6,7 @@
   assign rating_value = product.metafields.reviews.rating.value.rating
   assign rating_count = product.metafields.reviews.rating_count
   assign color_option = null
-  assign on_sale = false
   assign card_variant = product.selected_or_first_available_variant
-
-  if product.compare_at_price > product.price
-    assign on_sale = true
-  endif
 
   for option in product.options_with_values
     assign option_name = option.name | downcase
@@ -25,10 +20,6 @@
 <article class="rc-product-card rc-product-card--live">
   <div class="rc-product-card__media">
     <div class="rc-product-card__image-wrap">
-      {% if on_sale %}
-        <span class="rc-product-card__badge">Promo</span>
-      {% endif %}
-
       <a class="rc-product-card__image{% if product.images.size > 1 %} rc-product-card__image--dual{% endif %}" href="{{ product.url }}" aria-label="{{ product.title | escape }}">
         {% if product.featured_image %}
           <span class="rc-product-card__image-layer rc-product-card__image-layer--primary">
@@ -88,9 +79,6 @@
     {% endif %}
 
     <p class="rc-product-card__price">
-      {% if on_sale %}
-        <span class="rc-product-card__price-compare">{{ product.compare_at_price | money }}</span>
-      {% endif %}
       <span class="rc-product-card__price-current">{{ product.price | money }}</span>
     </p>
 

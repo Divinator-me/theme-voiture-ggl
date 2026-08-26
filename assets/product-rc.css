@@ -298,6 +298,15 @@ body.has-sticky-atc-visible {
   line-height: 1;
 }
 
+.product-information .product-details product-price.text-block.paragraph .compare-at-price,
+.product-information .product-details product-price.text-block.paragraph .price-item--regular.compare-at-price {
+  display: none !important;
+}
+
+.product-information .product-details product-price.text-block.paragraph :is(.price-item--sale, .price-item--last, .price__regular .price-item--regular) {
+  color: #39ff14;
+}
+
 .rc-stock-status {
   width: 100%;
   margin: 4px 0 2px;

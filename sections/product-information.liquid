@@ -31,10 +31,6 @@
     assign image_to_show = current_variant.featured_image | default: product.featured_image
     assign rating_value = product.metafields.reviews.rating.value.rating
     assign rating_count = product.metafields.reviews.rating_count
-    assign sticky_on_sale = false
-    if current_variant.compare_at_price > current_variant.price
-      assign sticky_on_sale = true
-    endif
   %}
 
   <sticky-add-to-cart
@@ -154,10 +150,6 @@
               {% if current_variant.available %}
                 <span class="sticky-add-to-cart__button-sep" aria-hidden="true">|</span>
                 <span class="sticky-add-to-cart__button-price" data-testid="sticky-price-display">
-                  {% if sticky_on_sale %}
-                    <span class="sticky-add-to-cart__badge-promo">PROMO</span>
-                    <span class="sticky-add-to-cart__compare">{{ current_variant.compare_at_price | money }}</span>
-                  {% endif %}
                   <span class="sticky-add-to-cart__price-current">{{ current_variant.price | money }}</span>
                 </span>
               {% endif %}
