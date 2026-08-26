@@ -159,21 +159,15 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: min(100%, 440px);
+  width: min(100%, 460px);
   border: 0;
   border-radius: 0;
   margin-top: 14px;
-  padding: 22px 40px;
+  padding: 18px 36px 16px;
   background: var(--color-red);
   box-shadow: 0 4px 12px rgb(255 45 45 / 22%);
   color: var(--color-white);
   font-family: var(--font-body);
-  font-size: 26px;
-  font-weight: 900;
-  letter-spacing: 0.4px;
-  line-height: 1;
-  text-transform: uppercase;
-  white-space: nowrap;
   transform: skewX(-18deg);
   opacity: 0;
   animation: rc-hero-scale-in 0.48s var(--ease-smooth) 1s forwards;
@@ -184,9 +178,22 @@
 }
 
 .rc-hero__cta-label {
-  display: inline-flex;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
   align-items: center;
   transform: skewX(18deg);
+}
+
+.rc-hero__cta-title {
+  display: inline-flex;
+  align-items: center;
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: 0.4px;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .rc-hero__cta-arrow {
@@ -197,23 +204,22 @@
   transform: translateY(-3px);
 }
 
+.rc-hero__cta-note {
+  color: rgb(255 255 255 / 92%);
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1.2;
+  text-align: center;
+  text-transform: none;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
 .rc-hero__cta:hover,
 .rc-hero__cta:active {
   background: var(--color-red-dark);
   box-shadow: 0 6px 16px rgb(255 45 45 / 30%);
   transform: skewX(-18deg) translateY(-1px);
-}
-
-.rc-hero__cta-note {
-  margin: 12px 0 0;
-  color: var(--color-white);
-  font-size: 11px;
-  font-weight: 400;
-  line-height: 1.2;
-  text-align: center;
-  white-space: nowrap;
-  opacity: 0;
-  animation: rc-hero-fade-up 0.48s var(--ease-smooth) 1.1s forwards;
 }
 
 .rc-hero__secondary {
@@ -377,7 +383,7 @@
   }
 
   .rc-hero__cta-note {
-    font-size: 10px;
+    font-size: 9px;
   }
 
   .rc-hero__stats dt {
