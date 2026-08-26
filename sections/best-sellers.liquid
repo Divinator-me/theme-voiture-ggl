@@ -1,4 +1,5 @@
 {{ 'rc-product-card.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'rc-product-card.js' | asset_url }}" defer></script>
 {{ 'best-sellers.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'rc-drag-scroll.js' | asset_url }}" defer></script>
 <script src="{{ 'best-sellers.js' | asset_url }}" defer></script>
@@ -11,7 +12,11 @@
   </div>
 
   <div class="rc-best-sellers__shell">
-    <button class="rc-best-sellers__arrow rc-best-sellers__arrow--prev" type="button" data-slider-prev aria-label="Produits précédents">←</button>
+    <button class="rc-best-sellers__arrow rc-best-sellers__arrow--prev" type="button" data-slider-prev aria-label="Produits précédents">
+      <svg class="rc-best-sellers__arrow-icon" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+        <path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
     <div class="rc-best-sellers__track" data-slider-track tabindex="0" aria-label="Carrousel meilleures ventes">
       {% if selected_products != blank and selected_products.size > 0 %}
         {% for product in selected_products %}
@@ -38,7 +43,11 @@
         {% endfor %}
       {% endif %}
     </div>
-    <button class="rc-best-sellers__arrow rc-best-sellers__arrow--next" type="button" data-slider-next aria-label="Produits suivants">→</button>
+    <button class="rc-best-sellers__arrow rc-best-sellers__arrow--next" type="button" data-slider-next aria-label="Produits suivants">
+      <svg class="rc-best-sellers__arrow-icon" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+        <path d="m6 3 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
   </div>
 </section>
 
