@@ -112,7 +112,7 @@
   const bindMenuLinks = () => {
     if (!menuOverlay) return;
 
-    menuOverlay.querySelectorAll('.rc-menu-overlay__link[href], .rc-menu-overlay__sub a, .rc-menu-overlay__footer a').forEach((link) => {
+    menuOverlay.querySelectorAll('.rc-menu-overlay__link[href], .rc-menu-overlay__sub a, .rc-menu-overlay__footer a, [data-rc-quiz-open]').forEach((link) => {
       if (link.dataset.menuBound === 'true') return;
       link.dataset.menuBound = 'true';
       link.addEventListener('click', closeAll);
