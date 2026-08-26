@@ -29,6 +29,10 @@
     endif
   endif
 
+  if request.page_type == 'policy' and request.path contains '/policies/terms-of-sale'
+    assign seo_title = 'Conditions générales de vente'
+  endif
+
   if request.page_type == 'index'
     assign seo_title = rc_home_title
   else
