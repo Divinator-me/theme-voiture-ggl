@@ -23,12 +23,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: clamp(32px, 3.4vw, 52px);
+    column-gap: 56px;
     width: 100%;
     min-height: 56px;
     margin: 0;
     padding: 0 40px;
     box-sizing: border-box;
+  }
+
+  @media (min-width: 1440px) {
+    .rc-category-nav__inner {
+      column-gap: 64px;
+    }
   }
 
   .rc-category-nav__link,
