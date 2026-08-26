@@ -28,17 +28,35 @@
         <span class="rc-product-card__badge">Promo</span>
       {% endif %}
 
-      <a class="rc-product-card__image" href="{{ product.url }}" aria-label="{{ product.title | escape }}">
+      <a class="rc-product-card__image{% if product.images.size > 1 %} rc-product-card__image--dual{% endif %}" href="{{ product.url }}" aria-label="{{ product.title | escape }}">
         {% if product.featured_image %}
-          {{
-            product.featured_image
-            | image_url: width: 700
-            | image_tag:
-              loading: 'lazy',
-              widths: '320, 480, 700',
-              sizes: '(min-width: 990px) 28vw, 72vw',
-              alt: product.title
-          }}
+          <span class="rc-product-card__image-layer rc-product-card__image-layer--primary">
+            {{
+              product.featured_image
+              | image_url: width: 700
+              | image_tag:
+                loading: 'lazy',
+                widths: '320, 480, 700',
+                sizes: '(min-width: 990px) 28vw, 72vw',
+                alt: product.title,
+                class: 'rc-product-card__photo'
+            }}
+          </span>
+
+          {% if product.images.size > 1 %}
+            <span class="rc-product-card__image-layer rc-product-card__image-layer--hover" aria-hidden="true">
+              {{
+                product.images[1]
+                | image_url: width: 700
+                | image_tag:
+                  loading: 'lazy',
+                  widths: '320, 480, 700',
+                  sizes: '(min-width: 990px) 28vw, 72vw',
+                  alt: '',
+                  class: 'rc-product-card__photo'
+              }}
+            </span>
+          {% endif %}
         {% else %}
           <svg viewBox="0 0 260 260" aria-hidden="true">
             <rect width="260" height="260" rx="18" fill="#F4F4F4"/>
