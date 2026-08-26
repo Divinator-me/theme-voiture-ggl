@@ -40,7 +40,7 @@
       assign seo_title = seo_title | append: ' – Page ' | append: current_page
     endif
     unless seo_title contains rc_brand
-      assign seo_title = seo_title | append: ' | ' | append: rc_brand
+      assign seo_title = rc_brand | append: ' | ' | append: seo_title
     endunless
   endif
 
