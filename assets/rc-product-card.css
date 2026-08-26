@@ -258,12 +258,14 @@
   box-shadow: 0 8px 22px rgb(255 45 45 / 28%);
   color: var(--color-white);
   cursor: pointer;
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 800;
-  letter-spacing: -0.01em;
-  line-height: 1.1;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1;
   text-align: center;
+  text-transform: uppercase;
   transition:
     transform 0.28s var(--ease-smooth),
     box-shadow 0.28s var(--ease-smooth),
