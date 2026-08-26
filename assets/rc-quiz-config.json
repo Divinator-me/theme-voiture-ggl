@@ -1,6 +1,6 @@
 {
   "quiz_name": "Trouver ma voiture RC",
-  "description": "Quiz de 3 questions redirigeant vers une des 3 collections Shopify actives. Q1 ne participe pas au routage : elle sert uniquement à personnaliser le message d'accroche affiché sur la page de résultat.",
+  "description": "Quiz de 3 questions. Après la dernière réponse, redirection immédiate vers la collection correspondante. Q1 ne participe pas au routage : elle sert au tracking et aux hooks analytics.",
 
   "collections": {
     "monster_truck_4x4": {
