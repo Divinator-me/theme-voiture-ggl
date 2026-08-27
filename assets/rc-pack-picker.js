@@ -312,7 +312,7 @@ class RcPackPicker extends HTMLElement {
   #beginBundleGate() {
     window.RCLAB = window.RCLAB || {};
     window.RCLAB.cartOpenBlocked = true;
-    if (window.RCLAB.bundleReady && this.#bundleResolve) return;
+    if (this.#bundleResolve) return;
 
     window.RCLAB.bundleReady = new Promise((resolve) => {
       let settled = false;
@@ -322,8 +322,6 @@ class RcPackPicker extends HTMLElement {
         resolve();
       };
     });
-
-    window.setTimeout(() => this.#finishBundleGate(), 12000);
   }
 
   #finishBundleGate() {
