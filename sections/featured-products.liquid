@@ -43,12 +43,7 @@
           <div class="rc-product-card__body">
             <h3><a href="{{ product.url }}">{{ product.title }}</a></h3>
             <p>{{ product.price | money }}</p>
-            {% form 'product', product, class: 'rc-product-card__form' %}
-              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-              <button type="submit" {% unless product.available %}disabled{% endunless %}>
-                {% if product.available %}Ajouter au panier{% else %}Épuisé{% endif %}
-              </button>
-            {% endform %}
+            <a class="rc-product-card__cta" href="{{ product.url }}">Faire mon choix</a>
           </div>
         </article>
       {% else %}
@@ -65,7 +60,7 @@
             <div class="rc-product-card__body">
               <h3>Voiture RC {{ index }}</h3>
               <p>À partir de 49,90€</p>
-              <button type="button">Ajouter au panier</button>
+              <button type="button">Faire mon choix</button>
             </div>
           </article>
         {% endfor %}

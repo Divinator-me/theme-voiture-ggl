@@ -81,20 +81,13 @@
     </div>
 
     <div class="rc-product-card__footer">
-      <button
-        type="button"
+      <a
         class="rc-product-card__cta"
-        data-product-id="{{ product.id }}"
-        data-variant-id="{{ card_variant.id }}"
-        aria-label="Ajouter au panier"
-        data-available="{% if card_variant.available %}true{% else %}false{% endif %}"
-        {% unless card_variant.available %}
-          disabled
-        {% endunless %}
+        href="{{ product.url }}"
+        aria-label="Faire mon choix, {{ product.title | escape }}"
       >
-        <span class="rc-product-card__cta-text" data-label-default>Ajouter au panier</span>
-        <span class="rc-product-card__cta-text" data-label-in-cart hidden>Voir le panier</span>
-      </button>
+        <span class="rc-product-card__cta-text">Faire mon choix</span>
+      </a>
     </div>
   </div>
 </article>

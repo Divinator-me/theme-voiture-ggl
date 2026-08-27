@@ -1,0 +1,6 @@
+(() => {
+  window.RcProductCard = {
+    bind() {},
+    refresh() {},
+  };
+})();
