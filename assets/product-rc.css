@@ -83,6 +83,7 @@
 
 .product-information .add-to-cart-button.button {
   font-size: clamp(18px, 2.2vw, 22px);
+  border: 1px solid var(--color-red);
 }
 
 .product-information .variant-option__button-label[data-rc-swatch] .variant-option__button-label__text {
