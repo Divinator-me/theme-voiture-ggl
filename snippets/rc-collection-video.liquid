@@ -1,31 +1,90 @@
 {%- liquid
-  assign drive = all_products['4x4-tout-terrain-brushless-70-km-h-rclab']
-  if drive != empty and drive.url
-    assign drive_url = drive.url
+  if video != blank
+    assign video_file = video
   else
-    assign drive_url = '/products/4x4-tout-terrain-brushless-70-km-h-rclab'
+    assign video_file = 'rc-collection-monster.mp4'
+  endif
+
+  if product_handle != blank
+    assign target_handle = product_handle
+  else
+    assign target_handle = '4x4-tout-terrain-brushless-70-km-h-rclab'
+  endif
+
+  if kicker != blank
+    assign video_kicker = kicker
+  else
+    assign video_kicker = '4x4 brushless'
+  endif
+
+  if heading != blank
+    assign video_heading = heading
+  else
+    assign video_heading = 'Un vrai tout-terrain, même sur l’eau.'
+  endif
+
+  if cta != blank
+    assign video_cta = cta
+  else
+    assign video_cta = 'Le bolide'
+  endif
+
+  if aria_label != blank
+    assign video_label = aria_label
+  else
+    assign video_label = video_cta
+  endif
+
+  assign target = all_products[target_handle]
+  if target != empty and target.url
+    assign target_url = target.url
+  else
+    assign target_url = '/products/' | append: target_handle
   endif
 -%}
 
-<li class="product-grid__item rc-collection-video" aria-label="Le bolide">
-  <a class="rc-collection-video__link rc-collection-video__cta-link" href="{{ drive_url }}">
-    <video
-      class="rc-collection-video__media"
-      autoplay
-      muted
-      loop
-      playsinline
-      preload="metadata"
-      width="390"
-      height="220"
-    >
-      <source src="{{ 'rc-collection-monster.mp4' | asset_url }}" type="video/mp4">
-    </video>
-    <span class="rc-collection-video__shade" aria-hidden="true"></span>
-    <span class="rc-collection-video__copy">
-      <span class="rc-collection-video__kicker">4x4 brushless</span>
-      <span class="rc-collection-video__title">Un vrai tout-terrain,<br>même sur l'eau.</span>
-      <span class="rc-collection-video__cta">Le bolide <b aria-hidden="true">→</b></span>
-    </span>
-  </a>
-</li>
+{%- if youtube_id != blank -%}
+  <script src="{{ 'rc-collection-youtube.js' | asset_url }}" defer></script>
+  <li class="product-grid__item rc-collection-video rc-collection-video--youtube" aria-label="{{ video_label | escape }}">
+    <div class="rc-collection-video__link">
+      <iframe
+        class="rc-collection-video__media rc-collection-video__iframe"
+        src="https://www.youtube.com/embed/{{ youtube_id }}?autoplay=1&mute=1&loop=1&playlist={{ youtube_id }}&playsinline=1&rel=0&controls=0&enablejsapi=1"
+        title="{{ video_label | escape }}"
+        allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+        allowfullscreen
+        loading="eager"
+        referrerpolicy="strict-origin-when-cross-origin"
+      ></iframe>
+      <span class="rc-collection-video__shade" aria-hidden="true"></span>
+      <a class="rc-collection-video__copy rc-collection-video__cta-link" href="{{ target_url }}">
+        <span class="rc-collection-video__kicker">{{ video_kicker }}</span>
+        <span class="rc-collection-video__title">{{ video_heading }}</span>
+        <span class="rc-collection-video__cta">{{ video_cta }} <b aria-hidden="true">→</b></span>
+      </a>
+    </div>
+  </li>
+{%- else -%}
+  <li class="product-grid__item rc-collection-video" aria-label="{{ video_label | escape }}">
+    <a class="rc-collection-video__link rc-collection-video__cta-link" href="{{ target_url }}">
+      <video
+        class="rc-collection-video__media"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        width="390"
+        height="220"
+      >
+        <source src="{{ video_file | asset_url }}" type="video/mp4">
+      </video>
+      <span class="rc-collection-video__shade" aria-hidden="true"></span>
+      <span class="rc-collection-video__copy">
+        <span class="rc-collection-video__kicker">{{ video_kicker }}</span>
+        <span class="rc-collection-video__title">{{ video_heading }}</span>
+        <span class="rc-collection-video__cta">{{ video_cta }} <b aria-hidden="true">→</b></span>
+      </span>
+    </a>
+  </li>
+{%- endif -%}
