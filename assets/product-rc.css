@@ -766,22 +766,23 @@ body:has(sticky-add-to-cart) {
 .rc-product-desc__content .rte-table-wrapper,
 .rc-product-desc__tab-panel .rte-table-wrapper {
   overflow: visible;
-  margin: 1.15em 0 1.5em;
+  margin: 1.2em 0 1.6em;
 }
 
 .rc-product-desc__content table,
 .rc-product-desc__tab-panel table,
 .rc-product-desc__content.rte table,
 .rc-product-desc__tab-panel.rte table {
-  display: block;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
   width: 100% !important;
   max-width: 100%;
-  margin: 1.15em 0 1.5em;
-  overflow: hidden;
-  border: 1px solid var(--color-gray-200);
-  border-top: 3px solid var(--color-red);
-  border-radius: 10px;
-  background: var(--color-white);
+  margin: 1.2em 0 1.6em;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
   border-collapse: separate;
   border-spacing: 0;
   font-size: 14px;
@@ -797,8 +798,7 @@ body:has(sticky-add-to-cart) {
 .rc-product-desc__tab-panel table :is(thead, tbody, tfoot),
 .rc-product-desc__content.rte table :is(thead, tbody, tfoot),
 .rc-product-desc__tab-panel.rte table :is(thead, tbody, tfoot) {
-  display: block;
-  width: 100%;
+  display: contents;
 }
 
 .rc-product-desc__content tr,
@@ -807,13 +807,14 @@ body:has(sticky-add-to-cart) {
 .rc-product-desc__tab-panel.rte tr,
 .rc-product-desc__content.rte tr:has(td),
 .rc-product-desc__tab-panel.rte tr:has(td) {
-  display: grid;
-  grid-template-columns: minmax(8.5rem, 34%) 1fr;
-  gap: 8px 22px;
-  align-items: start;
-  padding: 13px 18px;
-  border-bottom: 1px solid var(--color-gray-200);
-  background: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 14px 16px;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: var(--color-gray-50);
 }
 
 .rc-product-desc__content tr:nth-child(even),
@@ -827,17 +828,18 @@ body:has(sticky-add-to-cart) {
 .rc-product-desc__tab-panel tr:last-child,
 .rc-product-desc__content.rte tr:last-child,
 .rc-product-desc__tab-panel.rte tr:last-child {
-  border-bottom: 0;
+  grid-column: 1 / -1;
 }
 
 .rc-product-desc__content :is(th, td),
 .rc-product-desc__tab-panel :is(th, td),
 .rc-product-desc__content.rte :is(th, td),
 .rc-product-desc__tab-panel.rte :is(th, td) {
+  display: block;
+  width: auto;
   padding: 0;
   border: 0;
   text-align: left;
-  vertical-align: top;
   background: transparent;
 }
 
@@ -845,12 +847,17 @@ body:has(sticky-add-to-cart) {
 .rc-product-desc__tab-panel :is(th, td):first-child,
 .rc-product-desc__content.rte :is(th, td):first-child,
 .rc-product-desc__tab-panel.rte :is(th, td):first-child {
+  width: fit-content;
+  max-width: 100%;
+  padding: 1px 0 1px 10px;
+  border-left: 4px solid var(--color-red);
   color: var(--color-black);
-  font-family: var(--font-body);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  line-height: 1.45;
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.1;
   text-transform: uppercase;
 }
 
@@ -858,7 +865,7 @@ body:has(sticky-add-to-cart) {
 .rc-product-desc__tab-panel :is(th, td):first-child strong,
 .rc-product-desc__content.rte :is(th, td):first-child strong,
 .rc-product-desc__tab-panel.rte :is(th, td):first-child strong {
-  font-weight: 700;
+  font-weight: 400;
   color: inherit;
 }
 
@@ -866,21 +873,23 @@ body:has(sticky-add-to-cart) {
 .rc-product-desc__tab-panel :is(th, td):last-child,
 .rc-product-desc__content.rte :is(th, td):last-child,
 .rc-product-desc__tab-panel.rte :is(th, td):last-child {
+  padding-left: 14px;
   color: var(--color-gray-700);
+  font-family: var(--font-body);
   font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0;
   line-height: 1.55;
+  text-transform: none;
 }
 
-@media (max-width: 749px) {
-  .rc-product-desc__content tr,
-  .rc-product-desc__tab-panel tr,
-  .rc-product-desc__content.rte tr,
-  .rc-product-desc__tab-panel.rte tr,
-  .rc-product-desc__content.rte tr:has(td),
-  .rc-product-desc__tab-panel.rte tr:has(td) {
-    grid-template-columns: 1fr;
-    gap: 4px;
-    padding: 14px 16px;
+@media (min-width: 750px) {
+  .rc-product-desc__content table,
+  .rc-product-desc__tab-panel table,
+  .rc-product-desc__content.rte table,
+  .rc-product-desc__tab-panel.rte table {
+    grid-template-columns: 1fr 1fr;
   }
 }
 
