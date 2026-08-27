@@ -219,14 +219,16 @@ class RcPackPicker extends HTMLElement {
   }
 
   #extraBatteryItem() {
-    const extra = document.querySelector('.rc-extra-batteries');
-    if (!extra) return null;
+    if (typeof window.RCLAB?.getExtraBatteryItem === 'function') {
+      return window.RCLAB.getExtraBatteryItem();
+    }
 
-    const select = extra.querySelector('select');
+    const select = document.querySelector('.product-information select[name="rc-extra-batteries"]');
     if (!select) return null;
 
     const qty = Number(select.value) || 0;
-    const variantId = extra.dataset.variantId;
+    const root = select.closest('[data-variant-id]') || select.closest('.rc-extra-batteries');
+    const variantId = root?.getAttribute('data-variant-id') || select.getAttribute('data-variant-id');
     if (qty < 1 || !variantId) return null;
 
     return { variantId: String(variantId), quantity: qty };
@@ -274,35 +276,45 @@ class RcPackPicker extends HTMLElement {
 
   #bindCartIntercept() {
     if (this.#cartBound) return;
-    const form = document.querySelector('product-form-component');
-    if (!form) {
-      queueMicrotask(() => this.#bindCartIntercept());
-      return;
-    }
-
     this.#cartBound = true;
-    form.addEventListener(
+
+    window.addEventListener(
       'submit',
       (event) => {
-        const extra = this.#extraBatteryItem();
+        const formEl = event.target;
+        if (!(formEl instanceof HTMLFormElement)) return;
+        if (formEl.getAttribute('data-type') !== 'add-to-cart-form') return;
+
+        const productForm = formEl.closest('product-form-component');
+        if (!productForm || formEl.closest('quick-add, .quick-add-modal')) return;
+
+        const extra =
+          (typeof window.RCLAB?.snapshotExtraBatteries === 'function'
+            ? window.RCLAB.snapshotExtraBatteries()
+            : null) || this.#extraBatteryItem();
+        if (extra) window.RCLAB.pendingExtraBatteries = extra;
+
         const items = this.#packCartItems();
         if (items.length < 2 && !extra) return;
 
-        const payload = items.length
+        const payload = (items.length
           ? items.map((item) => ({ ...item }))
           : [
               {
                 variantId: String(this.#currentVariantId() || ''),
                 quantity: this.#selectedQty(),
               },
-            ].filter((item) => item.variantId);
+            ]
+        ).filter((item) => item.variantId);
 
-        if (extra) payload.push(extra);
         if (!payload.length) return;
 
         event.preventDefault();
         event.stopImmediatePropagation();
-        this.#addPackItems(form, payload);
+
+        this.#addPackItems(productForm, payload).then(() => {
+          window.RCLAB?.flushExtraBatteries?.();
+        });
       },
       true
     );
@@ -327,8 +339,11 @@ class RcPackPicker extends HTMLElement {
       })
     );
 
-    fetch(Theme.routes.cart_add_url, {
+    const addUrl = window.Theme?.routes?.cart_add_url || '/cart/add.js';
+
+    return fetch(addUrl, {
       method: 'POST',
+      credentials: 'same-origin',
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
@@ -347,8 +362,12 @@ class RcPackPicker extends HTMLElement {
           cart: CartLinesUpdateEvent.createCartFromAjaxResponse?.(cart) || cart,
           detail: { didError: false, items: cart.items, source: 'rc-pack-picker' },
         });
+        return cart;
       })
-      .catch((error) => deferred?.reject?.(error));
+      .catch((error) => {
+        deferred?.reject?.(error);
+        throw error;
+      });
   }
 
   #apply() {
