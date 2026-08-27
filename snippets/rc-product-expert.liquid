@@ -1,6 +1,6 @@
 {%- doc -%}
   Avis conseiller expert RC LAB, sous les notes, au-dessus du texte de description.
-  Note = moyenne des 4 criteres /5. Texte combine par produit, jamais identique.
+  Note = moyenne des 4 criteres /10. Texte combine par produit, jamais identique.
 {%- enddoc -%}
 
 {%- liquid
@@ -39,15 +39,15 @@
   assign expert_hand = snapshot_hand_raw | plus: 0
   assign expert_kiff = snapshot_kiff_raw | plus: 0
   assign expert_sum = expert_road | plus: expert_shock | plus: expert_hand | plus: expert_kiff
-  assign expert_avg5 = expert_sum | times: 125 | plus: 500 | divided_by: 1000
-  if expert_avg5 > 50
-    assign expert_avg5 = 50
+  assign expert_avg10 = expert_sum | plus: 2 | divided_by: 4
+  if expert_avg10 > 99
+    assign expert_avg10 = 99
   endif
-  if expert_avg5 < 35
-    assign expert_avg5 = 35
+  if expert_avg10 < 70
+    assign expert_avg10 = 70
   endif
-  assign expert_score_whole = expert_avg5 | divided_by: 10
-  assign expert_score_frac = expert_avg5 | modulo: 10
+  assign expert_score_whole = expert_avg10 | divided_by: 10
+  assign expert_score_frac = expert_avg10 | modulo: 10
   assign expert_score = expert_score_whole | append: ',' | append: expert_score_frac
 
   assign expert_names = 'Alexis,Tom,Maxime,Léo' | split: ','
@@ -196,22 +196,22 @@ Parfait pour un jardin technique, des racines, des pierres, et une session posé
   endif
 -%}
 
-<article class="rc-product-expert" data-rc-product-expert aria-label="Avis de {{ expert_name }}, conseiller expert RC LAB, {{ expert_score }} sur 5">
+<article class="rc-product-expert" data-rc-product-expert aria-label="Avis de {{ expert_name }}, expert RC LAB, {{ expert_score }} sur 10">
   <div class="rc-product-expert__identity">
     <div class="rc-product-expert__photo-wrap">
       <img
         class="rc-product-expert__photo"
         src="{{ expert_file | asset_url }}"
-        alt="{{ expert_name }}, conseiller expert RC LAB"
+        alt="{{ expert_name }}, expert RC LAB"
         width="480"
         height="480"
         loading="lazy"
         decoding="async"
       >
-      <p class="rc-product-expert__score">{{ expert_score }}/5</p>
+      <p class="rc-product-expert__score">{{ expert_score }}/10</p>
     </div>
     <p class="rc-product-expert__name">{{ expert_name }}</p>
-    <p class="rc-product-expert__role">Conseiller expert RC LAB</p>
+    <p class="rc-product-expert__role">Expert RC LAB</p>
   </div>
   <div class="rc-product-expert__quote">
     <p class="rc-product-expert__kicker">L'avis de nos pilotes</p>
