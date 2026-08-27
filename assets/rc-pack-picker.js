@@ -27,6 +27,8 @@ class RcPackPicker extends HTMLElement {
   #variantMap = [];
   #variantObserver;
   #cartBound = false;
+  #bundleResolve = null;
+  #addingBundle = false;
 
   connectedCallback() {
     this.#radios = Array.from(this.querySelectorAll('.rc-pack-picker__radio'));
@@ -251,6 +253,7 @@ class RcPackPicker extends HTMLElement {
   #packCartItems() {
     const battery = this.#batteryValue();
     const colors = this.#colorValues();
+    const packQty = this.#selectedQty();
     const items = [];
 
     colors.forEach((color) => {
@@ -261,91 +264,187 @@ class RcPackPicker extends HTMLElement {
       else items.push({ variantId: id, quantity: 1 });
     });
 
+    if (!items.length) {
+      const fallbackId = String(this.#currentVariantId() || '');
+      if (fallbackId) items.push({ variantId: fallbackId, quantity: packQty });
+    }
+
     return items;
+  }
+
+  #readExtraBatteries() {
+    const fromApi = window.RCLAB?.snapshotExtraBatteries?.();
+    if (fromApi?.variantId && fromApi.quantity > 0) return fromApi;
+
+    const root = document.querySelector('.rc-extra-batteries');
+    const checked = root?.querySelector('input[name="rc-extra-batteries"]:checked');
+    const quantity = Number(checked?.value || root?.getAttribute('data-qty') || 0) || 0;
+    const variantId = String(
+      root?.getAttribute('data-variant-id') ||
+        checked?.getAttribute('data-variant-id') ||
+        this.dataset.extraBatteryVariantId ||
+        ''
+    );
+    if (quantity < 1 || !variantId) return null;
+    return { variantId, quantity };
+  }
+
+  #giftBatteryItem(packQty) {
+    const variantId = String(
+      this.dataset.giftBatteryVariantId || this.dataset.trioGiftVariantId || ''
+    ).trim();
+    const quantity = GIFT_BATTERIES_BY_PACK[packQty] || 0;
+    if (!variantId || quantity < 1) return null;
+    return { variantId, quantity };
+  }
+
+  #mergeItems(list) {
+    const map = new Map();
+    list.forEach((item) => {
+      const variantId = String(item?.variantId || '').trim();
+      const quantity = Number(item?.quantity) || 0;
+      if (!variantId || quantity < 1) return;
+      map.set(variantId, (map.get(variantId) || 0) + quantity);
+    });
+    return Array.from(map, ([variantId, quantity]) => ({ variantId, quantity }));
+  }
+
+  #beginBundleGate() {
+    window.RCLAB = window.RCLAB || {};
+    window.RCLAB.cartOpenBlocked = true;
+    if (window.RCLAB.bundleReady && this.#bundleResolve) return;
+
+    window.RCLAB.bundleReady = new Promise((resolve) => {
+      let settled = false;
+      this.#bundleResolve = () => {
+        if (settled) return;
+        settled = true;
+        resolve();
+      };
+    });
+
+    window.setTimeout(() => this.#finishBundleGate(), 12000);
+  }
+
+  #finishBundleGate() {
+    this.#bundleResolve?.();
+    this.#bundleResolve = null;
   }
 
   #bindCartIntercept() {
     if (this.#cartBound) return;
     this.#cartBound = true;
 
+    const isProductAddForm = (formEl) => {
+      if (!(formEl instanceof HTMLFormElement)) return false;
+      if (formEl.getAttribute('data-type') !== 'add-to-cart-form') return false;
+      const productForm = formEl.closest('product-form-component');
+      if (!productForm || formEl.closest('quick-add, .quick-add-modal')) return false;
+      return productForm;
+    };
+
+    document.addEventListener(
+      'click',
+      (event) => {
+        const target = event.target;
+        if (!(target instanceof Element)) return;
+        if (
+          !target.closest(
+            'product-form-component .add-to-cart-button, product-form-component button[type="submit"]'
+          )
+        ) {
+          return;
+        }
+        this.#beginBundleGate();
+      },
+      true
+    );
+
     window.addEventListener(
       'submit',
       (event) => {
         const formEl = event.target;
-        if (!(formEl instanceof HTMLFormElement)) return;
-        if (formEl.getAttribute('data-type') !== 'add-to-cart-form') return;
+        const productForm = isProductAddForm(formEl);
+        if (!productForm) return;
 
-        const productForm = formEl.closest('product-form-component');
-        if (!productForm || formEl.closest('quick-add, .quick-add-modal')) return;
+        this.#beginBundleGate();
 
-        const items = this.#packCartItems();
         const packQty = this.#selectedQty();
-        if (items.length < 2 && packQty < 2) return;
-
-        const payload = (items.length
-          ? items.map((item) => ({ ...item }))
-          : [
-              {
-                variantId: String(this.#currentVariantId() || ''),
-                quantity: packQty,
-              },
-            ]
-        ).filter((item) => item.variantId);
-
-        if (!payload.length) return;
+        const vehicles = this.#packCartItems();
+        if (!vehicles.length) {
+          this.#finishBundleGate();
+          return;
+        }
 
         event.preventDefault();
         event.stopImmediatePropagation();
-        this.#addPackItems(productForm, payload, packQty);
+        this.#addBundle(productForm, vehicles, packQty);
       },
       true
     );
   }
 
-  #addTrioGiftBattery() {
-    const variantId = String(this.dataset.trioGiftVariantId || '').trim();
-    if (!variantId) return Promise.resolve(null);
-
-    window.RCLAB = window.RCLAB || {};
-    window.RCLAB.addingGiftBattery = true;
-
-    const formData = new FormData();
-    formData.append('id', variantId);
-    formData.append('quantity', '1');
-
-    return fetch('/cart/add.js', {
-      method: 'POST',
-      credentials: 'same-origin',
-      headers: { Accept: 'application/json' },
-      body: formData,
-    })
-      .then((response) => response.json().then((data) => ({ ok: response.ok, data })))
-      .then(({ ok, data }) => {
-        if (!ok || data?.status) {
-          return fetch('/cart/add.js', {
-            method: 'POST',
-            credentials: 'same-origin',
-            headers: {
-              'Content-Type': 'application/json',
-              Accept: 'application/json',
-            },
-            body: JSON.stringify({
-              items: [{ id: Number(variantId), quantity: 1 }],
-            }),
-          }).then((response) => response.json());
-        }
-        return data;
-      })
-      .catch(() => null)
-      .finally(() => {
-        window.RCLAB.addingGiftBattery = false;
-        if (typeof window.upcartRefreshCart === 'function' && !window.RCLAB.cartOpenBlocked) {
-          window.upcartRefreshCart();
-        }
-      });
+  #cartAddUrl() {
+    return window.Theme?.routes?.cart_add_url || '/cart/add.js';
   }
 
-  #addPackItems(form, items, packQty) {
+  async #postCartItems(items) {
+    const payload = this.#mergeItems(items).map((item) => ({
+      id: Number(item.variantId),
+      quantity: item.quantity,
+    }));
+    if (!payload.length) return { items: [] };
+
+    window.RCLAB = window.RCLAB || {};
+    window.RCLAB.internalCartAdd = true;
+
+    const addUrl = this.#cartAddUrl();
+    const postJson = (body) =>
+      fetch(addUrl, {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify(body),
+      }).then((response) => response.json().then((data) => ({ ok: response.ok, data })));
+
+    const postForm = (id, quantity) => {
+      const body = new FormData();
+      body.append('id', String(id));
+      body.append('quantity', String(quantity));
+      return fetch(addUrl, {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { Accept: 'application/json' },
+        body,
+      }).then((response) => response.json().then((data) => ({ ok: response.ok, data })));
+    };
+
+    try {
+      const batched = await postJson({ items: payload });
+      if (batched.ok && !batched.data?.status) return batched.data;
+
+      let last = batched.data;
+      for (const item of payload) {
+        const one = await postForm(item.id, item.quantity);
+        if (one.ok && !one.data?.status) last = one.data;
+      }
+      return last;
+    } finally {
+      window.RCLAB.internalCartAdd = false;
+    }
+  }
+
+  async #addBundle(form, vehicles, packQty) {
+    if (this.#addingBundle) return;
+    this.#addingBundle = true;
+
+    const accessories = this.#mergeItems(
+      [this.#giftBatteryItem(packQty), this.#readExtraBatteries()].filter(Boolean)
+    );
+
     const sections = [];
     document.querySelectorAll('cart-items-component').forEach((item) => {
       if (item instanceof HTMLElement && item.dataset.sectionId) sections.push(item.dataset.sectionId);
@@ -356,7 +455,7 @@ class RcPackPicker extends HTMLElement {
       new CartLinesUpdateEvent({
         action: 'add',
         context: 'product',
-        lines: items.map((item) => ({
+        lines: vehicles.map((item) => ({
           merchandiseId: item.variantId,
           quantity: item.quantity,
         })),
@@ -364,44 +463,31 @@ class RcPackPicker extends HTMLElement {
       })
     );
 
-    const addUrl = window.Theme?.routes?.cart_add_url || '/cart/add.js';
+    try {
+      const vehicleCart = await this.#postCartItems(vehicles);
+      if (vehicleCart?.status) {
+        deferred?.reject?.(vehicleCart);
+        throw vehicleCart;
+      }
 
-    return fetch(addUrl, {
-      method: 'POST',
-      credentials: 'same-origin',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify({
-        items: items.map((item) => ({
-          id: Number(item.variantId),
-          quantity: item.quantity,
-        })),
-        sections: sections.join(','),
-      }),
-    })
-      .then((response) => response.json())
-      .then(async (cart) => {
-        if (cart?.status) {
-          deferred?.reject?.(cart);
-          throw cart;
-        }
+      if (accessories.length) {
+        await this.#postCartItems(accessories);
+      }
 
-        if (packQty === 3) {
-          await this.#addTrioGiftBattery();
-        }
+      this.#finishBundleGate();
 
-        deferred?.resolve?.({
-          cart: CartLinesUpdateEvent.createCartFromAjaxResponse?.(cart) || cart,
-          detail: { didError: false, items: cart.items, source: 'rc-pack-picker' },
-        });
-        return cart;
-      })
-      .catch((error) => {
-        deferred?.reject?.(error);
-        throw error;
+      deferred?.resolve?.({
+        cart: CartLinesUpdateEvent.createCartFromAjaxResponse?.(vehicleCart) || vehicleCart,
+        detail: { didError: false, items: vehicleCart?.items, source: 'rc-pack-picker' },
       });
+      return vehicleCart;
+    } catch (error) {
+      this.#finishBundleGate();
+      deferred?.reject?.(error);
+      throw error;
+    } finally {
+      this.#addingBundle = false;
+    }
   }
 
   #apply() {
