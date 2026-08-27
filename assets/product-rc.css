@@ -54,12 +54,22 @@
 }
 
 /* Bandeau fixe bas de page */
+sticky-add-to-cart {
+  display: block;
+  height: 0;
+  overflow: visible;
+}
+
 .sticky-add-to-cart__bar {
   position: fixed;
   right: 0;
   bottom: 0;
   left: 0;
   z-index: calc(var(--layer-sticky) + 2);
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
   opacity: 0;
   pointer-events: none;
   transform: translateY(100%);
@@ -76,7 +86,7 @@
 .sticky-add-to-cart__bar[data-stuck='true'] {
   opacity: 1;
   pointer-events: auto;
-  transform: translateY(0);
+  transform: none;
 }
 
 .sticky-add-to-cart__inner {
@@ -84,6 +94,7 @@
   gap: 16px;
   align-items: center;
   justify-content: space-between;
+  min-width: 0;
   max-width: 1280px;
   margin: 0 auto;
 }
@@ -136,9 +147,10 @@
 
 .sticky-add-to-cart__actions {
   display: flex;
-  flex: 0 0 auto;
+  flex: 0 1 auto;
   gap: 10px;
   align-items: center;
+  min-width: 0;
 }
 
 .sticky-add-to-cart__variant-select {
@@ -245,6 +257,10 @@
 
 body.has-sticky-atc-visible {
   padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+}
+
+body:has(sticky-add-to-cart) {
+  overflow-x: clip;
 }
 
 @media (max-width: 989px) {

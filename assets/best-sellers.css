@@ -3,7 +3,7 @@
   padding: 28px 0 36px;
   background: var(--color-white);
   color: var(--color-black);
-  overflow: visible;
+  overflow-x: clip;
 }
 
 .rc-best-sellers__header {
@@ -14,6 +14,7 @@
 .rc-best-sellers__header h2 {
   position: relative;
   width: fit-content;
+  max-width: 100%;
   margin: 0;
   padding-bottom: 10px;
   font-family: var(--font-display);
@@ -37,6 +38,8 @@
 
 .rc-best-sellers__shell {
   position: relative;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .rc-best-sellers__arrow {
@@ -48,6 +51,9 @@
   grid-auto-columns: minmax(220px, 72vw);
   grid-auto-flow: column;
   gap: 10px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   overflow-x: auto;
   padding: 0 14px 4px;
   scroll-behavior: smooth;
