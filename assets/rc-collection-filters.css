@@ -50,7 +50,6 @@
     padding-bottom: 12px;
     box-sizing: border-box;
     scrollbar-width: thin;
-    scrollbar-gutter: stable;
   }
 
   .rc-collection__main {
@@ -324,12 +323,6 @@
   font-weight: 700;
 }
 
-.rc-filters__count {
-  color: var(--color-gray-500);
-  font-size: 12px;
-  font-weight: 600;
-}
-
 .rc-filters__speed-dot {
   width: 14px;
   height: 14px;
@@ -347,19 +340,25 @@
   position: sticky;
   bottom: 0;
   display: grid;
-  grid-template-columns: 1fr 1.4fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
   gap: 8px;
+  min-width: 0;
+  max-width: 100%;
   padding-top: 8px;
   background: linear-gradient(180deg, rgb(255 255 255 / 0%) 0%, var(--color-white) 18%);
 }
 
 .rc-filters__clear,
 .rc-filters__apply {
+  min-width: 0;
   height: 44px;
   border-radius: 999px;
-  padding: 0 12px;
+  padding: 0 10px;
+  overflow: hidden;
   font-size: 13px;
   font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   cursor: pointer;
 }
 
