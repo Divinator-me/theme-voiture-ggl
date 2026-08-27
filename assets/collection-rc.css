@@ -214,10 +214,11 @@
 
 .rc-collection .main-collection-grid {
   padding-block: 18px 40px;
+  padding-inline: 14px;
 }
 
 .rc-collection .product-grid {
-  --product-grid-gap: 12px;
+  --product-grid-gap: 10px;
   margin: 0;
 }
 
@@ -268,12 +269,13 @@
     padding-inline: 24px;
   }
 
-  .rc-collection .product-grid {
-    --product-grid-gap: 16px;
-  }
-
   .rc-collection .main-collection-grid {
     padding-block: 24px 56px;
+    padding-inline: 24px;
+  }
+
+  .rc-collection .product-grid {
+    --product-grid-gap: 16px;
   }
 }
 
