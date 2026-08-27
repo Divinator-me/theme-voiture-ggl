@@ -313,7 +313,7 @@
 }
 
 .rc-collection-video__title {
-  max-width: 16ch;
+  max-width: 18ch;
   color: var(--color-white);
   font-family: var(--font-display);
   font-size: 22px;
@@ -380,7 +380,7 @@
   }
 
   .rc-collection-video__title {
-    max-width: 14ch;
+    max-width: 18ch;
     font-size: 22px;
   }
 
