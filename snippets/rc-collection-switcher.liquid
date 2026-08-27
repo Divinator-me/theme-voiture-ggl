@@ -1,0 +1,88 @@
+{% comment %}
+  Carrousel collections, même bloc que la landing.
+{% endcomment %}
+
+{% assign switcher_items = 'Monster Truck / 4x4|monster-truck-4x4||Buggy|buggy||Rallye / Trophy Truck|rallye-trophy||Drift|drift||Piste|piste' | split: '||' %}
+
+<section class="rc-categories rc-categories--collection" aria-label="Changer de collection">
+  <div class="rc-categories__header">
+    <h2 class="rc-categories__title">Nos collections</h2>
+    <p class="rc-categories__hint">
+      <span class="rc-categories__hint-arrow" aria-hidden="true">→</span>
+      Glissez pour explorer
+    </p>
+  </div>
+
+  <div class="rc-categories__track" tabindex="0" aria-label="Carrousel collections">
+    {% for item in switcher_items %}
+      {% assign parts = item | split: '|' %}
+      {% assign label = parts[0] %}
+      {% assign handle = parts[1] %}
+      {% assign switch_collection = collections[handle] %}
+
+      {% if switch_collection != blank %}
+        {% assign switch_url = switch_collection.url %}
+      {% else %}
+        {% assign switch_url = routes.collections_url | append: '/' | append: handle %}
+      {% endif %}
+
+      {% assign switch_image = switch_collection.featured_image | default: switch_collection.image %}
+      {% if switch_image == blank and switch_collection.products.first %}
+        {% assign switch_image = switch_collection.products.first.featured_image %}
+      {% endif %}
+
+      {% assign is_current = false %}
+      {% if collection.handle == handle %}
+        {% assign is_current = true %}
+      {% endif %}
+
+      {% capture switch_badge %}
+        {% if is_current %}
+          Ici
+        {% elsif handle == 'monster-truck-4x4' %}
+          Bestseller
+        {% elsif switch_collection.products_count == 1 %}
+          {{ switch_collection.products_count }} voiture
+        {% elsif switch_collection.products_count > 1 %}
+          {{ switch_collection.products_count }} voitures
+        {% else %}
+          Découvrir
+        {% endif %}
+      {% endcapture %}
+
+      <a
+        class="rc-category-card{% if is_current %} is-current{% endif %}"
+        href="{{ switch_url }}"
+        {% if is_current %}
+          aria-current="page"
+        {% endif %}
+        aria-label="{% if is_current %}Collection actuelle, {{ label | escape }}{% else %}Découvrir la collection {{ label | escape }}{% endif %}"
+      >
+        {% if switch_image %}
+          {{
+            switch_image
+            | image_url: width: 700
+            | image_tag:
+              class: 'rc-category-card__image',
+              loading: 'lazy',
+              widths: '320, 480, 700',
+              sizes: '(min-width: 990px) 28vw, 46vw',
+              alt: label,
+              draggable: 'false'
+          }}
+        {% else %}
+          <span class="rc-category-card__image rc-category-card__image--placeholder" aria-hidden="true"></span>
+        {% endif %}
+        <span class="rc-category-card__shade" aria-hidden="true"></span>
+        <span class="rc-category-card__badge{% if is_current or handle == 'monster-truck-4x4' %} rc-category-card__badge--accent{% endif %}">{{ switch_badge | strip }}</span>
+        <span class="rc-category-card__content">
+          <span class="rc-category-card__title">{{ label }}</span>
+          <span class="rc-category-card__cta">
+            <span>{% if is_current %}Vous y êtes{% else %}Découvrir{% endif %}</span>
+            <b aria-hidden="true">→</b>
+          </span>
+        </span>
+      </a>
+    {% endfor %}
+  </div>
+</section>

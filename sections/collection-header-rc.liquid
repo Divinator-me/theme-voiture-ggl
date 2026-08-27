@@ -1,24 +1,139 @@
 {{ 'collection-rc.css' | asset_url | stylesheet_tag }}
+{{ 'categories-grid.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'rc-drag-scroll.js' | asset_url }}" defer></script>
 
-<section class="rc-collection-header" aria-label="{{ collection.title | escape }}">
-  <div class="rc-collection-header__inner">
-    <div class="rc-collection-header__top">
-      <p class="rc-collection-header__eyebrow">Catalogue RC LAB</p>
-      <p class="rc-collection-header__count">
-        <span>{{ collection.products_count }}</span>
-        {% if collection.products_count > 1 %}articles{% else %}article{% endif %}
-      </p>
-    </div>
+{%- liquid
+  assign hero_image = collection.image | default: collection.featured_image
+  if hero_image == blank and collection.products.first
+    assign hero_image = collection.products.first.featured_image
+  endif
 
-    <h1 class="rc-collection-header__title">{{ collection.title }}</h1>
+  assign display_title = collection.title
+  assign tagline = collection.description | strip_html | strip
+  assign max_speed = ''
+  assign max_autonomy = ''
 
-    {% if collection.description != blank %}
-      <div class="rc-collection-header__desc">{{ collection.description }}</div>
+  case collection.handle
+    when 'monster-truck-4x4'
+      assign display_title = 'Monster Truck / 4x4'
+      if tagline == blank
+        assign tagline = 'Les brutes qui avalent tout ce qui traverse leur route.'
+      endif
+      assign max_speed = '85 km/h'
+      assign max_autonomy = '35 min'
+    when 'buggy'
+      assign display_title = 'Buggy'
+      if tagline == blank
+        assign tagline = 'Nerveuses, agiles, bâties pour dévorer les circuits terre.'
+      endif
+      assign max_speed = '75 km/h'
+      assign max_autonomy = '30 min'
+    when 'drift'
+      assign display_title = 'Drift'
+      if tagline == blank
+        assign tagline = 'Tout se joue dans le drift, pas dans la ligne droite.'
+      endif
+      assign max_speed = '65 km/h'
+      assign max_autonomy = '15 min'
+    when 'rallye-trophy'
+      assign display_title = 'Rallye / Trophy'
+      if tagline == blank
+        assign tagline = "L'esprit rallye au bout des doigts, sur toutes les surfaces."
+      endif
+      assign max_speed = '70 km/h'
+      assign max_autonomy = '18 min'
+    when 'piste'
+      assign display_title = 'Piste'
+      if tagline == blank
+        assign tagline = 'Précision chirurgicale, vitesse au millimètre.'
+      endif
+      assign max_speed = '30 km/h'
+    when 'crawler'
+      assign display_title = 'Crawler'
+      if tagline == blank
+        assign tagline = "Là où les autres passent en trombe, le crawler prend son temps."
+      endif
+      assign max_autonomy = '35 min'
+  endcase
+
+  assign models_label = 'modèle'
+  if collection.products_count > 1
+    assign models_label = 'modèles'
+  endif
+-%}
+
+<div class="rc-collection-top">
+  <section class="rc-collection-header" aria-label="{{ display_title | escape }}">
+    {% if hero_image %}
+      {{
+        hero_image
+        | image_url: width: 1800
+        | image_tag:
+          class: 'rc-collection-header__bg',
+          loading: 'eager',
+          fetchpriority: 'high',
+          widths: '800, 1200, 1800',
+          sizes: '100vw',
+          alt: ''
+      }}
     {% endif %}
-  </div>
+    <span class="rc-collection-header__veil" aria-hidden="true"></span>
 
-  <div class="rc-collection-header__accent" aria-hidden="true"></div>
-</section>
+    <div class="rc-collection-header__inner">
+      <p class="rc-collection-header__eyebrow">Catalogue RC LAB</p>
+
+      <h1 class="rc-collection-header__title">{{ display_title }}</h1>
+
+      {% if tagline != blank %}
+        <p class="rc-collection-header__desc">{{ tagline }}</p>
+      {% endif %}
+
+      <ul class="rc-collection-header__stats">
+        {% if max_speed != blank %}
+          <li class="rc-collection-header__stat">
+            <span class="rc-collection-header__stat-icon" aria-hidden="true">
+              <svg viewBox="0 0 20 20" fill="none">
+                <path d="M11.7.6c.3.2.4.6.3.9L9.8 8.2l4.1 1c.3.1.5.4.5.7 0 .3-.2.6-.5.8L5.4 19.4c-.2.2-.6.3-.9.1s-.4-.6-.3-.9l2.9-7.4-4.4-1c-.3-.1-.5-.4-.5-.7 0-.3.2-.6.5-.8L11.1.7c.2-.2.4-.2.6-.1Z" fill="currentColor"/>
+              </svg>
+            </span>
+            <span class="rc-collection-header__stat-copy">
+              <strong>{{ max_speed }}</strong>
+              <span>Vitesse max</span>
+            </span>
+          </li>
+        {% endif %}
+
+        {% if max_autonomy != blank %}
+          <li class="rc-collection-header__stat">
+            <span class="rc-collection-header__stat-icon" aria-hidden="true">
+              <svg viewBox="0 0 20 20" fill="none">
+                <path d="M10 1.5A8.5 8.5 0 1 1 1.5 10 8.51 8.51 0 0 1 10 1.5ZM10 3a7 7 0 1 0 7 7 7 7 0 0 0-7-7Zm.75 2.2v4.16l2.86 1.72-.75 1.24L9.25 10.4V5.2h1.5Z" fill="currentColor"/>
+              </svg>
+            </span>
+            <span class="rc-collection-header__stat-copy">
+              <strong>{{ max_autonomy }}</strong>
+              <span>Autonomie</span>
+            </span>
+          </li>
+        {% endif %}
+
+        <li class="rc-collection-header__stat">
+          <span class="rc-collection-header__stat-icon" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none">
+              <path d="M3 3.5h6.2v6.2H3V3.5Zm7.8 0H17v6.2h-6.2V3.5ZM3 11.3h6.2V17.5H3v-6.2Zm7.8 0H17v6.2h-6.2v-6.2Z" fill="currentColor"/>
+            </svg>
+          </span>
+          <span class="rc-collection-header__stat-copy">
+            <strong>{{ collection.products_count }} {{ models_label }}</strong>
+            <span>En stock</span>
+          </span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  {% render 'rc-collection-switcher' %}
+</div>
 
 {% schema %}
 {
