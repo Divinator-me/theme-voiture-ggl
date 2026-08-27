@@ -354,6 +354,24 @@
   pointer-events: none;
 }
 
+.rc-collection-video__iframe {
+  z-index: 0;
+  pointer-events: auto;
+}
+
+.rc-collection-video--youtube .rc-collection-video__link {
+  max-width: none;
+}
+
+.rc-collection-video--youtube .rc-collection-video__shade {
+  background: linear-gradient(90deg, rgb(0 0 0 / 70%) 0%, rgb(0 0 0 / 22%) 42%, rgb(0 0 0 / 0%) 68%);
+}
+
+.rc-collection-video--youtube .rc-collection-video__copy {
+  right: auto;
+  max-width: min(70%, 22ch);
+}
+
 .rc-collection-video__shade {
   position: absolute;
   inset: 0;
