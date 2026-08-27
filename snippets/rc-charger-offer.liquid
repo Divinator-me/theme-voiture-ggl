@@ -23,7 +23,7 @@
         tabindex="-1"
       >
         <h2 id="rc-charger-offer-title" class="rc-charger-offer__title">Accessoire offert !</h2>
-        <p class="rc-charger-offer__sub">Félicitations ! Choisis ton accessoire offert :</p>
+        <p class="rc-charger-offer__sub">Félicitations ! Un chargeur pour ta RC :</p>
 
         <div class="rc-charger-offer__product">
           {%- if offer.featured_image -%}
@@ -38,18 +38,11 @@
               loading="lazy"
             >
           {%- endif -%}
-          {%- if offer_variant.price == 0 -%}
-            <p class="rc-charger-offer__flag">Offert</p>
-          {%- endif -%}
           <p class="rc-charger-offer__name">{{ offer.title | escape }}</p>
           <button class="rc-charger-offer__accept" type="button" data-rc-charger-accept>
             ACCEPTER
           </button>
         </div>
-
-        <button class="rc-charger-offer__close" type="button" data-rc-charger-dismiss>
-          Fermer
-        </button>
       </div>
     </rc-charger-offer>
   {%- endif -%}
