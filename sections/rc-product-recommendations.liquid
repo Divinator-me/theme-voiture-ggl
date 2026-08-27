@@ -1,5 +1,7 @@
 {{ 'rc-product-card.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'rc-product-card.js' | asset_url }}" defer></script>
 {{ 'best-sellers.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'rc-drag-scroll.js' | asset_url }}" defer></script>
 <script src="{{ 'rc-product-recommendations.js' | asset_url }}" defer></script>
 
 {% liquid
@@ -9,14 +11,34 @@
     assign heading = 'Produits similaires'
   endif
 
-  assign has_recommendations = false
-  assign use_collection_fallback = false
+  assign nav_handles = 'monster-truck-4x4,buggy,rallye-trophy,drift,piste' | split: ','
+  assign source_collection = collections['monster-truck-4x4']
+  assign found_nav = false
 
-  if recommendations.performed and recommendations.products_count > 0
-    assign has_recommendations = true
-  elsif recommendations.performed and recommendations.products_count == 0 and current_product != blank and current_product.collections.size > 0
-    assign use_collection_fallback = true
-    assign source_collection = current_product.collections.first
+  if current_product != blank
+    for handle in nav_handles
+      unless found_nav
+        for col in current_product.collections
+          if col.handle == handle
+            assign source_collection = col
+            assign found_nav = true
+            break
+          endif
+        endfor
+      endunless
+    endfor
+  endif
+
+  assign ranked_products = nil
+  if source_collection != blank and source_collection.products_count > 0
+    assign ranked_products = source_collection.products | sort: 'price' | reverse
+  elsif recommendations.performed and recommendations.products_count > 0
+    assign ranked_products = recommendations.products | sort: 'price' | reverse
+  endif
+
+  assign has_ranked = false
+  if ranked_products != blank
+    assign has_ranked = true
   endif
 %}
 
@@ -37,7 +59,11 @@
   </div>
 
   <div class="rc-best-sellers__shell">
-    <button class="rc-best-sellers__arrow rc-best-sellers__arrow--prev" type="button" data-slider-prev aria-label="Produits précédents">←</button>
+    <button class="rc-best-sellers__arrow rc-best-sellers__arrow--prev" type="button" data-slider-prev aria-label="Produits précédents">
+      <svg class="rc-best-sellers__arrow-icon" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+        <path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
 
     <div class="rc-best-sellers__track" data-slider-track tabindex="0" aria-label="{{ heading | escape }}">
       {% if has_recommendations %}
@@ -72,7 +98,11 @@
       {% endif %}
     </div>
 
-    <button class="rc-best-sellers__arrow rc-best-sellers__arrow--next" type="button" data-slider-next aria-label="Produits suivants">→</button>
+    <button class="rc-best-sellers__arrow rc-best-sellers__arrow--next" type="button" data-slider-next aria-label="Produits suivants">
+      <svg class="rc-best-sellers__arrow-icon" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+        <path d="m6 3 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
   </div>
 </rc-product-recommendations>
 
