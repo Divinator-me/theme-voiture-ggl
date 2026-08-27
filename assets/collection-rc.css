@@ -172,7 +172,7 @@
 
 .rc-categories.rc-categories--collection {
   --rc-category-card-width: clamp(132px, 34vw, 156px);
-  padding: 16px 0 22px;
+  padding: 28px 0 22px;
 }
 
 .rc-categories--collection .rc-categories__header {
@@ -217,6 +217,7 @@
 
 .rc-categories--collection .rc-category-card__title {
   font-size: clamp(15px, 4.2vw, 18px);
+  line-height: 1.12;
 }
 
 .rc-categories--collection .rc-category-card__cta {
@@ -641,7 +642,7 @@
 
   .rc-categories.rc-categories--collection {
     --rc-category-card-width: 168px;
-    padding-top: 20px;
+    padding-top: 32px;
     padding-bottom: 28px;
   }
 

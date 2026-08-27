@@ -56,6 +56,21 @@
   transform: translateY(-2px);
 }
 
+.rc-categories__track {
+  display: grid;
+  grid-auto-columns: var(--rc-category-card-width);
+  grid-auto-flow: column;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 0 14px 4px;
+  scroll-behavior: smooth;
+  scroll-padding-inline: 14px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  cursor: grab;
+  touch-action: pan-x;
+}
+
 .rc-categories__track.is-drag-scroll-active {
   cursor: grabbing;
   scroll-behavior: auto;
@@ -147,7 +162,7 @@
   font-style: italic;
   font-weight: 400;
   letter-spacing: -0.02em;
-  line-height: 0.95;
+  line-height: 1.08;
   text-transform: uppercase;
   color: var(--color-white);
 }
