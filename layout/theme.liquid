@@ -37,11 +37,25 @@
     endcase
   endif
 
+  assign rc_collection_sort_redirect = ''
+  if template.name == 'collection' and request.design_mode == false and rc_redirect_frontpage_collection == false
+    assign rc_current_sort = collection.sort_by | default: collection.default_sort_by
+    if request.query_parameters.sort_by == blank and rc_current_sort != 'price-descending'
+      if request.query_string != blank
+        assign rc_collection_sort_redirect = request.path | append: '?' | append: request.query_string | append: '&sort_by=price-descending'
+      else
+        assign rc_collection_sort_redirect = collection.url | append: '?sort_by=price-descending'
+      endif
+    endif
+  endif
+
   assign rc_redirect_url = ''
   if rc_redirect_frontpage_collection
     assign rc_redirect_url = routes.root_url
   elsif rc_legal_page_redirect != blank
     assign rc_redirect_url = rc_legal_page_redirect
+  elsif rc_collection_sort_redirect != blank
+    assign rc_redirect_url = rc_collection_sort_redirect
   endif
 -%}
 <html
