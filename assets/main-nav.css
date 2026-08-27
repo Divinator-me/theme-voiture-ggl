@@ -547,6 +547,39 @@ body .rc-menu-overlay button.rc-menu-overlay__link {
     background: var(--color-red-dark);
   }
 
+  .rc-main-nav__quiz {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    padding: 0 16px;
+    border: 0;
+    background: var(--color-red);
+    box-shadow: 0 2px 8px rgb(255 45 45 / 22%);
+    color: var(--color-white);
+    cursor: pointer;
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transform: skewX(-12deg);
+    transition: background 0.2s var(--ease-smooth);
+  }
+
+  .rc-main-nav__quiz span {
+    display: block;
+    transform: skewX(12deg);
+  }
+
+  .rc-main-nav__quiz:hover {
+    background: var(--color-red-dark);
+  }
+
   .rc-main-nav__side--desktop {
     flex: 0 0 auto;
     gap: 18px;
