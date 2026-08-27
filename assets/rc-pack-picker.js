@@ -45,6 +45,7 @@ class RcPackPicker extends HTMLElement {
 
     this.#watchVariant();
     this.#bindCartIntercept();
+    this.#bindExtrasSync();
     this.#apply();
     this.#syncColorSteps();
 
@@ -331,6 +332,20 @@ class RcPackPicker extends HTMLElement {
   #finishBundleGate() {
     this.#bundleResolve?.();
     this.#bundleResolve = null;
+  }
+
+  #bindExtrasSync() {
+    document.addEventListener(
+      'change',
+      (event) => {
+        const target = event.target;
+        if (!(target instanceof HTMLInputElement)) return;
+        if (target.name !== 'rc-extra-batteries') return;
+        const snap = this.#readExtraBatteries();
+        this.#pendingExtras = snap;
+      },
+      true
+    );
   }
 
   #bindCartIntercept() {
