@@ -27,8 +27,8 @@
 
   const extraBatteryItem = () => {
     const fromDom = readFromDom();
-    const qty = selectedQty || fromDom.quantity;
-    const id = variantId || fromDom.variantId;
+    const qty = fromDom.quantity || selectedQty;
+    const id = fromDom.variantId || variantId;
     if (qty < 1 || !id) return null;
     return { variantId: String(id), quantity: qty };
   };
