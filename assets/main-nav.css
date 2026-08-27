@@ -239,6 +239,11 @@
     color 0.2s var(--ease-smooth);
 }
 
+.rc-menu-overlay__link span,
+.rc-menu-overlay__link strong {
+  font-weight: 800;
+}
+
 button.rc-menu-overlay__link {
   width: 100%;
   border: 0;
