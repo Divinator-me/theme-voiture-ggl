@@ -29,6 +29,8 @@ class RcPackPicker extends HTMLElement {
   #cartBound = false;
   #bundleResolve = null;
   #addingBundle = false;
+  #pendingGift = null;
+  #pendingExtras = null;
 
   connectedCallback() {
     this.#radios = Array.from(this.querySelectorAll('.rc-pack-picker__radio'));
@@ -322,6 +324,9 @@ class RcPackPicker extends HTMLElement {
         resolve();
       };
     });
+
+    this.#pendingGift = this.#giftBatteryItem(this.#selectedQty());
+    this.#pendingExtras = this.#readExtraBatteries();
   }
 
   #finishBundleGate() {
@@ -440,7 +445,10 @@ class RcPackPicker extends HTMLElement {
     this.#addingBundle = true;
 
     const accessories = this.#mergeItems(
-      [this.#giftBatteryItem(packQty), this.#readExtraBatteries()].filter(Boolean)
+      [
+        this.#pendingGift || this.#giftBatteryItem(packQty),
+        this.#pendingExtras || this.#readExtraBatteries(),
+      ].filter(Boolean)
     );
 
     const sections = [];
