@@ -197,6 +197,24 @@
   gap: 8px;
 }
 
+.rc-categories--collection .rc-categories__dots {
+  margin-top: 8px;
+}
+
+.rc-categories--collection .rc-categories__dot {
+  width: 20px;
+  height: 20px;
+}
+
+.rc-categories--collection .rc-categories__dot::after {
+  width: 6px;
+  height: 6px;
+}
+
+.rc-categories--collection .rc-categories__dot.is-active::after {
+  width: 16px;
+}
+
 .rc-categories--collection .rc-category-card {
   border-radius: 14px;
 }

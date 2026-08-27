@@ -82,8 +82,70 @@
     );
   };
 
+  const bindCategoryDots = (section) => {
+    const track = section.querySelector('.rc-categories__track');
+    const dotsWrap = section.querySelector('.rc-categories__dots');
+    if (!track || !dotsWrap || dotsWrap.dataset.dotsBound === 'true') return;
+    dotsWrap.dataset.dotsBound = 'true';
+
+    const cards = [...track.querySelectorAll('.rc-category-card')];
+    if (cards.length < 2) {
+      dotsWrap.hidden = true;
+      return;
+    }
+
+    const dots = cards.map((card, index) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'rc-categories__dot';
+      const label =
+        card.querySelector('.rc-category-card__title')?.textContent?.trim() ||
+        card.getAttribute('aria-label') ||
+        `Collection ${index + 1}`;
+      button.setAttribute('aria-label', `Aller à ${label}`);
+      button.addEventListener('click', () => {
+        track.scrollTo({
+          left: card.offsetLeft - cards[0].offsetLeft,
+          behavior: 'smooth',
+        });
+      });
+      return button;
+    });
+
+    dotsWrap.replaceChildren(...dots);
+
+    const update = () => {
+      const trackLeft = track.getBoundingClientRect().left;
+      let best = 0;
+      let bestDist = Infinity;
+
+      cards.forEach((card, index) => {
+        const dist = Math.abs(card.getBoundingClientRect().left - trackLeft);
+        if (dist < bestDist) {
+          bestDist = dist;
+          best = index;
+        }
+      });
+
+      dots.forEach((dot, index) => {
+        const active = index === best;
+        dot.classList.toggle('is-active', active);
+        if (active) {
+          dot.setAttribute('aria-current', 'true');
+        } else {
+          dot.removeAttribute('aria-current');
+        }
+      });
+    };
+
+    track.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  };
+
   const initDragScroll = (root = document) => {
     root.querySelectorAll('.rc-best-sellers__track, .rc-categories__track').forEach(bindDragScroll);
+    root.querySelectorAll('.rc-categories').forEach(bindCategoryDots);
   };
 
   window.RcDragScroll = {

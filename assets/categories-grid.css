@@ -82,6 +82,49 @@
   display: none;
 }
 
+.rc-categories__dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+  margin: 12px 0 0;
+  padding: 0 14px;
+}
+
+.rc-categories__dot {
+  position: relative;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.rc-categories__dot::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--color-gray-200);
+  transform: translate(-50%, -50%);
+  transition: width 0.25s var(--ease-smooth), background 0.25s var(--ease-smooth);
+  content: "";
+}
+
+.rc-categories__dot.is-active::after {
+  width: 18px;
+  background: var(--color-red);
+}
+
+.rc-categories__dot:focus-visible {
+  outline: 2px solid var(--color-red);
+  outline-offset: 2px;
+  border-radius: 999px;
+}
+
 .rc-category-card {
   position: relative;
   display: grid;
