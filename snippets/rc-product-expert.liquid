@@ -85,7 +85,7 @@ La transmission et les pignons en métal absorbent les chocs contre les bordures
 Tu as les SPEED km/h, mais c'est surtout la transmission métal qui tient quand ça tape une bordure.||Les SPEED km/h restent utilisables une fois le feeling trouvé, sans l'impression que tout va exploser.||La vitesse est là, SPEED km/h, et le train roulant suit quand tu ouvres sur un vrai terrain.
 {%- endcapture -%}
 {%- capture expert_proofs_auto -%}
-Les 2 batteries incluses, c'est environ AUTO minutes de roule d'affilée, sans rester planté à attendre le chargeur.||Avec 2 batteries, tu swaps et tu repars : AUTO minutes, puis encore une manche.||AUTO minutes par batterie, et tu en as deux : ça fait une vraie session, pas trois tours et au revoir.
+Les 2 batteries incluses, c'est environ AUTO minutes de roule d'affilée, sans rester planté à attendre le chargeur.||Avec 2 batteries, tu changes et tu repars : AUTO minutes, puis encore une manche.||AUTO minutes par batterie, et tu en as deux : ça fait une vraie session, pas trois tours et au revoir.
 {%- endcapture -%}
 {%- capture expert_proofs_brushless -%}
 Le brushless pousse propre, chauffe moins, et tient mieux dans la durée qu'un petit brushed trop juste.||Moteur brushless : plus de punch, moins d'usure, et tu gardes de la réserve quand le terrain durcit.
@@ -173,10 +173,15 @@ Parfait pour un jardin technique, des racines, des pierres, et une session posé
   assign expert_trust_list = expert_trusts | split: '||'
   assign expert_usage_list = expert_usages | split: '||'
 
-  assign expert_hook_i = expert_id | modulo: expert_hook_list.size
-  assign expert_proof_i = expert_id | plus: 17 | modulo: expert_proof_list.size
-  assign expert_trust_i = expert_id | plus: 29 | modulo: expert_trust_list.size
-  assign expert_usage_i = expert_id | plus: 41 | modulo: expert_usage_list.size
+  assign expert_hook_count = expert_hook_list | size
+  assign expert_proof_count = expert_proof_list | size
+  assign expert_trust_count = expert_trust_list | size
+  assign expert_usage_count = expert_usage_list | size
+
+  assign expert_hook_i = expert_id | modulo: expert_hook_count
+  assign expert_proof_i = expert_id | plus: 17 | modulo: expert_proof_count
+  assign expert_trust_i = expert_id | plus: 29 | modulo: expert_trust_count
+  assign expert_usage_i = expert_id | plus: 41 | modulo: expert_usage_count
 
   assign expert_hook = expert_hook_list[expert_hook_i] | strip
   assign expert_proof = expert_proof_list[expert_proof_i] | strip
