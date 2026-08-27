@@ -55,19 +55,33 @@
 
 .rc-product-card__bestseller {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 12px;
+  right: 12px;
   z-index: 3;
   pointer-events: none;
   padding: 6px 10px;
-  border: 1px solid rgb(255 255 255 / 40%);
+  border: 1px solid rgb(255 244 180 / 75%);
   border-radius: 4px;
-  background: linear-gradient(180deg, #f6d56b 0%, #d4a017 52%, #b8860b 100%);
-  box-shadow: 0 4px 12px rgb(184 134 11 / 38%);
+  background: linear-gradient(180deg, #ffe27a 0%, #f0c43a 48%, #d4a017 100%);
+  box-shadow:
+    0 0 0 1px rgb(255 220 90 / 55%),
+    0 0 10px 2px rgb(255 214 70 / 90%),
+    0 0 22px 8px rgb(255 196 40 / 50%),
+    0 0 36px 12px rgb(255 180 20 / 28%);
   color: #1a1408;
   font: italic 400 11px / 1 var(--font-display);
   letter-spacing: 0.04em;
   text-transform: uppercase;
+}
+
+.rc-product-card__bestseller::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  z-index: -1;
+  border-radius: 6px;
+  background: rgb(255 214 70 / 45%);
+  filter: blur(10px);
 }
 
 .rc-product-card__image {
