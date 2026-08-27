@@ -28,7 +28,7 @@ body.template-index .content-for-layout {
   overflow: clip;
 }
 
-body :is(.rc-main-nav, .rc-menu-overlay, .rc-footer, .rc-hero, .rc-categories, .rc-best-sellers, .rc-collection, .rc-collection-header, .rc-faq, .rc-story, .rc-trust-end, .rc-policy, .announcement-marquee, .rc-promo-bar, .rc-category-nav, .rc-cart-empty, .rc-empty-cart, .rc-contact-hero, .rc-contact-board) a:not([class*='__cta']):not([class*='__pill']):not(.rc-cart-empty__login-link):not(.rc-contact-aside__link) {
+body :is(.rc-main-nav, .rc-menu-overlay, .rc-footer, .rc-hero, .rc-categories, .rc-best-sellers, .rc-collection, .rc-collection-header, .rc-faq, .rc-story, .rc-trust-end, .rc-policy, .announcement-marquee, .rc-promo-bar, .rc-category-nav, .rc-cart-empty, .rc-empty-cart, .rc-contact-hero, .rc-contact-board, .rc-guide) a:not([class*='__cta']):not([class*='__pill']):not(.rc-cart-empty__login-link):not(.rc-contact-aside__link) {
   color: inherit;
   text-decoration: none;
 }
