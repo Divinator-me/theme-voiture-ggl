@@ -7,6 +7,8 @@
   assign pack_id = pack_product.id
   assign trio_gift = all_products['batterie-offerte-produit-rc-lab']
   assign trio_gift_variant = trio_gift.selected_or_first_available_variant
+  assign extra_battery = all_products['batterie-supplementaire-produit-rc-lab']
+  assign extra_battery_variant = extra_battery.selected_or_first_available_variant
   assign accessory_handles = 'batterie-supplementaire-produit-rc-lab,chargeur-secteur-haute-capacite-rc-lab,batterie-offerte-produit-rc-lab' | split: ','
 -%}
 
@@ -15,7 +17,8 @@
   class="rc-pack-picker"
   data-product-id="{{ pack_id }}"
   data-unit-price="{{ unit_cents }}"
-  {% if trio_gift_variant %}data-trio-gift-variant-id="{{ trio_gift_variant.id }}"{% endif %}
+  {% if trio_gift_variant %}data-gift-battery-variant-id="{{ trio_gift_variant.id }}" data-trio-gift-variant-id="{{ trio_gift_variant.id }}"{% endif %}
+  {% if extra_battery_variant %}data-extra-battery-variant-id="{{ extra_battery_variant.id }}"{% endif %}
 >
   <script type="application/json" data-rc-pack-variants>
     {

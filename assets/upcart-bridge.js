@@ -148,6 +148,7 @@
       const request = args[0];
       const url = String(typeof request === 'string' ? request : request?.url || '');
 
+      if (window.RCLAB?.internalCartAdd) return response;
       if (CART_ADD_PATTERN.test(url)) {
         response
           .clone()

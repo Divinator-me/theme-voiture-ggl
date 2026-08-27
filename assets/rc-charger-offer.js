@@ -67,33 +67,47 @@
       this.setAttribute('data-bypass', 'true');
       this.#close();
 
-      const formData = new FormData();
-      formData.append('id', String(variantId));
-      formData.append('quantity', '1');
+      const addCharger = () => {
+        const formData = new FormData();
+        formData.append('id', String(variantId));
+        formData.append('quantity', '1');
 
-      fetch('/cart/add.js', {
-        method: 'POST',
-        credentials: 'same-origin',
-        headers: { Accept: 'application/json' },
-        body: formData,
-      })
-        .then((response) => response.json().then((data) => ({ ok: response.ok, data })))
-        .then(({ ok, data }) => {
-          if (!ok || data?.status) {
-            return fetch('/cart/add.js', {
-              method: 'POST',
-              credentials: 'same-origin',
-              headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-              },
-              body: JSON.stringify({
-                items: [{ id: variantId, quantity: 1 }],
-              }),
-            }).then((response) => response.json());
-          }
-          return data;
+        return fetch('/cart/add.js', {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: { Accept: 'application/json' },
+          body: formData,
         })
+          .then((response) => response.json().then((data) => ({ ok: response.ok, data })))
+          .then(({ ok, data }) => {
+            if (!ok || data?.status) {
+              return fetch('/cart/add.js', {
+                method: 'POST',
+                credentials: 'same-origin',
+                headers: {
+                  'Content-Type': 'application/json',
+                  Accept: 'application/json',
+                },
+                body: JSON.stringify({
+                  items: [{ id: variantId, quantity: 1 }],
+                }),
+              }).then((response) => response.json());
+            }
+            return data;
+          });
+      };
+
+      const waitForBundle = () => {
+        const ready = window.RCLAB?.bundleReady;
+        if (!ready) return Promise.resolve();
+        return Promise.race([
+          ready.catch(() => {}),
+          new Promise((resolve) => window.setTimeout(resolve, 12000)),
+        ]);
+      };
+
+      waitForBundle()
+        .then(() => addCharger())
         .catch(() => {})
         .finally(() => {
           window.RCLAB = window.RCLAB || {};

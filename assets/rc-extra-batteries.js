@@ -1,12 +1,10 @@
 (() => {
   window.RCLAB = window.RCLAB || {};
 
-  const CART_ADD_PATTERN = /\/cart\/add(\.js)?(\?|$)/;
   const EXTRA_ROOT = () => document.querySelector('.rc-extra-batteries');
 
   let selectedQty = 0;
   let variantId = '';
-  let addingExtras = false;
 
   const readFromDom = () => {
     const root = EXTRA_ROOT();
@@ -33,47 +31,8 @@
     return { variantId: String(id), quantity: qty };
   };
 
-  const addExtraBatteries = async () => {
-    const extra = extraBatteryItem();
-    if (!extra || addingExtras) return null;
-
-    addingExtras = true;
-
-    try {
-      const cart = await fetch('/cart.js', { credentials: 'same-origin' }).then((response) => response.json());
-      const existing = (cart.items || []).find((item) => String(item.variant_id) === extra.variantId);
-      const needed = extra.quantity - (existing?.quantity || 0);
-      if (needed < 1) return cart;
-
-      const response = await fetch('/cart/add.js', {
-        method: 'POST',
-        credentials: 'same-origin',
-        headers: {
-          Accept: 'application/json',
-        },
-        body: (() => {
-          const body = new FormData();
-          body.append('id', extra.variantId);
-          body.append('quantity', String(needed));
-          return body;
-        })(),
-      });
-
-      const data = await response.json();
-      if (typeof window.upcartRefreshCart === 'function' && !window.RCLAB.cartOpenBlocked) {
-        window.upcartRefreshCart();
-      }
-      return data;
-    } catch (error) {
-      return null;
-    } finally {
-      addingExtras = false;
-    }
-  };
-
   window.RCLAB.getExtraBatteryItem = extraBatteryItem;
-  window.RCLAB.snapshotExtraBatteries = () => extraBatteryItem();
-  window.RCLAB.flushExtraBatteries = addExtraBatteries;
+  window.RCLAB.snapshotExtraBatteries = extraBatteryItem;
 
   document.addEventListener(
     'click',
@@ -111,27 +70,6 @@
     },
     true
   );
-
-  const nativeFetch = window.fetch.bind(window);
-  window.fetch = async (...args) => {
-    if (addingExtras || window.RCLAB?.addingGiftBattery) return nativeFetch(...args);
-
-    const response = await nativeFetch(...args);
-    const request = args[0];
-    const url = String(typeof request === 'string' ? request : request?.url || '');
-
-    if (!CART_ADD_PATTERN.test(url) || extraBatteryItem() == null) return response;
-
-    const payload = await response
-      .clone()
-      .json()
-      .catch(() => null);
-
-    if (!payload || payload.status) return response;
-
-    await addExtraBatteries();
-    return response;
-  };
 
   const syncFromDom = () => {
     const fromDom = readFromDom();
