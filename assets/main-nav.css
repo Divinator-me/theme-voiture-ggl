@@ -466,27 +466,12 @@ body .rc-menu-overlay button.rc-menu-overlay__link {
     box-shadow: none;
   }
 
-  .rc-main-nav::after {
-    content: "";
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 3;
-    height: 1px;
-    pointer-events: none;
-    background: var(--color-red);
-    box-shadow:
-      0 0 3px 0.5px rgb(255 45 45 / 95%),
-      0 0 8px 2px rgb(255 45 45 / 55%),
-      0 0 16px 4px rgb(255 45 45 / 28%);
-  }
-
   .rc-main-nav__mobile {
     display: none;
   }
 
   .rc-main-nav__desktop {
+    position: relative;
     display: flex;
     gap: 24px;
     align-items: center;
@@ -498,6 +483,22 @@ body .rc-menu-overlay button.rc-menu-overlay__link {
     margin: 0 auto;
     padding: 0 32px;
     box-sizing: border-box;
+  }
+
+  .rc-main-nav__desktop::after {
+    content: "";
+    position: absolute;
+    right: 32px;
+    bottom: 0;
+    left: 32px;
+    z-index: 3;
+    height: 1px;
+    pointer-events: none;
+    background: var(--color-red);
+    box-shadow:
+      0 0 3px 0.5px rgb(255 45 45 / 95%),
+      0 0 8px 2px rgb(255 45 45 / 55%),
+      0 0 16px 4px rgb(255 45 45 / 28%);
   }
 
   .rc-main-nav__brand--desktop {
