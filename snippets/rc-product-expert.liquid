@@ -1,0 +1,214 @@
+{%- doc -%}
+  Avis conseiller expert RC LAB, sous les notes, au-dessus du texte de description.
+  Note = moyenne des 4 criteres /5. Texte combine par produit, jamais identique.
+{%- enddoc -%}
+
+{%- liquid
+  assign expert_product = product
+  if expert_product == blank
+    assign expert_product = closest.product
+  endif
+
+  assign expert_title = expert_product.title | default: ''
+  assign expert_handle = expert_product.handle | default: ''
+  assign expert_hay = expert_title | append: ' ' | append: expert_handle | downcase
+
+  assign expert_skip = false
+  if expert_hay contains 'batterie' or expert_hay contains 'chargeur'
+    assign expert_skip = true
+  endif
+-%}
+
+{%- unless expert_skip -%}
+{%- liquid
+  assign expert_id = expert_product.id | plus: 0
+  assign expert_speed = snapshot_speed | default: ''
+  assign expert_auto = snapshot_autonomy | default: ''
+  assign expert_cat = snapshot_cat | default: ''
+
+  if expert_hay contains 'crawler'
+    assign expert_kind = 'crawler'
+  elsif expert_cat != blank
+    assign expert_kind = expert_cat
+  else
+    assign expert_kind = 'generic'
+  endif
+
+  assign expert_road = snapshot_road_raw | plus: 0
+  assign expert_shock = snapshot_shock_raw | plus: 0
+  assign expert_hand = snapshot_hand_raw | plus: 0
+  assign expert_kiff = snapshot_kiff_raw | plus: 0
+  assign expert_sum = expert_road | plus: expert_shock | plus: expert_hand | plus: expert_kiff
+  assign expert_avg5 = expert_sum | times: 125 | plus: 500 | divided_by: 1000
+  if expert_avg5 > 50
+    assign expert_avg5 = 50
+  endif
+  if expert_avg5 < 35
+    assign expert_avg5 = 35
+  endif
+  assign expert_score = expert_avg5 | divided_by: 10 | append: ',' | append: expert_avg5 | modulo: 10
+
+  assign expert_names = 'Alexis,Tom,Maxime,Léo' | split: ','
+  assign expert_files = 'expert-rc-alexis.jpg,expert-rc-tom.jpg,expert-rc-maxime.jpg,expert-rc-leo.jpg' | split: ','
+  assign expert_i = expert_id | modulo: 4
+  assign expert_name = expert_names[expert_i]
+  assign expert_file = expert_files[expert_i]
+-%}
+
+{%- capture expert_hooks_generic -%}
+Ce qui me plaît sur ce modèle, c'est qu'on a enfin une RC pensée pour encaisser le terrain sans finir en morceaux au bout de trois sorties.||Franchement, c'est une voiture que tu sors souvent, pas celle que tu protèges trop par peur de la casser.||Le vrai plus, c'est qu'on sort du piège des RC jetables : ça tape, ça continue, et tu restes en session.||Ce que je retiens, c'est une machine faite pour durer, pas un jouet qui lâche au premier choc un peu franc.||On sent tout de suite que c'est pensé pour le vrai usage, pas pour une démo de deux minutes.||Si tu en as marre des voitures qui meurent trop tôt, celle-là est pile dans l'esprit RC LAB.
+{%- endcapture -%}
+{%- capture expert_hooks_monster -%}
+Ce 4x4 est fait pour les bosses, l'herbe et les cailloux, pas pour rester sur le tapis du salon.||Ce qui me plaît, c'est la masse : ça passe l'herbe haute sans se mettre à plat au premier trou.||Tu peux oser le terrain un peu sale, c'est exactement pour ça que ce monster est dans le garage.||Le fun, c'est de viser un obstacle et de voir que le châssis encaisse au lieu de se tordre.||C'est le genre de 4x4 qui te remet le sourire : tu casses moins, tu roules plus.
+{%- endcapture -%}
+{%- capture expert_hooks_buggy -%}
+Un buggy comme ça, c'est le fun immédiat, avec assez de grip pour oser le terrain sans le regretter.||Ce qui me plaît, c'est la polyvalence : herbe, chemin, allée, ça ne se plante pas au premier virage.||Tu veux du rythme sans une machine trop précieuse, ce buggy coche exactement ça.||Le châssis reste lisible, même quand tu coupes à travers une pelouse un peu molle.||C'est le bon mix : assez vif pour kiffer, assez costaud pour ne pas stresser à chaque choc.
+{%- endcapture -%}
+{%- capture expert_hooks_drift -%}
+Là tu cherches le glisse, pas un jouet qui part en vrille n'importe comment.||Ce qui me plaît, c'est le contrôle : tu poses le drift, tu le tiens, et ça reste lisible.||Sur un parking vide, tu as enfin une RC qui invite à travailler l'angle, pas à subir.||Le train arrière lâche quand tu le décides, pas tout seul au premier coup de gaz.||C'est le plaisir drift sans la crainte de tout démonter au bout de deux sessions.
+{%- endcapture -%}
+{%- capture expert_hooks_piste -%}
+Sur le bitume, tu veux de la tenue, pas une voiture qui flotte dès que tu pousses.||Ce qui me plaît, c'est la précision : ça reste collé, même quand tu ouvres un peu plus.||Tu traces, tu freines, tu reprends : la voiture reste là où tu l'as mise.||C'est le modèle pour ceux qui aiment les trajectoires nettes, pas le chaos.||Le fun piste, c'est ça : vitesse propre, châssis sain, et zéro impression de jouet mou.
+{%- endcapture -%}
+{%- capture expert_hooks_rallye -%}
+C'est le mix que j'aime : un peu de piste, un peu de chemins, sans choisir un camp.||Ce qui me plaît, c'est le rythme rallye. Ça enchaîne, ça encaisse, et ça reste jouable.||Tu passes de l'allée au gravier sans changer de voiture, c'est exactement l'idée.||Assez vive pour kiffer, assez saine pour enchaîner les spéciales du dimanche.||Une trophy comme ça, tu la sors dès qu'il y a un bout de terrain un peu cassé.
+{%- endcapture -%}
+{%- capture expert_hooks_crawler -%}
+Là tu ne cherches pas la pointe de vitesse, tu cherches une machine qui grimpe sans se poser de questions.||Ce qui me plaît, c'est le couple et le contrôle : tu poses une roue, elle accroche, tu continues.||Roches, racines, petites marches : c'est fait pour ça, pas pour une course en ligne droite.||Tu prends le temps, tu vises ta ligne, et le crawler passe au lieu de patiner bêtement.||C'est le plaisir lent et technique, celui où tu souris à chaque obstacle franchi.
+{%- endcapture -%}
+{%- capture expert_proofs_base -%}
+La transmission et les pignons en métal absorbent les chocs contre les bordures, c'est ça qui change tout au bout de dix sorties.||Châssis renforcé, pignons métal, électronique dimensionnée : les pièces invisibles tiennent vraiment.||Les points critiques sont en métal, pas en plastique trop juste, et ça se sent dès les premiers chocs.||Le kit pièces dans la boîte n'est pas un gadget : tu changes un élément et tu repars.
+{%- endcapture -%}
+{%- capture expert_proofs_speed -%}
+Tu as les SPEED km/h, mais c'est surtout la transmission métal qui tient quand ça tape une bordure.||Les SPEED km/h restent utilisables une fois le feeling trouvé, sans l'impression que tout va exploser.||La vitesse est là, SPEED km/h, et le train roulant suit quand tu ouvres sur un vrai terrain.
+{%- endcapture -%}
+{%- capture expert_proofs_auto -%}
+Les 2 batteries incluses, c'est environ AUTO minutes de roule d'affilée, sans rester planté à attendre le chargeur.||Avec 2 batteries, tu swaps et tu repars : AUTO minutes, puis encore une manche.||AUTO minutes par batterie, et tu en as deux : ça fait une vraie session, pas trois tours et au revoir.
+{%- endcapture -%}
+{%- capture expert_proofs_brushless -%}
+Le brushless pousse propre, chauffe moins, et tient mieux dans la durée qu'un petit brushed trop juste.||Moteur brushless : plus de punch, moins d'usure, et tu gardes de la réserve quand le terrain durcit.
+{%- endcapture -%}
+{%- capture expert_proofs_4x4 -%}
+Les 4 roues motrices sortent la voiture des zones un peu molles où un propulsion resterait planté.||En 4x4, tu gardes de la motricité dans l'herbe et les cailloux, sans forcer comme un sourd.
+{%- endcapture -%}
+{%- capture expert_proofs_crawler -%}
+Les ponts et le débattement font le boulot : une roue dans le vide, les autres continuent d'avancer.||Le crawl se joue au gaz tout doux, et la mécanique suit sans à-coups ridicules.
+{%- endcapture -%}
+{%- capture expert_proofs_drift -%}
+Le train est calé pour le glisse : tu déclenches, tu contre-braques, la voiture reste lisible.||Pneus et empattement aident à tenir l'angle, pas à partir en tête-à-queue au premier tour.
+{%- endcapture -%}
+{%- capture expert_proofs_piste -%}
+La tenue de caisse sur bitume, c'est le châssis et les pneus qui travaillent, pas la chance.||Direction vive, assiette saine : tu peux attaquer une corde sans te faire peur pour rien.
+{%- endcapture -%}
+{%- capture expert_trusts -%}
+Si une pièce fatigue, tout est en stock chez RC LAB et se remplace en 10 minutes avec le kit fourni.||Le SAV répond en français sous 48h, et les pièces sont là, pas dans trois semaines.||Kit pièces inclus, stock FR, SAV humain : tu n'es pas seul si un pignon fatigue.||Chez RC LAB, on garde les pièces, on explique la manip, et tu repars rouler vite.||Une pièce qui lâche, ce n'est pas la fin de la voiture : le stock est là, le kit aussi.||C'est le contrat RC LAB : pièces dispo, SAV France, vraie réponse en moins de 48h.
+{%- endcapture -%}
+{%- capture expert_usages_generic -%}
+C'est le genre de RC que tu sors dès qu'il fait beau, et que tu ranges sans te dire que c'était trop fragile.||Idéale pour débuter sérieusement dès 8 ans, avec un adulte pas loin le temps de prendre la main.||Parfait pour ceux qui veulent rouler souvent, pas juste déballer une fois à Noël.
+{%- endcapture -%}
+{%- capture expert_usages_monster -%}
+C'est la voiture idéale pour de vraies sessions outdoor entre père et fils, sans la peur de tout casser.||Le bon plan pour un terrain vague, un jardin costaud, et des après-midi qui durent.
+{%- endcapture -%}
+{%- capture expert_usages_buggy -%}
+Parfait pour un après-midi herbe et chemins, dès 8 ans, avec un adulte dans le coin au début.||Idéale entre potes : tu sors les voitures, tu traces, tu rentres avec le sourire.
+{%- endcapture -%}
+{%- capture expert_usages_drift -%}
+Idéale pour un parking vide, apprendre le glisse, et kiffer sans exploser le budget pièces.||Le bon setup pour des sessions courtes et précises, le soir, sans te prendre la tête.
+{%- endcapture -%}
+{%- capture expert_usages_piste -%}
+Le bon plan pour un bout de bitume propre, des trajectoires nettes, et du fun qui dure.||Idéale si tu veux de la vitesse propre, en solo ou à deux, sans viser le tout-terrain.
+{%- endcapture -%}
+{%- capture expert_usages_rallye -%}
+Idéale pour mixer allée, gravier et petite piste le week-end, sans te prendre la tête.||Le modèle à sortir dès qu'il y a un chemin un peu cassé et envie de rythme.
+{%- endcapture -%}
+{%- capture expert_usages_crawler -%}
+Parfait pour un jardin technique, des racines, des pierres, et une session posée père et fils.||Idéale si tu aimes viser une ligne, avancer doucement, et réussir un passage un peu chaud.
+{%- endcapture -%}
+
+{%- liquid
+  assign expert_hooks = expert_hooks_generic
+  assign expert_usages = expert_usages_generic
+  assign expert_proofs = expert_proofs_base
+
+  case expert_kind
+    when 'monster-truck-4x4'
+      assign expert_hooks = expert_hooks_monster | append: '||' | append: expert_hooks_generic
+      assign expert_usages = expert_usages_monster | append: '||' | append: expert_usages_generic
+      assign expert_proofs = expert_proofs | append: '||' | append: expert_proofs_4x4
+    when 'buggy'
+      assign expert_hooks = expert_hooks_buggy | append: '||' | append: expert_hooks_generic
+      assign expert_usages = expert_usages_buggy | append: '||' | append: expert_usages_generic
+      assign expert_proofs = expert_proofs | append: '||' | append: expert_proofs_4x4
+    when 'drift'
+      assign expert_hooks = expert_hooks_drift | append: '||' | append: expert_hooks_generic
+      assign expert_usages = expert_usages_drift | append: '||' | append: expert_usages_generic
+      assign expert_proofs = expert_proofs | append: '||' | append: expert_proofs_drift
+    when 'piste'
+      assign expert_hooks = expert_hooks_piste | append: '||' | append: expert_hooks_generic
+      assign expert_usages = expert_usages_piste | append: '||' | append: expert_usages_generic
+      assign expert_proofs = expert_proofs | append: '||' | append: expert_proofs_piste
+    when 'rallye-trophy'
+      assign expert_hooks = expert_hooks_rallye | append: '||' | append: expert_hooks_generic
+      assign expert_usages = expert_usages_rallye | append: '||' | append: expert_usages_generic
+    when 'crawler'
+      assign expert_hooks = expert_hooks_crawler | append: '||' | append: expert_hooks_generic
+      assign expert_usages = expert_usages_crawler | append: '||' | append: expert_usages_generic
+      assign expert_proofs = expert_proofs | append: '||' | append: expert_proofs_crawler | append: '||' | append: expert_proofs_4x4
+  endcase
+
+  if expert_speed != blank
+    assign expert_proofs = expert_proofs | append: '||' | append: expert_proofs_speed
+  endif
+  if expert_auto != blank
+    assign expert_proofs = expert_proofs | append: '||' | append: expert_proofs_auto
+  endif
+  if expert_hay contains 'brushless'
+    assign expert_proofs = expert_proofs | append: '||' | append: expert_proofs_brushless
+  endif
+
+  assign expert_hook_list = expert_hooks | split: '||'
+  assign expert_proof_list = expert_proofs | split: '||'
+  assign expert_trust_list = expert_trusts | split: '||'
+  assign expert_usage_list = expert_usages | split: '||'
+
+  assign expert_hook_i = expert_id | modulo: expert_hook_list.size
+  assign expert_proof_i = expert_id | plus: 17 | modulo: expert_proof_list.size
+  assign expert_trust_i = expert_id | plus: 29 | modulo: expert_trust_list.size
+  assign expert_usage_i = expert_id | plus: 41 | modulo: expert_usage_list.size
+
+  assign expert_hook = expert_hook_list[expert_hook_i] | strip
+  assign expert_proof = expert_proof_list[expert_proof_i] | strip
+  assign expert_trust = expert_trust_list[expert_trust_i] | strip
+  assign expert_usage = expert_usage_list[expert_usage_i] | strip
+
+  if expert_speed != blank
+    assign expert_proof = expert_proof | replace: 'SPEED', expert_speed
+  endif
+  if expert_auto != blank
+    assign expert_proof = expert_proof | replace: 'AUTO', expert_auto
+  endif
+-%}
+
+<article class="rc-product-expert" data-rc-product-expert>
+  <div class="rc-product-expert__identity">
+    <div class="rc-product-expert__photo-wrap">
+      <img
+        class="rc-product-expert__photo"
+        src="{{ expert_file | asset_url }}"
+        alt="{{ expert_name }}, conseiller expert RC LAB"
+        width="480"
+        height="480"
+        loading="lazy"
+        decoding="async"
+      >
+      <p class="rc-product-expert__score">{{ expert_score }}/5</p>
+    </div>
+    <p class="rc-product-expert__name">{{ expert_name }}</p>
+    <p class="rc-product-expert__role">Conseiller expert RC LAB</p>
+  </div>
+  <div class="rc-product-expert__quote">
+    <p class="rc-product-expert__kicker">L'avis de nos pilotes</p>
+    <p class="rc-product-expert__text">{{ expert_hook }} {{ expert_proof }} {{ expert_trust }} {{ expert_usage }}</p>
+  </div>
+</article>
+{%- endunless -%}
