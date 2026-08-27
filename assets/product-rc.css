@@ -829,6 +829,34 @@ body:has(sticky-add-to-cart) {
   color: var(--color-price);
 }
 
+.rc-color-clones {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.rc-color-clone {
+  animation: rc-color-clone-in 0.45s var(--ease-smooth) both;
+}
+
+@keyframes rc-color-clone-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rc-color-clone {
+    animation: none;
+  }
+}
+
 .shipping-bar {
   display: inline-flex;
   justify-content: space-between;

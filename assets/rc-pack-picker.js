@@ -1,4 +1,4 @@
-import { StandardEvents } from '@shopify/events';
+import { CartLinesUpdateEvent, StandardEvents } from '@shopify/events';
 import { QuantitySelectorUpdateEvent } from '@theme/events';
 
 const packTotal = (unitCents, qty) => {
@@ -18,29 +18,38 @@ class RcPackPicker extends HTMLElement {
   #priceNodes = [];
   #unitCents = 0;
   #variantPrices = {};
+  #variantMap = [];
   #variantObserver;
+  #cartBound = false;
 
   connectedCallback() {
     this.#radios = Array.from(this.querySelectorAll('.rc-pack-picker__radio'));
     this.#priceNodes = Array.from(this.querySelectorAll('[data-rc-pack-price]'));
     this.#unitCents = Number(this.dataset.unitPrice) || 0;
-    this.#variantPrices = this.#readVariantPrices();
+    this.#variantPrices = this.#readJson('[data-rc-pack-variants]', {});
+    this.#variantMap = this.#readJson('[data-rc-pack-variant-map]', []);
 
     this.#radios.forEach((radio) => {
       radio.addEventListener('change', () => {
         this.#apply();
+        this.#syncColorSteps();
         this.#scrollToNextStep();
       });
     });
 
     this.#watchVariant();
+    this.#bindCartIntercept();
     this.#apply();
+    this.#syncColorSteps();
 
     const section = this.closest('.shopify-section');
     section?.addEventListener(StandardEvents.productSelect, (event) => {
       event.promise
         ?.then(() => {
-          queueMicrotask(() => this.#apply());
+          queueMicrotask(() => {
+            this.#apply();
+            this.#syncColorSteps();
+          });
         })
         .catch(() => {});
     });
@@ -50,17 +59,22 @@ class RcPackPicker extends HTMLElement {
     this.#variantObserver?.disconnect();
   }
 
-  #readVariantPrices() {
-    const node = this.querySelector('[data-rc-pack-variants]');
-    if (!node?.textContent) return {};
+  #readJson(selector, fallback) {
+    const node = this.querySelector(selector);
+    if (!node?.textContent) return fallback;
     try {
       return JSON.parse(node.textContent);
     } catch (error) {
-      return {};
+      return fallback;
     }
   }
 
+  #hasPackChoice() {
+    return this.#radios.some((radio) => radio.checked);
+  }
+
   #selectedQty() {
+    if (!this.#hasPackChoice()) return 1;
     const checked = this.#radios.find((radio) => radio.checked);
     return Number(checked?.value) || 1;
   }
@@ -133,6 +147,175 @@ class RcPackPicker extends HTMLElement {
 
     const selector = document.querySelector('product-form-component quantity-selector-component');
     selector?.setValue?.(String(qty));
+  }
+
+  #colorMaster() {
+    return document.querySelector('.product-information variant-picker .variant-option--buttons');
+  }
+
+  #colorHost(master) {
+    const picker = master.closest('variant-picker');
+    if (!picker) return null;
+
+    let host = picker.nextElementSibling;
+    if (host?.classList.contains('rc-color-clones')) return host;
+
+    host = document.createElement('div');
+    host.className = 'rc-color-clones';
+    picker.after(host);
+    return host;
+  }
+
+  #syncColorSteps() {
+    const master = this.#colorMaster();
+    if (!master) return;
+
+    const needed = this.#selectedQty() - 1;
+    const host = this.#colorHost(master);
+    if (!host) return;
+
+    const existing = Array.from(host.querySelectorAll('.rc-color-clone'));
+
+    if (needed <= 0) {
+      host.replaceChildren();
+      return;
+    }
+
+    existing.slice(needed).forEach((clone) => clone.remove());
+
+    const masterChecked = master.querySelector('input:checked');
+    for (let index = existing.length; index < needed; index += 1) {
+      const clone = master.cloneNode(true);
+      clone.classList.add('rc-color-clone');
+      clone.removeAttribute('ref');
+      clone.querySelectorAll('[ref]').forEach((node) => node.removeAttribute('ref'));
+
+      const legend = clone.querySelector('legend');
+      if (legend) {
+        const vehicle = index + 2;
+        legend.textContent = `Choisissez votre couleur !`;
+        legend.setAttribute('data-rc-color-index', String(vehicle));
+      }
+
+      clone.querySelectorAll('input').forEach((input) => {
+        input.name = `${input.name}-rc-${index + 2}`;
+        input.checked = masterChecked ? input.value === masterChecked.value : input.checked;
+        input.removeAttribute('data-current-checked');
+      });
+
+      host.appendChild(clone);
+    }
+  }
+
+  #batteryValue() {
+    const select = document.querySelector('.product-information .variant-option--dropdowns select');
+    return select?.value?.trim() || '';
+  }
+
+  #colorValues() {
+    const qty = this.#selectedQty();
+    const master = this.#colorMaster();
+    const masterColor = master?.querySelector('input:checked')?.value?.trim() || '';
+    const extras = Array.from(document.querySelectorAll('.rc-color-clone input:checked')).map((input) =>
+      input.value.trim()
+    );
+    const colors = [masterColor, ...extras].filter(Boolean).slice(0, qty);
+    while (colors.length < qty && masterColor) colors.push(masterColor);
+    return colors;
+  }
+
+  #variantIdFor(color, battery) {
+    const colorNorm = color.toLowerCase();
+    const batteryNorm = battery.toLowerCase();
+    const match = this.#variantMap.find((variant) => {
+      const options = (variant.options || []).map((option) => String(option).trim().toLowerCase());
+      const hasColor = options.includes(colorNorm);
+      const hasBattery = !batteryNorm || options.includes(batteryNorm);
+      return hasColor && hasBattery;
+    });
+    return match?.id ? String(match.id) : '';
+  }
+
+  #packCartItems() {
+    const battery = this.#batteryValue();
+    const colors = this.#colorValues();
+    const items = [];
+
+    colors.forEach((color) => {
+      const id = this.#variantIdFor(color, battery);
+      if (!id) return;
+      const existing = items.find((item) => item.variantId === id);
+      if (existing) existing.quantity += 1;
+      else items.push({ variantId: id, quantity: 1 });
+    });
+
+    return items;
+  }
+
+  #bindCartIntercept() {
+    if (this.#cartBound) return;
+    const form = document.querySelector('product-form-component');
+    if (!form) {
+      queueMicrotask(() => this.#bindCartIntercept());
+      return;
+    }
+
+    this.#cartBound = true;
+    form.addEventListener(
+      'submit',
+      (event) => {
+        const items = this.#packCartItems();
+        if (items.length < 2) return;
+
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        this.#addPackItems(form, items);
+      },
+      true
+    );
+  }
+
+  #addPackItems(form, items) {
+    const sections = [];
+    document.querySelectorAll('cart-items-component').forEach((item) => {
+      if (item instanceof HTMLElement && item.dataset.sectionId) sections.push(item.dataset.sectionId);
+    });
+
+    const deferred = CartLinesUpdateEvent.createPromise?.();
+    form.dispatchEvent(
+      new CartLinesUpdateEvent({
+        action: 'add',
+        context: 'product',
+        lines: items.map((item) => ({
+          merchandiseId: item.variantId,
+          quantity: item.quantity,
+        })),
+        promise: deferred?.promise,
+      })
+    );
+
+    fetch(Theme.routes.cart_add_url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        items: items.map((item) => ({
+          id: Number(item.variantId),
+          quantity: item.quantity,
+        })),
+        sections: sections.join(','),
+      }),
+    })
+      .then((response) => response.json())
+      .then((cart) => {
+        deferred?.resolve?.({
+          cart: CartLinesUpdateEvent.createCartFromAjaxResponse?.(cart) || cart,
+          detail: { didError: false, items: cart.items, source: 'rc-pack-picker' },
+        });
+      })
+      .catch((error) => deferred?.reject?.(error));
   }
 
   #apply() {
