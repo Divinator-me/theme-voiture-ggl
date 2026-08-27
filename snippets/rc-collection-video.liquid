@@ -80,6 +80,9 @@
         <source src="{{ video_file | asset_url }}" type="video/mp4">
       </video>
       <span class="rc-collection-video__shade" aria-hidden="true"></span>
+      {%- if credit != blank -%}
+        <span class="rc-collection-video__credit">{{ credit }}</span>
+      {%- endif -%}
       <span class="rc-collection-video__copy">
         <span class="rc-collection-video__kicker">{{ video_kicker }}</span>
         <span class="rc-collection-video__title">{{ video_heading }}</span>
