@@ -5,7 +5,7 @@
   min-width: 0;
   max-width: 100%;
   overflow: hidden;
-  padding: 10px 10px 12px;
+  padding: 0 0 12px;
   border: 1px solid var(--color-gray-200);
   border-radius: 12px;
   background: var(--color-white);
@@ -32,7 +32,7 @@
   position: relative;
   aspect-ratio: 1;
   overflow: hidden;
-  border-radius: 8px;
+  border-radius: 11px 11px 0 0;
   background: var(--color-white);
 }
 
@@ -112,7 +112,7 @@
   flex-direction: column;
   gap: 10px;
   min-height: 168px;
-  padding: 12px 2px 2px;
+  padding: 12px 10px 0;
 }
 
 .rc-product-card__body > :not(.rc-product-card__footer) {
@@ -229,7 +229,7 @@
   box-shadow: 0 8px 22px rgb(255 45 45 / 28%);
   color: var(--color-white);
   cursor: pointer;
-  font: italic 400 18px / 1 var(--font-display);
+  font: italic 400 clamp(16px, 4.8vw, 18px) / 1 var(--font-display);
   letter-spacing: 0.01em;
   text-align: center;
   text-decoration: none;
