@@ -770,7 +770,9 @@ body:has(sticky-add-to-cart) {
 }
 
 .rc-product-desc__content table,
-.rc-product-desc__tab-panel table {
+.rc-product-desc__tab-panel table,
+.rc-product-desc__content.rte table,
+.rc-product-desc__tab-panel.rte table {
   display: block;
   width: 100% !important;
   max-width: 100%;
@@ -792,13 +794,19 @@ body:has(sticky-add-to-cart) {
 }
 
 .rc-product-desc__content table :is(thead, tbody, tfoot),
-.rc-product-desc__tab-panel table :is(thead, tbody, tfoot) {
+.rc-product-desc__tab-panel table :is(thead, tbody, tfoot),
+.rc-product-desc__content.rte table :is(thead, tbody, tfoot),
+.rc-product-desc__tab-panel.rte table :is(thead, tbody, tfoot) {
   display: block;
   width: 100%;
 }
 
 .rc-product-desc__content tr,
-.rc-product-desc__tab-panel tr {
+.rc-product-desc__tab-panel tr,
+.rc-product-desc__content.rte tr,
+.rc-product-desc__tab-panel.rte tr,
+.rc-product-desc__content.rte tr:has(td),
+.rc-product-desc__tab-panel.rte tr:has(td) {
   display: grid;
   grid-template-columns: minmax(8.5rem, 34%) 1fr;
   gap: 8px 22px;
@@ -809,17 +817,23 @@ body:has(sticky-add-to-cart) {
 }
 
 .rc-product-desc__content tr:nth-child(even),
-.rc-product-desc__tab-panel tr:nth-child(even) {
+.rc-product-desc__tab-panel tr:nth-child(even),
+.rc-product-desc__content.rte tr:nth-child(even),
+.rc-product-desc__tab-panel.rte tr:nth-child(even) {
   background: var(--color-gray-50);
 }
 
 .rc-product-desc__content tr:last-child,
-.rc-product-desc__tab-panel tr:last-child {
+.rc-product-desc__tab-panel tr:last-child,
+.rc-product-desc__content.rte tr:last-child,
+.rc-product-desc__tab-panel.rte tr:last-child {
   border-bottom: 0;
 }
 
 .rc-product-desc__content :is(th, td),
-.rc-product-desc__tab-panel :is(th, td) {
+.rc-product-desc__tab-panel :is(th, td),
+.rc-product-desc__content.rte :is(th, td),
+.rc-product-desc__tab-panel.rte :is(th, td) {
   padding: 0;
   border: 0;
   text-align: left;
@@ -828,7 +842,9 @@ body:has(sticky-add-to-cart) {
 }
 
 .rc-product-desc__content :is(th, td):first-child,
-.rc-product-desc__tab-panel :is(th, td):first-child {
+.rc-product-desc__tab-panel :is(th, td):first-child,
+.rc-product-desc__content.rte :is(th, td):first-child,
+.rc-product-desc__tab-panel.rte :is(th, td):first-child {
   color: var(--color-black);
   font-family: var(--font-body);
   font-size: 11px;
@@ -839,13 +855,17 @@ body:has(sticky-add-to-cart) {
 }
 
 .rc-product-desc__content :is(th, td):first-child strong,
-.rc-product-desc__tab-panel :is(th, td):first-child strong {
+.rc-product-desc__tab-panel :is(th, td):first-child strong,
+.rc-product-desc__content.rte :is(th, td):first-child strong,
+.rc-product-desc__tab-panel.rte :is(th, td):first-child strong {
   font-weight: 700;
   color: inherit;
 }
 
 .rc-product-desc__content :is(th, td):last-child,
-.rc-product-desc__tab-panel :is(th, td):last-child {
+.rc-product-desc__tab-panel :is(th, td):last-child,
+.rc-product-desc__content.rte :is(th, td):last-child,
+.rc-product-desc__tab-panel.rte :is(th, td):last-child {
   color: var(--color-gray-700);
   font-size: 14px;
   line-height: 1.55;
@@ -853,7 +873,11 @@ body:has(sticky-add-to-cart) {
 
 @media (max-width: 749px) {
   .rc-product-desc__content tr,
-  .rc-product-desc__tab-panel tr {
+  .rc-product-desc__tab-panel tr,
+  .rc-product-desc__content.rte tr,
+  .rc-product-desc__tab-panel.rte tr,
+  .rc-product-desc__content.rte tr:has(td),
+  .rc-product-desc__tab-panel.rte tr:has(td) {
     grid-template-columns: 1fr;
     gap: 4px;
     padding: 14px 16px;
