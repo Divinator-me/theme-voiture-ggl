@@ -126,7 +126,7 @@
       <ul
         class="product-grid product-grid--{{ section.id }} product-grid--{{ section.settings.layout_type }} {% if section.settings.mobile_product_card_size == 'large' %} product-grid-mobile--large{% endif %}"
         data-testid="product-grid"
-        product-grid-view="mobile-single"
+        product-grid-view="default"
         ref="grid"
         role="list"
         data-last-page="{{ paginate.pages }}"
@@ -142,19 +142,22 @@
               const grid = document.querySelector('.product-grid');
               if (!grid) return;
 
-              const storedLayoutMobile = sessionStorage.getItem('product-grid-view-mobile') || 'mobile-single';
+              const storedLayoutMobile = sessionStorage.getItem('product-grid-view-mobile') || 'default';
               const storedLayoutDesktop = sessionStorage.getItem('product-grid-view-desktop') || 'default';
+
+              // No need to read the window width if no custom layouts were saved.
+              if (storedLayoutMobile === 'default' && storedLayoutDesktop === 'default') return;
 
               let storedLayout = window.innerWidth >= 750 ? storedLayoutDesktop : storedLayoutMobile;
               if (storedLayout === 'zoom-out') {
                 sessionStorage.setItem('product-grid-view-desktop', 'default');
                 storedLayout = 'default';
               }
-              if (window.innerWidth < 750) {
-                storedLayout = 'mobile-single';
-                sessionStorage.setItem('product-grid-view-mobile', 'mobile-single');
+              if (window.innerWidth < 750 && storedLayout === 'mobile-single') {
+                storedLayout = 'default';
+                sessionStorage.setItem('product-grid-view-mobile', 'default');
               }
-              if (storedLayout === 'default' && window.innerWidth >= 750) return;
+              if (storedLayout === 'default') return;
 
               grid.setAttribute('product-grid-view', storedLayout);
 

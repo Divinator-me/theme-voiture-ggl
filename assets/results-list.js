@@ -68,12 +68,12 @@ export default class ResultsList extends PaginatedList {
       return;
     }
 
-    const targetElement = this.querySelector('input[name="grid-mobile"][value="mobile-single"]');
+    const targetElement = this.querySelector('[data-grid-layout="mobile-option"]');
 
     if (!(targetElement instanceof HTMLInputElement)) return;
 
     targetElement.checked = true;
-    this.#setLayout('mobile-single');
+    this.#setLayout('default');
   };
 }
 
