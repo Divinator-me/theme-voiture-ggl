@@ -422,11 +422,12 @@ class RcPackPicker extends HTMLElement {
     if (this.#addingBundle) return;
     this.#addingBundle = true;
 
-    const bundle = this.#mergeItems([
-      ...vehicles,
-      this.#pendingGift || this.#giftBatteryItem(packQty),
-      this.#pendingExtras || this.#readExtraBatteries(),
-    ]);
+    const freshGift = this.#giftBatteryItem(packQty);
+    const freshExtras = this.#readExtraBatteries();
+    const gift = freshGift || this.#pendingGift;
+    const extras = freshExtras || this.#pendingExtras;
+
+    const bundle = this.#mergeItems([...vehicles, gift, extras]);
 
     const deferred = CartLinesUpdateEvent.createPromise?.();
     form.dispatchEvent(
