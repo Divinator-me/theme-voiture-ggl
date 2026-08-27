@@ -1239,11 +1239,15 @@ body:has(sticky-add-to-cart) {
   overflow: hidden;
 }
 
+.product-information .shopify-block:has(.rc-product-trust) {
+  width: 100%;
+}
+
 .product-information .rc-product-trust {
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin: 18px 0 6px;
+  margin: 10px 0 4px;
   padding: 0;
   list-style: none;
   border-top: 1px solid var(--color-gray-200);
