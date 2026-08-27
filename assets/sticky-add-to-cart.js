@@ -1,7 +1,6 @@
 import { Component } from '@theme/component';
 import { ThemeEvents, QuantitySelectorUpdateEvent } from '@theme/events';
 import { morph } from '@theme/morph';
-import { onAnimationEnd } from '@theme/utilities';
 import { StandardEvents, ProductSelectEvent, CartLinesUpdateEvent, CartErrorEvent } from '@shopify/events';
 
 /**
@@ -14,14 +13,6 @@ import { StandardEvents, ProductSelectEvent, CartLinesUpdateEvent, CartErrorEven
  * @property {Object} [featured_media.preview_image] - Preview image data
  * @property {string} [featured_media.preview_image.src] - Image source URL
  * @property {string} [featured_media.alt] - Alt text for the image
- */
-
-/**
- * @typedef {HTMLElement & {
- *   source: Element,
- *   destination: Element,
- *   useSourceSize: string | boolean
- * }} FlyToCart
  */
 
 /**
