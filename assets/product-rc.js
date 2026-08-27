@@ -107,6 +107,25 @@
     return undefined;
   };
 
+  const isThematicPointHeading = (element) => {
+    if (!element || element.nodeType !== Node.ELEMENT_NODE) return false;
+    if (element.classList.contains('rc-desc-section__title')) return true;
+    return element.tagName === 'H3' && resolveSectionId(getSectionTitle(element)) === undefined;
+  };
+
+  const isHighlightList = (element) => {
+    if (!element || element.nodeType !== Node.ELEMENT_NODE) return false;
+    if (element.classList.contains('rc-highlights-cards')) return true;
+    return Boolean(element.querySelector(':scope > .rc-highlight-card'));
+  };
+
+  const hasFullPointSections = (nodes) =>
+    nodes.some(
+      (node) =>
+        node.nodeType === Node.ELEMENT_NODE &&
+        (node.classList.contains('rc-desc-section__title') || node.tagName === 'H3')
+    );
+
   const getParseableNodes = (body) => {
     const nodes = [...body.childNodes].filter(isMeaningfulNode);
     if (nodes.length !== 1 || nodes[0].nodeType !== Node.ELEMENT_NODE) return nodes;
@@ -313,6 +332,13 @@
           currentId = sectionId;
           return;
         }
+        if (isThematicPointHeading(node)) currentId = 'points_fort';
+      } else if (node.nodeType === Node.ELEMENT_NODE && isThematicPointHeading(node)) {
+        currentId = 'points_fort';
+      }
+
+      if (isHighlightList(node) && hasFullPointSections(buckets.get('points_fort') || [])) {
+        return;
       }
 
       buckets.get(currentId).push(node.cloneNode(true));
