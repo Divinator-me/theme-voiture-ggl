@@ -295,25 +295,32 @@ class RcPackPicker extends HTMLElement {
         if (extra) window.RCLAB.pendingExtraBatteries = extra;
 
         const items = this.#packCartItems();
-        if (items.length < 2 && !extra) return;
+        const packQty = this.#selectedQty();
+        if (items.length < 2 && packQty < 2 && !extra) return;
 
         const payload = (items.length
           ? items.map((item) => ({ ...item }))
           : [
               {
                 variantId: String(this.#currentVariantId() || ''),
-                quantity: this.#selectedQty(),
+                quantity: packQty,
               },
             ]
         ).filter((item) => item.variantId);
+
+        if (extra) {
+          payload.push({ variantId: extra.variantId, quantity: extra.quantity });
+          window.RCLAB.pendingExtraBatteries = null;
+          window.RCLAB.extraBatteriesBundled = true;
+        }
 
         if (!payload.length) return;
 
         event.preventDefault();
         event.stopImmediatePropagation();
 
-        this.#addPackItems(productForm, payload).then(() => {
-          window.RCLAB?.flushExtraBatteries?.();
+        this.#addPackItems(productForm, payload).finally(() => {
+          window.RCLAB.extraBatteriesBundled = false;
         });
       },
       true
@@ -358,6 +365,10 @@ class RcPackPicker extends HTMLElement {
     })
       .then((response) => response.json())
       .then((cart) => {
+        if (cart?.status) {
+          deferred?.reject?.(cart);
+          throw cart;
+        }
         deferred?.resolve?.({
           cart: CartLinesUpdateEvent.createCartFromAjaxResponse?.(cart) || cart,
           detail: { didError: false, items: cart.items, source: 'rc-pack-picker' },

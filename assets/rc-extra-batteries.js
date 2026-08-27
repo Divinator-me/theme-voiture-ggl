@@ -6,7 +6,7 @@
     if (!root) return null;
 
     const checked = root.querySelector('input[name="rc-extra-batteries"]:checked');
-    const qty = Number(checked?.value) || 0;
+    const qty = Number(checked?.value || root.getAttribute('data-qty')) || 0;
     const variantId = root.getAttribute('data-variant-id') || checked?.getAttribute('data-variant-id');
     if (qty < 1 || !variantId) return null;
 
@@ -21,7 +21,9 @@
   };
 
   const flushExtraBatteries = () => {
-    const extra = window.RCLAB.pendingExtraBatteries;
+    if (window.RCLAB.extraBatteriesBundled) return Promise.resolve(null);
+
+    const extra = window.RCLAB.pendingExtraBatteries || extraBatteryItem();
     if (!extra || flushing) return Promise.resolve(null);
 
     flushing = true;
@@ -46,6 +48,7 @@
         }).then((response) => response.json());
       })
       .then((result) => {
+        if (result?.status) return result;
         if (typeof window.upcartRefreshCart === 'function' && !window.RCLAB.cartOpenBlocked) {
           window.upcartRefreshCart();
         }
@@ -65,6 +68,19 @@
   const ADD_TRIGGER =
     'product-form-component .add-to-cart-button, product-form-component button[type="submit"]';
 
+  document.addEventListener(
+    'change',
+    (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLInputElement)) return;
+      if (target.name !== 'rc-extra-batteries') return;
+      const root = target.closest('.rc-extra-batteries');
+      if (root) root.setAttribute('data-qty', target.value);
+      snapshotExtraBatteries();
+    },
+    true
+  );
+
   window.addEventListener(
     'click',
     (event) => {
@@ -77,12 +93,17 @@
   );
 
   document.addEventListener('shopify:cart:lines-update', (event) => {
+    if (window.RCLAB.extraBatteriesBundled) return;
     if (!window.RCLAB.pendingExtraBatteries) return;
-    const promise = event.promise;
-    if (promise?.then) {
-      promise.then(() => flushExtraBatteries()).catch(() => flushExtraBatteries());
+
+    const promise = event.promise || event.detail?.promise;
+    const run = () => flushExtraBatteries();
+
+    if (promise && typeof promise.then === 'function') {
+      promise.then(run).catch(run);
       return;
     }
-    flushExtraBatteries();
+
+    window.setTimeout(run, 450);
   });
 })();
