@@ -1,5 +1,4 @@
 .rc-collection-top {
-  --rc-collection-max: 1480px;
   background: var(--color-white);
 }
 
@@ -707,11 +706,6 @@
 
   .rc-collection {
     padding-inline: 24px;
-  }
-
-  .rc-categories--collection .rc-categories__header,
-  .rc-categories--collection .rc-categories__track {
-    max-width: var(--rc-collection-max, 1480px);
   }
 
   .rc-collection .main-collection-grid {
