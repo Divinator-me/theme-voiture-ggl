@@ -115,12 +115,13 @@
     dotsWrap.replaceChildren(...dots);
 
     const update = () => {
-      const trackLeft = track.getBoundingClientRect().left;
+      const origin =
+        track.getBoundingClientRect().left + (parseFloat(getComputedStyle(track).paddingLeft) || 0);
       let best = 0;
       let bestDist = Infinity;
 
       cards.forEach((card, index) => {
-        const dist = Math.abs(card.getBoundingClientRect().left - trackLeft);
+        const dist = Math.abs(card.getBoundingClientRect().left - origin);
         if (dist < bestDist) {
           bestDist = dist;
           best = index;
