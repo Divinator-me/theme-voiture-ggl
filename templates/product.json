@@ -376,7 +376,7 @@
       "name": "Recommandations RC",
       "settings": {
         "product": "{{ closest.product }}",
-        "title": "D'autres monsters trucks ?",
+        "title": "Produits similaires",
         "recommendation_type": "related",
         "max_products": 8
       }

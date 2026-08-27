@@ -6,10 +6,7 @@
 
 {% liquid
   assign current_product = section.settings.product | default: product
-  assign heading = section.settings.title
-  if heading == blank
-    assign heading = 'Produits similaires'
-  endif
+  assign heading = 'Produits similaires'
 
   assign nav_handles = 'monster-truck-4x4,buggy,rallye-trophy,drift,piste' | split: ','
   assign source_collection = collections['monster-truck-4x4']
@@ -27,6 +24,21 @@
         endfor
       endunless
     endfor
+  endif
+
+  if found_nav
+    case source_collection.handle
+      when 'monster-truck-4x4'
+        assign heading = "D'autres monsters trucks ?"
+      when 'buggy'
+        assign heading = "D'autres buggys ?"
+      when 'rallye-trophy'
+        assign heading = "D'autres rallyes ?"
+      when 'drift'
+        assign heading = "D'autres drifts ?"
+      when 'piste'
+        assign heading = "D'autres voitures de piste ?"
+    endcase
   endif
 
   assign ranked_products = nil
