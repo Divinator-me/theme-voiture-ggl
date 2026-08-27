@@ -230,14 +230,6 @@
 .rc-collection .product-grid__item {
   min-width: 0;
   max-width: 100%;
-}
-
-/* Grille standard uniquement — pas de mode dense zoom-out */
-.rc-collection .product-grid[product-grid-view='zoom-out'] {
-  --product-grid-columns-desktop: repeat(auto-fill, minmax(240px, 1fr));
-}
-
-.rc-collection .product-grid__item {
   border: 0;
   padding: 0;
   background: transparent;
