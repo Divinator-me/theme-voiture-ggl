@@ -1331,7 +1331,7 @@ body:has(sticky-add-to-cart) {
 
 .rc-product-snapshot__facts {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(104px, 1fr));
   gap: 8px;
 }
 
@@ -1461,6 +1461,13 @@ body:has(sticky-add-to-cart) {
 @keyframes rc-snapshot-meter {
   to {
     transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rc-product-snapshot__meter-fill {
+    transform: none;
+    animation: none;
   }
 }
 
