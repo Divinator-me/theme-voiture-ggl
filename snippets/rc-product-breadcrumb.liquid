@@ -1,6 +1,6 @@
 {%- liquid
   assign crumb_product = product | default: closest.product
-  assign crumb_collection = nil
+  assign crumb_collection = blank
   assign skip_handles = 'all,frontpage,'
 
   if collection != blank
