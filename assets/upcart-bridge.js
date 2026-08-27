@@ -61,6 +61,7 @@
   const interceptChargerOffer = (cart) => {
     const offer = document.querySelector('rc-charger-offer');
     if (!offer) return false;
+    if (offer.getAttribute('data-bypass') === 'true') return false;
     if (window.RCLAB?.cartOpenBlocked) {
       closeUpcartQuietly();
       if (typeof offer.interceptAdd === 'function') offer.interceptAdd(cart);
