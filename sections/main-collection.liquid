@@ -111,6 +111,19 @@
                     credit_url: 'https://www.youtube.com/shorts/dzm8XDWg4C4'
                   %}
                 {%- endif -%}
+              {%- elsif collection.handle == 'piste' -%}
+                {%- if forloop.index == 2 -%}
+                  {% render 'rc-collection-video',
+                    video: 'rc-collection-piste.mp4',
+                    product_handle: 'lancia-delta-martini-1-14-rc-rclab',
+                    kicker: 'Lancia Delta Martini',
+                    heading: 'Martini Racing, en 1/14.',
+                    cta: 'Voir mes options',
+                    aria_label: 'Lancia Delta Martini Racing',
+                    credit: '@DPModellismo - Youtube',
+                    credit_url: 'https://www.youtube.com/shorts/XbSW_neTNwM'
+                  %}
+                {%- endif -%}
               {%- endif -%}
             {%- endif -%}
           {% endfor %}
