@@ -304,12 +304,6 @@ body:has(sticky-add-to-cart) {
   }
 }
 
-@media (max-width: 767px) {
-  .sticky-add-to-cart__bar {
-    padding-right: 78px;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .sticky-add-to-cart__bar {
     transition: none;
