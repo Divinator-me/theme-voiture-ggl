@@ -7,6 +7,12 @@ const packTotal = (unitCents, qty) => {
   return unitCents;
 };
 
+const GIFT_BATTERIES_BY_PACK = {
+  1: 2,
+  2: 4,
+  3: 7,
+};
+
 const formatMoney = (cents) =>
   `${(cents / 100).toLocaleString('fr-FR', {
     minimumFractionDigits: 2,
