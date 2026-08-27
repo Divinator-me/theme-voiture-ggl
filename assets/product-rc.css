@@ -292,9 +292,11 @@ body.has-sticky-atc-visible {
   .sticky-add-to-cart__bar {
     padding-right: 78px;
   }
+}
 
-  .sticky-add-to-cart__title {
-    display: none;
+@media (prefers-reduced-motion: reduce) {
+  .sticky-add-to-cart__bar {
+    transition: none;
   }
 }
 
