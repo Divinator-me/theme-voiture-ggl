@@ -1036,12 +1036,18 @@ body:has(sticky-add-to-cart) {
   padding-inline: 8px;
 }
 
+.product-information .rc-extra-batteries .variant-option__button-label:has(:checked),
+.product-information .rc-extra-batteries .variant-option__button-label:has(:checked):hover {
+  color: var(--color-black);
+}
+
 .product-information .rc-extra-batteries .variant-option__button-label__text {
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 400;
   letter-spacing: 0.03em;
   text-transform: uppercase;
+  color: inherit;
 }
 
 .rc-color-clones {
