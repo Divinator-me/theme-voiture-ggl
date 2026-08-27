@@ -381,6 +381,10 @@
         "max_products": 8
       }
     },
+    "story_rc": {
+      "type": "story-rc",
+      "settings": {}
+    },
     "faq_rc_Fp4egP": {
       "type": "faq-rc",
       "name": "FAQ RC",
@@ -395,6 +399,7 @@
   "order": [
     "main",
     "product_recommendations_qggXJq",
+    "story_rc",
     "faq_rc_Fp4egP",
     "trust_end_YQaN4c"
   ]
