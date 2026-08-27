@@ -4,7 +4,6 @@
 
 {% liquid
   assign color_option = null
-  assign card_variant = product.selected_or_first_available_variant
 
   for option in product.options_with_values
     assign option_name = option.name | downcase
