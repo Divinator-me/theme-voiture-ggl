@@ -132,7 +132,7 @@ class StickyAddToCartComponent extends Component {
     }
 
     const extra = scope.querySelector('.rc-extra-batteries');
-    if (extra) return extra.querySelector('label') || extra;
+    if (extra) return extra.querySelector('.rc-extra-batteries__head') || extra;
 
     return pack || color || scope.querySelector('.buy-buttons-block');
   }
