@@ -855,6 +855,8 @@ body:has(sticky-add-to-cart) {
 
 .rc-pack-picker__title {
   display: block;
+  overflow: hidden;
+  white-space: nowrap;
   font-family: var(--font-body);
   font-size: 16px;
   font-style: normal;
