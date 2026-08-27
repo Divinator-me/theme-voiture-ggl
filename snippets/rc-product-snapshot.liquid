@@ -141,9 +141,12 @@
   assign snapshot_road_whole = snapshot_road_raw | divided_by: 10
   assign snapshot_shock_whole = snapshot_shock_raw | divided_by: 10
   assign snapshot_hand_whole = snapshot_hand_raw | divided_by: 10
-  assign snapshot_road = snapshot_road_whole | append: ',' | append: snapshot_road_raw | modulo: 10
-  assign snapshot_shock = snapshot_shock_whole | append: ',' | append: snapshot_shock_raw | modulo: 10
-  assign snapshot_hand = snapshot_hand_whole | append: ',' | append: snapshot_hand_raw | modulo: 10
+  assign snapshot_road_tenth = snapshot_road_raw | modulo: 10
+  assign snapshot_shock_tenth = snapshot_shock_raw | modulo: 10
+  assign snapshot_hand_tenth = snapshot_hand_raw | modulo: 10
+  assign snapshot_road = snapshot_road_whole | append: ',' | append: snapshot_road_tenth
+  assign snapshot_shock = snapshot_shock_whole | append: ',' | append: snapshot_shock_tenth
+  assign snapshot_hand = snapshot_hand_whole | append: ',' | append: snapshot_hand_tenth
   assign snapshot_road_pct = snapshot_road_raw
   assign snapshot_shock_pct = snapshot_shock_raw
   assign snapshot_hand_pct = snapshot_hand_raw
