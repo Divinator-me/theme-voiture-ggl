@@ -692,3 +692,118 @@ body:has(sticky-add-to-cart) {
   font-size: 14px;
   line-height: 1.6;
 }
+
+.rc-pack-picker {
+  width: 100%;
+}
+
+.rc-pack-picker__fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.rc-pack-picker__legend {
+  margin: 0 0 10px;
+  padding: 0;
+  font-family: var(--font-display);
+  font-size: clamp(18px, 4.2vw, 22px);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  color: var(--color-black);
+}
+
+.rc-pack-picker__card {
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  cursor: pointer;
+}
+
+.rc-pack-picker__card.is-selected {
+  border-color: var(--color-red);
+  background: #fff7f7;
+}
+
+.rc-pack-picker__radio {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.rc-pack-picker__radio-ui {
+  position: relative;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid #cfcfcf;
+  border-radius: 50%;
+  background: var(--color-white);
+}
+
+.rc-pack-picker__card.is-selected .rc-pack-picker__radio-ui {
+  border-color: var(--color-red);
+}
+
+.rc-pack-picker__card.is-selected .rc-pack-picker__radio-ui::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: var(--color-red);
+}
+
+.rc-pack-picker__icon {
+  display: flex;
+  width: 28px;
+  height: 28px;
+  color: var(--color-black);
+}
+
+.rc-pack-picker__icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.rc-pack-picker__copy {
+  min-width: 0;
+}
+
+.rc-pack-picker__title {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(14px, 3.4vw, 16px);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.rc-pack-picker__price {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  color: var(--color-gray-500);
+}
+
+.rc-pack-picker__price.is-duo {
+  color: #e86a12;
+}
+
+.rc-pack-picker__price.is-trio {
+  color: var(--color-price);
+}
