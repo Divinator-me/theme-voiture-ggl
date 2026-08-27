@@ -103,6 +103,12 @@
   }
 }
 
+@media (min-width: 1280px) {
+  .rc-collection .product-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
 .rc-filters {
   display: grid;
   gap: 22px;

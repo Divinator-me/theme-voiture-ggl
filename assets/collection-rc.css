@@ -1,4 +1,5 @@
 .rc-collection-top {
+  --rc-collection-max: 1480px;
   background: var(--color-white);
 }
 
@@ -48,7 +49,7 @@
 .rc-collection-header__inner {
   position: relative;
   z-index: 2;
-  max-width: 1280px;
+  max-width: var(--rc-collection-max, 1480px);
   margin: 0 auto;
 }
 
@@ -257,7 +258,7 @@
 }
 
 .rc-collection {
-  --rc-collection-max: 1280px;
+  --rc-collection-max: 1480px;
   max-width: var(--rc-collection-max);
   margin-inline: auto;
   padding-inline: 14px;
@@ -706,6 +707,11 @@
 
   .rc-collection {
     padding-inline: 24px;
+  }
+
+  .rc-categories--collection .rc-categories__header,
+  .rc-categories--collection .rc-categories__track {
+    max-width: var(--rc-collection-max, 1480px);
   }
 
   .rc-collection .main-collection-grid {
