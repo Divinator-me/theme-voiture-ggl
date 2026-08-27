@@ -48,7 +48,7 @@
 .rc-collection-header__inner {
   position: relative;
   z-index: 2;
-  max-width: var(--rc-collection-max, 1480px);
+  max-width: 1280px;
   margin: 0 auto;
 }
 
