@@ -15,6 +15,9 @@
         id="rc-extra-batteries-{{ extra.id }}"
         class="variant-option__select"
         name="rc-extra-batteries"
+        {% unless extra_variant.available %}
+          disabled
+        {% endunless %}
       >
         <option value="0" selected>Aucune</option>
         {%- for count in (1..5) -%}
