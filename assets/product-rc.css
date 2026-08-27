@@ -1570,6 +1570,7 @@ body:has(sticky-add-to-cart) {
 .rc-product-expert__photo-wrap {
   position: relative;
   width: 112px;
+  margin-bottom: 20px;
 }
 
 .rc-product-expert__photo {
@@ -1602,7 +1603,8 @@ body:has(sticky-add-to-cart) {
 }
 
 .rc-product-expert__name {
-  margin: 28px 0 4px;
+  margin: 0 0 4px;
+  padding-top: 6px;
   color: var(--color-black);
   font-family: var(--font-display);
   font-size: clamp(22px, 5vw, 28px);
@@ -1627,7 +1629,7 @@ body:has(sticky-add-to-cart) {
   position: relative;
   z-index: 1;
   min-width: 0;
-  padding-top: 10px;
+  padding-top: 4px;
 }
 
 .rc-product-expert__kicker {
@@ -1654,7 +1656,8 @@ body:has(sticky-add-to-cart) {
 
 .rc-product-expert__text {
   position: relative;
-  margin: 4px 0 0;
+  margin: 0;
+  padding-top: 18px;
   color: #3a3a3a;
   font-size: 12.5px;
   font-style: italic;
@@ -1668,19 +1671,21 @@ body:has(sticky-add-to-cart) {
   margin: 0;
 }
 
-.rc-product-desc__tab-panel .rc-product-expert__name,
-.rc-product-desc__content .rc-product-expert__name {
-  margin: 28px 0 4px;
+.rc-product-desc__tab-panel p.rc-product-expert__name,
+.rc-product-desc__content p.rc-product-expert__name {
+  margin: 0 0 4px;
+  padding-top: 6px;
 }
 
-.rc-product-desc__tab-panel .rc-product-expert__kicker,
-.rc-product-desc__content .rc-product-expert__kicker {
-  margin: 0 0 14px;
+.rc-product-desc__tab-panel p.rc-product-expert__kicker,
+.rc-product-desc__content p.rc-product-expert__kicker {
+  margin: 0;
 }
 
-.rc-product-desc__tab-panel .rc-product-expert__text,
-.rc-product-desc__content .rc-product-expert__text {
-  margin: 4px 0 0;
+.rc-product-desc__tab-panel p.rc-product-expert__text,
+.rc-product-desc__content p.rc-product-expert__text {
+  margin: 0;
+  padding-top: 18px;
 }
 
 @media (max-width: 639px) {
@@ -1701,6 +1706,10 @@ body:has(sticky-add-to-cart) {
     height: auto;
   }
 
+  .rc-product-expert__photo-wrap {
+    margin-bottom: 16px;
+  }
+
   .rc-product-expert__photo {
     height: 88px;
   }
@@ -1713,11 +1722,12 @@ body:has(sticky-add-to-cart) {
   }
 
   .rc-product-expert__name {
-    margin-top: 24px;
+    padding-top: 4px;
     font-size: 20px;
   }
 
   .rc-product-expert__text {
+    padding-top: 14px;
     font-size: 12px;
     line-height: 1.48;
   }
