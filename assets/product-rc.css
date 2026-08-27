@@ -226,6 +226,7 @@ sticky-add-to-cart {
 }
 
 .sticky-add-to-cart__variant-select {
+  display: none;
   max-width: 180px;
   height: 48px;
   padding: 0 36px 0 14px;
