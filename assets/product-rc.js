@@ -170,7 +170,7 @@
   };
 
   const KEYWORD_SKIP_SELECTOR =
-    'h1, h2, h3, h4, h5, h6, strong, b, a, button, script, style, svg, code, .rc-desc-section__pitch, .rc-desc-section__title, .rc-desc-section__label, .rc-highlight-card__title, .rc-product-snapshot, .rc-product-snapshot *, .rc-product-expert, .rc-product-expert *';
+    'h1, h2, h3, h4, h5, h6, strong, b, a, button, script, style, svg, code, .rc-desc-section__pitch, .rc-desc-section__title, .rc-desc-section__label, .rc-highlight-card__title, .rc-product-snapshot, .rc-product-snapshot *, .rc-product-expert, .rc-product-expert *, .rc-product-repair, .rc-product-repair *';
 
   const keywordTerm = (term) => `(?<![A-Za-zÀ-ÿ0-9])(?:${term})(?![A-Za-zÀ-ÿ0-9])`;
 
@@ -378,6 +378,13 @@
       const toutSavoirNodes = buckets.get('tout_savoir') || [];
       toutSavoirNodes.unshift(snapshot);
       buckets.set('tout_savoir', toutSavoirNodes);
+    }
+
+    const repair = root.querySelector('[data-rc-product-repair]');
+    if (repair) {
+      const caracteristiquesNodes = buckets.get('caracteristiques') || [];
+      caracteristiquesNodes.unshift(repair);
+      buckets.set('caracteristiques', caracteristiquesNodes);
     }
 
     return buckets;
