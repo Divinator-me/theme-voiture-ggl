@@ -55,12 +55,76 @@
     assign snapshot_age = '8'
   endif
 
+  assign snapshot_cat = ''
+  assign snapshot_cat_priority = 'drift,piste,monster-truck-4x4,rallye-trophy,buggy' | split: ','
+  for handle in snapshot_cat_priority
+    if snapshot_cat == blank
+      for col in snapshot_product.collections
+        if col.handle == handle
+          assign snapshot_cat = handle
+          break
+        endif
+      endfor
+    endif
+  endfor
+
+  if snapshot_cat == blank
+    assign snapshot_blob = snapshot_title | append: ' ' | append: snapshot_handle | downcase
+    for tag in snapshot_product.tags
+      assign snapshot_blob = snapshot_blob | append: ' ' | append: tag | downcase
+    endfor
+    if snapshot_blob contains 'drift'
+      assign snapshot_cat = 'drift'
+    elsif snapshot_blob contains 'piste' or snapshot_blob contains 'touring' or snapshot_blob contains 'on-road'
+      assign snapshot_cat = 'piste'
+    elsif snapshot_blob contains 'rallye' or snapshot_blob contains 'trophy'
+      assign snapshot_cat = 'rallye-trophy'
+    elsif snapshot_blob contains 'monster' or snapshot_blob contains '4x4' or snapshot_blob contains 'crawler'
+      assign snapshot_cat = 'monster-truck-4x4'
+    elsif snapshot_blob contains 'buggy'
+      assign snapshot_cat = 'buggy'
+    endif
+  endif
+
+  assign snapshot_pool_road = '0|1|2|3|4'
+  assign snapshot_pool_shock = '0|1|2|3|4'
+  assign snapshot_pool_hand = '0|1|2|3|4'
+
+  case snapshot_cat
+    when 'monster-truck-4x4'
+      assign snapshot_pool_road = '1|2|3|3|4'
+      assign snapshot_pool_shock = '3|3|4|4|4'
+      assign snapshot_pool_hand = '0|0|1|1|2'
+    when 'buggy'
+      assign snapshot_pool_road = '1|2|2|3|3'
+      assign snapshot_pool_shock = '2|3|3|4|4'
+      assign snapshot_pool_hand = '2|2|3|3|4'
+    when 'rallye-trophy'
+      assign snapshot_pool_road = '2|3|3|4|4'
+      assign snapshot_pool_shock = '2|2|3|3|4'
+      assign snapshot_pool_hand = '1|2|2|3|3'
+    when 'drift'
+      assign snapshot_pool_road = '0|1|1|2|2'
+      assign snapshot_pool_shock = '0|1|1|2|2'
+      assign snapshot_pool_hand = '3|3|4|4|4'
+    when 'piste'
+      assign snapshot_pool_road = '3|3|4|4|4'
+      assign snapshot_pool_shock = '0|0|1|1|2'
+      assign snapshot_pool_hand = '2|3|3|4|4'
+  endcase
+
   assign snapshot_id = snapshot_product.id | plus: 0
   assign snapshot_score_pool = '7|7,5|8|8,5|9' | split: '|'
   assign snapshot_pct_pool = '70|75|80|85|90' | split: '|'
-  assign snapshot_i_road = snapshot_id | modulo: 5
-  assign snapshot_i_shock = snapshot_id | plus: 11 | modulo: 5
-  assign snapshot_i_hand = snapshot_id | plus: 23 | modulo: 5
+  assign snapshot_road_keys = snapshot_pool_road | split: '|'
+  assign snapshot_shock_keys = snapshot_pool_shock | split: '|'
+  assign snapshot_hand_keys = snapshot_pool_hand | split: '|'
+  assign snapshot_road_mod = snapshot_id | modulo: snapshot_road_keys.size
+  assign snapshot_shock_mod = snapshot_id | plus: 11 | modulo: snapshot_shock_keys.size
+  assign snapshot_hand_mod = snapshot_id | plus: 23 | modulo: snapshot_hand_keys.size
+  assign snapshot_i_road = snapshot_road_keys[snapshot_road_mod] | plus: 0
+  assign snapshot_i_shock = snapshot_shock_keys[snapshot_shock_mod] | plus: 0
+  assign snapshot_i_hand = snapshot_hand_keys[snapshot_hand_mod] | plus: 0
   assign snapshot_road = snapshot_score_pool[snapshot_i_road]
   assign snapshot_shock = snapshot_score_pool[snapshot_i_shock]
   assign snapshot_hand = snapshot_score_pool[snapshot_i_hand]
