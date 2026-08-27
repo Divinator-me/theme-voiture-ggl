@@ -196,11 +196,10 @@
     }
 
     menuOverlay?.addEventListener('click', (event) => {
-      if (event.target === menuOverlay) closeAll();
-    });
-
-    menuPanel?.addEventListener('click', (event) => {
-      event.stopPropagation();
+      if (event.target === menuOverlay || event.target.closest('[data-menu-close]')) {
+        event.preventDefault();
+        closeAll();
+      }
     });
 
     window.addEventListener('resize', () => {
