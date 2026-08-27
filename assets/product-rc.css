@@ -1784,7 +1784,7 @@ body:has(sticky-add-to-cart) {
   display: inline-flex;
   gap: 6px;
   align-items: center;
-  margin: 0 0 6px;
+  margin: 0 0 11px;
   color: var(--color-gray-500);
   font-size: 10px;
   font-weight: 800;
@@ -1900,7 +1900,7 @@ body:has(sticky-add-to-cart) {
 
 .rc-product-desc__tab-panel .rc-product-repair__kicker,
 .rc-product-desc__content .rc-product-repair__kicker {
-  margin: 0 0 6px;
+  margin: 0 0 11px;
 }
 
 .rc-product-desc__tab-panel .rc-product-repair__title,
