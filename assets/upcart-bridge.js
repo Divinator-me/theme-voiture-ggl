@@ -42,9 +42,31 @@
     }
   };
 
+  const installOpenPatch = () => {
+    if (typeof window.upcartOpenCart !== 'function') return;
+    if (window.upcartOpenCart.__rcPatched) return;
+
+    const originalOpen = window.upcartOpenCart.bind(window);
+    const patched = (...args) => {
+      if (window.RCLAB?.cartOpenBlocked) {
+        closeUpcartQuietly();
+        return;
+      }
+      return originalOpen(...args);
+    };
+    patched.__rcPatched = true;
+    window.upcartOpenCart = patched;
+  };
+
   const interceptChargerOffer = (cart) => {
     const offer = document.querySelector('rc-charger-offer');
-    if (!offer || typeof offer.interceptAdd !== 'function') return false;
+    if (!offer) return false;
+    if (window.RCLAB?.cartOpenBlocked) {
+      closeUpcartQuietly();
+      if (typeof offer.interceptAdd === 'function') offer.interceptAdd(cart);
+      return true;
+    }
+    if (typeof offer.interceptAdd !== 'function') return false;
     if (!offer.interceptAdd(cart)) return false;
     closeUpcartQuietly();
     return true;
@@ -52,10 +74,17 @@
 
   const notifyUpcartAfterAdd = (cart) => {
     syncCartCount();
+    installOpenPatch();
 
     if (interceptChargerOffer(cart)) return;
 
     whenUpcartReady(() => {
+      installOpenPatch();
+      if (window.RCLAB?.cartOpenBlocked) {
+        closeUpcartQuietly();
+        return;
+      }
+
       if (typeof window.upcartRegisterAddToCart === 'function') {
         window.upcartRegisterAddToCart();
         return;
@@ -70,7 +99,11 @@
   };
 
   const openUpcart = () => {
+    if (window.RCLAB?.cartOpenBlocked) return;
+
     whenUpcartReady(() => {
+      installOpenPatch();
+      if (window.RCLAB?.cartOpenBlocked) return;
       if (typeof window.upcartRefreshCart === 'function') {
         window.upcartRefreshCart();
       }
@@ -135,6 +168,8 @@
   });
 
   whenUpcartReady(() => {
+    installOpenPatch();
+
     if (typeof window.upcartSubscribeCartUpdated === 'function') {
       window.upcartSubscribeCartUpdated((event) => {
         updateCartCount(getItemCount(event.cart));

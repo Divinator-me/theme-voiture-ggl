@@ -5,6 +5,8 @@
  */
 
 const openStoreCart = async () => {
+  if (window.RCLAB?.cartOpenBlocked) return;
+
   if (typeof window.RCLAB?.openCart === 'function') {
     window.RCLAB.openCart();
     return;

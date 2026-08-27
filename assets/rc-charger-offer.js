@@ -11,13 +11,10 @@
       });
 
       this.querySelector('[data-rc-charger-accept]')?.addEventListener('click', () => this.accept());
-      this.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape') this.dismiss();
-      });
     }
 
     interceptAdd(cart) {
-      if (this.#bypass) return false;
+      if (this.#bypass || this.getAttribute('data-bypass') === 'true') return false;
       if (this.classList.contains('is-open')) return true;
 
       const variantId = this.dataset.variantId;
@@ -31,35 +28,44 @@
       return true;
     }
 
+    arm() {
+      if (this.#bypass || this.getAttribute('data-bypass') === 'true') return false;
+      window.RCLAB = window.RCLAB || {};
+      window.RCLAB.cartOpenBlocked = true;
+      this.open();
+      return true;
+    }
+
     open() {
       this.#lastFocus = document.activeElement;
       this.hidden = false;
       this.classList.add('is-open');
       this.removeAttribute('hidden');
       document.body.classList.add('has-rc-charger-offer');
+      window.RCLAB = window.RCLAB || {};
+      window.RCLAB.cartOpenBlocked = true;
       this.#closeUpcart();
       this.#armUpcartGuard();
       this.querySelector('[data-rc-charger-accept]')?.focus();
     }
 
     dismiss() {
-      this.#bypass = true;
+      this.#release();
       this.#close();
       window.RCLAB?.openCart?.();
     }
 
     accept() {
       const variantId = Number(this.dataset.variantId);
-      const addUrl = '/cart/add.js';
       if (!variantId) {
         this.dismiss();
         return;
       }
 
-      this.#bypass = true;
+      this.#release();
       this.#close();
 
-      fetch(addUrl, {
+      fetch('/cart/add.js', {
         method: 'POST',
         credentials: 'same-origin',
         headers: {
@@ -74,6 +80,14 @@
         .finally(() => {
           window.RCLAB?.openCart?.();
         });
+    }
+
+    #release() {
+      this.#bypass = true;
+      this.setAttribute('data-bypass', 'true');
+      window.RCLAB = window.RCLAB || {};
+      window.RCLAB.cartOpenBlocked = false;
+      this.#clearUpcartGuard();
     }
 
     #close() {
@@ -95,8 +109,8 @@
 
     #armUpcartGuard() {
       this.#clearUpcartGuard();
-      this.#closeTimer = window.setInterval(() => this.#closeUpcart(), 180);
-      this.#guardTimeout = window.setTimeout(() => this.#clearUpcartGuard(), 1800);
+      this.#closeTimer = window.setInterval(() => this.#closeUpcart(), 80);
+      this.#guardTimeout = window.setTimeout(() => this.#clearUpcartGuard(), 4000);
     }
 
     #clearUpcartGuard() {
@@ -114,4 +128,35 @@
   if (!customElements.get('rc-charger-offer')) {
     customElements.define('rc-charger-offer', RcChargerOffer);
   }
+
+  const ADD_TRIGGER =
+    'product-form-component .add-to-cart-button, product-form-component button[type="submit"], sticky-add-to-cart .sticky-add-to-cart__button';
+
+  document.addEventListener(
+    'click',
+    (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      if (!target.closest(ADD_TRIGGER)) return;
+
+      const offer = document.querySelector('rc-charger-offer');
+      if (!offer || typeof offer.arm !== 'function') return;
+      offer.arm();
+    },
+    true
+  );
+
+  document.addEventListener(
+    'submit',
+    (event) => {
+      const form = event.target;
+      if (!(form instanceof Element)) return;
+      if (!form.closest('product-form-component')) return;
+
+      const offer = document.querySelector('rc-charger-offer');
+      if (!offer || typeof offer.arm !== 'function') return;
+      offer.arm();
+    },
+    true
+  );
 })();
