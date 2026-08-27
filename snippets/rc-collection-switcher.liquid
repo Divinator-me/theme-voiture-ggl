@@ -1,15 +1,27 @@
 {% comment %}
   Carrousel collections, même bloc que la landing.
+  context: 'about' = taille landing, sans le mode compact des pages collection.
 {% endcomment %}
 
-{% assign switcher_items = 'Monster Truck / 4x4|monster-truck-4x4||Buggy|buggy||Rallye / Trophy Truck|rallye-trophy||Drift|drift||Piste|piste' | split: '||' %}
+{% liquid
+  assign switcher_items = 'Monster Truck / 4x4|monster-truck-4x4||Buggy|buggy||Rallye / Trophy Truck|rallye-trophy||Drift|drift||Piste|piste' | split: '||'
+  if context == 'about'
+    assign switcher_class = 'rc-categories'
+    assign switcher_label = 'Collections voitures RC'
+    assign switcher_hint = 'Glissez pour explorer'
+  else
+    assign switcher_class = 'rc-categories rc-categories--collection'
+    assign switcher_label = 'Changer de collection'
+    assign switcher_hint = 'Glissez pour découvrir'
+  endif
+%}
 
-<section class="rc-categories rc-categories--collection" aria-label="Changer de collection">
+<section class="{{ switcher_class }}" aria-label="{{ switcher_label }}">
   <div class="rc-categories__header">
     <h2 class="rc-categories__title">Nos collections</h2>
     <p class="rc-categories__hint">
       <span class="rc-categories__hint-arrow" aria-hidden="true">→</span>
-      Glissez pour découvrir
+      {{ switcher_hint }}
     </p>
   </div>
 

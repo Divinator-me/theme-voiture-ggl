@@ -73,6 +73,22 @@
   </div>
 </section>
 
+{% liquid
+  assign rc_show_about_collections = false
+  if template.name == 'page'
+    if page.handle == 'a-propos' or page.handle == 'qui-sommes-nous'
+      assign rc_show_about_collections = true
+    endif
+    if template.suffix == 'a-propos' or template.suffix == 'qui-sommes-nous'
+      assign rc_show_about_collections = true
+    endif
+  endif
+%}
+{% if rc_show_about_collections %}
+  {{ 'categories-grid.css' | asset_url | stylesheet_tag }}
+  {% render 'rc-collection-switcher', context: 'about' %}
+{% endif %}
+
 {% schema %}
 {
   "name": "Best sellers",
