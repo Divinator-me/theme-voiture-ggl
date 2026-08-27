@@ -87,6 +87,8 @@
 {% if rc_show_about_collections %}
   {{ 'categories-grid.css' | asset_url | stylesheet_tag }}
   {% render 'rc-collection-switcher', context: 'about' %}
+  {{ 'faq-rc.css' | asset_url | stylesheet_tag }}
+  {% section 'faq-rc' %}
 {% endif %}
 
 {% schema %}
