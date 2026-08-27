@@ -40,10 +40,11 @@
   .rc-collection__main.collection-wrapper.grid {
     display: flex;
     flex-direction: column;
+    min-width: 0;
     max-width: none;
     margin: 0;
     padding: 0;
-    overflow: visible;
+    overflow-x: clip;
   }
 
   .rc-collection__main .facets-block-wrapper,
