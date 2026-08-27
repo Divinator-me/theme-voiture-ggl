@@ -27,17 +27,17 @@ class RcPackPicker extends HTMLElement {
     this.#variantPrices = this.#readVariantPrices();
 
     this.#radios.forEach((radio) => {
-      radio.addEventListener('change', () => this.#apply(true));
+      radio.addEventListener('change', () => this.#apply());
     });
 
     this.#watchVariant();
-    this.#apply(false);
+    this.#apply();
 
     const section = this.closest('.shopify-section');
     section?.addEventListener(StandardEvents.productSelect, (event) => {
       event.promise
         ?.then(() => {
-          queueMicrotask(() => this.#apply(false));
+          queueMicrotask(() => this.#apply());
         })
         .catch(() => {});
     });
