@@ -27,7 +27,10 @@ class RcPackPicker extends HTMLElement {
     this.#variantPrices = this.#readVariantPrices();
 
     this.#radios.forEach((radio) => {
-      radio.addEventListener('change', () => this.#apply());
+      radio.addEventListener('change', () => {
+        this.#apply();
+        this.#scrollToNextStep();
+      });
     });
 
     this.#watchVariant();
@@ -159,6 +162,29 @@ class RcPackPicker extends HTMLElement {
         maximumFractionDigits: 2,
       })}€`;
     }
+  }
+
+  #scrollToNextStep() {
+    const scope = this.closest('.product-information') || document;
+    const colorStep =
+      scope.querySelector('.variant-option--buttons') ||
+      [...scope.querySelectorAll('.variant-option')].find((option) => /couleur/i.test(option.textContent || ''));
+
+    if (!colorStep) return;
+
+    const header = document.querySelector('.rc-main-nav');
+    const headerHeight = header?.getBoundingClientRect().height || 0;
+    const rect = colorStep.getBoundingClientRect();
+    if (rect.top >= headerHeight + 8 && rect.top < window.innerHeight * 0.5) return;
+
+    const offset = headerHeight + 16;
+    const top = colorStep.getBoundingClientRect().top + window.scrollY - offset;
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    window.scrollTo({
+      top: Math.max(0, top),
+      behavior: prefersReduced ? 'auto' : 'smooth',
+    });
   }
 }
 
