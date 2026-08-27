@@ -46,7 +46,9 @@
   if expert_avg5 < 35
     assign expert_avg5 = 35
   endif
-  assign expert_score = expert_avg5 | divided_by: 10 | append: ',' | append: expert_avg5 | modulo: 10
+  assign expert_score_whole = expert_avg5 | divided_by: 10
+  assign expert_score_frac = expert_avg5 | modulo: 10
+  assign expert_score = expert_score_whole | append: ',' | append: expert_score_frac
 
   assign expert_names = 'Alexis,Tom,Maxime,Léo' | split: ','
   assign expert_files = 'expert-rc-alexis.jpg,expert-rc-tom.jpg,expert-rc-maxime.jpg,expert-rc-leo.jpg' | split: ','
@@ -89,7 +91,7 @@ Les 2 batteries incluses, c'est environ AUTO minutes de roule d'affilée, sans r
 Le brushless pousse propre, chauffe moins, et tient mieux dans la durée qu'un petit brushed trop juste.||Moteur brushless : plus de punch, moins d'usure, et tu gardes de la réserve quand le terrain durcit.
 {%- endcapture -%}
 {%- capture expert_proofs_4x4 -%}
-Les 4 roues motrices sortent la voiture des zones un peu molles où un propulsion resterait planté.||En 4x4, tu gardes de la motricité dans l'herbe et les cailloux, sans forcer comme un sourd.
+Les 4 roues motrices sortent la voiture des zones un peu molles où un 2WD resterait planté.||En 4x4, tu gardes de la motricité dans l'herbe et les cailloux, sans forcer comme un sourd.
 {%- endcapture -%}
 {%- capture expert_proofs_crawler -%}
 Les ponts et le débattement font le boulot : une roue dans le vide, les autres continuent d'avancer.||Le crawl se joue au gaz tout doux, et la mécanique suit sans à-coups ridicules.
