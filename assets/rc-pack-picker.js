@@ -352,52 +352,52 @@ class RcPackPicker extends HTMLElement {
     if (this.#cartBound) return;
     this.#cartBound = true;
 
-    const isProductAddForm = (formEl) => {
-      if (!(formEl instanceof HTMLFormElement)) return false;
-      if (formEl.getAttribute('data-type') !== 'add-to-cart-form') return false;
-      const productForm = formEl.closest('product-form-component');
-      if (!productForm || formEl.closest('quick-add, .quick-add-modal')) return false;
-      return productForm;
+    const findProductForm = (button) => {
+      const productForm = button.closest('product-form-component');
+      if (!productForm) return null;
+      if (button.closest('quick-add, .quick-add-modal')) return null;
+      const form = productForm.querySelector('form[data-type="add-to-cart-form"]');
+      if (!form) return null;
+      return { productForm, form };
     };
 
-    document.addEventListener(
-      'click',
-      (event) => {
-        const target = event.target;
-        if (!(target instanceof Element)) return;
-        if (
-          !target.closest(
-            'product-form-component .add-to-cart-button, product-form-component button[type="submit"]'
-          )
-        ) {
-          return;
-        }
-        this.#beginBundleGate();
-      },
-      true
-    );
+    const handleAtcInterception = (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      const button = target.closest(
+        'product-form-component .add-to-cart-button, product-form-component button[type="submit"]'
+      );
+      if (!button) return;
 
+      const context = findProductForm(button);
+      if (!context) return;
+
+      this.#beginBundleGate();
+
+      const packQty = this.#selectedQty();
+      const vehicles = this.#packCartItems();
+      if (!vehicles.length) {
+        this.#finishBundleGate();
+        return;
+      }
+
+      event.preventDefault();
+      event.stopImmediatePropagation();
+
+      this.#addBundle(context.form, vehicles, packQty);
+    };
+
+    window.addEventListener('click', handleAtcInterception, true);
     window.addEventListener(
       'submit',
       (event) => {
         const formEl = event.target;
-        const productForm = isProductAddForm(formEl);
-        if (!productForm) return;
-
-        this.#beginBundleGate();
-        this.#pendingGift = this.#giftBatteryItem(this.#selectedQty()) || this.#pendingGift;
-        this.#pendingExtras = this.#readExtraBatteries() || this.#pendingExtras;
-
-        const packQty = this.#selectedQty();
-        const vehicles = this.#packCartItems();
-        if (!vehicles.length) {
-          this.#finishBundleGate();
-          return;
-        }
-
+        if (!(formEl instanceof HTMLFormElement)) return;
+        if (formEl.getAttribute('data-type') !== 'add-to-cart-form') return;
+        if (!formEl.closest('product-form-component')) return;
+        if (formEl.closest('quick-add, .quick-add-modal')) return;
         event.preventDefault();
         event.stopImmediatePropagation();
-        this.#addBundle(productForm, vehicles, packQty);
       },
       true
     );
