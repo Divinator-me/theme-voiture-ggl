@@ -16,10 +16,23 @@
     "best_sellers": {
       "type": "best-sellers",
       "settings": {}
+    },
+    "categories_grid": {
+      "type": "categories-grid",
+      "settings": {
+        "collections": [
+          "monster-truck-4x4",
+          "buggy",
+          "drift",
+          "rallye-trophy",
+          "piste"
+        ]
+      }
     }
   },
   "order": [
     "qui_sommes_nous",
-    "best_sellers"
+    "best_sellers",
+    "categories_grid"
   ]
 }
