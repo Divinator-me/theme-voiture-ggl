@@ -71,8 +71,13 @@
             >
               {% render 'rc-product-card', product: product %}
             </li>
-            {%- if collection.handle == 'monster-truck-4x4' and paginate.current_page == 1 and forloop.index == 6 -%}
-              {% render 'rc-collection-video' %}
+            {%- if collection.handle == 'monster-truck-4x4' and paginate.current_page == 1 -%}
+              {%- if forloop.index == 2 -%}
+                {% render 'rc-collection-photo' %}
+              {%- endif -%}
+              {%- if forloop.index == 6 -%}
+                {% render 'rc-collection-video' %}
+              {%- endif -%}
             {%- endif -%}
           {% endfor %}
         {% endcapture %}

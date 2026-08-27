@@ -1,0 +1,27 @@
+{%- liquid
+  assign bestseller = all_products['monster-truck-rc-1-16-brushless-75-rclab']
+  if bestseller != empty and bestseller.url
+    assign bestseller_url = bestseller.url
+  else
+    assign bestseller_url = '/products/monster-truck-rc-1-16-brushless-75-rclab'
+  endif
+-%}
+
+<li class="product-grid__item rc-collection-video rc-collection-video--photo" aria-label="L'un de nos best-sellers">
+  <a class="rc-collection-video__link rc-collection-video__cta-link" href="{{ bestseller_url }}">
+    <img
+      class="rc-collection-video__media"
+      src="{{ 'rc-collection-monster-bestseller.webp' | asset_url }}"
+      alt=""
+      width="800"
+      height="800"
+      loading="lazy"
+    >
+    <span class="rc-collection-video__shade" aria-hidden="true"></span>
+    <span class="rc-collection-video__copy">
+      <span class="rc-collection-video__kicker">L'un de nos best-sellers</span>
+      <span class="rc-collection-video__title">Son châssis et ses 75 km/h n'ont jamais rencontré d'ennemi à leur hauteur.</span>
+      <span class="rc-collection-video__cta">Voir mes options <b aria-hidden="true">→</b></span>
+    </span>
+  </a>
+</li>

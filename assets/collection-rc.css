@@ -350,6 +350,11 @@
   .rc-collection-video {
     grid-column: 1 / -1;
   }
+
+  .rc-collection-video--photo .rc-collection-video__title {
+    max-width: none;
+    font-size: 16px;
+  }
 }
 
 @media (min-width: 750px) {
@@ -387,6 +392,11 @@
   .rc-collection-video__cta {
     padding: 8px 12px;
     font-size: 11px;
+  }
+
+  .rc-collection-video--photo .rc-collection-video__title {
+    max-width: none;
+    font-size: 18px;
   }
 }
 
