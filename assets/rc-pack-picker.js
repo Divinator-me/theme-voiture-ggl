@@ -222,7 +222,10 @@ class RcPackPicker extends HTMLElement {
     const extra = document.querySelector('.rc-extra-batteries');
     if (!extra) return null;
 
-    const qty = Number(extra.querySelector('select')?.value) || 0;
+    const select = extra.querySelector('select');
+    if (!select || select.disabled) return null;
+
+    const qty = Number(select.value) || 0;
     const variantId = extra.dataset.variantId;
     if (qty < 1 || !variantId) return null;
 
