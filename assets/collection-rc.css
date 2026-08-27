@@ -389,6 +389,20 @@
   background: linear-gradient(180deg, rgb(0 0 0 / 4%) 28%, rgb(0 0 0 / 78%) 100%);
 }
 
+.rc-collection-video__credit {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  z-index: 2;
+  color: var(--color-white);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  pointer-events: none;
+  text-shadow: 0 1px 8px rgb(0 0 0 / 55%);
+}
+
 .rc-collection-video__copy {
   position: absolute;
   right: 16px;
