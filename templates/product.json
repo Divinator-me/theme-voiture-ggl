@@ -254,6 +254,14 @@
               },
               "blocks": {}
             },
+            "rc_extra_batteries": {
+              "type": "custom-liquid",
+              "name": "Batteries supplémentaires",
+              "settings": {
+                "custom_liquid": "{% render 'rc-extra-batteries', product: product %}"
+              },
+              "blocks": {}
+            },
             "custom_liquid_ma39Xw": {
               "type": "custom-liquid",
               "name": "t:names.custom_liquid",
@@ -341,6 +349,7 @@
             "rc_pack_picker",
             "variant_picker_couleur",
             "variant_picker_batteries",
+            "rc_extra_batteries",
             "custom_liquid_ma39Xw",
             "buy_buttons_eYQEYi",
             "rc_product_description"
