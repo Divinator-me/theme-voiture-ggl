@@ -629,10 +629,24 @@ body:has(sticky-add-to-cart) {
 }
 
 .rc-product-desc__tabs-nav--bottom .rc-product-desc__tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   border-bottom: none;
   border-top: 3px solid transparent;
   margin-bottom: 0;
   margin-top: -1px;
+}
+
+.rc-product-desc__tabs-nav--bottom .rc-product-desc__tab:not(.is-active)::after {
+  content: '';
+  width: 7px;
+  height: 7px;
+  margin-top: 3px;
+  border-top: 1.75px solid currentColor;
+  border-right: 1.75px solid currentColor;
+  transform: rotate(-45deg);
 }
 
 .rc-product-desc__tabs-nav--bottom .rc-product-desc__tab.is-active,
