@@ -112,6 +112,15 @@
   const bindMenuLinks = () => {
     if (!menuOverlay) return;
 
+    menuOverlay.querySelectorAll('[data-menu-close]').forEach((btn) => {
+      if (btn.dataset.menuBound === 'true') return;
+      btn.dataset.menuBound = 'true';
+      btn.addEventListener('click', (event) => {
+        event.preventDefault();
+        closeAll();
+      });
+    });
+
     menuOverlay.querySelectorAll('.rc-menu-overlay__link[href], .rc-menu-overlay__sub a, .rc-menu-overlay__footer a, [data-rc-quiz-open]').forEach((link) => {
       if (link.dataset.menuBound === 'true') return;
       link.dataset.menuBound = 'true';
@@ -142,8 +151,8 @@
     nav = document.querySelector('[data-main-nav]');
     if (!nav) return;
 
-    menuOverlay = nav.querySelector('[data-menu-overlay]');
-    menuPanel = nav.querySelector('.rc-menu-overlay__panel');
+    menuOverlay = nav.querySelector('[data-menu-overlay]') || document.querySelector('[data-menu-overlay]');
+    menuPanel = menuOverlay?.querySelector('.rc-menu-overlay__panel') || null;
     searchOverlay = nav.querySelector('[data-search-overlay]');
     searchOpen = nav.querySelector('[data-search-open]');
     searchClose = nav.querySelector('[data-search-close]');
