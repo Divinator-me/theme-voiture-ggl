@@ -94,7 +94,15 @@
 }
 
 .product-information .variant-option legend,
-.product-information .variant-option--dropdowns > label {
+.product-information .variant-option--dropdowns > label,
+.rc-pack-picker__legend,
+.product-information .rc-extra-batteries > label {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 0 10px;
+  padding: 2px 0 2px 10px;
+  border-left: 4px solid var(--color-red);
   font-family: var(--font-display);
   font-size: clamp(18px, 4.2vw, 22px);
   font-style: italic;
@@ -836,15 +844,7 @@ body:has(sticky-add-to-cart) {
 }
 
 .rc-pack-picker__legend {
-  margin: 0 0 10px;
-  padding: 0;
-  font-family: var(--font-display);
-  font-size: clamp(18px, 4.2vw, 22px);
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  line-height: 1.1;
-  color: var(--color-black);
+  float: none;
 }
 
 .rc-pack-picker__card {
