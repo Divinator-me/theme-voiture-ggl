@@ -171,16 +171,20 @@ class RcPackPicker extends HTMLElement {
     if (!master) return;
 
     const needed = this.#selectedQty() - 1;
+    const picker = master.closest('variant-picker');
+    const existingHost = picker?.nextElementSibling?.classList.contains('rc-color-clones')
+      ? picker.nextElementSibling
+      : null;
+
+    if (needed <= 0) {
+      existingHost?.remove();
+      return;
+    }
+
     const host = this.#colorHost(master);
     if (!host) return;
 
     const existing = Array.from(host.querySelectorAll('.rc-color-clone'));
-
-    if (needed <= 0) {
-      host.replaceChildren();
-      return;
-    }
-
     existing.slice(needed).forEach((clone) => clone.remove());
 
     const masterChecked = master.querySelector('input:checked');
