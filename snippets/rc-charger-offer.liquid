@@ -1,0 +1,57 @@
+{%- liquid
+  assign offer = all_products['chargeur-secteur-haute-capacite-rc-lab']
+  assign offer_variant = offer.selected_or_first_available_variant
+  assign current = product | default: closest.product
+  assign skip_handles = 'chargeur-secteur-haute-capacite-rc-lab,batterie-supplementaire-produit-rc-lab'
+-%}
+
+{%- if request.page_type == 'product' and offer != empty and offer.id and offer_variant and current.handle != offer.handle -%}
+  {%- unless skip_handles contains current.handle -%}
+    {{ 'rc-charger-offer.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'rc-charger-offer.js' | asset_url }}" defer></script>
+
+    <rc-charger-offer
+      class="rc-charger-offer"
+      hidden
+      data-variant-id="{{ offer_variant.id }}"
+    >
+      <div class="rc-charger-offer__overlay" data-rc-charger-dismiss></div>
+      <div
+        class="rc-charger-offer__dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="rc-charger-offer-title"
+        tabindex="-1"
+      >
+        <h2 id="rc-charger-offer-title" class="rc-charger-offer__title">Accessoire offert !</h2>
+        <p class="rc-charger-offer__sub">Félicitations ! Choisis ton accessoire offert :</p>
+
+        <div class="rc-charger-offer__product">
+          {%- if offer.featured_image -%}
+            <img
+              class="rc-charger-offer__image"
+              src="{{ offer.featured_image | image_url: width: 480 }}"
+              srcset="{{ offer.featured_image | image_url: width: 240 }} 240w, {{ offer.featured_image | image_url: width: 480 }} 480w"
+              sizes="220px"
+              width="220"
+              height="220"
+              alt="{{ offer.title | escape }}"
+              loading="lazy"
+            >
+          {%- endif -%}
+          {%- if offer_variant.price == 0 -%}
+            <p class="rc-charger-offer__flag">Offert</p>
+          {%- endif -%}
+          <p class="rc-charger-offer__name">{{ offer.title | escape }}</p>
+          <button class="rc-charger-offer__accept" type="button" data-rc-charger-accept>
+            ACCEPTER
+          </button>
+        </div>
+
+        <button class="rc-charger-offer__close" type="button" data-rc-charger-dismiss>
+          Fermer
+        </button>
+      </div>
+    </rc-charger-offer>
+  {%- endunless -%}
+{%- endif -%}
