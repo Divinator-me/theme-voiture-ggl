@@ -19,6 +19,13 @@
       {%- endfor -%}
     }
   </script>
+  <script type="application/json" data-rc-pack-variant-map>
+    [
+      {%- for pack_variant in pack_product.variants -%}
+        {"id":{{ pack_variant.id }},"available":{{ pack_variant.available }},"options":{{ pack_variant.options | json }}}{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    ]
+  </script>
 
   <fieldset class="rc-pack-picker__fieldset">
     <legend class="rc-pack-picker__legend">Combien pour votre entourage ?</legend>
