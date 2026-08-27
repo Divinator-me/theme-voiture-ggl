@@ -150,6 +150,114 @@
     });
   };
 
+  const KEYWORD_SKIP_SELECTOR =
+    'h1, h2, h3, h4, h5, h6, strong, b, a, button, script, style, svg, code, .rc-desc-section__pitch, .rc-desc-section__title, .rc-desc-section__label, .rc-highlight-card__title';
+
+  const keywordTerm = (term) => `(?<![A-Za-zÀ-ÿ0-9])(?:${term})(?![A-Za-zÀ-ÿ0-9])`;
+
+  const KEYWORD_PATTERN = new RegExp(
+    [
+      keywordTerm("pièces d['’]origine"),
+      keywordTerm('pièces détachées'),
+      keywordTerm('support technique'),
+      keywordTerm('transmission intégrale'),
+      keywordTerm('quatre roues motrices'),
+      keywordTerm('4 roues motrices'),
+      keywordTerm('suspensions à long débattement'),
+      keywordTerm('suspensions indépendantes'),
+      keywordTerm('ready[\\s-]?to[\\s-]?run'),
+      keywordTerm('2 cellules Li-?Po'),
+      keywordTerm('2 cellules Lipo'),
+      keywordTerm('moteur sans balais'),
+      keywordTerm('moteur brushless'),
+      keywordTerm('moteur brushed'),
+      keywordTerm('châssis étanche'),
+      keywordTerm('boîtier étanche'),
+      keywordTerm('électronique étanche'),
+      keywordTerm('carrosserie étanche'),
+      keywordTerm('mini maxx'),
+      keywordTerm('monster truck'),
+      keywordTerm('trophy truck'),
+      keywordTerm('rallye-raid'),
+      keywordTerm('anti-wheeling'),
+      '\\d+\\s*km\\/h',
+      '1\\/(?:5|8|10|12|14|16|18|24)',
+      '2[.,]4\\s*GHz',
+      '\\d+(?:[.,]\\d+)?\\s*V(?![A-Za-zÀ-ÿ0-9])',
+      '\\d+\\s*mAh',
+      '\\d+\\s*kV',
+      '\\d{2,3}\\s*A(?![A-Za-zÀ-ÿ0-9])',
+      keywordTerm('BL-2S'),
+      keywordTerm('[2-4]S'),
+      '\\d+\\s*minutes',
+      keywordTerm('brushless'),
+      keywordTerm('brushed'),
+      keywordTerm('étanchéité'),
+      keywordTerm('étanche'),
+      keywordTerm('Traxxas'),
+      keywordTerm('Blackzon'),
+      keywordTerm('Maxx'),
+      keywordTerm('4x4'),
+      keywordTerm('4WD'),
+      keywordTerm('RTR'),
+      keywordTerm('ESC'),
+      keywordTerm('Li-?Po'),
+      keywordTerm('Lipo'),
+      keywordTerm('LED'),
+    ].join('|'),
+    'gi'
+  );
+
+  const enhanceKeywords = (root) => {
+    if (root.dataset.rcKeywordsReady === 'true') return;
+
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        const parent = node.parentElement;
+        if (!parent || parent.closest(KEYWORD_SKIP_SELECTOR)) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      },
+    });
+
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+
+    nodes.forEach((textNode) => {
+      const text = textNode.nodeValue;
+      KEYWORD_PATTERN.lastIndex = 0;
+      if (!KEYWORD_PATTERN.test(text)) return;
+
+      KEYWORD_PATTERN.lastIndex = 0;
+      const fragment = document.createDocumentFragment();
+      let lastIndex = 0;
+      let match;
+
+      while ((match = KEYWORD_PATTERN.exec(text))) {
+        if (match.index > lastIndex) {
+          fragment.appendChild(document.createTextNode(text.slice(lastIndex, match.index)));
+        }
+        const strong = document.createElement('strong');
+        strong.textContent = match[0];
+        fragment.appendChild(strong);
+        lastIndex = match.index + match[0].length;
+      }
+
+      if (lastIndex < text.length) {
+        fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
+      }
+
+      textNode.replaceWith(fragment);
+    });
+
+    root.dataset.rcKeywordsReady = 'true';
+  };
+
+  const enhanceContent = (root) => {
+    enhanceMedia(root);
+    enhanceKeywords(root);
+  };
+
   const nodesFromHtml = (html) => {
     const temp = document.createElement('div');
     temp.innerHTML = html;
@@ -260,7 +368,7 @@
         const isActive = panelIndex === index;
         panel.hidden = !isActive;
         panel.classList.toggle('is-active', isActive);
-        if (isActive) enhanceMedia(panel);
+        if (isActive) enhanceContent(panel);
       });
 
       if (!scrollToPanel || !panels.children[index]) return;
@@ -295,7 +403,7 @@
       panel.setAttribute('aria-labelledby', `rc-desc-tab-${section.id}`);
       panel.hidden = index !== 0;
       section.nodes.forEach((node) => panel.appendChild(node));
-      if (index === 0) enhanceMedia(panel);
+      if (index === 0) enhanceContent(panel);
 
       panels.appendChild(panel);
     });
@@ -326,7 +434,7 @@
     const content = document.createElement('div');
     content.className = 'rc-product-desc__content rte';
     nodes.forEach((node) => content.appendChild(node));
-    enhanceMedia(content);
+    enhanceContent(content);
 
     details.append(createSummary(config.label, config.icon), content);
     return details;
