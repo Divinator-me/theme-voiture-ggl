@@ -24,6 +24,10 @@
   transform: translateY(-2px);
 }
 
+.rc-product-card--bestseller {
+  overflow: visible;
+}
+
 .rc-product-card__media {
   position: relative;
 }
@@ -295,8 +299,6 @@
 
 @media (min-width: 750px) {
   .rc-product-card__bestseller {
-    top: 12px;
-    right: 12px;
     padding: 7px 11px;
     font-size: 12px;
   }
