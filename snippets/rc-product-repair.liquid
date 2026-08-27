@@ -1,0 +1,146 @@
+{%- doc -%}
+  Score de reparabilite, en tete de l'onglet Caracteristiques.
+{%- enddoc -%}
+
+{%- liquid
+  assign repair_product = product
+  if repair_product == blank
+    assign repair_product = closest.product
+  endif
+
+  assign repair_title = repair_product.title | default: ''
+  assign repair_handle = repair_product.handle | default: ''
+  assign repair_hay = repair_title | append: ' ' | append: repair_handle | downcase
+
+  assign repair_skip = false
+  if repair_hay contains 'batterie' or repair_hay contains 'chargeur'
+    assign repair_skip = true
+  endif
+-%}
+
+{%- unless repair_skip -%}
+{%- liquid
+  assign repair_id = repair_product.id | plus: 0
+  assign repair_price = repair_product.price_min | default: repair_product.price | plus: 0
+  assign repair_bias = repair_price | minus: 6000 | times: 100 | divided_by: 22000
+  if repair_bias < 0
+    assign repair_bias = 0
+  endif
+  if repair_bias > 100
+    assign repair_bias = 100
+  endif
+
+  assign repair_raw = repair_id | modulo: 8 | plus: 33
+  assign repair_lift = repair_bias | times: 7 | divided_by: 100
+  assign repair_raw = repair_raw | plus: repair_lift
+  if repair_hay contains 'brushless'
+    assign repair_raw = repair_raw | plus: 1
+  endif
+  if repair_raw < 33
+    assign repair_raw = 33
+  endif
+  if repair_raw > 46
+    assign repair_raw = 46
+  endif
+
+  assign repair_score_whole = repair_raw | divided_by: 10
+  assign repair_score_frac = repair_raw | modulo: 10
+  assign repair_score = repair_score_whole | append: ',' | append: repair_score_frac
+  assign repair_pct = repair_raw | times: 2
+
+  if repair_raw <= 35
+    assign repair_label = 'Réparable avec un peu de méthode'
+  elsif repair_raw <= 39
+    assign repair_label = 'Réparable sans difficulté'
+  elsif repair_raw <= 43
+    assign repair_label = 'Réparation simple'
+  else
+    assign repair_label = 'Réparation rapide'
+  endif
+-%}
+
+<article
+  class="rc-product-repair"
+  data-rc-product-repair
+  style="--rc-repair-pct: {{ repair_pct }}%;"
+  aria-label="Score de réparabilité {{ repair_score }} sur 5, {{ repair_label }}"
+>
+  <div class="rc-product-repair__head">
+    <div class="rc-product-repair__badge" aria-hidden="true">
+      <span class="rc-product-repair__value">{{ repair_score }}</span>
+      <span class="rc-product-repair__denom">/ 5</span>
+    </div>
+
+    <div class="rc-product-repair__intro">
+      <p class="rc-product-repair__kicker">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M14.5 4.5 19.5 9.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+          <path d="M16.8 7.2 9 15l-1.8 4.2L11 17.4l7.8-7.8" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+          <path d="M4.8 19.2c1.8-1.8 4.2-1.2 5.2-.2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+        </svg>
+        Score de réparabilité
+      </p>
+      <p class="rc-product-repair__title">{{ repair_label }}</p>
+      <div
+        class="rc-product-repair__scale"
+        role="meter"
+        aria-valuemin="0"
+        aria-valuemax="5"
+        aria-valuenow="{{ repair_score | replace: ',', '.' }}"
+        aria-label="Score de réparabilité"
+      >
+        <div class="rc-product-repair__track">
+          <span class="rc-product-repair__fill"></span>
+          <span class="rc-product-repair__thumb"></span>
+        </div>
+        <div class="rc-product-repair__ticks" aria-hidden="true">
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ul class="rc-product-repair__points">
+    <li>
+      <span class="rc-product-repair__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M12 4.5v2.2M12 17.3v2.2M4.5 12h2.2M17.3 12h2.2M6.7 6.7l1.6 1.6M15.7 15.7l1.6 1.6M17.3 6.7l-1.6 1.6M8.3 15.7l-1.6 1.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span>Pièces détachées disponibles à l'unité</span>
+    </li>
+    <li>
+      <span class="rc-product-repair__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M8 5.5h8l3 3.5v11a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1v-13.5A1 1 0 0 1 8 5.5Z" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M16 5.5V9h3.2M9 12.5h6M9 16h4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span>Kit pièces et notice inclus dans la boîte</span>
+    </li>
+    <li>
+      <span class="rc-product-repair__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M8 8.5V5.8a2.3 2.3 0 1 1 4.6 0V8.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M6.5 8.5h11v3.2l-1.4 1.2v6.6H7.9v-6.6L6.5 11.7V8.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span>Démontage avec des outils courants</span>
+    </li>
+    <li>
+      <span class="rc-product-repair__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M5.5 6.5h13v9.2H9.2L5.5 19V6.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+          <path d="M9 10.4h6.2M9 13.4h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span>Le SAV identifie la pièce à partir de tes photos</span>
+    </li>
+  </ul>
+
+  <a class="rc-product-repair__cta" href="{% render 'rc-legal-urls', part: 'contact' %}">
+    Voir les pièces détachées
+  </a>
+</article>
+{%- endunless -%}

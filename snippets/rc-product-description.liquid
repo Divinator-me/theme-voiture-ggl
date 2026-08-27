@@ -79,5 +79,8 @@
         "garantie_2_ans": {{ garantie_html | strip | json }}
       }
     </script>
+
+    {% render 'rc-product-snapshot', product: description_product %}
+    {% render 'rc-product-repair', product: description_product %}
   </div>
 {% endif %}
