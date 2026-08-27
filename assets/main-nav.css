@@ -227,12 +227,12 @@
   border-bottom: 1px solid var(--color-gray-200);
   padding: 15px 22px;
   color: var(--color-black);
-  font-family: var(--font-display);
-  font-size: 22px;
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  line-height: 1.2;
   list-style: none;
   text-decoration: none;
   text-transform: uppercase;
@@ -246,7 +246,7 @@
   font-family: inherit;
   font-size: inherit;
   font-style: inherit;
-  font-weight: inherit;
+  font-weight: 800;
   letter-spacing: inherit;
 }
 
@@ -255,11 +255,11 @@ body .rc-menu-overlay button.rc-menu-overlay__link {
   border: 0;
   background: transparent;
   color: inherit;
-  font-family: var(--font-display);
-  font-size: 22px;
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: -0.02em;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 800;
+  letter-spacing: 0.05em;
   text-align: left;
   text-transform: uppercase;
   cursor: pointer;
@@ -328,12 +328,12 @@ body .rc-menu-overlay button.rc-menu-overlay__link {
   border-bottom: 1px solid rgb(0 0 0 / 6%);
   padding: 13px 22px 13px 30px;
   color: var(--color-black);
-  font-family: var(--font-display);
-  font-size: 18px;
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.25;
   text-decoration: none;
   text-transform: uppercase;
   transition:
