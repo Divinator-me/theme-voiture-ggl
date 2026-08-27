@@ -253,8 +253,43 @@
     root.dataset.rcKeywordsReady = 'true';
   };
 
+  const enhanceHighlightCards = (root) => {
+    const cards = [...root.querySelectorAll('.rc-highlight-card')];
+
+    if (root.id === 'rc-desc-panel-points_fort') {
+      root.querySelectorAll('ul > li').forEach((item) => {
+        if (!cards.includes(item)) cards.push(item);
+      });
+    }
+
+    cards.forEach((card) => {
+      card.classList.add('rc-highlight-card');
+      card.closest('ul')?.classList.add('rc-highlights-cards');
+
+      const title =
+        card.querySelector(':scope > .rc-highlight-card__title') ||
+        card.querySelector(':scope > strong, :scope > b');
+      if (!title) return;
+
+      title.classList.add('rc-highlight-card__title');
+
+      let body = card.querySelector(':scope > .rc-highlight-card__body');
+      if (body) return;
+
+      body = document.createElement('span');
+      body.className = 'rc-highlight-card__body';
+      [...card.childNodes].forEach((node) => {
+        if (node === title) return;
+        body.appendChild(node);
+      });
+      body.textContent = body.textContent.replace(/^\s+/, '');
+      if (body.textContent.trim()) card.appendChild(body);
+    });
+  };
+
   const enhanceContent = (root) => {
     enhanceMedia(root);
+    enhanceHighlightCards(root);
     enhanceKeywords(root);
   };
 
