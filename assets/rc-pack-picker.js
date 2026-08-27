@@ -45,8 +45,7 @@ class RcPackPicker extends HTMLElement {
     section?.addEventListener(StandardEvents.productSelect, (event) => {
       event.promise
         ?.then(() => {
-          this.#syncUnitFromVariant();
-          this.#renderPrices();
+          queueMicrotask(() => this.#apply(false));
         })
         .catch(() => {});
     });
@@ -85,15 +84,9 @@ class RcPackPicker extends HTMLElement {
     const input = document.querySelector('product-form-component input[name="id"]');
     if (!input) return;
 
-    this.#variantObserver = new MutationObserver(() => {
-      this.#syncUnitFromVariant();
-      this.#renderPrices();
-    });
+    this.#variantObserver = new MutationObserver(() => this.#apply(false));
     this.#variantObserver.observe(input, { attributes: true, attributeFilter: ['value'] });
-    input.addEventListener('change', () => {
-      this.#syncUnitFromVariant();
-      this.#renderPrices();
-    });
+    input.addEventListener('change', () => this.#apply(false));
   }
 
   #renderPrices() {
@@ -101,6 +94,32 @@ class RcPackPicker extends HTMLElement {
       const qty = Number(node.getAttribute('data-rc-pack-price'));
       node.textContent = formatMoney(packTotal(this.#unitCents, qty));
     });
+  }
+
+  #formatLike(sample, cents) {
+    const number = (cents / 100).toLocaleString('fr-FR', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+    const text = (sample || '').trim();
+    if (/^€/.test(text)) return `€${number}`;
+    if (/^EUR\s?/i.test(text)) return `EUR ${number}`;
+    return `${number} €`;
+  }
+
+  #updateProductPrice(totalCents) {
+    const priceNodes = document.querySelectorAll(
+      '.product-information .product-details product-price .price:not(.compare-at-price), .product-information .product-details product-price .price-item--sale'
+    );
+    const sample = priceNodes[0]?.textContent || '';
+    const formatted = this.#formatLike(sample, totalCents);
+
+    priceNodes.forEach((node) => {
+      node.textContent = formatted;
+    });
+
+    const sticky = document.querySelector('.sticky-add-to-cart__price-current');
+    if (sticky) sticky.textContent = this.#formatLike(sticky.textContent, totalCents);
   }
 
   #ensureQuantityInput(qty) {
@@ -123,6 +142,7 @@ class RcPackPicker extends HTMLElement {
 
   #apply(persist) {
     const qty = this.#selectedQty();
+    const totalCents = packTotal(this.#unitCents, qty);
 
     this.querySelectorAll('.rc-pack-picker__card').forEach((card) => {
       card.classList.toggle('is-selected', card.querySelector('.rc-pack-picker__radio')?.checked === true);
@@ -131,6 +151,7 @@ class RcPackPicker extends HTMLElement {
     this.#syncUnitFromVariant();
     this.#renderPrices();
     this.#ensureQuantityInput(qty);
+    this.#updateProductPrice(packTotal(this.#unitCents, qty));
 
     const productForm = document.querySelector('product-form-component');
     if (productForm) productForm.dataset.quantityDefault = String(qty);
