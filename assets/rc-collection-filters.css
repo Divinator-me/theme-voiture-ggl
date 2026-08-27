@@ -34,6 +34,7 @@
     max-height: calc(100vh - 96px);
     overflow: auto;
     padding-bottom: 12px;
+    scrollbar-width: thin;
   }
 
   .rc-collection__main.collection-wrapper.grid {
@@ -191,6 +192,7 @@
 }
 
 .rc-filters__option {
+  position: relative;
   display: grid;
   grid-template-columns: 18px auto 1fr auto;
   gap: 10px;
