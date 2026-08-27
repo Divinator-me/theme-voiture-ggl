@@ -371,6 +371,8 @@ class RcPackPicker extends HTMLElement {
         if (!productForm) return;
 
         this.#beginBundleGate();
+        this.#pendingGift = this.#giftBatteryItem(this.#selectedQty()) || this.#pendingGift;
+        this.#pendingExtras = this.#readExtraBatteries() || this.#pendingExtras;
 
         const packQty = this.#selectedQty();
         const vehicles = this.#packCartItems();
