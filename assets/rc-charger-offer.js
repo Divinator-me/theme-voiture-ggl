@@ -2,6 +2,7 @@
   class RcChargerOffer extends HTMLElement {
     #bypass = false;
     #closeTimer = 0;
+    #guardTimeout = 0;
     #lastFocus = null;
 
     connectedCallback() {
@@ -49,7 +50,7 @@
 
     accept() {
       const variantId = Number(this.dataset.variantId);
-      const addUrl = window.Theme?.routes?.cart_add_url || '/cart/add.js';
+      const addUrl = '/cart/add.js';
       if (!variantId) {
         this.dismiss();
         return;
@@ -95,13 +96,17 @@
     #armUpcartGuard() {
       this.#clearUpcartGuard();
       this.#closeTimer = window.setInterval(() => this.#closeUpcart(), 180);
-      window.setTimeout(() => this.#clearUpcartGuard(), 1800);
+      this.#guardTimeout = window.setTimeout(() => this.#clearUpcartGuard(), 1800);
     }
 
     #clearUpcartGuard() {
       if (this.#closeTimer) {
         window.clearInterval(this.#closeTimer);
         this.#closeTimer = 0;
+      }
+      if (this.#guardTimeout) {
+        window.clearTimeout(this.#guardTimeout);
+        this.#guardTimeout = 0;
       }
     }
   }

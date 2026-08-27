@@ -1,12 +1,11 @@
-{%- liquid
-  assign offer = all_products['chargeur-secteur-haute-capacite-rc-lab']
-  assign offer_variant = offer.selected_or_first_available_variant
-  assign current = product | default: closest.product
-  assign skip_handles = 'chargeur-secteur-haute-capacite-rc-lab,batterie-supplementaire-produit-rc-lab'
--%}
+{%- if request.page_type == 'product' -%}
+  {%- liquid
+    assign offer = all_products['chargeur-secteur-haute-capacite-rc-lab']
+    assign offer_variant = offer.selected_or_first_available_variant
+    assign current = product | default: closest.product
+  -%}
 
-{%- if request.page_type == 'product' and offer != empty and offer.id and offer_variant and current.handle != offer.handle -%}
-  {%- unless skip_handles contains current.handle -%}
+  {%- if offer != empty and offer.id and offer_variant and current.handle != offer.handle and current.handle != 'batterie-supplementaire-produit-rc-lab' -%}
     {{ 'rc-charger-offer.css' | asset_url | stylesheet_tag }}
     <script src="{{ 'rc-charger-offer.js' | asset_url }}" defer></script>
 
@@ -53,5 +52,5 @@
         </button>
       </div>
     </rc-charger-offer>
-  {%- endunless -%}
+  {%- endif -%}
 {%- endif -%}
