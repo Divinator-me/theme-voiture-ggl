@@ -170,7 +170,7 @@
   text-transform: uppercase;
 }
 
-.rc-categories--collection {
+.rc-categories.rc-categories--collection {
   --rc-category-card-width: clamp(132px, 34vw, 156px);
   padding: 16px 0 22px;
 }
