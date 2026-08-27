@@ -364,14 +364,21 @@
     }
 
     const source = root.querySelector('[data-rc-product-desc-source]');
-    if (!source) return buckets;
+    if (source) {
+      const parsed = parseDescriptionBuckets(source.innerHTML);
+      MAIN_SECTION_IDS.forEach((sectionId) => {
+        if (!hasVisibleContent(buckets.get(sectionId) || [])) {
+          buckets.set(sectionId, parsed.get(sectionId) || []);
+        }
+      });
+    }
 
-    const parsed = parseDescriptionBuckets(source.innerHTML);
-    MAIN_SECTION_IDS.forEach((sectionId) => {
-      if (!hasVisibleContent(buckets.get(sectionId) || [])) {
-        buckets.set(sectionId, parsed.get(sectionId) || []);
-      }
-    });
+    const snapshot = root.querySelector('[data-rc-product-snapshot]');
+    if (snapshot) {
+      const toutSavoirNodes = buckets.get('tout_savoir') || [];
+      toutSavoirNodes.unshift(snapshot);
+      buckets.set('tout_savoir', toutSavoirNodes);
+    }
 
     return buckets;
   };
