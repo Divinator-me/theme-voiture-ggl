@@ -81,7 +81,7 @@
           if option_name_normalized == 'couleur' or option_name_normalized == 'color' or option_name_normalized == 'colour' or option_name_normalized contains 'couleur'
             assign option_display_name = 'Choisissez votre couleur !'
           elsif option_name_normalized contains 'batterie'
-            assign option_display_name = 'Combien de batteries pour vous ?'
+            assign option_display_name = 'Des Batteries Supplémentaires ?'
           endif
 
           assign swatch_count = product_option.values | map: 'swatch' | compact | size
