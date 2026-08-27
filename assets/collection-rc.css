@@ -31,7 +31,7 @@
   height: 100%;
   object-fit: cover;
   object-position: center;
-  opacity: 0.5;
+  opacity: 0.68;
   pointer-events: none;
 }
 
@@ -40,8 +40,8 @@
   inset: 0;
   z-index: 1;
   background:
-    linear-gradient(180deg, rgb(10 10 10 / 28%) 0%, rgb(10 10 10 / 62%) 100%),
-    linear-gradient(90deg, rgb(10 10 10 / 28%) 0%, transparent 58%);
+    linear-gradient(180deg, rgb(10 10 10 / 18%) 0%, rgb(10 10 10 / 48%) 100%),
+    linear-gradient(90deg, rgb(10 10 10 / 16%) 0%, transparent 55%);
   pointer-events: none;
 }
 
