@@ -132,24 +132,57 @@ class StickyAddToCartComponent extends Component {
     }
 
     const extra = scope.querySelector('.rc-extra-batteries');
-    if (extra) return extra.querySelector('.rc-extra-batteries__head') || extra;
+    if (extra && !extra.querySelector('input:checked, .is-selected')) {
+      return extra.querySelector('.rc-extra-batteries__head') || extra;
+    }
 
-    return pack || color || scope.querySelector('.buy-buttons-block');
+    return pack || color || extra || scope.querySelector('variant-picker') || scope.querySelector('.buy-buttons-block');
+  }
+
+  #scrollRoot() {
+    const wrapper = document.querySelector('.page-wrapper');
+    if (!wrapper) return window;
+
+    const overflowY = window.getComputedStyle(wrapper).overflowY;
+    if (overflowY === 'auto' || overflowY === 'scroll') return wrapper;
+    return window;
+  }
+
+  #stickyHeaderOffset() {
+    let bottom = 16;
+
+    ['.announcement-marquee', '.rc-main-nav', '.rc-category-nav'].forEach((selector) => {
+      const element = document.querySelector(selector);
+      if (!element) return;
+
+      const style = window.getComputedStyle(element);
+      if (style.display === 'none' || style.visibility === 'hidden') return;
+
+      const rect = element.getBoundingClientRect();
+      if (rect.height > 0 && rect.bottom > bottom) {
+        bottom = rect.bottom;
+      }
+    });
+
+    return bottom + 12;
   }
 
   #scrollToChoice(element) {
     if (!element) return;
 
-    const header = document.querySelector('.rc-main-nav, .header-wrapper, header');
-    const headerHeight = header?.getBoundingClientRect().height || 0;
-    const targetOffset = Math.max(headerHeight + 16, window.innerHeight * 0.4);
-    const top = element.getBoundingClientRect().top + window.scrollY - targetOffset;
+    const root = this.#scrollRoot();
+    const offset = this.#stickyHeaderOffset();
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const behavior = prefersReduced ? 'auto' : 'smooth';
 
-    window.scrollTo({
-      top: Math.max(0, top),
-      behavior: prefersReduced ? 'auto' : 'smooth',
-    });
+    if (root === window) {
+      const top = element.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top: Math.max(0, top), behavior });
+      return;
+    }
+
+    const top = element.getBoundingClientRect().top - root.getBoundingClientRect().top + root.scrollTop - offset;
+    root.scrollTo({ top: Math.max(0, top), behavior });
   }
 
   /**
