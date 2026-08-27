@@ -372,14 +372,11 @@ class RcPackPicker extends HTMLElement {
       const context = findProductForm(button);
       if (!context) return;
 
-      this.#beginBundleGate();
-
       const packQty = this.#selectedQty();
       const vehicles = this.#packCartItems();
-      if (!vehicles.length) {
-        this.#finishBundleGate();
-        return;
-      }
+      if (!vehicles.length) return;
+
+      this.#beginBundleGate();
 
       event.preventDefault();
       event.stopImmediatePropagation();
