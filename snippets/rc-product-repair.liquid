@@ -48,7 +48,7 @@
   assign repair_score = repair_score_whole | append: ',' | append: repair_score_frac
   assign repair_pct = repair_raw | times: 2
 
-  if repair_raw <= 35
+  if repair_raw <= 34
     assign repair_label = 'Réparable avec un peu de méthode'
   elsif repair_raw <= 39
     assign repair_label = 'Réparable sans difficulté'
@@ -122,8 +122,9 @@
     <li>
       <span class="rc-product-repair__icon" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none">
-          <path d="M8 8.5V5.8a2.3 2.3 0 1 1 4.6 0V8.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-          <path d="M6.5 8.5h11v3.2l-1.4 1.2v6.6H7.9v-6.6L6.5 11.7V8.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+          <path d="M14.2 4.6 19.4 9.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+          <path d="M16.6 7.2 7.2 16.6 4.8 19.2l2.6-2.4 9.4-9.4" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+          <path d="M8.4 15.4h3.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
         </svg>
       </span>
       <span>Démontage avec des outils courants</span>
