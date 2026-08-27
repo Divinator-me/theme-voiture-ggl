@@ -1803,9 +1803,7 @@ body:has(sticky-add-to-cart) {
 }
 
 .rc-product-repair__kicker {
-  display: flex;
-  gap: 6px;
-  align-items: center;
+  display: block;
   margin: 0;
   padding-bottom: 18px;
   color: var(--color-gray-500);
@@ -1814,13 +1812,6 @@ body:has(sticky-add-to-cart) {
   letter-spacing: 0.1em;
   line-height: 1;
   text-transform: uppercase;
-}
-
-.rc-product-repair__kicker svg {
-  display: block;
-  width: 13px;
-  height: 13px;
-  color: var(--color-red);
 }
 
 .rc-product-repair__title {
