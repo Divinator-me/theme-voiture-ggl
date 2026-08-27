@@ -7,11 +7,7 @@ const packTotal = (unitCents, qty) => {
   return unitCents;
 };
 
-const GIFT_BATTERIES_BY_PACK = {
-  1: 2,
-  2: 4,
-  3: 7,
-};
+const TRIO_GIFT_QUANTITY = 1;
 
 const formatMoney = (cents) =>
   `${(cents / 100).toLocaleString('fr-FR', {
@@ -292,12 +288,12 @@ class RcPackPicker extends HTMLElement {
   }
 
   #giftBatteryItem(packQty) {
+    if (packQty !== 3) return null;
     const variantId = String(
       this.dataset.giftBatteryVariantId || this.dataset.trioGiftVariantId || ''
     ).trim();
-    const quantity = GIFT_BATTERIES_BY_PACK[packQty] || 0;
-    if (!variantId || quantity < 1) return null;
-    return { variantId, quantity };
+    if (!variantId) return null;
+    return { variantId, quantity: TRIO_GIFT_QUANTITY };
   }
 
   #mergeItems(list) {
