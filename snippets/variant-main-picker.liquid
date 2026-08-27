@@ -157,7 +157,11 @@
                   {% if rc_swatch_light %}
                     data-rc-swatch-light
                   {% endif %}
-                  style="--rc-swatch: {{ rc_swatch }}; --color-selected-variant-background: {{ rc_swatch }}; --color-selected-variant-border: {{ rc_swatch }}; --color-selected-variant-hover-background: {{ rc_swatch }}; --color-selected-variant-hover-border: {{ rc_swatch }};"
+                  {% if rc_swatch_light %}
+                    style="--rc-swatch: {{ rc_swatch }}; --color-selected-variant-background: {{ rc_swatch }}; --color-selected-variant-border: #0a0a0a; --color-selected-variant-hover-background: {{ rc_swatch }}; --color-selected-variant-hover-border: #0a0a0a;"
+                  {% else %}
+                    style="--rc-swatch: {{ rc_swatch }}; --color-selected-variant-background: {{ rc_swatch }}; --color-selected-variant-border: {{ rc_swatch }}; --color-selected-variant-hover-background: {{ rc_swatch }}; --color-selected-variant-hover-border: {{ rc_swatch }};"
+                  {% endif %}
                 {% endif %}
               >
                 <input
