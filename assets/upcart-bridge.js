@@ -113,6 +113,29 @@
 
   window.RCLAB = window.RCLAB || {};
   window.RCLAB.openCart = openUpcart;
+  window.RCLAB.cartOpenBlocked = window.RCLAB.cartOpenBlocked || false;
+
+  document.addEventListener(
+    'click',
+    (event) => {
+      const offer = document.querySelector('rc-charger-offer');
+      if (!offer || offer.getAttribute('data-bypass') === 'true') return;
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      if (
+        !target.closest(
+          'product-form-component .add-to-cart-button, product-form-component button[type="submit"], sticky-add-to-cart .sticky-add-to-cart__button'
+        )
+      ) {
+        return;
+      }
+
+      window.RCLAB.cartOpenBlocked = true;
+      installOpenPatch();
+      closeUpcartQuietly();
+    },
+    true
+  );
 
   const patchFetchForCartAdd = () => {
     if (window.RCLAB.__upcartFetchPatched) return;
