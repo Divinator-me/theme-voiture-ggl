@@ -131,20 +131,21 @@
 
 .rc-filters__slider {
   position: relative;
-  width: 100%;
+  width: auto;
   max-width: 100%;
   height: 28px;
-  margin: 4px 2px 8px;
+  margin: 4px 10px 10px;
 }
 
 .rc-filters__track {
   position: absolute;
+  z-index: 0;
   top: 50%;
   right: 0;
   left: 0;
   height: 4px;
   border-radius: 999px;
-  background: var(--color-gray-200);
+  background: #cfcfcf;
   transform: translateY(-50%);
   pointer-events: none;
 }
@@ -162,25 +163,45 @@
 
 .rc-filters__range {
   position: absolute;
+  z-index: 1;
   top: 0;
   left: 0;
   width: 100%;
   height: 28px;
   margin: 0;
   padding: 0;
-  background: transparent;
+  border: 0;
+  background: none;
+  color: transparent;
+  accent-color: transparent;
   pointer-events: none;
   appearance: none;
   -webkit-appearance: none;
 }
 
+.rc-filters__range[data-rc-price-min] {
+  z-index: 3;
+}
+
+.rc-filters__range[data-rc-price-max] {
+  z-index: 2;
+}
+
+.rc-filters__range::-webkit-slider-container {
+  background: transparent;
+}
+
 .rc-filters__range::-webkit-slider-runnable-track {
   height: 4px;
+  border: 0;
   background: transparent;
+  box-shadow: none;
 }
 
 .rc-filters__range::-webkit-slider-thumb {
   position: relative;
+  z-index: 5;
+  box-sizing: border-box;
   width: 16px;
   height: 16px;
   margin-top: -6px;
@@ -196,10 +217,16 @@
 
 .rc-filters__range::-moz-range-track {
   height: 4px;
+  border: 0;
+  background: transparent;
+}
+
+.rc-filters__range::-moz-range-progress {
   background: transparent;
 }
 
 .rc-filters__range::-moz-range-thumb {
+  box-sizing: border-box;
   width: 16px;
   height: 16px;
   border: 2px solid var(--color-red);
