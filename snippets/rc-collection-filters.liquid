@@ -1,0 +1,199 @@
+{%- doc -%}
+  Colonne de filtres collection, desktop only.
+{%- enddoc -%}
+
+{%- liquid
+  assign rc_price_min_cents = nil
+  assign rc_price_max_cents = nil
+  assign rc_price_min = 0
+  assign rc_price_max = 400
+
+  for product in collection.products
+    if rc_price_min_cents == nil or product.price < rc_price_min_cents
+      assign rc_price_min_cents = product.price
+    endif
+    if rc_price_max_cents == nil or product.price > rc_price_max_cents
+      assign rc_price_max_cents = product.price
+    endif
+  endfor
+
+  if rc_price_min_cents != nil
+    assign rc_price_min = rc_price_min_cents | times: 1.0 | divided_by: 100 | floor
+  endif
+  if rc_price_max_cents != nil
+    assign rc_price_max = rc_price_max_cents | times: 1.0 | divided_by: 100 | ceil
+  endif
+-%}
+
+<aside class="rc-collection-filters" aria-label="Filtrer la collection">
+  <script type="application/json" data-rc-filter-catalog>
+    [
+      {%- for product in collection.products -%}
+        {% unless forloop.first %},{% endunless %}
+        {
+          "handle": {{ product.handle | json }},
+          "price": {{ product.price }},
+          "title": {{ product.title | json }},
+          "tags": {{ product.tags | json }}
+        }
+      {%- endfor -%}
+    ]
+  </script>
+
+  <form class="rc-filters" data-rc-filters>
+    <section class="rc-filters__group">
+      <h3 class="rc-filters__title">Filtrer par tarif</h3>
+      <div class="rc-filters__slider">
+        <div class="rc-filters__track" data-rc-price-track></div>
+        <input
+          class="rc-filters__range"
+          type="range"
+          name="prix_min"
+          min="{{ rc_price_min }}"
+          max="{{ rc_price_max }}"
+          step="10"
+          value="{{ rc_price_min }}"
+          aria-label="Prix minimum"
+          data-rc-price-min
+        >
+        <input
+          class="rc-filters__range"
+          type="range"
+          name="prix_max"
+          min="{{ rc_price_min }}"
+          max="{{ rc_price_max }}"
+          step="10"
+          value="{{ rc_price_max }}"
+          aria-label="Prix maximum"
+          data-rc-price-max
+        >
+      </div>
+      <p class="rc-filters__price-label">
+        Prix :
+        <span data-rc-price-output>{{ rc_price_min }} € - {{ rc_price_max }} €</span>
+      </p>
+    </section>
+
+    <section class="rc-filters__group">
+      <h3 class="rc-filters__title">Filtrer par échelles</h3>
+      <ul class="rc-filters__list">
+        {% assign rc_scales = '10,12,14,16,20,24' | split: ',' %}
+        {% for scale in rc_scales %}
+          <li>
+            <label class="rc-filters__option">
+              <input type="checkbox" name="echelle" value="{{ scale }}">
+              <span class="rc-filters__check" aria-hidden="true"></span>
+              <span class="rc-filters__option-label">1/{{ scale }}</span>
+              <span class="rc-filters__count" data-rc-count="scale-{{ scale }}"></span>
+            </label>
+          </li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <section class="rc-filters__group">
+      <h3 class="rc-filters__title">Filtrer par vitesse</h3>
+      <ul class="rc-filters__list">
+        <li>
+          <label class="rc-filters__option">
+            <input type="checkbox" name="vitesse" value="0-15">
+            <span class="rc-filters__check" aria-hidden="true"></span>
+            <span class="rc-filters__speed-dot rc-filters__speed-dot--1" aria-hidden="true"></span>
+            <span class="rc-filters__option-label">Jusqu'à 15 km/h</span>
+            <span class="rc-filters__count" data-rc-count="speed-0-15"></span>
+          </label>
+        </li>
+        <li>
+          <label class="rc-filters__option">
+            <input type="checkbox" name="vitesse" value="16-30">
+            <span class="rc-filters__check" aria-hidden="true"></span>
+            <span class="rc-filters__speed-dot rc-filters__speed-dot--2" aria-hidden="true"></span>
+            <span class="rc-filters__option-label">16-30 km/h</span>
+            <span class="rc-filters__count" data-rc-count="speed-16-30"></span>
+          </label>
+        </li>
+        <li>
+          <label class="rc-filters__option">
+            <input type="checkbox" name="vitesse" value="31-50">
+            <span class="rc-filters__check" aria-hidden="true"></span>
+            <span class="rc-filters__speed-dot rc-filters__speed-dot--3" aria-hidden="true"></span>
+            <span class="rc-filters__option-label">31-50 km/h</span>
+            <span class="rc-filters__count" data-rc-count="speed-31-50"></span>
+          </label>
+        </li>
+        <li>
+          <label class="rc-filters__option">
+            <input type="checkbox" name="vitesse" value="51-70">
+            <span class="rc-filters__check" aria-hidden="true"></span>
+            <span class="rc-filters__speed-dot rc-filters__speed-dot--4" aria-hidden="true"></span>
+            <span class="rc-filters__option-label">51-70 km/h</span>
+            <span class="rc-filters__count" data-rc-count="speed-51-70"></span>
+          </label>
+        </li>
+        <li>
+          <label class="rc-filters__option">
+            <input type="checkbox" name="vitesse" value="71-90">
+            <span class="rc-filters__check" aria-hidden="true"></span>
+            <span class="rc-filters__speed-dot rc-filters__speed-dot--5" aria-hidden="true"></span>
+            <span class="rc-filters__option-label">71-90 km/h</span>
+            <span class="rc-filters__count" data-rc-count="speed-71-90"></span>
+          </label>
+        </li>
+        <li>
+          <label class="rc-filters__option">
+            <input type="checkbox" name="vitesse" value="91-999">
+            <span class="rc-filters__check" aria-hidden="true"></span>
+            <span class="rc-filters__speed-dot rc-filters__speed-dot--6" aria-hidden="true"></span>
+            <span class="rc-filters__option-label">Plus de 90 km/h</span>
+            <span class="rc-filters__count" data-rc-count="speed-91-999"></span>
+          </label>
+        </li>
+      </ul>
+    </section>
+
+    <section class="rc-filters__group">
+      <h3 class="rc-filters__title">Recommandation d'âge</h3>
+      <ul class="rc-filters__list">
+        <li>
+          <label class="rc-filters__option">
+            <input type="checkbox" name="age" value="5">
+            <span class="rc-filters__check" aria-hidden="true"></span>
+            <span class="rc-filters__option-label">Dès 5 ans</span>
+            <span class="rc-filters__count" data-rc-count="age-5"></span>
+          </label>
+        </li>
+        <li>
+          <label class="rc-filters__option">
+            <input type="checkbox" name="age" value="7">
+            <span class="rc-filters__check" aria-hidden="true"></span>
+            <span class="rc-filters__option-label">7 ans et plus</span>
+            <span class="rc-filters__count" data-rc-count="age-7"></span>
+          </label>
+        </li>
+        <li>
+          <label class="rc-filters__option">
+            <input type="checkbox" name="age" value="10">
+            <span class="rc-filters__check" aria-hidden="true"></span>
+            <span class="rc-filters__option-label">10 ans et plus</span>
+            <span class="rc-filters__count" data-rc-count="age-10"></span>
+          </label>
+        </li>
+        <li>
+          <label class="rc-filters__option">
+            <input type="checkbox" name="age" value="12">
+            <span class="rc-filters__check" aria-hidden="true"></span>
+            <span class="rc-filters__option-label">Dès 12 ans</span>
+            <span class="rc-filters__count" data-rc-count="age-12"></span>
+          </label>
+        </li>
+      </ul>
+    </section>
+
+    <div class="rc-filters__actions">
+      <button type="reset" class="rc-filters__clear">Tout effacer</button>
+      <button type="submit" class="rc-filters__apply" data-rc-apply>
+        Voir les résultats
+      </button>
+    </div>
+  </form>
+</aside>
