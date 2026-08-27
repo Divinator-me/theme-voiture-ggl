@@ -807,3 +807,53 @@ body:has(sticky-add-to-cart) {
 .rc-pack-picker__price.is-trio {
   color: var(--color-price);
 }
+
+.shipping-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 5px 12px;
+  border-radius: 6px;
+  background: #f1f1f1;
+  font-family: var(--font-body);
+  font-size: 12px;
+}
+
+.shipping-left,
+.shipping-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.shipping-right {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.shipping-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #6f8a8a;
+  flex-shrink: 0;
+}
+
+.shipping-bold {
+  font-weight: 700;
+}
+
+.shipping-flag {
+  display: block;
+  flex-shrink: 0;
+  width: 18px;
+  height: 12px;
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+}

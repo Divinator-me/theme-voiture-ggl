@@ -258,7 +258,7 @@
               "type": "custom-liquid",
               "name": "t:names.custom_liquid",
               "settings": {
-                "custom_liquid": "<style>\n.shipping-bar {\ndisplay: inline-flex;\njustify-content: space-between;\nalign-items: center;\nbackground: #f1f1f1;\npadding: 5px 12px;\nborder-radius: 6px;\nfont-size: 12px;\nfont-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Arial, sans-serif;\ngap: 16px;\nwidth: 100%;\nbox-sizing: border-box;\n}\n.shipping-left,\n.shipping-right {\ndisplay: flex;\nalign-items: center;\ngap: 6px;\n}\n.shipping-dot {\nwidth: 8px;\nheight: 8px;\nbackground: #6f8a8a;\nborder-radius: 50%;\nflex-shrink: 0;\n}\n.shipping-bold {\nfont-weight: 700;\n}\n</style>\n<div class=\"shipping-bar\">\n<div class=\"shipping-left\">\n<div class=\"shipping-dot\"></div>\n<span>Livraison <span class=\"shipping-bold\">4 à 8 jours ouvrés</span> · France métropolitaine</span>\n</div>\n<div class=\"shipping-right\">\n<span>🇫🇷 Livraison <span class=\"shipping-bold\">Gratuite</span></span>\n</div>\n</div>"
+                "custom_liquid": "{% render 'rc-shipping-bar' %}"
               },
               "blocks": {}
             },
