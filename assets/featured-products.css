@@ -111,8 +111,11 @@
   margin: 0;
 }
 
-.rc-product-card button {
+.rc-product-card button,
+.rc-featured .rc-product-card__cta {
+  display: block;
   width: 100%;
+  box-sizing: border-box;
   border: 0;
   border-radius: var(--radius-sm);
   margin-top: 16px;
@@ -123,6 +126,8 @@
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.08em;
+  text-align: center;
+  text-decoration: none;
   text-transform: uppercase;
   transition:
     background 0.25s var(--ease-smooth),
