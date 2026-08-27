@@ -429,8 +429,20 @@
     panels.className = 'rc-product-desc__tabs-panels';
 
     const navs = [navTop, navBottom];
+    let currentIndex = 0;
 
     const activateTab = (index, { scrollToPanel = false } = {}) => {
+      if (index === currentIndex) {
+        if (scrollToPanel && panels.children[index]) {
+          requestAnimationFrame(() => {
+            panels.children[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
+          });
+        }
+        return;
+      }
+
+      currentIndex = index;
+
       navs.forEach((navEl) => {
         [...navEl.children].forEach((tab, tabIndex) => {
           const isActive = tabIndex === index;
@@ -441,9 +453,17 @@
 
       [...panels.children].forEach((panel, panelIndex) => {
         const isActive = panelIndex === index;
-        panel.hidden = !isActive;
         panel.classList.toggle('is-active', isActive);
-        if (isActive) enhanceContent(panel);
+        panel.classList.remove('is-revealing');
+        if (isActive) {
+          panel.hidden = false;
+          enhanceContent(panel);
+          requestAnimationFrame(() => {
+            panel.classList.add('is-revealing');
+          });
+        } else {
+          panel.hidden = true;
+        }
       });
 
       if (!scrollToPanel || !panels.children[index]) return;
