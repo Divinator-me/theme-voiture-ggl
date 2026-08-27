@@ -69,28 +69,37 @@
   </li>
 {%- else -%}
   <li class="product-grid__item rc-collection-video" aria-label="{{ video_label | escape }}">
-    <a class="rc-collection-video__link rc-collection-video__cta-link" href="{{ target_url }}">
-      <video
-        class="rc-collection-video__media"
-        autoplay
-        muted
-        loop
-        playsinline
-        preload="metadata"
-        width="390"
-        height="220"
-      >
-        <source src="{{ video_file | asset_url }}" type="video/mp4">
-      </video>
-      <span class="rc-collection-video__shade" aria-hidden="true"></span>
+    <div class="rc-collection-video__link">
+      <a class="rc-collection-video__product-link rc-collection-video__cta-link" href="{{ target_url }}">
+        <video
+          class="rc-collection-video__media"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          width="390"
+          height="220"
+        >
+          <source src="{{ video_file | asset_url }}" type="video/mp4">
+        </video>
+        <span class="rc-collection-video__shade" aria-hidden="true"></span>
+        <span class="rc-collection-video__copy">
+          <span class="rc-collection-video__kicker">{{ video_kicker }}</span>
+          <span class="rc-collection-video__title">{{ video_heading }}</span>
+          <span class="rc-collection-video__cta">{{ video_cta }} <b aria-hidden="true">→</b></span>
+        </span>
+      </a>
       {%- if credit != blank -%}
-        <span class="rc-collection-video__credit">{{ credit }}</span>
+        <a
+          class="rc-collection-video__credit"
+          href="{{ credit_url | default: 'https://www.youtube.com/shorts/dzm8XDWg4C4' }}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {{ credit }}
+        </a>
       {%- endif -%}
-      <span class="rc-collection-video__copy">
-        <span class="rc-collection-video__kicker">{{ video_kicker }}</span>
-        <span class="rc-collection-video__title">{{ video_heading }}</span>
-        <span class="rc-collection-video__cta">{{ video_cta }} <b aria-hidden="true">→</b></span>
-      </span>
-    </a>
+    </div>
   </li>
 {%- endif -%}
