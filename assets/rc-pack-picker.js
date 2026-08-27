@@ -453,11 +453,6 @@ class RcPackPicker extends HTMLElement {
       ].filter(Boolean)
     );
 
-    const sections = [];
-    document.querySelectorAll('cart-items-component').forEach((item) => {
-      if (item instanceof HTMLElement && item.dataset.sectionId) sections.push(item.dataset.sectionId);
-    });
-
     const deferred = CartLinesUpdateEvent.createPromise?.();
     form.dispatchEvent(
       new CartLinesUpdateEvent({

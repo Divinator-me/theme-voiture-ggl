@@ -53,7 +53,16 @@
     dismiss() {
       this.#release();
       this.#close();
-      window.RCLAB?.openCart?.();
+      const openCart = () => window.RCLAB?.openCart?.();
+      const ready = window.RCLAB?.bundleReady;
+      if (!ready) {
+        openCart();
+        return;
+      }
+      Promise.race([
+        ready.catch(() => {}),
+        new Promise((resolve) => window.setTimeout(resolve, 12000)),
+      ]).then(openCart);
     }
 
     accept() {
