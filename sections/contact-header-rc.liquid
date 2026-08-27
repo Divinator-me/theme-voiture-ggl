@@ -1,39 +1,18 @@
 {{ 'contact-rc.css' | asset_url | stylesheet_tag }}
 
-<section class="rc-contact" aria-label="Contact RCLAB">
-  <div class="rc-contact__inner">
-    <header class="rc-contact__header">
-      <span class="rc-contact__badge">Support</span>
-      <h1>Contact</h1>
-    </header>
+<section class="rc-contact-hero" aria-label="Contact RCLAB">
+  <span class="rc-contact-hero__glow" aria-hidden="true"></span>
+  <span class="rc-contact-hero__stripes" aria-hidden="true"></span>
 
-    <div class="rc-contact__service">
-      <p class="rc-contact__lead">Service client fran&ccedil;ais</p>
-
-      <ul class="rc-contact__meta">
-        <li class="rc-contact__meta-item">
-          <span class="rc-contact__meta-value">Lun au ven.</span>
-          <span class="rc-contact__meta-label">Jours ouvr&eacute;s</span>
-        </li>
-        <li class="rc-contact__meta-item" aria-hidden="true">
-          <span class="rc-contact__meta-divider"></span>
-        </li>
-        <li class="rc-contact__meta-item">
-          <span class="rc-contact__meta-value">9h à 17h</span>
-          <span class="rc-contact__meta-label">Horaires SAV</span>
-        </li>
-      </ul>
-
-      <p class="rc-contact__response">R&eacute;ponse sous 1 &agrave; 2 jours ouvr&eacute;s.</p>
-
-      <p class="rc-contact__address">{% render 'rc-store-address', style: 'contact' %}</p>
-
-      <p class="rc-contact__channels">
-        {% render 'rc-support-email' %}
-        &middot;
-        {% render 'rc-support-phone' %}
-      </p>
-    </div>
+  <div class="rc-contact-hero__inner">
+    <p class="rc-contact-hero__label">Service client RCLAB</p>
+    <h1 class="rc-contact-hero__title">
+      Une question ?
+      <span>On vous répond.</span>
+    </h1>
+    <p class="rc-contact-hero__lead">
+      L'équipe est à Paris. Une question sur une RC, une commande ou une pièce, on te répond sous 1 à 2 jours ouvrés.
+    </p>
   </div>
 </section>
 
