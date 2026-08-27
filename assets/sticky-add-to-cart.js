@@ -83,15 +83,6 @@ class StickyAddToCartComponent extends Component {
     window.addEventListener('pageshow', this.#handlePageShow, { signal });
 
     this.#getInitialQuantity();
-
-    // IntersectionObserver callbacks gate visibility on #isChatActive(), but
-    // if the shopper scrolls before the Inbox bundle has upgraded
-    // <shopify-chat>, the bar shows and nothing re-runs that check. Hide it
-    // once the element is defined so the bar doesn't overlap the chat UI.
-    customElements.whenDefined('shopify-chat').then(() => {
-      if (signal.aborted) return;
-      if (this.#isStuck && this.#isChatActive()) this.#hideStickyBar();
-    });
   }
 
   disconnectedCallback() {
@@ -129,7 +120,7 @@ class StickyAddToCartComponent extends Component {
         // Check if the element is above the viewport (scrolled past) or below (not yet reached)
         const rect = entry.target.getBoundingClientRect();
         if (rect.bottom < 0 || rect.top < 0) {
-          if (this.#isChatActive()) return;
+          if (this.#isChatPanelOpen()) return;
           this.#showStickyBar();
         }
         // If rect.top >= 0, element is below viewport - don't show sticky bar yet
@@ -154,14 +145,14 @@ class StickyAddToCartComponent extends Component {
           // Only show if buy buttons are above the viewport (scrolled past)
           if (rect.bottom < 0 || rect.top < 0) {
             this.#hiddenByBottom = false;
-            if (!this.#isChatActive()) {
+            if (!this.#isChatPanelOpen()) {
               this.#showStickyBar();
             }
           }
         }
       },
       {
-        rootMargin: '200px 0px 0px 0px',
+        rootMargin: '0px 0px 80px 0px',
       }
     );
 
@@ -417,21 +408,13 @@ class StickyAddToCartComponent extends Component {
 
   // Helper methods
   /**
-   * Checks whether the Shopify Chat is active on the page.
-   * When active, the sticky bar must stay hidden to avoid overlapping the chat UI.
-   *
-   * <shopify-chat> is rendered unconditionally by chat-drawer.liquid, but
-   * the "Ask anything" button only paints once the Inbox app has installed
-   * and upgraded the element. Gate on the registration of the custom element
-   * (the same signal chat-drawer.liquid uses via customElements.whenDefined)
-   * so the inert placeholder on shops without Inbox doesn't suppress the
-   * sticky bar.
-   *
+   * True only when the chat conversation panel is open.
+   * The mobile FAB must not hide the sticky add-to-cart bar.
    * @returns {boolean}
    */
-  #isChatActive() {
-    if (!customElements.get('shopify-chat')) return false;
-    return Boolean(document.querySelector('shopify-chat'));
+  #isChatPanelOpen() {
+    const chat = document.querySelector('shopify-chat');
+    return Boolean(chat?.hasAttribute('open'));
   }
 
   /**

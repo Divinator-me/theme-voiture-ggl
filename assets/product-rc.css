@@ -59,7 +59,7 @@
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: calc(var(--layer-sticky) - 1);
+  z-index: calc(var(--layer-sticky) + 2);
   opacity: 0;
   pointer-events: none;
   transform: translateY(100%);
@@ -288,9 +288,13 @@ body.has-sticky-atc-visible {
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
+@media (max-width: 767px) {
   .sticky-add-to-cart__bar {
-    transition: none;
+    padding-right: 78px;
+  }
+
+  .sticky-add-to-cart__title {
+    display: none;
   }
 }
 
