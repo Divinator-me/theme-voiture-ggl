@@ -692,3 +692,51 @@ body:has(sticky-add-to-cart) {
   font-size: 14px;
   line-height: 1.6;
 }
+
+.rc-payment-trust {
+  width: 100%;
+  margin-top: 12px;
+  text-align: center;
+}
+
+.rc-payment-trust__title {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+  color: #1a1a1a;
+}
+
+.rc-payment-trust__title span {
+  font-weight: 600;
+}
+
+.rc-payment-trust__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rc-payment-trust__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+}
+
+.rc-payment-trust__icon {
+  display: block;
+  width: auto;
+  height: 24px;
+}
+
+/* Vitals injects the same row under #bundle-payment_logos */
+#bundle-payment_logos {
+  display: none !important;
+}

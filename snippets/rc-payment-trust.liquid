@@ -1,0 +1,32 @@
+{%- assign payment_types = 'apple_pay,paypal,visa,american_express,master,klarna,shopify_pay' | split: ',' -%}
+
+<div class="rc-payment-trust">
+  <p class="rc-payment-trust__title">paiement sécurisé avec <span>RC LAB</span></p>
+  <ul class="rc-payment-trust__list" role="list">
+    {%- for type in payment_types -%}
+      <li class="rc-payment-trust__item">
+        {{ type | payment_type_svg_tag: class: 'rc-payment-trust__icon' }}
+      </li>
+    {%- endfor -%}
+  </ul>
+</div>
+
+<script>
+  (() => {
+    const hideVitalsPayment = () => {
+      document.querySelectorAll('#bundle-payment_logos').forEach((el) => {
+        el.hidden = true;
+      });
+    };
+
+    hideVitalsPayment();
+    if (!document.body) {
+      document.addEventListener('DOMContentLoaded', hideVitalsPayment);
+      return;
+    }
+
+    const observer = new MutationObserver(hideVitalsPayment);
+    observer.observe(document.body, { childList: true, subtree: true });
+    setTimeout(() => observer.disconnect(), 8000);
+  })();
+</script>
