@@ -7,6 +7,7 @@
 
     let pointerId = null;
     let startX = 0;
+    let startY = 0;
     let startScroll = 0;
     let isDragging = false;
     let suppressClick = false;
@@ -14,10 +15,15 @@
     const onPointerMove = (event) => {
       if (event.pointerId !== pointerId) return;
 
-      const delta = event.clientX - startX;
+      const deltaX = event.clientX - startX;
+      const deltaY = event.clientY - startY;
 
       if (!isDragging) {
-        if (Math.abs(delta) <= DRAG_THRESHOLD) return;
+        if (Math.abs(deltaX) <= DRAG_THRESHOLD && Math.abs(deltaY) <= DRAG_THRESHOLD) return;
+        if (Math.abs(deltaY) > Math.abs(deltaX)) {
+          endPointer(event);
+          return;
+        }
         isDragging = true;
         track.classList.add('is-drag-scroll-active');
         suppressClick = true;
@@ -27,7 +33,7 @@
       }
 
       event.preventDefault();
-      track.scrollLeft = startScroll - delta;
+      track.scrollLeft = startScroll - deltaX;
     };
 
     const endPointer = (event) => {
@@ -59,9 +65,11 @@
 
     track.addEventListener('pointerdown', (event) => {
       if (event.button !== 0) return;
+      if (event.pointerType === 'touch') return;
 
       pointerId = event.pointerId;
       startX = event.clientX;
+      startY = event.clientY;
       startScroll = track.scrollLeft;
       isDragging = false;
 
