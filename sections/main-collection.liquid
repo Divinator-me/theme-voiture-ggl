@@ -71,12 +71,25 @@
             >
               {% render 'rc-product-card', product: product %}
             </li>
-            {%- if collection.handle == 'monster-truck-4x4' and paginate.current_page == 1 -%}
-              {%- if product.handle == '4x4-rc-1-16-brushless-70-kmh-rclab' -%}
-                {% render 'rc-collection-video' %}
-              {%- endif -%}
-              {%- if product.handle == '4x4-tout-terrain-1-16-50-km-h' -%}
-                {% render 'rc-collection-photo' %}
+            {%- if paginate.current_page == 1 -%}
+              {%- if collection.handle == 'monster-truck-4x4' -%}
+                {%- if product.handle == '4x4-rc-1-16-brushless-70-kmh-rclab' -%}
+                  {% render 'rc-collection-video' %}
+                {%- endif -%}
+                {%- if product.handle == '4x4-tout-terrain-1-16-50-km-h' -%}
+                  {% render 'rc-collection-photo' %}
+                {%- endif -%}
+              {%- elsif collection.handle == 'buggy' -%}
+                {%- if product.handle == 'force-13-buggy-4x4-75-kmh-rclab' -%}
+                  {% render 'rc-collection-video',
+                    video: 'rc-collection-buggy.mp4',
+                    product_handle: 'force-13-buggy-4x4-75-kmh-rclab',
+                    kicker: 'Buggy 1/12',
+                    heading: 'Brushless, format 45 cm.',
+                    cta: 'Voir mes options',
+                    aria_label: 'Buggy 1/12 brushless'
+                  %}
+                {%- endif -%}
               {%- endif -%}
             {%- endif -%}
           {% endfor %}
