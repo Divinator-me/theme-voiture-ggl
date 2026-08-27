@@ -15,6 +15,7 @@
         id="rc-extra-batteries-{{ extra.id }}"
         class="variant-option__select"
         name="rc-extra-batteries"
+        data-variant-id="{{ extra_variant.id }}"
       >
         <option value="0" selected>Aucune</option>
         {%- for count in (1..5) -%}
@@ -38,4 +39,5 @@
     </div>
     <p class="rc-extra-batteries__price">{{ extra_variant.price | money }} / unité</p>
   </div>
+  <script src="{{ 'rc-extra-batteries.js' | asset_url }}" defer></script>
 {%- endif -%}
