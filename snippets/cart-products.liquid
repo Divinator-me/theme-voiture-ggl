@@ -55,20 +55,45 @@
   "
 >
   {% if cart.empty? or force_empty %}
-    {%- if shop.customer_accounts_enabled and customer == null -%}
-      <p>
-        {{ 'actions.log_in_html' | t: link: routes.account_login_url }}
-      </p>
-    {%- endif -%}
+    {%- if context == 'drawer' -%}
+      {%- if shop.customer_accounts_enabled and customer == null -%}
+        <p>
+          {{ 'actions.log_in_html' | t: link: routes.account_login_url }}
+        </p>
+      {%- endif -%}
 
-    <a
-      class="button cart-items__empty-button"
-      href="{{ settings.empty_cart_button_link | default: routes.all_products_collection_url }}"
-    >
-      <span class="button-text">
-        {{ 'actions.continue_shopping' | t }}
-      </span>
-    </a>
+      <a
+        class="button cart-items__empty-button"
+        href="{{ settings.empty_cart_button_link | default: routes.all_products_collection_url }}"
+      >
+        <span class="button-text">
+          {{ 'actions.continue_shopping' | t }}
+        </span>
+      </a>
+    {%- else -%}
+      <div class="rc-cart-empty">
+        <p class="rc-cart-empty__lead">Rien ici pour le moment. Tes RC t'attendent.</p>
+
+        {%- if shop.customer_accounts_enabled and customer == null -%}
+          <p class="rc-cart-empty__login">
+            Déjà un compte ? <a href="{{ routes.account_login_url }}">Connectez-vous</a> pour payer plus vite.
+          </p>
+        {%- endif -%}
+
+        <button type="button" class="rc-cart-empty__cta" data-rc-quiz-open>
+          <span class="rc-cart-empty__cta-label">
+            <span class="rc-cart-empty__cta-title">
+              Trouver ma voiture RC<span class="rc-cart-empty__cta-arrow" aria-hidden="true"> →</span>
+            </span>
+            <span class="rc-cart-empty__cta-note">Un quiz de 12 secondes pour trouver ta gamme</span>
+          </span>
+        </button>
+
+        <nav class="rc-cart-empty__cats" aria-label="Collections RC">
+          {% render 'rc-nav-collections', context: 'empty-cart' %}
+        </nav>
+      </div>
+    {%- endif -%}
   {%- else -%}
     <span
       class="visually-hidden"
