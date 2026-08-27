@@ -409,13 +409,15 @@ a.rc-contact-card:hover {
   text-transform: uppercase;
 }
 
-.rc-contact-aside__legal a {
+.rc-contact-aside__legal a,
+.rc-contact-aside__link {
   color: var(--color-black);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
 
-.rc-contact-aside__legal a:hover {
+.rc-contact-aside__legal a:hover,
+.rc-contact-aside__link:hover {
   color: var(--color-red);
 }
 
