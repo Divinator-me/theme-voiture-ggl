@@ -114,7 +114,7 @@
 
   const nativeFetch = window.fetch.bind(window);
   window.fetch = async (...args) => {
-    if (addingExtras) return nativeFetch(...args);
+    if (addingExtras || window.RCLAB?.addingGiftBattery) return nativeFetch(...args);
 
     const response = await nativeFetch(...args);
     const request = args[0];

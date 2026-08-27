@@ -5,7 +5,7 @@
     assign current = product | default: closest.product
   -%}
 
-  {%- if offer != empty and offer.id and offer_variant and current.handle != offer.handle and current.handle != 'batterie-supplementaire-produit-rc-lab' -%}
+  {%- if offer != empty and offer.id and offer_variant and current.handle != offer.handle and current.handle != 'batterie-supplementaire-produit-rc-lab' and current.handle != 'batterie-offerte-produit-rc-lab' -%}
     {{ 'rc-charger-offer.css' | asset_url | stylesheet_tag }}
     <script src="{{ 'rc-charger-offer.js' | asset_url }}" defer></script>
 

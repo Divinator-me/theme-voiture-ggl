@@ -290,13 +290,56 @@ class RcPackPicker extends HTMLElement {
 
         event.preventDefault();
         event.stopImmediatePropagation();
-        this.#addPackItems(productForm, payload);
+        this.#addPackItems(productForm, payload, packQty);
       },
       true
     );
   }
 
-  #addPackItems(form, items) {
+  #addTrioGiftBattery() {
+    const variantId = String(this.dataset.trioGiftVariantId || '').trim();
+    if (!variantId) return Promise.resolve(null);
+
+    window.RCLAB = window.RCLAB || {};
+    window.RCLAB.addingGiftBattery = true;
+
+    const formData = new FormData();
+    formData.append('id', variantId);
+    formData.append('quantity', '1');
+
+    return fetch('/cart/add.js', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: { Accept: 'application/json' },
+      body: formData,
+    })
+      .then((response) => response.json().then((data) => ({ ok: response.ok, data })))
+      .then(({ ok, data }) => {
+        if (!ok || data?.status) {
+          return fetch('/cart/add.js', {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+              'Content-Type': 'application/json',
+              Accept: 'application/json',
+            },
+            body: JSON.stringify({
+              items: [{ id: Number(variantId), quantity: 1 }],
+            }),
+          }).then((response) => response.json());
+        }
+        return data;
+      })
+      .catch(() => null)
+      .finally(() => {
+        window.RCLAB.addingGiftBattery = false;
+        if (typeof window.upcartRefreshCart === 'function' && !window.RCLAB.cartOpenBlocked) {
+          window.upcartRefreshCart();
+        }
+      });
+  }
+
+  #addPackItems(form, items, packQty) {
     const sections = [];
     document.querySelectorAll('cart-items-component').forEach((item) => {
       if (item instanceof HTMLElement && item.dataset.sectionId) sections.push(item.dataset.sectionId);
@@ -333,11 +376,16 @@ class RcPackPicker extends HTMLElement {
       }),
     })
       .then((response) => response.json())
-      .then((cart) => {
+      .then(async (cart) => {
         if (cart?.status) {
           deferred?.reject?.(cart);
           throw cart;
         }
+
+        if (packQty === 3) {
+          await this.#addTrioGiftBattery();
+        }
+
         deferred?.resolve?.({
           cart: CartLinesUpdateEvent.createCartFromAjaxResponse?.(cart) || cart,
           detail: { didError: false, items: cart.items, source: 'rc-pack-picker' },

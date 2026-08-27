@@ -5,12 +5,17 @@
   assign duo_cents = unit_cents | times: 175 | divided_by: 100 | plus: 25 | divided_by: 50 | times: 50
   assign trio_cents = unit_cents | times: 270 | divided_by: 100 | plus: 50 | divided_by: 100 | times: 100
   assign pack_id = pack_product.id
+  assign trio_gift = all_products['batterie-offerte-produit-rc-lab']
+  assign trio_gift_variant = trio_gift.selected_or_first_available_variant
+  assign accessory_handles = 'batterie-supplementaire-produit-rc-lab,chargeur-secteur-haute-capacite-rc-lab,batterie-offerte-produit-rc-lab' | split: ','
 -%}
 
+{%- unless accessory_handles contains pack_product.handle -%}
 <rc-pack-picker
   class="rc-pack-picker"
   data-product-id="{{ pack_id }}"
   data-unit-price="{{ unit_cents }}"
+  {% if trio_gift_variant %}data-trio-gift-variant-id="{{ trio_gift_variant.id }}"{% endif %}
 >
   <script type="application/json" data-rc-pack-variants>
     {
@@ -81,3 +86,4 @@
 </rc-pack-picker>
 
 <script src="{{ 'rc-pack-picker.js' | asset_url }}" type="module"></script>
+{%- endunless -%}

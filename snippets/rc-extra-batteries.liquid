@@ -4,7 +4,7 @@
   assign current = product | default: closest.product
 -%}
 
-{%- if extra != empty and extra.id and extra_variant and current.handle != extra.handle -%}
+{%- if extra != empty and extra.id and extra_variant and current.handle != extra.handle and current.handle != 'chargeur-secteur-haute-capacite-rc-lab' and current.handle != 'batterie-offerte-produit-rc-lab' -%}
   <div
     class="rc-extra-batteries variant-option"
     data-variant-id="{{ extra_variant.id }}"
