@@ -43,14 +43,14 @@
 %}
 
 <rc-product-recommendations
-  class="rc-best-sellers rc-product-recommendations{% unless has_recommendations or use_collection_fallback %} is-loading{% endunless %}"
+  class="rc-best-sellers rc-product-recommendations{% unless has_ranked %} is-loading{% endunless %}"
   id="rc-product-recommendations-{{ section.id }}"
   data-rc-product-slider
   data-url="{{ routes.product_recommendations_url }}?limit={{ section.settings.max_products }}"
   data-section-id="{{ section.id }}"
   data-product-id="{{ current_product.id }}"
   data-intent="{{ section.settings.recommendation_type }}"
-  data-recommendations-performed="{{ recommendations.performed }}"
+  data-recommendations-performed="{% if has_ranked %}true{% else %}{{ recommendations.performed }}{% endif %}"
   aria-label="{{ heading | escape }}"
   {{ section.shopify_attributes }}
 >
@@ -66,22 +66,19 @@
     </button>
 
     <div class="rc-best-sellers__track" data-slider-track tabindex="0" aria-label="{{ heading | escape }}">
-      {% if has_recommendations %}
-        {% for item in recommendations.products limit: section.settings.max_products %}
-          {% render 'rc-product-card', product: item %}
-        {% endfor %}
-      {% elsif use_collection_fallback %}
+      {% if has_ranked %}
         {% assign rendered_count = 0 %}
-        {% for item in source_collection.products %}
-          {% if item.id != current_product.id %}
-            {% render 'rc-product-card', product: item %}
-            {% assign rendered_count = rendered_count | plus: 1 %}
-            {% if rendered_count >= section.settings.max_products %}
-              {% break %}
-            {% endif %}
+        {% for item in ranked_products %}
+          {% if current_product != blank and item.id == current_product.id %}
+            {% continue %}
+          {% endif %}
+          {% render 'rc-product-card', product: item %}
+          {% assign rendered_count = rendered_count | plus: 1 %}
+          {% if rendered_count >= section.settings.max_products %}
+            {% break %}
           {% endif %}
         {% endfor %}
-      {% elsif recommendations.performed == false %}
+      {% else %}
         {% for index in (1..4) %}
           <article class="rc-product-card rc-product-recommendations__skeleton" aria-hidden="true">
             <div class="rc-product-card__media">
