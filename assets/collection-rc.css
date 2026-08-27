@@ -639,7 +639,7 @@
     font-size: 17px;
   }
 
-  .rc-categories--collection {
+  .rc-categories.rc-categories--collection {
     --rc-category-card-width: 168px;
     padding-top: 20px;
     padding-bottom: 28px;
@@ -673,5 +673,9 @@
 @media (min-width: 1100px) {
   .rc-collection-header__stats {
     max-width: 440px;
+  }
+
+  .rc-categories.rc-categories--collection {
+    --rc-category-card-width: 176px;
   }
 }
