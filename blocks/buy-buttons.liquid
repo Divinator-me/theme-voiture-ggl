@@ -252,6 +252,9 @@
       </button>
     </div>
   {%- endif -%}
+  {% if request.page_type == 'product' %}
+    {% render 'rc-product-trust' %}
+  {% endif %}
 </span>
 
 {% if block_settings.show_pickup_availability %}

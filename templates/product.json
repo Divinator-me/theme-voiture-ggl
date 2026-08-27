@@ -332,14 +332,6 @@
               },
               "block_order": []
             },
-            "rc_product_trust": {
-              "type": "custom-liquid",
-              "name": "Arguments de confiance",
-              "settings": {
-                "custom_liquid": "{% render 'rc-product-trust' %}"
-              },
-              "blocks": {}
-            },
             "rc_product_description": {
               "type": "rc-product-description",
               "name": "Description produit RC",
@@ -360,7 +352,6 @@
             "rc_extra_batteries",
             "custom_liquid_ma39Xw",
             "buy_buttons_eYQEYi",
-            "rc_product_trust",
             "rc_product_description"
           ]
         }
