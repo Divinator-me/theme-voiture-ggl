@@ -5,15 +5,19 @@
 
 .rc-product-breadcrumb {
   min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .rc-product-breadcrumb__list {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: baseline;
   margin: 0;
   padding: 0;
   list-style: none;
+  overflow: hidden;
+  white-space: nowrap;
   font-family: var(--font-body);
   font-size: 11px;
   font-weight: 500;
@@ -21,6 +25,10 @@
   line-height: 1.45;
   text-transform: uppercase;
   color: var(--color-gray-500);
+}
+
+.rc-product-breadcrumb__list li {
+  flex: 0 0 auto;
 }
 
 .rc-product-breadcrumb__list li + li::before {
