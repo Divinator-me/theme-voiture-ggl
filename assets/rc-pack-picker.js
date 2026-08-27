@@ -384,6 +384,15 @@ class RcPackPicker extends HTMLElement {
       event.preventDefault();
       event.stopImmediatePropagation();
 
+      const offer = document.querySelector('rc-charger-offer');
+      if (offer?.getAttribute('data-bypass') !== 'true' && typeof offer?.arm === 'function') {
+        offer.arm();
+      }
+
+      if (typeof window.upcartCloseCart === 'function') {
+        window.upcartCloseCart();
+      }
+
       this.#addBundle(context.form, vehicles, packQty);
     };
 
