@@ -76,9 +76,9 @@ class RcPackPicker extends HTMLElement {
     const input = document.querySelector('product-form-component input[name="id"]');
     if (!input) return;
 
-    this.#variantObserver = new MutationObserver(() => this.#apply(false));
+    this.#variantObserver = new MutationObserver(() => this.#apply());
     this.#variantObserver.observe(input, { attributes: true, attributeFilter: ['value'] });
-    input.addEventListener('change', () => this.#apply(false));
+    input.addEventListener('change', () => this.#apply());
   }
 
   #renderPrices() {
@@ -132,7 +132,7 @@ class RcPackPicker extends HTMLElement {
     selector?.setValue?.(String(qty));
   }
 
-  #apply(persist) {
+  #apply() {
     this.#syncUnitFromVariant();
 
     const qty = this.#selectedQty();
@@ -158,13 +158,6 @@ class RcPackPicker extends HTMLElement {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       })}€`;
-    }
-
-    if (persist && this.dataset.productId) {
-      const checked = this.#radios.find((radio) => radio.checked);
-      if (checked) {
-        sessionStorage.setItem(STORAGE_PREFIX + this.dataset.productId, checked.value);
-      }
     }
   }
 }
