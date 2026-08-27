@@ -38,12 +38,7 @@
       <span class="rc-pack-picker__price" data-rc-pack-price="1">{{ unit_cents | money }}</span>
     </label>
 
-    <label class="rc-pack-picker__card">
-      <input
-        class="rc-pack-picker__radio"
-        type="radio"
-        name="rc-pack-{{ pack_id }}"
-        value="2"
+    <label class="rc-pack-picker__card is-duo">
       >
       <span class="rc-pack-picker__radio-ui" aria-hidden="true"></span>
       <span class="rc-pack-picker__icon" aria-hidden="true">⭐</span>
@@ -53,12 +48,7 @@
       <span class="rc-pack-picker__price is-duo" data-rc-pack-price="2">{{ duo_cents | money }}</span>
     </label>
 
-    <label class="rc-pack-picker__card">
-      <input
-        class="rc-pack-picker__radio"
-        type="radio"
-        name="rc-pack-{{ pack_id }}"
-        value="3"
+    <label class="rc-pack-picker__card is-trio">
       >
       <span class="rc-pack-picker__radio-ui" aria-hidden="true"></span>
       <span class="rc-pack-picker__icon" aria-hidden="true">🏆</span>

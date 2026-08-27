@@ -729,9 +729,24 @@ body:has(sticky-add-to-cart) {
   cursor: pointer;
 }
 
+.rc-pack-picker__card.is-solo {
+  --rc-pack-accent: var(--color-gray-500);
+  --rc-pack-accent-soft: #f4f4f4;
+}
+
+.rc-pack-picker__card.is-duo {
+  --rc-pack-accent: #e86a12;
+  --rc-pack-accent-soft: #fff4eb;
+}
+
+.rc-pack-picker__card.is-trio {
+  --rc-pack-accent: var(--color-price);
+  --rc-pack-accent-soft: #edfbf1;
+}
+
 .rc-pack-picker__card.is-selected {
-  border-color: var(--color-red);
-  background: #fff7f7;
+  border-color: var(--rc-pack-accent);
+  background: var(--rc-pack-accent-soft);
 }
 
 .rc-pack-picker__radio {
@@ -754,7 +769,7 @@ body:has(sticky-add-to-cart) {
 }
 
 .rc-pack-picker__card.is-selected .rc-pack-picker__radio-ui {
-  border-color: var(--color-red);
+  border-color: var(--rc-pack-accent);
 }
 
 .rc-pack-picker__card.is-selected .rc-pack-picker__radio-ui::after {
@@ -762,7 +777,7 @@ body:has(sticky-add-to-cart) {
   position: absolute;
   inset: 3px;
   border-radius: 50%;
-  background: var(--color-red);
+  background: var(--rc-pack-accent);
 }
 
 .rc-pack-picker__icon {
