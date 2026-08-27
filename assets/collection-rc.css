@@ -223,6 +223,7 @@
   width: 100%;
   max-width: 100%;
   margin: 0;
+  align-items: stretch;
 }
 
 @media (max-width: 749px) {
@@ -246,6 +247,7 @@
 .rc-collection-video {
   display: flex;
   min-width: 0;
+  min-height: 0;
   list-style: none;
 }
 
@@ -272,6 +274,8 @@
 }
 
 .rc-collection-video__media {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
   height: 100%;
@@ -350,16 +354,17 @@
 
 @media (min-width: 750px) {
   .rc-collection-video {
-    height: 100%;
+    align-self: stretch;
+    height: auto;
   }
 
   .rc-collection-video__link {
-    display: flex;
+    display: block;
     flex: 1 1 auto;
     width: 100%;
     max-width: none;
     height: 100%;
-    min-height: 100%;
+    min-height: 0;
     margin-inline: 0;
   }
 
