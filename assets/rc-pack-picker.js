@@ -1,8 +1,6 @@
 import { StandardEvents } from '@shopify/events';
 import { QuantitySelectorUpdateEvent } from '@theme/events';
 
-const STORAGE_PREFIX = 'rc-pack-qty:';
-
 const packTotal = (unitCents, qty) => {
   if (qty === 2) return Math.round((unitCents * 1.75) / 50) * 50;
   if (qty === 3) return Math.round((unitCents * 2.7) / 100) * 100;
@@ -27,12 +25,6 @@ class RcPackPicker extends HTMLElement {
     this.#priceNodes = Array.from(this.querySelectorAll('[data-rc-pack-price]'));
     this.#unitCents = Number(this.dataset.unitPrice) || 0;
     this.#variantPrices = this.#readVariantPrices();
-
-    const stored = Number(sessionStorage.getItem(STORAGE_PREFIX + this.dataset.productId));
-    if (stored === 2 || stored === 3) {
-      const match = this.#radios.find((radio) => Number(radio.value) === stored);
-      if (match) match.checked = true;
-    }
 
     this.#radios.forEach((radio) => {
       radio.addEventListener('change', () => this.#apply(true));
@@ -141,6 +133,8 @@ class RcPackPicker extends HTMLElement {
   }
 
   #apply(persist) {
+    this.#syncUnitFromVariant();
+
     const qty = this.#selectedQty();
     const totalCents = packTotal(this.#unitCents, qty);
 
@@ -148,10 +142,9 @@ class RcPackPicker extends HTMLElement {
       card.classList.toggle('is-selected', card.querySelector('.rc-pack-picker__radio')?.checked === true);
     });
 
-    this.#syncUnitFromVariant();
     this.#renderPrices();
     this.#ensureQuantityInput(qty);
-    this.#updateProductPrice(packTotal(this.#unitCents, qty));
+    this.#updateProductPrice(totalCents);
 
     const productForm = document.querySelector('product-form-component');
     if (productForm) productForm.dataset.quantityDefault = String(qty);
@@ -160,7 +153,7 @@ class RcPackPicker extends HTMLElement {
 
     const installment = document.querySelector('.payment-installments .price');
     if (installment) {
-      const fourth = packTotal(this.#unitCents, qty) / 4 / 100;
+      const fourth = totalCents / 4 / 100;
       installment.textContent = `${fourth.toLocaleString('fr-FR', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
@@ -168,7 +161,10 @@ class RcPackPicker extends HTMLElement {
     }
 
     if (persist && this.dataset.productId) {
-      sessionStorage.setItem(STORAGE_PREFIX + this.dataset.productId, String(qty));
+      const checked = this.#radios.find((radio) => radio.checked);
+      if (checked) {
+        sessionStorage.setItem(STORAGE_PREFIX + this.dataset.productId, checked.value);
+      }
     }
   }
 }
