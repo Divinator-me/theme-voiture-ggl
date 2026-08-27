@@ -37,8 +37,8 @@
     }
   }
 
-  .rc-category-nav__link,
-  .rc-category-nav__menu {
+  .rc-category-nav .rc-category-nav__link,
+  .rc-category-nav button.rc-category-nav__menu {
     position: relative;
     display: inline-flex;
     gap: 8px;
@@ -50,7 +50,7 @@
     background: transparent;
     color: var(--color-white);
     font-family: var(--font-display);
-    font-size: 18px;
+    font-size: 20px;
     font-style: italic;
     font-weight: 400;
     letter-spacing: -0.02em;
@@ -59,10 +59,6 @@
     text-transform: uppercase;
     cursor: pointer;
     white-space: nowrap;
-  }
-
-  .rc-category-nav .rc-category-nav__link {
-    font-size: 20px;
   }
 
   .rc-category-nav__link::after,
