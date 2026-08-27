@@ -1682,7 +1682,7 @@ body:has(sticky-add-to-cart) {
   .rc-product-expert {
     grid-template-columns: 96px minmax(0, 1fr);
     gap: 12px 14px;
-    padding: 14px 12px 14px;
+    padding: 10px 12px 14px;
   }
 
   .rc-product-expert::before {
