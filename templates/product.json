@@ -316,14 +316,6 @@
               },
               "block_order": []
             },
-            "rc_payment_trust": {
-              "type": "custom-liquid",
-              "name": "Paiement sécurisé",
-              "settings": {
-                "custom_liquid": "{% render 'rc-payment-trust' %}"
-              },
-              "blocks": {}
-            },
             "rc_product_description": {
               "type": "rc-product-description",
               "name": "Description produit RC",
@@ -342,7 +334,6 @@
             "variant_picker_batteries",
             "custom_liquid_ma39Xw",
             "buy_buttons_eYQEYi",
-            "rc_payment_trust",
             "rc_product_description"
           ]
         }
