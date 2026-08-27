@@ -1,0 +1,352 @@
+{{ 'collection-guide-rc.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign handle = collection.handle
+  assign photo_1 = 'rc-guide-default-1.webp'
+  assign photo_1_alt = 'Atelier RC LAB, châssis en cours de réglage'
+  assign photo_2 = 'rc-guide-default-2.webp'
+  assign photo_2_alt = 'Entretien d une transmission RC sur l établi'
+
+  case handle
+    when 'monster-truck-4x4'
+      assign photo_1 = 'rc-guide-monster-1.webp'
+      assign photo_1_alt = 'Monster truck RC en saut sur rampe'
+      assign photo_2 = 'rc-guide-monster-2.webp'
+      assign photo_2_alt = 'Monster truck RC rangé après une session'
+    when 'buggy'
+      assign photo_1 = 'rc-guide-buggy-1.webp'
+      assign photo_1_alt = 'Montage d un buggy RC sur le sol de l atelier'
+      assign photo_2 = 'rc-guide-buggy-2.webp'
+      assign photo_2_alt = 'Buggys RC au garage après une sortie terre'
+    when 'rallye-trophy'
+      assign photo_1 = 'rc-guide-rallye-1.webp'
+      assign photo_1_alt = 'Session outdoor rallye trophy RC'
+      assign photo_2 = 'rc-guide-rallye-2.webp'
+      assign photo_2_alt = 'Châssis RC encore chargé de boue sur l établi'
+    when 'drift'
+      assign photo_1 = 'rc-guide-drift-1.webp'
+      assign photo_1_alt = 'Voiture RC drift en intérieur'
+      assign photo_2 = 'rc-guide-drift-2.webp'
+      assign photo_2_alt = 'L équipe RC LAB à l atelier'
+    when 'piste'
+      assign photo_1 = 'rc-guide-piste-1.webp'
+      assign photo_1_alt = 'Pilotes RC sur un circuit'
+      assign photo_2 = 'rc-guide-piste-2.webp'
+      assign photo_2_alt = 'Réglage précis d un châssis RC'
+    when 'crawler'
+      assign photo_1 = 'rc-guide-crawler-1.webp'
+      assign photo_1_alt = 'Crawler RC encore boueux après un passage en forêt'
+      assign photo_2 = 'rc-guide-crawler-2.webp'
+      assign photo_2_alt = 'Préparation d un crawler RC à l établi'
+  endcase
+-%}
+
+<section class="rc-guide" aria-label="Bien choisir sa RC">
+  <span class="rc-guide__glow" aria-hidden="true"></span>
+
+  <div class="rc-guide__inner">
+    <div class="rc-guide__choose">
+      <p class="rc-guide__label">Bien choisir</p>
+
+      {% case handle %}
+        {% when 'monster-truck-4x4' %}
+          <article>
+            <h3>4x4, c'est le grip</h3>
+            <p>Les quatre roues motrices tiennent dans l'herbe, la terre et les montées. Une propulsion patine dès que ça devient gras.</p>
+          </article>
+          <article>
+            <h3>Vitesse ou robustesse</h3>
+            <p>30 km/h, c'est déjà largement assez pour un premier 4x4. 70 km/h et plus, c'est pour ceux qui ont déjà cassé, réparé, et qui savent ce qu'ils veulent.</p>
+          </article>
+          <article>
+            <h3>Brushless, quand ça compte</h3>
+            <p>Plus de couple, moins d'usure moteur. Utile si tu sors souvent et que tu veux la même sensation dans deux ans, pas au bout de trois week-ends.</p>
+          </article>
+          <article>
+            <h3>Le terrain réel</h3>
+            <p>Jardin, chemin, parking cabossé. Si tu vises la boue et les cailloux, prends un 4x4 pensé pour ça. Une réplique de piste n'a rien à faire là.</p>
+          </article>
+
+        {% when 'buggy' %}
+          <article>
+            <h3>Léger, rapide, joueur</h3>
+            <p>Un buggy RC pèse moins, change de direction plus vite, et pardonne moins les gros chocs qu'un monster truck. C'est fait pour bouger, pas pour encaisser.</p>
+          </article>
+          <article>
+            <h3>Terre, pas bitume</h3>
+            <p>Le terrain naturel d'un buggy, c'est la terre, l'herbe rase, un champ. Sur du lisse, tu perds l'intérêt. Sur des cailloux, tu casses plus vite.</p>
+          </article>
+          <article>
+            <h3>La taille change tout</h3>
+            <p>Un 1/16 rentre dans un sac. Un 1/10 demande de la place, des batteries plus costaudes, et un vrai espace pour rouler. Choisis selon là où tu roules, pas selon la photo.</p>
+          </article>
+          <article>
+            <h3>Brushless sur circuit</h3>
+            <p>Si tu enchaînes les sessions, le brushless tient mieux la chaleur et la puissance. Pour un premier buggy au jardin, un brushed bien construit suffit.</p>
+          </article>
+
+        {% when 'rallye-trophy' %}
+          <article>
+            <h3>Toutes surfaces</h3>
+            <p>Le rallye RC, c'est l'idée d'une auto qui enchaîne terre, gravier, et un peu de bitume. Moins extrême qu'un 4x4, plus polyvalent qu'une piste.</p>
+          </article>
+          <article>
+            <h3>Réplique ou machine</h3>
+            <p>Une C3 WRC, ça fait plaisir à regarder. Un trophy, ça passe plus de bosses. Les deux roulent. Le choix, c'est le look contre le terrain.</p>
+          </article>
+          <article>
+            <h3>Drift et rallye</h3>
+            <p>Certains modèles de la collection glissent aussi. Si tu veux du drift propre, va plutôt sur Drift. Ici, le glissé est un bonus, pas le programme.</p>
+          </article>
+          <article>
+            <h3>Pour qui</h3>
+            <p>Idéal si tu veux une auto qui ressemble à quelque chose, sans te limiter au parking. Un ado qui a déjà une RC simple s'y retrouve tout de suite.</p>
+          </article>
+
+        {% when 'drift' %}
+          <article>
+            <h3>Le glissé avant la ligne droite</h3>
+            <p>En drift, on ne cherche pas le 0 à 100. On cherche l'angle, la trajectoire, le contrôle. Si tu veux de la vitesse brute, ce n'est pas cette collection.</p>
+          </article>
+          <article>
+            <h3>Surface lisse</h3>
+            <p>Carrelage, parking, parquet. Sur de la terre, une drift ne fait rien d'intéressant. Garde-la pour un sol dur et propre.</p>
+          </article>
+          <article>
+            <h3>Indoor, parking, garage</h3>
+            <p>Beaucoup de nos drifts se prêtent à l'intérieur. Moins de place, plus de précision. C'est là qu'elles deviennent vraiment fun.</p>
+          </article>
+          <article>
+            <h3>Contrôle avant km/h</h3>
+            <p>30 à 65 km/h selon les modèles. Au-delà, tu perds le glissé. Prends celle que tu sauras tenir, pas celle qui impressionne sur la fiche.</p>
+          </article>
+
+        {% when 'piste' %}
+          <article>
+            <h3>Précision, pas spectacle boue</h3>
+            <p>Une voiture de piste RC est basse, nerveuse, faite pour le sol lisse. Elle n'est pas conçue pour l'herbe ni les cailloux.</p>
+          </article>
+          <article>
+            <h3>Le sol décide</h3>
+            <p>Asphalte, carrelage, piste intérieure. Si tu n'as que le jardin, prends un buggy ou un 4x4. Ici, le grip vient du sol, pas des crampons.</p>
+          </article>
+          <article>
+            <h3>Échelle et place</h3>
+            <p>Les 1/24 se sortent dans un salon. Les plus grandes demandent un vrai tracé. Mesure l'espace avant de viser la plus rapide.</p>
+          </article>
+          <article>
+            <h3>Pour débuter en circuit</h3>
+            <p>Moins intimidant qu'un brushless 80 km/h. Tu apprends le trajectoire, le frein, le placement. C'est une autre façon de piloter.</p>
+          </article>
+
+        {% when 'crawler' %}
+          <article>
+            <h3>Lent et technique</h3>
+            <p>Un crawler ne cherche pas la pointe. Il cherche la ligne, le couple, le passage. Si tu t'ennuies sans vitesse, ce n'est pas pour toi.</p>
+          </article>
+          <article>
+            <h3>Roches, racines, pentes</h3>
+            <p>Jardin accidenté, tas de bois, petit sentier. C'est là qu'un crawler a un intérêt. Sur un parking plat, il n'a rien à montrer.</p>
+          </article>
+          <article>
+            <h3>Le couple avant tout</h3>
+            <p>Moteurs, démultiplication, pneus. Tu montes, tu descends, tu t'arrêtes en pleine pente. La vitesse max n'est pas le critère.</p>
+          </article>
+          <article>
+            <h3>Patience</h3>
+            <p>Ça se pilote au millimètre. Très bon pour un ado posé, ou un adulte qui aime bricoler le passage autant que la voiture.</p>
+          </article>
+
+        {% else %}
+          <article>
+            <h3>Le terrain d'abord</h3>
+            <p>Jardin, terre, parking, salon. Chaque gamme RC LAB est faite pour un usage. Choisis le sol, le modèle suit.</p>
+          </article>
+          <article>
+            <h3>La vitesse, ensuite</h3>
+            <p>Un premier modèle n'a pas besoin d'aller à 80 km/h. 30 à 50 km/h, c'est déjà une vraie RC. La pointe, tu la prends quand tu maîtrises.</p>
+          </article>
+          <article>
+            <h3>Brushed ou brushless</h3>
+            <p>Brushed : simple, costaud, parfait pour commencer. Brushless : plus de punch, moins d'usure, pour ceux qui roulent souvent.</p>
+          </article>
+          <article>
+            <h3>Deux batteries, minimum</h3>
+            <p>Chaque véhicule part avec 2 batteries offertes. C'est la session. Les supplémentaires, c'est si tu ne veux plus attendre la charge.</p>
+          </article>
+      {% endcase %}
+    </div>
+
+    <div class="rc-guide__side">
+      <div class="rc-guide-faq">
+        <h2>Questions fréquentes</h2>
+
+        <div class="rc-guide-faq__list">
+          {% case handle %}
+            {% when 'monster-truck-4x4' %}
+              <details class="rc-guide-faq__item">
+                <summary>C'est trop violent pour un ado de 10 ans ? <i class="rc-guide-faq__plus" aria-hidden="true"></i></summary>
+                <p>Non, si tu commences à vitesse réduite, terrain dégagé, un adulte à côté. Un 4x4 30 km/h est plus sage qu'un brushless 80 km/h. La collection a les deux.</p>
+              </details>
+              <details class="rc-guide-faq__item">
+                <summary>Elle passe dans l'herbe haute ? <i class="rc-guide-faq__plus" aria-hidden="true"></i></summary>
+                <p>Oui sur les 4x4 de cette collection. Herbe, terre, petites ornières, c'est leur terrain. Évite l'eau stagnante et l'immersion.</p>
+              </details>
+              <details class="rc-guide-faq__item">
+                <summary>Combien de batteries pour une après-midi ? <i class="rc-guide-faq__plus" aria-hidden="true"></i></summary>
+                <p>2 batteries offertes, tu as déjà une vraie session. 2 de plus et tu ne regardes plus la charge. Autonomie selon le modèle, jusqu'à 35 min par pack.</p>
+              </details>
+              <details class="rc-guide-faq__item">
+                <summary>Je dois tout démonter pour l'entretien ? <i class="rc-guide-faq__plus" aria-hidden="true"></i></summary>
+                <p>Non. Un chiffon, un coup d'œil aux vis, et le SAV France si un truc cloche. On t'oriente avec une photo ou une vidéo.</p>
+              </details>
+
+            {% when 'buggy' %}
+              <details class="rc-guide-faq__item">
+                <summary>Un buggy casse plus qu'un 4x4 ? <i class="rc-guide-faq__plus" aria-hidden="true"></i></summary>
+                <p>Il est plus léger, donc moins à l'aise dans les gros chocs. Sur terre et herbe rase, il tient très bien. Ce n'est pas un monster truck.</p>
+              </details>
+              <details class="rc-guide-faq__item">
+                <summary>Jardin ou vrai circuit ? <i class="rc-guide-faq__plus" aria-hidden="true"></i></summary>
+                <p>Les deux. Un jardin un peu ouvert suffit pour un 1/16. Un 1/10 plus rapide a besoin d'espace, sinon tu ne profites pas.</p>
+              </details>
+              <details class="rc-guide-faq__item">
+                <summary>Brushless dès le premier buggy ? <i class="rc-guide-faq__plus" aria-hidden="true"></i></summary>
+                <p>Pas obligatoire. Un brushed costaud apprend à piloter. Le brushless, tu le prends quand tu roules souvent et que tu veux garder la puissance.</p>
+              </details>
+              <details class="rc-guide-faq__item">
+                <summary>Ça passe dans la boue ? <i class="rc-guide-faq__plus" aria-hidden="true"></i></summary>
+                <p>Boue légère, oui. Grosses flaques et immersion, non. Après une session humide, un coup de chiffon et un rangement au sec.</p>
+              </details>
+
+            {% when 'rallye-trophy' %}
+              <details class="rc-guide-faq__item">
+                <summary>C'est du drift ou du tout-terrain ? <i class="rc-guide-faq__plus" aria-hidden="true"></i></summary>
+                <p>Les deux selon le modèle. Le rallye aime le mix terre et bitume. Pour du drift pur, va sur la collection Drift.</p>
+              </details>
+              <details class="rc-guide-faq__item">
+                <summary>La réplique est fragile ? <i class="rc-guide-faq__plus" aria-hidden="true"></i></summary>
+                <p>La carrosserie prend les chocs, comme une vraie. Le châssis et la transmission sont dimensionnés pour rouler, pas pour rester en vitrine.</p>
+              </details>
+              <details class="rc-guide-faq__item">
+                <summary>Pour un premier achat ? <i class="rc-guide-faq__plus" aria-hidden="true"></i></summary>
+                <p>Oui si tu veux une auto qui a une gueule, sans te limiter au parking. Sinon un 4x4 robuste 30 km/h est plus simple à vivre.</p>
+              </details>
+              <details class="rc-guide-faq__item">
+                <summary>Quelle autonomie ? <i class="rc-guide-faq__plus" aria-hidden="true"></i></summary>
+                <p>Selon le modèle, autour de 15 à 20 minutes par batterie. 2 batteries offertes, tu enchaînes. Les supplémentaires, c'est du confort.</p>
+              </details>
+
+            {% when 'drift' %}
+              <details class="rc-guide-faq__item">
+                <summary>Je peux drifter dans le salon ? <i class="rc-guide-faq__plus" aria-hidden="true"></i></summary>
+                <p>Sur du carrelage ou un sol dur, oui, surtout en 1/24. Sur moquette, ça ne glisse pas. Sur parquet fragile, tu risques la marque.</p>
+              </details>
+              <details class="rc-guide-faq__item">
+                <summary>Il faut des pneus spéciaux ? <i class="rc-guide-faq__plus" aria-hidden="true"></i></summary>
+                <p>Les modèles drift partent avec des pneus pensés pour glisser. Tu n'as rien à monter pour commencer.</p>
+              </details>
+              <details class="rc-guide-faq__item">
+                <summary>C'est trop technique pour un débutant ? <i class="rc-guide-faq__plus" aria-hidden="true"></i></summary>
+                <p>Le drift s'apprend. Les premières minutes, ça part dans tous les sens. Au bout d'une session, tu commences à tenir l'angle.</p>
+              </details>
+              <details class="rc-guide-faq__item">
+                <summary>Pourquoi moins vite que les 4x4 ? <i class="rc-guide-faq__plus" aria-hidden="true"></i></summary>
+                <p>Parce que le plaisir est dans le glissé, pas dans la pointe. Au-delà d'une certaine vitesse, tu perds le contrôle, donc le drift.</p>
+              </details>
+
+            {% when 'piste' %}
+              <details class="rc-guide-faq__item">
+                <summary>Elle roule dans l'herbe ? <i class="rc-guide-faq__plus" aria-hidden="true"></i></summary>
+                <p>Non. Une piste est basse, pneus lisses, faite pour le sol dur. Pour le jardin, prends un buggy ou un 4x4.</p>
+              </details>
+              <details class="rc-guide-faq__item">
+                <summary>C'est un jouet d'intérieur ? <i class="rc-guide-faq__plus" aria-hidden="true"></i></summary>
+                <p>Les plus petites, oui. Les plus grandes veulent un parking ou un tracé. Regarde l'échelle sur la fiche avant d'acheter.</p>
+              </details>
+              <details class="rc-guide-faq__item">
+                <summary>Moins rapide, moins fun ? <i class="rc-guide-faq__plus" aria-hidden="true"></i></summary>
+                <p>Autre fun. Tu pilotes la trajectoire, pas le chaos. Beaucoup de gens gardent une piste et un 4x4, ce n'est pas le même usage.</p>
+              </details>
+              <details class="rc-guide-faq__item">
+                <summary>Fragile sur un choc ? <i class="rc-guide-faq__plus" aria-hidden="true"></i></summary>
+                <p>Plus qu'un monster truck, oui. Tu roules sur du lisse, tu vises les murs le moins possible. Un choc de parking reste gérable.</p>
+              </details>
+
+            {% when 'crawler' %}
+              <details class="rc-guide-faq__item">
+                <summary>Ça va trop lentement ? <i class="rc-guide-faq__plus" aria-hidden="true"></i></summary>
+                <p>C'est le principe. Si tu veux de la vitesse, prends un buggy ou un 4x4. Le crawler, c'est le passage, pas la pointe.</p>
+              </details>
+              <details class="rc-guide-faq__item">
+                <summary>Pour un enfant ? <i class="rc-guide-faq__plus" aria-hidden="true"></i></summary>
+                <p>Oui s'il aime le jeu posé. Moins de casse liée à la vitesse, plus de concentration. Dès 8 ans, avec un adulte à côté.</p>
+              </details>
+              <details class="rc-guide-faq__item">
+                <summary>Quel terrain minimum ? <i class="rc-guide-faq__plus" aria-hidden="true"></i></summary>
+                <p>Quelques racines, un muret, un tas de bois. Un jardin accidenté suffit. Un salon plat, non.</p>
+              </details>
+              <details class="rc-guide-faq__item">
+                <summary>Autonomie longue ? <i class="rc-guide-faq__plus" aria-hidden="true"></i></summary>
+                <p>Souvent plus qu'un brushless lancé à fond, parce que tu roules lentement. Compte une session confortable avec les 2 batteries offertes.</p>
+              </details>
+
+            {% else %}
+              <details class="rc-guide-faq__item">
+                <summary>Par où commencer ? <i class="rc-guide-faq__plus" aria-hidden="true"></i></summary>
+                <p>Le terrain d'abord. Jardin et herbe : 4x4 ou buggy. Parking et salon : drift ou piste. Ensuite tu regardes la vitesse.</p>
+              </details>
+              <details class="rc-guide-faq__item">
+                <summary>Les batteries sont fournies ? <i class="rc-guide-faq__plus" aria-hidden="true"></i></summary>
+                <p>Oui. 2 batteries offertes par véhicule. Pack duo : 4. Pack trio : 7. Tu peux en ajouter sur la fiche produit.</p>
+              </details>
+              <details class="rc-guide-faq__item">
+                <summary>Le SAV est en France ? <i class="rc-guide-faq__plus" aria-hidden="true"></i></summary>
+                <p>Oui. Une vraie personne, photo ou vidéo, on t'oriente. Réponse sous 1 à 2 jours ouvrés.</p>
+              </details>
+              <details class="rc-guide-faq__item">
+                <summary>Je peux renvoyer si ça ne me plaît pas ? <i class="rc-guide-faq__plus" aria-hidden="true"></i></summary>
+                <p>Oui, 30 jours, produit non utilisé, complet, emballage d'origine. Le retour est indiqué sur la boutique.</p>
+              </details>
+          {% endcase %}
+        </div>
+      </div>
+
+      <div class="rc-guide-photos">
+        <figure>
+          <img
+            src="{{ photo_1 | asset_url }}"
+            alt="{{ photo_1_alt | escape }}"
+            width="1400"
+            height="900"
+            loading="lazy"
+          >
+        </figure>
+        <figure>
+          <img
+            src="{{ photo_2 | asset_url }}"
+            alt="{{ photo_2_alt | escape }}"
+            width="1400"
+            height="900"
+            loading="lazy"
+          >
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Guide collection RC",
+  "enabled_on": {
+    "templates": ["collection"]
+  },
+  "settings": [],
+  "presets": [
+    {
+      "name": "Guide collection RC"
+    }
+  ]
+}
+{% endschema %}
