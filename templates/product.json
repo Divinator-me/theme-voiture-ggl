@@ -198,6 +198,14 @@
               },
               "blocks": {}
             },
+            "rc_pack_picker": {
+              "type": "custom-liquid",
+              "name": "Pack entourage",
+              "settings": {
+                "custom_liquid": "{% render 'rc-pack-picker', product: product %}"
+              },
+              "blocks": {}
+            },
             "variant_picker_couleur": {
               "type": "variant-picker",
               "name": "Couleur",
@@ -330,6 +338,7 @@
           "block_order": [
             "group_icgrde",
             "custom_liquid_stock",
+            "rc_pack_picker",
             "variant_picker_couleur",
             "variant_picker_batteries",
             "custom_liquid_ma39Xw",
