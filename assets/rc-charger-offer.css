@@ -5,7 +5,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  max-width: 100%;
   padding: 16px;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .rc-charger-offer[hidden] {
@@ -21,10 +25,13 @@
 .rc-charger-offer__dialog {
   position: relative;
   z-index: 1;
+  box-sizing: border-box;
   width: min(520px, 100%);
+  max-width: 100%;
+  min-width: 0;
   max-height: min(92vh, 720px);
   overflow: auto;
-  padding: 36px 28px 32px;
+  padding: 32px 20px 28px;
   border-radius: 16px;
   background: var(--color-white);
   text-align: center;
@@ -33,8 +40,10 @@
 
 .rc-charger-offer__title {
   margin: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
   font-family: var(--font-body);
-  font-size: clamp(26px, 4vw, 34px);
+  font-size: clamp(22px, 6vw, 34px);
   font-weight: 800;
   letter-spacing: -0.03em;
   line-height: 1.1;
@@ -43,6 +52,8 @@
 
 .rc-charger-offer__sub {
   margin: 10px 0 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
   font-family: var(--font-body);
   font-size: 16px;
   font-weight: 400;
@@ -54,18 +65,22 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  min-width: 0;
   margin-top: 28px;
 }
 
 .rc-charger-offer__image {
-  width: 220px;
-  height: 220px;
+  width: min(220px, 100%);
+  height: auto;
+  aspect-ratio: 1;
   object-fit: contain;
 }
 
 .rc-charger-offer__name {
   margin: 16px 0 0;
-  max-width: 320px;
+  max-width: 100%;
+  overflow-wrap: anywhere;
   font-family: var(--font-body);
   font-size: 16px;
   font-weight: 700;
@@ -77,9 +92,12 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 220px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 280px;
+  min-width: 0;
   margin-top: 22px;
-  padding: 14px 36px;
+  padding: 14px 24px;
   border: 0;
   border-radius: 999px;
   background: #ffd200;
@@ -101,12 +119,13 @@
   opacity: 0.7;
 }
 
+html.has-rc-charger-offer,
 body.has-rc-charger-offer {
   overflow: hidden;
+  overscroll-behavior: none;
 }
 
 body.has-rc-charger-offer [id*='upcart'],
 body.has-rc-charger-offer [class*='upcart'] {
-  visibility: hidden !important;
-  pointer-events: none !important;
+  display: none !important;
 }

@@ -41,6 +41,7 @@
       this.hidden = false;
       this.classList.add('is-open');
       this.removeAttribute('hidden');
+      document.documentElement.classList.add('has-rc-charger-offer');
       document.body.classList.add('has-rc-charger-offer');
       window.RCLAB = window.RCLAB || {};
       window.RCLAB.cartOpenBlocked = true;
@@ -94,6 +95,7 @@
       this.classList.remove('is-open');
       this.hidden = true;
       this.setAttribute('hidden', '');
+      document.documentElement.classList.remove('has-rc-charger-offer');
       document.body.classList.remove('has-rc-charger-offer');
       this.#clearUpcartGuard();
       if (this.#lastFocus && typeof this.#lastFocus.focus === 'function') {
