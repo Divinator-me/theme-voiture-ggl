@@ -155,7 +155,7 @@
   }
 
   const ADD_TRIGGER =
-    'product-form-component .add-to-cart-button, product-form-component button[type="submit"], sticky-add-to-cart .sticky-add-to-cart__button';
+    'product-form-component .add-to-cart-button, product-form-component button[type="submit"]';
 
   document.addEventListener(
     'click',

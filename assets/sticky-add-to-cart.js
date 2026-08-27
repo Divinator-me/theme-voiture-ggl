@@ -120,27 +120,45 @@ class StickyAddToCartComponent extends Component {
 
   // Public action handlers
   /**
-   * Handles the add to cart button click in the sticky bar
+   * Scrolls to the first option still missing (pack, color, extra batteries).
    */
-  handleAddToCartClick = async () => {
-    if (!this.#targetAddToCartButton) return;
-    this.#targetAddToCartButton.dataset.puppet = 'true';
-    this.#targetAddToCartButton.click();
-
-    const cartIcon = document.querySelector('.header-actions__cart-icon');
-    if (!cartIcon || !this.refs.productImage) return;
-
-    const flyToCartElement = /** @type {FlyToCart} */ (document.createElement('fly-to-cart'));
-    flyToCartElement.classList.add('fly-to-cart--sticky');
-    flyToCartElement.style.setProperty('background-image', `url(${this.refs.productImage.src})`);
-    flyToCartElement.useSourceSize = 'true';
-    flyToCartElement.source = this.refs.productImage;
-    flyToCartElement.destination = cartIcon;
-
-    document.body.appendChild(flyToCartElement);
-    await onAnimationEnd(flyToCartElement);
-    flyToCartElement.remove();
+  handleAddToCartClick = () => {
+    const target = this.#missingChoiceTarget();
+    this.#scrollToChoice(target);
   };
+
+  #missingChoiceTarget() {
+    const scope = document.querySelector('.product-information') || document;
+
+    const pack = scope.querySelector('rc-pack-picker');
+    if (pack && !pack.querySelector('.rc-pack-picker__radio:checked')) {
+      return pack.querySelector('.rc-pack-picker__legend') || pack;
+    }
+
+    const color = scope.querySelector('.variant-option--buttons:not(.rc-color-clone)');
+    if (color && !color.querySelector('input:checked')) {
+      return color.querySelector('legend') || color;
+    }
+
+    const extra = scope.querySelector('.rc-extra-batteries');
+    if (extra) return extra.querySelector('label') || extra;
+
+    return pack || color || scope.querySelector('.buy-buttons-block');
+  }
+
+  #scrollToChoice(element) {
+    if (!element) return;
+
+    const header = document.querySelector('.rc-main-nav, .header-wrapper, header');
+    const headerHeight = header?.getBoundingClientRect().height || 0;
+    const top = element.getBoundingClientRect().top + window.scrollY - headerHeight - 20;
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    window.scrollTo({
+      top: Math.max(0, top),
+      behavior: prefersReduced ? 'auto' : 'smooth',
+    });
+  }
 
   /**
    * Restores button state after bfcache navigation.
