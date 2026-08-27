@@ -504,7 +504,34 @@
 
 @media (min-width: 750px) {
   .rc-collection-header {
-    padding: 40px 24px 28px;
+    padding: 48px 24px 40px;
+  }
+
+  .rc-collection-header__title {
+    font-size: clamp(48px, 5.6vw, 72px);
+  }
+
+  .rc-collection-header__desc {
+    margin-top: 18px;
+    font-size: 16px;
+  }
+
+  .rc-collection-header__stats {
+    gap: 10px;
+    max-width: 640px;
+    margin-top: 28px;
+  }
+
+  .rc-collection-header__stat {
+    padding: 14px 14px 16px;
+  }
+
+  .rc-collection-header__stat-copy strong {
+    font-size: 24px;
+  }
+
+  .rc-categories--collection {
+    padding-top: 32px;
   }
 
   .rc-collection.collection-wrapper,
