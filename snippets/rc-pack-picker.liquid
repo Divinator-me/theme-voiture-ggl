@@ -23,7 +23,7 @@
   <fieldset class="rc-pack-picker__fieldset">
     <legend class="rc-pack-picker__legend">Combien pour votre entourage ?</legend>
 
-    <label class="rc-pack-picker__card">
+    <label class="rc-pack-picker__card is-solo">
       <input
         class="rc-pack-picker__radio"
         type="radio"
@@ -39,6 +39,11 @@
     </label>
 
     <label class="rc-pack-picker__card is-duo">
+      <input
+        class="rc-pack-picker__radio"
+        type="radio"
+        name="rc-pack-{{ pack_id }}"
+        value="2"
       >
       <span class="rc-pack-picker__radio-ui" aria-hidden="true"></span>
       <span class="rc-pack-picker__icon" aria-hidden="true">⭐</span>
@@ -49,6 +54,11 @@
     </label>
 
     <label class="rc-pack-picker__card is-trio">
+      <input
+        class="rc-pack-picker__radio"
+        type="radio"
+        name="rc-pack-{{ pack_id }}"
+        value="3"
       >
       <span class="rc-pack-picker__radio-ui" aria-hidden="true"></span>
       <span class="rc-pack-picker__icon" aria-hidden="true">🏆</span>
