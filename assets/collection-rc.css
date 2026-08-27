@@ -544,17 +544,17 @@
   }
 
   .rc-collection-header__stats {
-    gap: 10px;
-    max-width: 640px;
-    margin-top: 28px;
+    gap: 8px;
+    max-width: 420px;
+    margin-top: 22px;
   }
 
   .rc-collection-header__stat {
-    padding: 14px 14px 16px;
+    padding: 9px 10px 10px;
   }
 
   .rc-collection-header__stat-copy strong {
-    font-size: 24px;
+    font-size: 17px;
   }
 
   .rc-categories--collection {
@@ -580,6 +580,6 @@
 
 @media (min-width: 1100px) {
   .rc-collection-header__stats {
-    max-width: 720px;
+    max-width: 440px;
   }
 }
