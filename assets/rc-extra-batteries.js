@@ -1,109 +1,146 @@
 (() => {
   window.RCLAB = window.RCLAB || {};
 
-  const extraBatteryItem = () => {
-    const root = document.querySelector('.product-information .rc-extra-batteries');
-    if (!root) return null;
+  const CART_ADD_PATTERN = /\/cart\/add(\.js)?(\?|$)/;
+  const EXTRA_ROOT = () => document.querySelector('.rc-extra-batteries');
+
+  let selectedQty = 0;
+  let variantId = '';
+  let addingExtras = false;
+
+  const readFromDom = () => {
+    const root = EXTRA_ROOT();
+    if (!root) return { quantity: 0, variantId: '' };
 
     const checked = root.querySelector('input[name="rc-extra-batteries"]:checked');
-    const qty = Number(checked?.value || root.getAttribute('data-qty')) || 0;
-    const variantId = root.getAttribute('data-variant-id') || checked?.getAttribute('data-variant-id');
-    if (qty < 1 || !variantId) return null;
-
-    return { variantId: String(variantId), quantity: qty };
+    const qty = Number(checked?.value || root.getAttribute('data-qty') || 0) || 0;
+    const id = root.getAttribute('data-variant-id') || checked?.getAttribute('data-variant-id') || '';
+    return { quantity: qty, variantId: String(id) };
   };
 
-  let flushing = false;
-
-  const snapshotExtraBatteries = () => {
-    window.RCLAB.pendingExtraBatteries = extraBatteryItem();
-    return window.RCLAB.pendingExtraBatteries;
+  const rememberSelection = (qty, id) => {
+    if (Number.isFinite(qty)) selectedQty = qty;
+    if (id) variantId = String(id);
+    const root = EXTRA_ROOT();
+    if (root) root.setAttribute('data-qty', String(selectedQty));
   };
 
-  const flushExtraBatteries = () => {
-    if (window.RCLAB.extraBatteriesBundled) return Promise.resolve(null);
+  const extraBatteryItem = () => {
+    const fromDom = readFromDom();
+    const qty = selectedQty || fromDom.quantity;
+    const id = variantId || fromDom.variantId;
+    if (qty < 1 || !id) return null;
+    return { variantId: String(id), quantity: qty };
+  };
 
-    const extra = window.RCLAB.pendingExtraBatteries || extraBatteryItem();
-    if (!extra || flushing) return Promise.resolve(null);
+  const addExtraBatteries = async () => {
+    const extra = extraBatteryItem();
+    if (!extra || addingExtras) return null;
 
-    flushing = true;
+    addingExtras = true;
 
-    return fetch('/cart.js', { credentials: 'same-origin' })
-      .then((response) => response.json())
-      .then((cart) => {
-        const existing = (cart.items || []).find((item) => String(item.variant_id) === extra.variantId);
-        const needed = extra.quantity - (existing?.quantity || 0);
-        if (needed < 1) return cart;
+    try {
+      const cart = await fetch('/cart.js', { credentials: 'same-origin' }).then((response) => response.json());
+      const existing = (cart.items || []).find((item) => String(item.variant_id) === extra.variantId);
+      const needed = extra.quantity - (existing?.quantity || 0);
+      if (needed < 1) return cart;
 
-        return fetch('/cart/add.js', {
-          method: 'POST',
-          credentials: 'same-origin',
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-          },
-          body: JSON.stringify({
-            items: [{ id: Number(extra.variantId), quantity: needed }],
-          }),
-        }).then((response) => response.json());
-      })
-      .then((result) => {
-        if (result?.status) return result;
-        if (typeof window.upcartRefreshCart === 'function' && !window.RCLAB.cartOpenBlocked) {
-          window.upcartRefreshCart();
-        }
-        return result;
-      })
-      .catch(() => null)
-      .finally(() => {
-        flushing = false;
-        window.RCLAB.pendingExtraBatteries = null;
+      const response = await fetch('/cart/add.js', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+          Accept: 'application/json',
+        },
+        body: (() => {
+          const body = new FormData();
+          body.append('id', extra.variantId);
+          body.append('quantity', String(needed));
+          return body;
+        })(),
       });
+
+      const data = await response.json();
+      if (typeof window.upcartRefreshCart === 'function' && !window.RCLAB.cartOpenBlocked) {
+        window.upcartRefreshCart();
+      }
+      return data;
+    } catch (error) {
+      return null;
+    } finally {
+      addingExtras = false;
+    }
   };
 
   window.RCLAB.getExtraBatteryItem = extraBatteryItem;
-  window.RCLAB.snapshotExtraBatteries = snapshotExtraBatteries;
-  window.RCLAB.flushExtraBatteries = flushExtraBatteries;
+  window.RCLAB.snapshotExtraBatteries = () => extraBatteryItem();
+  window.RCLAB.flushExtraBatteries = addExtraBatteries;
 
-  const ADD_TRIGGER =
-    'product-form-component .add-to-cart-button, product-form-component button[type="submit"]';
+  document.addEventListener(
+    'click',
+    (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+
+      const extraLabel = target.closest('.rc-extra-batteries .variant-option__button-label');
+      if (extraLabel) {
+        const input = extraLabel.querySelector('input[name="rc-extra-batteries"]');
+        if (input) {
+          rememberSelection(Number(input.value) || 0, input.getAttribute('data-variant-id'));
+        }
+        return;
+      }
+
+      if (
+        target.closest(
+          'product-form-component .add-to-cart-button, product-form-component button[type="submit"]'
+        )
+      ) {
+        const fromDom = readFromDom();
+        rememberSelection(fromDom.quantity, fromDom.variantId);
+      }
+    },
+    true
+  );
 
   document.addEventListener(
     'change',
     (event) => {
       const target = event.target;
-      if (!(target instanceof HTMLInputElement)) return;
-      if (target.name !== 'rc-extra-batteries') return;
-      const root = target.closest('.rc-extra-batteries');
-      if (root) root.setAttribute('data-qty', target.value);
-      snapshotExtraBatteries();
+      if (!(target instanceof HTMLInputElement) || target.name !== 'rc-extra-batteries') return;
+      rememberSelection(Number(target.value) || 0, target.getAttribute('data-variant-id'));
     },
     true
   );
 
-  window.addEventListener(
-    'click',
-    (event) => {
-      const target = event.target;
-      if (!(target instanceof Element)) return;
-      if (!target.closest(ADD_TRIGGER)) return;
-      snapshotExtraBatteries();
-    },
-    true
-  );
+  const nativeFetch = window.fetch.bind(window);
+  window.fetch = async (...args) => {
+    if (addingExtras) return nativeFetch(...args);
 
-  document.addEventListener('shopify:cart:lines-update', (event) => {
-    if (window.RCLAB.extraBatteriesBundled) return;
-    if (!window.RCLAB.pendingExtraBatteries) return;
+    const response = await nativeFetch(...args);
+    const request = args[0];
+    const url = String(typeof request === 'string' ? request : request?.url || '');
 
-    const promise = event.promise || event.detail?.promise;
-    const run = () => flushExtraBatteries();
+    if (!CART_ADD_PATTERN.test(url) || extraBatteryItem() == null) return response;
 
-    if (promise && typeof promise.then === 'function') {
-      promise.then(run).catch(run);
-      return;
-    }
+    const payload = await response
+      .clone()
+      .json()
+      .catch(() => null);
 
-    window.setTimeout(run, 450);
-  });
+    if (!payload || payload.status) return response;
+
+    await addExtraBatteries();
+    return response;
+  };
+
+  const syncFromDom = () => {
+    const fromDom = readFromDom();
+    rememberSelection(fromDom.quantity, fromDom.variantId);
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', syncFromDom, { once: true });
+  } else {
+    syncFromDom();
+  }
 })();

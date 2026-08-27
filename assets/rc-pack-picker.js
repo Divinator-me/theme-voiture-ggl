@@ -218,22 +218,6 @@ class RcPackPicker extends HTMLElement {
     return select?.value?.trim() || '';
   }
 
-  #extraBatteryItem() {
-    if (typeof window.RCLAB?.getExtraBatteryItem === 'function') {
-      return window.RCLAB.getExtraBatteryItem();
-    }
-
-    const root = document.querySelector('.product-information .rc-extra-batteries');
-    if (!root) return null;
-
-    const checked = root.querySelector('input[name="rc-extra-batteries"]:checked');
-    const qty = Number(checked?.value) || 0;
-    const variantId = root.getAttribute('data-variant-id') || checked?.getAttribute('data-variant-id');
-    if (qty < 1 || !variantId) return null;
-
-    return { variantId: String(variantId), quantity: qty };
-  }
-
   #colorValues() {
     const qty = this.#selectedQty();
     const master = this.#colorMaster();
@@ -288,15 +272,9 @@ class RcPackPicker extends HTMLElement {
         const productForm = formEl.closest('product-form-component');
         if (!productForm || formEl.closest('quick-add, .quick-add-modal')) return;
 
-        const extra =
-          (typeof window.RCLAB?.snapshotExtraBatteries === 'function'
-            ? window.RCLAB.snapshotExtraBatteries()
-            : null) || this.#extraBatteryItem();
-        if (extra) window.RCLAB.pendingExtraBatteries = extra;
-
         const items = this.#packCartItems();
         const packQty = this.#selectedQty();
-        if (items.length < 2 && packQty < 2 && !extra) return;
+        if (items.length < 2 && packQty < 2) return;
 
         const payload = (items.length
           ? items.map((item) => ({ ...item }))
@@ -308,20 +286,11 @@ class RcPackPicker extends HTMLElement {
             ]
         ).filter((item) => item.variantId);
 
-        if (extra) {
-          payload.push({ variantId: extra.variantId, quantity: extra.quantity });
-          window.RCLAB.pendingExtraBatteries = null;
-          window.RCLAB.extraBatteriesBundled = true;
-        }
-
         if (!payload.length) return;
 
         event.preventDefault();
         event.stopImmediatePropagation();
-
-        this.#addPackItems(productForm, payload).finally(() => {
-          window.RCLAB.extraBatteriesBundled = false;
-        });
+        this.#addPackItems(productForm, payload);
       },
       true
     );
