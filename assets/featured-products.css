@@ -130,7 +130,8 @@
     transform 0.25s var(--ease-smooth);
 }
 
-.rc-product-card button:hover {
+.rc-product-card button:hover,
+.rc-product-card__cta:hover {
   background: var(--color-red);
 }
 
@@ -191,13 +192,16 @@
     right: -25px;
   }
 
-  .rc-product-card button {
+  .rc-product-card button,
+  .rc-product-card__cta {
     opacity: 0;
     transform: translate3d(0, 10px, 0);
   }
 
   .rc-product-card:hover button,
-  .rc-product-card:focus-within button {
+  .rc-product-card:focus-within button,
+  .rc-product-card:hover .rc-product-card__cta,
+  .rc-product-card:focus-within .rc-product-card__cta {
     opacity: 1;
     transform: translate3d(0, 0, 0);
   }
