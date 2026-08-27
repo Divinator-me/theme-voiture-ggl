@@ -36,8 +36,24 @@
     window.setTimeout(() => whenUpcartReady(callback, attempts - 1), 150);
   };
 
-  const notifyUpcartAfterAdd = () => {
+  const closeUpcartQuietly = () => {
+    if (typeof window.upcartCloseCart === 'function') {
+      window.upcartCloseCart();
+    }
+  };
+
+  const interceptChargerOffer = (cart) => {
+    const offer = document.querySelector('rc-charger-offer');
+    if (!offer || typeof offer.interceptAdd !== 'function') return false;
+    if (!offer.interceptAdd(cart)) return false;
+    closeUpcartQuietly();
+    return true;
+  };
+
+  const notifyUpcartAfterAdd = (cart) => {
     syncCartCount();
+
+    if (interceptChargerOffer(cart)) return;
 
     whenUpcartReady(() => {
       if (typeof window.upcartRegisterAddToCart === 'function') {
@@ -81,7 +97,7 @@
           .clone()
           .json()
           .then((data) => {
-            if (data && !data.status) notifyUpcartAfterAdd();
+            if (data && !data.status) notifyUpcartAfterAdd(data);
           })
           .catch(() => {});
       }
@@ -102,7 +118,7 @@
     promise
       .then((result) => {
         if (result?.detail?.didError) return;
-        notifyUpcartAfterAdd();
+        notifyUpcartAfterAdd(result?.cart || result?.detail);
       })
       .catch(() => {});
   };
@@ -128,6 +144,20 @@
     if (typeof window.upcartSubscribeCartLoaded === 'function') {
       window.upcartSubscribeCartLoaded((event) => {
         updateCartCount(getItemCount(event.cart));
+      });
+    }
+
+    if (typeof window.upcartSubscribeCartOpened === 'function') {
+      window.upcartSubscribeCartOpened(() => {
+        if (document.querySelector('rc-charger-offer.is-open')) {
+          closeUpcartQuietly();
+        }
+      });
+    }
+
+    if (typeof window.upcartSubscribeAddedToCart === 'function') {
+      window.upcartSubscribeAddedToCart(() => {
+        interceptChargerOffer();
       });
     }
   });
