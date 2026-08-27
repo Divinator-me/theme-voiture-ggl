@@ -72,7 +72,7 @@
               {% render 'rc-product-card', product: product %}
             </li>
             {%- if collection.handle == 'monster-truck-4x4' and paginate.current_page == 1 -%}
-              {%- if forloop.index == 2 -%}
+              {%- if product.handle == 'crawler-jeep-wrangler-1-12-rclab' -%}
                 {% render 'rc-collection-video' %}
               {%- endif -%}
               {%- if product.handle == '4x4-tout-terrain-1-16-50-km-h' -%}

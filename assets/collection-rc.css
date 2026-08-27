@@ -357,13 +357,24 @@
   }
 }
 
+.rc-collection-video:not(.rc-collection-video--photo) {
+  grid-column: 1 / -1;
+}
+
 @media (min-width: 750px) {
-  .rc-collection-video {
+  .rc-collection-video--photo {
     align-self: stretch;
     height: auto;
   }
 
-  .rc-collection-video__link {
+  .rc-collection-video:not(.rc-collection-video--photo) .rc-collection-video__link {
+    max-width: none;
+    width: 100%;
+    height: 260px;
+    margin-inline: 0;
+  }
+
+  .rc-collection-video--photo .rc-collection-video__link {
     display: block;
     flex: 1 1 auto;
     width: 100%;
