@@ -1241,7 +1241,7 @@ body:has(sticky-add-to-cart) {
 
 .product-information .shopify-block:has(.rc-product-trust) {
   width: 100%;
-  margin-top: -12px;
+  margin-top: -22px;
 }
 
 .product-information .rc-product-trust {
