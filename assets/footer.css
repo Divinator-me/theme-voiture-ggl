@@ -199,6 +199,11 @@
 }
 
 .rc-footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 20px;
+  align-items: center;
+  justify-content: space-between;
   max-width: 1280px;
   border-top: 1px solid rgb(255 255 255 / 12%);
   margin: 34px auto 0;
@@ -207,8 +212,32 @@
 
 .rc-footer__bottom p {
   margin: 0;
+  max-width: none;
   color: rgb(255 255 255 / 65%);
   font-size: 12px;
+}
+
+.rc-footer__payments {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rc-footer__payments li {
+  display: flex;
+  overflow: hidden;
+  border-radius: 4px;
+  background: var(--color-white);
+}
+
+.rc-footer__payments svg {
+  display: block;
+  width: 38px;
+  height: 24px;
 }
 
 @media (min-width: 750px) {
