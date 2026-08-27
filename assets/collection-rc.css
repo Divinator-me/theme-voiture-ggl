@@ -301,6 +301,7 @@
 
 .rc-collection-video__title {
   max-width: 16ch;
+  color: var(--color-white);
   font-family: var(--font-display);
   font-size: 22px;
   font-style: italic;
