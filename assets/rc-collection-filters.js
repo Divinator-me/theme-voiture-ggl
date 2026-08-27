@@ -12,11 +12,7 @@
     const title = raw.title || '';
     const scaleMatch = title.match(/1\s*[/:]\s*(\d{1,2})/) || title.match(/\b1-(\d{1,2})\b/);
     const speedMatch = title.match(/(\d{1,3})\s*km/i);
-    const ages = [];
-
-    for (const tag of raw.tags || []) {
-      if (/8\s*ans/i.test(tag) || /d[eè]s\s*8/i.test(tag)) ages.push('8');
-    }
+    const ages = ['8'];
 
     return {
       handle: raw.handle,
