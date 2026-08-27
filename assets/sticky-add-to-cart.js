@@ -142,7 +142,8 @@ class StickyAddToCartComponent extends Component {
 
     const header = document.querySelector('.rc-main-nav, .header-wrapper, header');
     const headerHeight = header?.getBoundingClientRect().height || 0;
-    const top = element.getBoundingClientRect().top + window.scrollY - headerHeight - 20;
+    const targetOffset = Math.max(headerHeight + 16, window.innerHeight * 0.4);
+    const top = element.getBoundingClientRect().top + window.scrollY - targetOffset;
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     window.scrollTo({
