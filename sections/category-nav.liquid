@@ -10,7 +10,12 @@
       aria-expanded="false"
       aria-label="Ouvrir le menu"
     >
-      <span aria-hidden="true">☰</span> Menu
+      <svg class="rc-category-nav__burger" viewBox="0 0 20 14" aria-hidden="true">
+        <line x1="0" y1="1.2" x2="20" y2="1.2"></line>
+        <line x1="0" y1="7" x2="20" y2="7"></line>
+        <line x1="0" y1="12.8" x2="20" y2="12.8"></line>
+      </svg>
+      <span class="rc-category-nav__menu-label">Menu</span>
     </button>{%- render 'rc-nav-collections', context: 'bar' -%}
   </nav>
 </section>

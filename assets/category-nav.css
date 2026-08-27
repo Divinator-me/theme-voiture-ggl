@@ -38,7 +38,7 @@
   }
 
   .rc-category-nav .rc-category-nav__link,
-  .rc-category-nav button.rc-category-nav__menu {
+  body .rc-category-nav button.rc-category-nav__menu {
     position: relative;
     display: inline-flex;
     gap: 8px;
@@ -59,6 +59,34 @@
     text-transform: uppercase;
     cursor: pointer;
     white-space: nowrap;
+  }
+
+  body .rc-category-nav button.rc-category-nav__menu {
+    font: italic 400 20px / 1 var(--font-display);
+  }
+
+  .rc-category-nav__menu-label {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .rc-category-nav__burger {
+    display: block;
+    width: 18px;
+    height: 13px;
+    transform: skewX(-12deg);
+  }
+
+  .rc-category-nav__burger line {
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-width: 2.4;
   }
 
   .rc-category-nav__link::after,

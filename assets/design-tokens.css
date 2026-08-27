@@ -33,7 +33,7 @@ body :is(.rc-main-nav, .rc-menu-overlay, .rc-footer, .rc-hero, .rc-categories, .
   text-decoration: none;
 }
 
-body :is(.rc-main-nav, .rc-menu-overlay, .rc-footer, .rc-hero, .rc-categories, .rc-best-sellers, .rc-collection, .rc-collection-header, .rc-faq, .rc-story, .rc-trust-end, .rc-policy, .announcement-marquee, .rc-promo-bar, .rc-category-nav) button:not(.rc-product-card__cta),
+body :is(.rc-main-nav, .rc-menu-overlay, .rc-footer, .rc-hero, .rc-categories, .rc-best-sellers, .rc-collection, .rc-collection-header, .rc-faq, .rc-story, .rc-trust-end, .rc-policy, .announcement-marquee, .rc-promo-bar, .rc-category-nav) button:not(.rc-product-card__cta):not(.rc-category-nav__menu),
 body :is(.rc-main-nav, .rc-menu-overlay, .rc-footer, .rc-hero, .rc-categories, .rc-best-sellers, .rc-collection, .rc-collection-header, .rc-faq, .rc-story, .rc-trust-end, .rc-policy, .announcement-marquee, .rc-promo-bar, .rc-category-nav) input {
   font: inherit;
 }
