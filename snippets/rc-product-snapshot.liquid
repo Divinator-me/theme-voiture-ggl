@@ -36,23 +36,35 @@
   endfor
 
   assign snapshot_age = ''
-  assign snapshot_age_needles = '3,5,7,8,10,12' | split: ','
-  for age in snapshot_age_needles
-    if snapshot_age != blank
-      break
-    endif
-    assign age_fr = 'dès ' | append: age | append: ' ans'
-    assign age_plus = age | append: ' ans'
-    for tag in snapshot_product.tags
-      assign tag_l = tag | downcase
-      if tag_l contains age_fr or tag_l contains age_plus
-        assign snapshot_age = age
-        break
-      endif
-    endfor
-  endfor
-  if snapshot_age == blank
+  if snapshot_product.tags contains 'Dès 12 ans'
+    assign snapshot_age = '12'
+  elsif snapshot_product.tags contains '10 ans et plus'
+    assign snapshot_age = '10'
+  elsif snapshot_product.tags contains '8 ans et plus' or snapshot_product.tags contains 'Dès 8 ans'
     assign snapshot_age = '8'
+  elsif snapshot_product.tags contains '7 ans et plus'
+    assign snapshot_age = '7'
+  elsif snapshot_product.tags contains 'Dès 5 ans' or snapshot_product.tags contains '5 ans et plus'
+    assign snapshot_age = '5'
+  elsif snapshot_product.tags contains '3 ans et plus' or snapshot_product.tags contains 'Dès 3 ans'
+    assign snapshot_age = '3'
+  endif
+
+  if snapshot_age == blank
+    assign snapshot_age_blob = snapshot_product.tags | join: ' ' | append: ' ' | append: snapshot_title | append: ' ' | append: snapshot_copy | downcase
+    if snapshot_age_blob contains '12 ans'
+      assign snapshot_age = '12'
+    elsif snapshot_age_blob contains '10 ans'
+      assign snapshot_age = '10'
+    elsif snapshot_age_blob contains '8 ans'
+      assign snapshot_age = '8'
+    elsif snapshot_age_blob contains '7 ans'
+      assign snapshot_age = '7'
+    elsif snapshot_age_blob contains '5 ans'
+      assign snapshot_age = '5'
+    elsif snapshot_age_blob contains '3 ans'
+      assign snapshot_age = '3'
+    endif
   endif
 
   assign snapshot_cat = ''
