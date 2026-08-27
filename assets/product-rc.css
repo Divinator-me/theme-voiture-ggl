@@ -40,6 +40,18 @@
   text-transform: uppercase;
 }
 
+.product-information .variant-option legend,
+.product-information .variant-option--dropdowns > label {
+  font-family: var(--font-display);
+  font-size: clamp(18px, 4.2vw, 22px);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  text-transform: none;
+  color: var(--color-black);
+}
+
 .product-information .variant-option__button-label[data-rc-swatch]:has(:checked) {
   --color-selected-variant-text: #ffffff;
   --color-selected-variant-hover-text: #ffffff;
