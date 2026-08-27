@@ -670,8 +670,38 @@ body:has(sticky-add-to-cart) {
   margin: 0 0 0.85em;
 }
 
-.rc-product-desc__content :is(h1, h2, h3, h4, h5, h6),
-.rc-product-desc__tab-panel :is(h1, h2, h3, h4, h5, h6) {
+.rc-product-desc__content :is(h1, h2, h3, h5, h6),
+.rc-product-desc__tab-panel :is(h1, h2, h3, h5, h6),
+.rc-product-desc__content .rc-desc-section__pitch,
+.rc-product-desc__content .rc-desc-section__title,
+.rc-product-desc__tab-panel .rc-desc-section__pitch,
+.rc-product-desc__tab-panel .rc-desc-section__title {
+  position: relative;
+  width: fit-content;
+  max-width: 100%;
+  margin: 1.15em 0 0.55em;
+  padding: 2px 0 2px 10px;
+  border-left: 4px solid var(--color-red);
+  color: var(--color-black);
+  font-family: var(--font-display);
+  font-size: clamp(18px, 4.6vw, 26px);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.rc-product-desc__content :is(h1, h2, h3, h5, h6):first-child,
+.rc-product-desc__tab-panel :is(h1, h2, h3, h5, h6):first-child {
+  margin-top: 0;
+}
+
+.rc-product-desc__content h4,
+.rc-product-desc__tab-panel h4,
+.rc-product-desc__content .rc-desc-section__label,
+.rc-product-desc__tab-panel .rc-desc-section__label {
   margin: 1em 0 0.5em;
   color: var(--color-black);
   font-family: var(--font-body);
@@ -680,6 +710,9 @@ body:has(sticky-add-to-cart) {
   font-weight: 700;
   letter-spacing: 0.02em;
   line-height: 1.35;
+  text-transform: none;
+  border: 0;
+  padding: 0;
 }
 
 .rc-product-desc__content img,
