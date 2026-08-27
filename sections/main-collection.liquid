@@ -74,7 +74,15 @@
             {%- if paginate.current_page == 1 -%}
               {%- if collection.handle == 'monster-truck-4x4' -%}
                 {%- if product.handle == '4x4-rc-1-16-brushless-70-kmh-rclab' -%}
-                  {% render 'rc-collection-video' %}
+                  {% capture rc_monster_heading %}Un vrai tout-terrain,<br>même sur l'eau.{% endcapture %}
+                  {% render 'rc-collection-video',
+                    video: 'rc-collection-monster.mp4',
+                    product_handle: '4x4-tout-terrain-brushless-70-km-h-rclab',
+                    kicker: '4x4 brushless',
+                    heading: rc_monster_heading,
+                    cta: 'Le bolide',
+                    aria_label: 'Le bolide'
+                  %}
                 {%- endif -%}
                 {%- if product.handle == '4x4-tout-terrain-1-16-50-km-h' -%}
                   {% render 'rc-collection-photo' %}
@@ -90,7 +98,7 @@
                     aria_label: 'Buggy 1/12 brushless'
                   %}
                 {%- endif -%}
-              {%- elsif collection.handle == 'rallye-trophy' -%}
+              {%- elsif collection.handle == 'rallye-trophy' or collection.handle == 'drift' -%}
                 {%- if forloop.index == 2 -%}
                   {% render 'rc-collection-video',
                     youtube_id: 'dzm8XDWg4C4',
