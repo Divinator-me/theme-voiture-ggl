@@ -6,38 +6,36 @@
 
 {%- if extra != empty and extra.id and extra_variant and current.handle != extra.handle -%}
   <div
-    class="rc-extra-batteries variant-option variant-option--dropdowns"
+    class="rc-extra-batteries variant-option"
     data-variant-id="{{ extra_variant.id }}"
   >
-    <label for="rc-extra-batteries-{{ extra.id }}">Des Batteries Supplémentaires ?</label>
-    <div class="variant-option__select-wrapper">
-      <select
-        id="rc-extra-batteries-{{ extra.id }}"
-        class="variant-option__select"
-        name="rc-extra-batteries"
-        data-variant-id="{{ extra_variant.id }}"
-      >
-        <option value="0" selected>Aucune</option>
-        {%- for count in (1..5) -%}
-          <option value="{{ count }}">
-            {%- if count == 1 -%}
-              1 batterie supplémentaire
-            {%- else -%}
-              {{ count }} batteries supplémentaires
-            {%- endif -%}
-          </option>
-        {%- endfor -%}
-      </select>
-      <svg
-        aria-hidden="true"
-        focusable="false"
-        class="icon icon-caret"
-        viewBox="0 0 10 6"
-      >
-        {%- render 'icon', icon: 'caret' -%}
-      </svg>
+    <div class="rc-extra-batteries__head">
+      <p class="rc-extra-batteries__title">Des Batteries Supplémentaires ?</p>
+      <span class="rc-extra-batteries__price">{{ extra_variant.price | money }} / unité</span>
     </div>
-    <p class="rc-extra-batteries__price">{{ extra_variant.price | money }} / unité</p>
+
+    <div class="rc-extra-batteries__grid" role="radiogroup" aria-label="Batteries supplémentaires">
+      {%- for count in (0..7) -%}
+        <label class="variant-option__button-label">
+          <input
+            type="radio"
+            name="rc-extra-batteries"
+            value="{{ count }}"
+            data-variant-id="{{ extra_variant.id }}"
+            {% if count == 0 %}
+              checked
+            {% endif %}
+          >
+          <span class="variant-option__button-label__text">
+            {%- if count == 0 -%}
+              Aucune
+            {%- else -%}
+              {{ count }}
+            {%- endif -%}
+          </span>
+        </label>
+      {%- endfor -%}
+    </div>
   </div>
   <script src="{{ 'rc-extra-batteries.js' | asset_url }}" defer></script>
 {%- endif -%}

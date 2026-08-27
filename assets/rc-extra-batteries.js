@@ -2,12 +2,12 @@
   window.RCLAB = window.RCLAB || {};
 
   const extraBatteryItem = () => {
-    const select = document.querySelector('.product-information select[name="rc-extra-batteries"]');
-    if (!select) return null;
+    const root = document.querySelector('.product-information .rc-extra-batteries');
+    if (!root) return null;
 
-    const qty = Number(select.value) || 0;
-    const root = select.closest('[data-variant-id]') || select.closest('.rc-extra-batteries');
-    const variantId = root?.getAttribute('data-variant-id') || select.getAttribute('data-variant-id');
+    const checked = root.querySelector('input[name="rc-extra-batteries"]:checked');
+    const qty = Number(checked?.value) || 0;
+    const variantId = root.getAttribute('data-variant-id') || checked?.getAttribute('data-variant-id');
     if (qty < 1 || !variantId) return null;
 
     return { variantId: String(variantId), quantity: qty };
