@@ -845,6 +845,22 @@ body:has(sticky-add-to-cart) {
   color: var(--color-price);
 }
 
+.product-information .shopify-block:has(variant-picker .variant-option--dropdowns) {
+  display: none;
+}
+
+.product-information .rc-extra-batteries {
+  display: block;
+  width: 100%;
+}
+
+.product-information .rc-extra-batteries__price {
+  margin: 8px 0 0;
+  font-size: 13px;
+  line-height: 1.3;
+  color: var(--color-foreground-subdued, #666666);
+}
+
 .rc-color-clones {
   display: flex;
   flex-direction: column;

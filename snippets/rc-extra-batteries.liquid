@@ -4,15 +4,18 @@
   assign current = product | default: closest.product
 -%}
 
-{%- if extra != empty and extra_variant and current.handle != extra.handle -%}
-  <rc-extra-batteries
+{%- if extra != empty and extra.id and extra_variant and current.handle != extra.handle -%}
+  <div
     class="rc-extra-batteries variant-option variant-option--dropdowns"
     data-variant-id="{{ extra_variant.id }}"
-    data-unit-price="{{ extra_variant.price }}"
   >
     <label for="rc-extra-batteries-{{ extra.id }}">Des Batteries Supplémentaires ?</label>
     <div class="variant-option__select-wrapper">
-      <select id="rc-extra-batteries-{{ extra.id }}" class="variant-option__select" name="rc-extra-batteries">
+      <select
+        id="rc-extra-batteries-{{ extra.id }}"
+        class="variant-option__select"
+        name="rc-extra-batteries"
+      >
         <option value="0" selected>Aucune</option>
         {%- for count in (1..5) -%}
           <option value="{{ count }}">
@@ -24,10 +27,19 @@
           </option>
         {%- endfor -%}
       </select>
-      <svg aria-hidden="true" focusable="false" class="icon icon-caret" viewBox="0 0 10 6">
+      <svg
+        aria-hidden="true"
+        focusable="false"
+        class="icon icon-caret"
+        viewBox="0 0 10 6"
+      >
         {%- render 'icon', icon: 'caret' -%}
       </svg>
     </div>
-    <p class="rc-extra-batteries__price">{{ extra_variant.price | money }} / unité</p>
-  </rc-extra-batteries>
+    {%- if extra_variant.available -%}
+      <p class="rc-extra-batteries__price">{{ extra_variant.price | money }} / unité</p>
+    {%- else -%}
+      <p class="rc-extra-batteries__price">Indisponible pour le moment</p>
+    {%- endif -%}
+  </div>
 {%- endif -%}

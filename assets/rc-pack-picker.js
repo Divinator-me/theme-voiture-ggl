@@ -212,8 +212,21 @@ class RcPackPicker extends HTMLElement {
   }
 
   #batteryValue() {
-    const select = document.querySelector('.product-information .variant-option--dropdowns select');
+    const select = document.querySelector(
+      '.product-information variant-picker .variant-option--dropdowns select'
+    );
     return select?.value?.trim() || '';
+  }
+
+  #extraBatteryItem() {
+    const extra = document.querySelector('.rc-extra-batteries');
+    if (!extra) return null;
+
+    const qty = Number(extra.querySelector('select')?.value) || 0;
+    const variantId = extra.dataset.variantId;
+    if (qty < 1 || !variantId) return null;
+
+    return { variantId: String(variantId), quantity: qty };
   }
 
   #colorValues() {
@@ -268,12 +281,25 @@ class RcPackPicker extends HTMLElement {
     form.addEventListener(
       'submit',
       (event) => {
+        const extra = this.#extraBatteryItem();
         const items = this.#packCartItems();
-        if (items.length < 2) return;
+        if (items.length < 2 && !extra) return;
+
+        const payload = items.length
+          ? items.map((item) => ({ ...item }))
+          : [
+              {
+                variantId: String(this.#currentVariantId() || ''),
+                quantity: this.#selectedQty(),
+              },
+            ].filter((item) => item.variantId);
+
+        if (extra) payload.push(extra);
+        if (!payload.length) return;
 
         event.preventDefault();
         event.stopImmediatePropagation();
-        this.#addPackItems(form, items);
+        this.#addPackItems(form, payload);
       },
       true
     );
