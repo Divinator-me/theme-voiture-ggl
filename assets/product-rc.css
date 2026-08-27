@@ -841,7 +841,7 @@ body:has(sticky-add-to-cart) {
   font-weight: 400;
   letter-spacing: 0;
   line-height: 1;
-  transform: translateX(-1.5px);
+  transform: translateX(-3.5px);
 }
 
 .rc-product-desc__content tr:nth-child(even),
