@@ -830,8 +830,10 @@ body:has(sticky-add-to-cart) {
   display: flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
   width: 28px;
   height: 28px;
+  padding: 1px 7px 0 2px;
   border-radius: 50%;
   background: var(--color-red);
   color: var(--color-white);
@@ -841,7 +843,6 @@ body:has(sticky-add-to-cart) {
   font-weight: 400;
   letter-spacing: 0;
   line-height: 1;
-  transform: translateX(-3.5px);
 }
 
 .rc-product-desc__content tr:nth-child(even),
