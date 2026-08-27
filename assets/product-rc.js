@@ -170,7 +170,7 @@
   };
 
   const KEYWORD_SKIP_SELECTOR =
-    'h1, h2, h3, h4, h5, h6, strong, b, a, button, script, style, svg, code, .rc-desc-section__pitch, .rc-desc-section__title, .rc-desc-section__label, .rc-highlight-card__title, .rc-product-snapshot, .rc-product-snapshot *';
+    'h1, h2, h3, h4, h5, h6, strong, b, a, button, script, style, svg, code, .rc-desc-section__pitch, .rc-desc-section__title, .rc-desc-section__label, .rc-highlight-card__title, .rc-product-snapshot, .rc-product-snapshot *, .rc-product-expert, .rc-product-expert *';
 
   const keywordTerm = (term) => `(?<![A-Za-zÀ-ÿ0-9])(?:${term})(?![A-Za-zÀ-ÿ0-9])`;
 
