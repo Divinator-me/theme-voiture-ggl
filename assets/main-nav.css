@@ -244,6 +244,7 @@ button.rc-menu-overlay__link {
   border: 0;
   background: transparent;
   font: inherit;
+  font-weight: 800;
   text-align: left;
   cursor: pointer;
 }

@@ -188,12 +188,12 @@
     width: fit-content;
     max-width: 100%;
     justify-content: flex-start;
-    gap: 4px;
+    gap: 10px;
     height: auto;
     min-height: 40px;
     margin-inline: 0;
     padding-block: 4px;
-    padding-inline: 10px 8px;
+    padding-inline: 10px 16px;
   }
 
   .rc-collection .facets-toggle .facets-mobile-wrapper,
