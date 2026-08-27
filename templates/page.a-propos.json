@@ -13,10 +13,6 @@
       "type": "qui-sommes-nous",
       "settings": {}
     },
-    "trust_end": {
-      "type": "trust-end",
-      "settings": {}
-    },
     "best_sellers": {
       "type": "best-sellers",
       "settings": {}
@@ -24,7 +20,6 @@
   },
   "order": [
     "qui_sommes_nous",
-    "trust_end",
     "best_sellers"
   ]
 }

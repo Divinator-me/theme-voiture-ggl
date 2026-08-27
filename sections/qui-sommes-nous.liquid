@@ -55,6 +55,9 @@
   </div>
 </section>
 
+{{ 'trust-end.css' | asset_url | stylesheet_tag }}
+{% render 'rc-trust-banner' %}
+
 <script type="application/ld+json">
   {
     "@context": "https://schema.org",
