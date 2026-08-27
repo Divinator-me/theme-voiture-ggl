@@ -220,11 +220,15 @@
 
 .rc-collection .product-grid {
   --product-grid-gap: 10px;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   width: 100%;
   max-width: 100%;
   margin: 0;
+}
+
+@media (max-width: 749px) {
+  .rc-collection .product-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
 }
 
 .rc-collection .product-grid__item {
@@ -237,6 +241,119 @@
 
 .rc-collection .product-grid__item .rc-product-card {
   margin: 0;
+}
+
+.rc-collection-video {
+  grid-column: 1 / -1;
+  min-width: 0;
+  list-style: none;
+}
+
+.rc-collection-video__link {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  max-width: 390px;
+  height: 220px;
+  margin-inline: auto;
+  border-radius: 12px;
+  background: var(--color-black);
+  color: var(--color-white);
+  text-decoration: none;
+}
+
+.rc-collection-video__media {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.rc-collection-video__shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgb(0 0 0 / 72%) 0%, rgb(0 0 0 / 28%) 52%, rgb(0 0 0 / 8%) 100%);
+  pointer-events: none;
+}
+
+.rc-collection-video__copy {
+  position: absolute;
+  right: 16px;
+  bottom: 14px;
+  left: 16px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.rc-collection-video__kicker {
+  color: var(--color-red);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.rc-collection-video__title {
+  max-width: 16ch;
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 0.92;
+  text-transform: uppercase;
+}
+
+.rc-collection-video__cta {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  margin-top: 2px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: var(--color-white);
+  color: var(--color-black);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.rc-collection-video__cta b {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+@media (min-width: 750px) {
+  .rc-collection-video__link {
+    max-width: none;
+    height: auto;
+    aspect-ratio: 390 / 220;
+  }
+
+  .rc-collection-video__copy {
+    right: 24px;
+    bottom: 22px;
+    left: 24px;
+    gap: 10px;
+  }
+
+  .rc-collection-video__title {
+    font-size: 36px;
+  }
+
+  .rc-collection-video__cta {
+    padding: 9px 14px;
+    font-size: 12px;
+  }
 }
 
 .rc-collection .main-collection-grid__empty {

@@ -1,4 +1,5 @@
 {{ 'rc-product-card.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'rc-product-card.js' | asset_url }}" defer></script>
 
 <script
   src="{{ 'results-list.js' | asset_url }}"
@@ -70,6 +71,9 @@
             >
               {% render 'rc-product-card', product: product %}
             </li>
+            {%- if collection.handle == 'monster-truck-4x4' and paginate.current_page == 1 and forloop.index == 6 -%}
+              {% render 'rc-collection-video' %}
+            {%- endif -%}
           {% endfor %}
         {% endcapture %}
 

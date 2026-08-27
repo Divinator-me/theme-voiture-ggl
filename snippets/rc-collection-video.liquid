@@ -1,0 +1,31 @@
+{%- liquid
+  assign drive = all_products['4x4-tout-terrain-brushless-70-km-h-rclab']
+  if drive != empty and drive.url
+    assign drive_url = drive.url
+  else
+    assign drive_url = '/products/4x4-tout-terrain-brushless-70-km-h-rclab'
+  endif
+-%}
+
+<li class="rc-collection-video" aria-label="Drive 4x4">
+  <a class="rc-collection-video__link" href="{{ drive_url }}">
+    <video
+      class="rc-collection-video__media"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      width="390"
+      height="220"
+    >
+      <source src="{{ 'rc-collection-monster.mp4' | asset_url }}" type="video/mp4">
+    </video>
+    <span class="rc-collection-video__shade" aria-hidden="true"></span>
+    <span class="rc-collection-video__copy">
+      <span class="rc-collection-video__kicker">4x4 brushless</span>
+      <span class="rc-collection-video__title">Terre, boue, eau. Il passe partout.</span>
+      <span class="rc-collection-video__cta">Drive 4x4 <b aria-hidden="true">→</b></span>
+    </span>
+  </a>
+</li>
