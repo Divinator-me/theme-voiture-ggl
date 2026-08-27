@@ -175,10 +175,10 @@ class RcPackPicker extends HTMLElement {
     const header = document.querySelector('.rc-main-nav');
     const headerHeight = header?.getBoundingClientRect().height || 0;
     const rect = colorStep.getBoundingClientRect();
-    if (rect.top >= headerHeight + 8 && rect.top < window.innerHeight * 0.5) return;
+    const targetOffset = Math.max(headerHeight + 16, window.innerHeight * 0.4);
+    if (Math.abs(rect.top - targetOffset) < 24) return;
 
-    const offset = headerHeight + 16;
-    const top = colorStep.getBoundingClientRect().top + window.scrollY - offset;
+    const top = rect.top + window.scrollY - targetOffset;
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     window.scrollTo({
