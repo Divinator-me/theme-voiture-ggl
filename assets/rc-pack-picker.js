@@ -40,6 +40,16 @@ class RcPackPicker extends HTMLElement {
 
     this.#watchVariant();
     this.#apply(false);
+
+    const section = this.closest('.shopify-section');
+    section?.addEventListener(StandardEvents.productSelect, (event) => {
+      event.promise
+        ?.then(() => {
+          this.#syncUnitFromVariant();
+          this.#renderPrices();
+        })
+        .catch(() => {});
+    });
   }
 
   disconnectedCallback() {
@@ -106,6 +116,9 @@ class RcPackPicker extends HTMLElement {
       form.appendChild(input);
     }
     input.value = String(qty);
+
+    const selector = document.querySelector('product-form-component quantity-selector-component');
+    selector?.setValue?.(String(qty));
   }
 
   #apply(persist) {
