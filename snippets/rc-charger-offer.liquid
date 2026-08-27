@@ -1,7 +1,7 @@
 {%- if request.page_type == 'product' -%}
   {%- liquid
     assign offer = all_products['chargeur-secteur-haute-capacite-rc-lab']
-    assign offer_variant = offer.selected_or_first_available_variant
+    assign offer_variant = offer.variants.first | default: offer.selected_or_first_available_variant
     assign current = product | default: closest.product
   -%}
 
