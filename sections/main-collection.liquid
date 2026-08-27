@@ -1,5 +1,7 @@
 {{ 'rc-product-card.css' | asset_url | stylesheet_tag }}
+{{ 'rc-collection-filters.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'rc-product-card.js' | asset_url }}" defer></script>
+<script src="{{ 'rc-collection-filters.js' | asset_url }}" defer></script>
 
 <script
   src="{{ 'results-list.js' | asset_url }}"
@@ -43,9 +45,12 @@
   >
     {% render 'skip-to-content-link', href: '#ResultsList', text: 'accessibility.skip_to_results_list' %}
 
-    <div
-      class="rc-collection collection-wrapper grid gap-style{% if section.settings.product_grid_width == 'full-width' %} collection-wrapper--grid-full-width{% endif %}"
-    >
+    <div class="rc-collection">
+      <div class="rc-collection__layout">
+        {% render 'rc-collection-filters', collection: collection %}
+        <div
+          class="rc-collection__main collection-wrapper grid gap-style{% if section.settings.product_grid_width == 'full-width' %} collection-wrapper--grid-full-width{% endif %}"
+        >
       {% content_for 'block',
         type: 'filters',
         id: 'filters',
@@ -67,6 +72,7 @@
               class="product-grid__item product-grid__item--{{ forloop.index0 }}"
               data-page="{{ paginate.current_page }}"
               data-product-id="{{ product.id }}"
+              data-product-handle="{{ product.handle }}"
               ref="cards[]"
             >
               {% render 'rc-product-card', product: product %}
@@ -137,6 +143,8 @@
           enable_infinite_scroll: section.settings.enable_infinite_scroll
         %}
       {% endpaginate %}
+        </div>
+      </div>
     </div>
   </results-list>
 </collection-component>
