@@ -821,6 +821,10 @@ body:has(sticky-add-to-cart) {
   color: var(--rc-pack-accent, var(--color-gray-500));
 }
 
+.rc-pack-picker__perk.is-inline {
+  font-size: inherit;
+}
+
 .rc-pack-picker__price {
   flex-shrink: 0;
   margin-left: auto;
