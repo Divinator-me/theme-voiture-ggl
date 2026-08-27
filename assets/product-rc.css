@@ -1,3 +1,48 @@
+.product-information > .rc-product-breadcrumb {
+  margin-block-end: calc(10px - var(--gap, 0px));
+  padding: 12px 0 0;
+}
+
+.rc-product-breadcrumb {
+  min-width: 0;
+}
+
+.rc-product-breadcrumb__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  line-height: 1.45;
+  text-transform: uppercase;
+  color: var(--color-gray-500);
+}
+
+.rc-product-breadcrumb__list li + li::before {
+  content: '/';
+  margin: 0 0.45em;
+  font-weight: 400;
+  color: var(--color-gray-500);
+}
+
+.rc-product-breadcrumb a {
+  color: var(--color-gray-500);
+  text-decoration: none;
+}
+
+.rc-product-breadcrumb a:hover {
+  color: var(--color-black);
+}
+
+.rc-product-breadcrumb__current {
+  color: var(--color-black);
+}
+
 .product-information .product-details .text-block.h3 :is(h1, h2, h3, h4, h5, h6) {
   position: relative;
   width: fit-content;

@@ -1,0 +1,88 @@
+{%- liquid
+  assign crumb_product = product | default: closest.product
+  assign crumb_collection = nil
+  assign skip_handles = 'all,frontpage,'
+
+  if collection != blank
+    assign skip_token = collection.handle | append: ','
+    unless skip_handles contains skip_token
+      assign crumb_collection = collection
+    endunless
+  endif
+
+  if crumb_collection == blank and crumb_product != blank
+    assign nav_handles = 'monster-truck-4x4,buggy,rallye-trophy,drift,piste,meilleures-ventes' | split: ','
+    for handle in nav_handles
+      if crumb_collection != blank
+        break
+      endif
+      for col in crumb_product.collections
+        if col.handle == handle
+          assign crumb_collection = col
+          break
+        endif
+      endfor
+    endfor
+  endif
+
+  if crumb_collection == blank and crumb_product != blank
+    for col in crumb_product.collections
+      assign skip_token = col.handle | append: ','
+      unless skip_handles contains skip_token
+        assign crumb_collection = col
+        break
+      endunless
+    endfor
+  endif
+
+  assign home_url = request.origin | append: routes.root_url
+-%}
+
+{%- if crumb_product != blank -%}
+  <nav class="rc-product-breadcrumb" aria-label="Fil d'Ariane">
+    <ol class="rc-product-breadcrumb__list">
+      <li>
+        <a href="{{ routes.root_url }}">Accueil</a>
+      </li>
+      {%- if crumb_collection != blank -%}
+        <li>
+          <a href="{{ crumb_collection.url }}">{{ crumb_collection.title | escape }}</a>
+        </li>
+      {%- endif -%}
+      <li>
+        <span class="rc-product-breadcrumb__current" aria-current="page">{{ crumb_product.title | escape }}</span>
+      </li>
+    </ol>
+  </nav>
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Accueil",
+          "item": {{ home_url | json }}
+        }{% if crumb_collection != blank %},
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": {{ crumb_collection.title | json }},
+          "item": {{ request.origin | append: crumb_collection.url | json }}
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": {{ crumb_product.title | json }}
+        }{% else %},
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": {{ crumb_product.title | json }}
+        }{% endif %}
+      ]
+    }
+  </script>
+{%- endif -%}
