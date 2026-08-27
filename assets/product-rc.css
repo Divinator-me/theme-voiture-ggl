@@ -1747,7 +1747,7 @@ body:has(sticky-add-to-cart) {
 
 .rc-product-repair__head {
   display: grid;
-  grid-template-columns: 84px minmax(0, 1fr);
+  grid-template-columns: 88px minmax(0, 1fr);
   gap: 14px 16px;
   align-items: center;
   padding-bottom: 14px;
@@ -1755,34 +1755,46 @@ body:has(sticky-add-to-cart) {
 }
 
 .rc-product-repair__badge {
-  display: grid;
-  width: 84px;
-  height: 84px;
-  place-content: center;
+  display: flex;
+  flex: 0 0 88px;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 88px;
+  height: 88px;
   border: 3px solid var(--color-red);
   border-radius: 16px;
   background: rgb(255 45 45 / 7%);
-  text-align: center;
+}
+
+.rc-product-repair__stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform: translate(-0.06em, 0.08em);
 }
 
 .rc-product-repair__value {
+  display: block;
   color: var(--color-red);
   font-family: var(--font-display);
-  font-size: 34px;
+  font-size: 30px;
   font-style: italic;
   font-weight: 400;
-  letter-spacing: -0.03em;
-  line-height: 0.85;
+  letter-spacing: 0.02em;
+  line-height: 1;
 }
 
 .rc-product-repair__denom {
-  margin-top: 4px;
+  display: block;
+  margin-top: 2px;
   color: var(--color-red);
   font-family: var(--font-display);
-  font-size: 15px;
+  font-size: 13px;
   font-style: italic;
   font-weight: 400;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.14em;
   line-height: 1;
 }
 
@@ -1926,22 +1938,23 @@ body:has(sticky-add-to-cart) {
 
 @media (max-width: 639px) {
   .rc-product-repair__head {
-    grid-template-columns: 68px minmax(0, 1fr);
+    grid-template-columns: 72px minmax(0, 1fr);
     gap: 12px;
   }
 
   .rc-product-repair__badge {
-    width: 68px;
-    height: 68px;
+    flex-basis: 72px;
+    width: 72px;
+    height: 72px;
     border-radius: 14px;
   }
 
   .rc-product-repair__value {
-    font-size: 26px;
+    font-size: 24px;
   }
 
   .rc-product-repair__denom {
-    font-size: 13px;
+    font-size: 12px;
   }
 
   .rc-product-repair__title {
