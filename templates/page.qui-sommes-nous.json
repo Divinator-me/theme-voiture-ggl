@@ -16,15 +16,10 @@
     "best_sellers": {
       "type": "best-sellers",
       "settings": {}
-    },
-    "faq_rc": {
-      "type": "faq-rc",
-      "settings": {}
     }
   },
   "order": [
     "qui_sommes_nous",
-    "best_sellers",
-    "faq_rc"
+    "best_sellers"
   ]
 }
