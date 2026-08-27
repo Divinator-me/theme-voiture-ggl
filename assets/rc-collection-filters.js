@@ -15,11 +15,7 @@
     const ages = [];
 
     for (const tag of raw.tags || []) {
-      if (/3\s*ans/i.test(tag)) ages.push('3');
-      else if (/d[eè]s\s*5|5\s*ans/i.test(tag)) ages.push('5');
-      else if (/7\s*ans/i.test(tag)) ages.push('7');
-      else if (/10\s*ans/i.test(tag)) ages.push('10');
-      else if (/d[eè]s\s*12|12\s*ans/i.test(tag)) ages.push('12');
+      if (/8\s*ans/i.test(tag) || /d[eè]s\s*8/i.test(tag)) ages.push('8');
     }
 
     return {

@@ -35,37 +35,7 @@
     endif
   endfor
 
-  assign snapshot_age = ''
-  if snapshot_product.tags contains 'Dès 12 ans'
-    assign snapshot_age = '12'
-  elsif snapshot_product.tags contains '10 ans et plus'
-    assign snapshot_age = '10'
-  elsif snapshot_product.tags contains '8 ans et plus' or snapshot_product.tags contains 'Dès 8 ans'
-    assign snapshot_age = '8'
-  elsif snapshot_product.tags contains '7 ans et plus'
-    assign snapshot_age = '7'
-  elsif snapshot_product.tags contains 'Dès 5 ans' or snapshot_product.tags contains '5 ans et plus'
-    assign snapshot_age = '5'
-  elsif snapshot_product.tags contains '3 ans et plus' or snapshot_product.tags contains 'Dès 3 ans'
-    assign snapshot_age = '3'
-  endif
-
-  if snapshot_age == blank
-    assign snapshot_age_blob = snapshot_product.tags | join: ' ' | append: ' ' | append: snapshot_title | append: ' ' | append: snapshot_copy | downcase
-    if snapshot_age_blob contains '12 ans'
-      assign snapshot_age = '12'
-    elsif snapshot_age_blob contains '10 ans'
-      assign snapshot_age = '10'
-    elsif snapshot_age_blob contains '8 ans'
-      assign snapshot_age = '8'
-    elsif snapshot_age_blob contains '7 ans'
-      assign snapshot_age = '7'
-    elsif snapshot_age_blob contains '5 ans'
-      assign snapshot_age = '5'
-    elsif snapshot_age_blob contains '3 ans'
-      assign snapshot_age = '3'
-    endif
-  endif
+  assign snapshot_age = '8'
 
   assign snapshot_cat = ''
   assign snapshot_cat_priority = 'drift,piste,monster-truck-4x4,rallye-trophy,buggy' | split: ','
