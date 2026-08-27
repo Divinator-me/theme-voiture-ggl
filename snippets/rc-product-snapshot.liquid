@@ -253,6 +253,7 @@
         <span>Élevée</span>
       </div>
     </div>
+
     <div class="rc-product-snapshot__rating">
       <div class="rc-product-snapshot__rating-head">
         <p class="rc-product-snapshot__rating-name">Kiffance</p>
@@ -261,10 +262,10 @@
       <div
         class="rc-product-snapshot__meter"
         role="meter"
+        aria-label="Kiffance"
         aria-valuemin="0"
         aria-valuemax="10"
         aria-valuenow="{{ snapshot_kiff | replace: ',', '.' }}"
-        aria-label="Kiffance"
       >
         <span class="rc-product-snapshot__meter-fill" style="width: {{ snapshot_kiff_pct }}%;"></span>
       </div>
