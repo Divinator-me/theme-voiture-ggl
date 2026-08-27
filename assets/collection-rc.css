@@ -483,6 +483,10 @@
     gap: 8px;
   }
 
+  .rc-collection-video--youtube .rc-collection-video__copy {
+    right: auto;
+  }
+
   .rc-collection-video__title {
     max-width: 18ch;
     font-size: 22px;
