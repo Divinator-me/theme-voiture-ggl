@@ -78,34 +78,23 @@
       this.setAttribute('data-bypass', 'true');
       this.#close();
 
-      const addCharger = () => {
-        const formData = new FormData();
-        formData.append('id', String(variantId));
-        formData.append('quantity', '1');
-
-        return fetch('/cart/add.js', {
-          method: 'POST',
-          credentials: 'same-origin',
-          headers: { Accept: 'application/json' },
-          body: formData,
-        })
-          .then((response) => response.json().then((data) => ({ ok: response.ok, data })))
-          .then(({ ok, data }) => {
-            if (!ok || data?.status) {
-              return fetch('/cart/add.js', {
-                method: 'POST',
-                credentials: 'same-origin',
-                headers: {
-                  'Content-Type': 'application/json',
-                  Accept: 'application/json',
-                },
-                body: JSON.stringify({
-                  items: [{ id: variantId, quantity: 1 }],
-                }),
-              }).then((response) => response.json());
-            }
-            return data;
+      const addCharger = async () => {
+        window.RCLAB = window.RCLAB || {};
+        window.RCLAB.internalCartAdd = true;
+        try {
+          const response = await fetch('/cart/add.js', {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+              'Content-Type': 'application/json',
+              Accept: 'application/json',
+            },
+            body: JSON.stringify({ items: [{ id: variantId, quantity: 1 }] }),
           });
+          return await response.json();
+        } finally {
+          window.RCLAB.internalCartAdd = false;
+        }
       };
 
       const waitForBundle = () => {
@@ -124,10 +113,12 @@
           window.RCLAB = window.RCLAB || {};
           window.RCLAB.cartOpenBlocked = false;
           this.#clearUpcartGuard();
-          if (typeof window.upcartRefreshCart === 'function') {
-            window.upcartRefreshCart();
-          }
-          window.RCLAB.openCart?.();
+          window.setTimeout(() => {
+            if (typeof window.upcartRefreshCart === 'function') {
+              window.upcartRefreshCart();
+            }
+            window.RCLAB.openCart?.();
+          }, 60);
         });
     }
 

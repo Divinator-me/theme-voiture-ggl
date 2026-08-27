@@ -310,6 +310,12 @@ class RcPackPicker extends HTMLElement {
   #beginBundleGate() {
     window.RCLAB = window.RCLAB || {};
     window.RCLAB.cartOpenBlocked = true;
+
+    const nextGift = this.#giftBatteryItem(this.#selectedQty());
+    const nextExtras = this.#readExtraBatteries();
+    if (nextGift) this.#pendingGift = nextGift;
+    if (nextExtras) this.#pendingExtras = nextExtras;
+
     if (this.#bundleResolve) return;
 
     window.RCLAB.bundleReady = new Promise((resolve) => {
@@ -320,9 +326,6 @@ class RcPackPicker extends HTMLElement {
         resolve();
       };
     });
-
-    this.#pendingGift = this.#giftBatteryItem(this.#selectedQty());
-    this.#pendingExtras = this.#readExtraBatteries();
   }
 
   #finishBundleGate() {
