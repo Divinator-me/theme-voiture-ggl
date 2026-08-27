@@ -785,7 +785,6 @@ body:has(sticky-add-to-cart) {
   background: transparent;
   border-collapse: separate;
   border-spacing: 0;
-  counter-reset: rc-spec;
   font-size: 14px;
   line-height: 1.5;
 }
@@ -808,41 +807,14 @@ body:has(sticky-add-to-cart) {
 .rc-product-desc__tab-panel.rte tr,
 .rc-product-desc__content.rte tr:has(td),
 .rc-product-desc__tab-panel.rte tr:has(td) {
-  display: grid;
-  grid-template-columns: 28px minmax(0, 1fr);
-  column-gap: 12px;
-  row-gap: 6px;
-  align-items: start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
   padding: 14px 16px;
   border: 0;
   border-radius: var(--radius-md);
   background: var(--color-gray-50);
-  counter-increment: rc-spec;
-}
-
-.rc-product-desc__content tr::before,
-.rc-product-desc__tab-panel tr::before,
-.rc-product-desc__content.rte tr::before,
-.rc-product-desc__tab-panel.rte tr::before {
-  content: counter(rc-spec);
-  grid-column: 1;
-  grid-row: 1 / span 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  width: 28px;
-  height: 28px;
-  padding: 1px 7px 0 2px;
-  border-radius: 50%;
-  background: var(--color-red);
-  color: var(--color-white);
-  font-family: var(--font-display);
-  font-size: 15px;
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: 0;
-  line-height: 1;
 }
 
 .rc-product-desc__content tr:nth-child(even),
@@ -875,11 +847,10 @@ body:has(sticky-add-to-cart) {
 .rc-product-desc__tab-panel :is(th, td):first-child,
 .rc-product-desc__content.rte :is(th, td):first-child,
 .rc-product-desc__tab-panel.rte :is(th, td):first-child {
-  grid-column: 2;
-  width: auto;
+  width: fit-content;
   max-width: 100%;
-  padding: 4px 0 0;
-  border: 0;
+  padding: 1px 0 1px 10px;
+  border-left: 4px solid var(--color-red);
   color: var(--color-black);
   font-family: var(--font-display);
   font-size: 16px;
@@ -902,8 +873,7 @@ body:has(sticky-add-to-cart) {
 .rc-product-desc__tab-panel :is(th, td):last-child,
 .rc-product-desc__content.rte :is(th, td):last-child,
 .rc-product-desc__tab-panel.rte :is(th, td):last-child {
-  grid-column: 2;
-  padding: 0;
+  padding-left: 14px;
   color: var(--color-gray-700);
   font-family: var(--font-body);
   font-size: 14px;
