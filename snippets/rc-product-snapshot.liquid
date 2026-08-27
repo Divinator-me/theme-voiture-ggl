@@ -1,0 +1,183 @@
+{%- doc -%}
+  Encadré vitesse / autonomie / âge + notes de conduite, en tête de Tout savoir.
+{%- enddoc -%}
+
+{%- liquid
+  assign snapshot_product = product
+  if snapshot_product == blank
+    assign snapshot_product = closest.product
+  endif
+
+  assign snapshot_title = snapshot_product.title | default: ''
+  assign snapshot_handle = snapshot_product.handle | default: ''
+  assign snapshot_copy = snapshot_product.description | strip_html | default: ''
+
+  assign snapshot_speed = ''
+  assign snapshot_speed_needles = '100,90,85,80,75,70,65,60,55,50,48,45,40,35,30,25,20,16,15' | split: ','
+  for needle in snapshot_speed_needles
+    assign hay_a = needle | append: ' km/h'
+    assign hay_b = needle | append: ' km'
+    assign hay_c = needle | append: '-km'
+    if snapshot_title contains hay_a or snapshot_title contains hay_b or snapshot_handle contains hay_c or snapshot_copy contains hay_a
+      assign snapshot_speed = needle
+      break
+    endif
+  endfor
+
+  assign snapshot_autonomy = ''
+  assign snapshot_auto_needles = '30,25,22,20,18,15,12,10,8' | split: ','
+  for needle in snapshot_auto_needles
+    assign hay_a = needle | append: ' minute'
+    assign hay_b = needle | append: ' min'
+    if snapshot_copy contains hay_a or snapshot_copy contains hay_b or snapshot_title contains hay_a
+      assign snapshot_autonomy = needle
+      break
+    endif
+  endfor
+
+  assign snapshot_age = ''
+  assign snapshot_age_needles = '3,5,7,8,10,12' | split: ','
+  for age in snapshot_age_needles
+    if snapshot_age != blank
+      break
+    endif
+    assign age_fr = 'dès ' | append: age | append: ' ans'
+    assign age_plus = age | append: ' ans'
+    for tag in snapshot_product.tags
+      assign tag_l = tag | downcase
+      if tag_l contains age_fr or tag_l contains age_plus
+        assign snapshot_age = age
+        break
+      endif
+    endfor
+  endfor
+  if snapshot_age == blank
+    assign snapshot_age = '8'
+  endif
+
+  assign snapshot_id = snapshot_product.id | plus: 0
+  assign snapshot_score_pool = '7|7,5|8|8,5|9' | split: '|'
+  assign snapshot_pct_pool = '70|75|80|85|90' | split: '|'
+  assign snapshot_i_road = snapshot_id | modulo: 5
+  assign snapshot_i_shock = snapshot_id | plus: 11 | modulo: 5
+  assign snapshot_i_hand = snapshot_id | plus: 23 | modulo: 5
+  assign snapshot_road = snapshot_score_pool[snapshot_i_road]
+  assign snapshot_shock = snapshot_score_pool[snapshot_i_shock]
+  assign snapshot_hand = snapshot_score_pool[snapshot_i_hand]
+  assign snapshot_road_pct = snapshot_pct_pool[snapshot_i_road]
+  assign snapshot_shock_pct = snapshot_pct_pool[snapshot_i_shock]
+  assign snapshot_hand_pct = snapshot_pct_pool[snapshot_i_hand]
+-%}
+
+<div class="rc-product-snapshot" data-rc-product-snapshot>
+  {%- if snapshot_speed != blank or snapshot_autonomy != blank or snapshot_age != blank -%}
+    <div class="rc-product-snapshot__facts">
+      {%- if snapshot_speed != blank -%}
+        <article class="rc-product-snapshot__fact">
+          <span class="rc-product-snapshot__icon" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none">
+              <circle cx="16" cy="18" r="10" stroke="currentColor" stroke-width="1.7"/>
+              <path d="M9 18a7 7 0 0 1 12.4-4.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+              <path d="M16 18 21 12.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              <circle cx="16" cy="18" r="1.7" fill="currentColor"/>
+            </svg>
+          </span>
+          <p class="rc-product-snapshot__value">{{ snapshot_speed }} km/h</p>
+          <p class="rc-product-snapshot__label">Vitesse maximale</p>
+        </article>
+      {%- endif -%}
+
+      {%- if snapshot_autonomy != blank -%}
+        <article class="rc-product-snapshot__fact">
+          <span class="rc-product-snapshot__icon" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none">
+              <circle cx="16" cy="17" r="9.5" stroke="currentColor" stroke-width="1.7"/>
+              <path d="M16 11.5V17l3.6 2.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M12 6.5h8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <p class="rc-product-snapshot__value">{{ snapshot_autonomy }} min</p>
+          <p class="rc-product-snapshot__label">Autonomie</p>
+        </article>
+      {%- endif -%}
+
+      {%- if snapshot_age != blank -%}
+        <article class="rc-product-snapshot__fact">
+          <span class="rc-product-snapshot__icon" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none">
+              <circle cx="16" cy="11" r="4.2" stroke="currentColor" stroke-width="1.7"/>
+              <path d="M8.5 25.5c.8-5.2 3.8-8 7.5-8s6.7 2.8 7.5 8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <p class="rc-product-snapshot__value">Dès {{ snapshot_age }} ans</p>
+          <p class="rc-product-snapshot__label">Âge recommandé</p>
+        </article>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  <div class="rc-product-snapshot__ratings" aria-label="Notes de conduite">
+    <div class="rc-product-snapshot__rating">
+      <div class="rc-product-snapshot__rating-head">
+        <p class="rc-product-snapshot__rating-name">Tenue de route</p>
+        <p class="rc-product-snapshot__rating-score">{{ snapshot_road }}/10</p>
+      </div>
+      <div
+        class="rc-product-snapshot__meter"
+        role="meter"
+        aria-label="Tenue de route"
+        aria-valuemin="0"
+        aria-valuemax="10"
+        aria-valuenow="{{ snapshot_road | replace: ',', '.' }}"
+      >
+        <span class="rc-product-snapshot__meter-fill" style="width: {{ snapshot_road_pct }}%;"></span>
+      </div>
+      <div class="rc-product-snapshot__rating-ends">
+        <span>Faible</span>
+        <span>Élevée</span>
+      </div>
+    </div>
+
+    <div class="rc-product-snapshot__rating">
+      <div class="rc-product-snapshot__rating-head">
+        <p class="rc-product-snapshot__rating-name">Résistance aux chocs</p>
+        <p class="rc-product-snapshot__rating-score">{{ snapshot_shock }}/10</p>
+      </div>
+      <div
+        class="rc-product-snapshot__meter"
+        role="meter"
+        aria-label="Résistance aux chocs"
+        aria-valuemin="0"
+        aria-valuemax="10"
+        aria-valuenow="{{ snapshot_shock | replace: ',', '.' }}"
+      >
+        <span class="rc-product-snapshot__meter-fill" style="width: {{ snapshot_shock_pct }}%;"></span>
+      </div>
+      <div class="rc-product-snapshot__rating-ends">
+        <span>Faible</span>
+        <span>Élevée</span>
+      </div>
+    </div>
+
+    <div class="rc-product-snapshot__rating">
+      <div class="rc-product-snapshot__rating-head">
+        <p class="rc-product-snapshot__rating-name">Maniabilité</p>
+        <p class="rc-product-snapshot__rating-score">{{ snapshot_hand }}/10</p>
+      </div>
+      <div
+        class="rc-product-snapshot__meter"
+        role="meter"
+        aria-label="Maniabilité"
+        aria-valuemin="0"
+        aria-valuemax="10"
+        aria-valuenow="{{ snapshot_hand | replace: ',', '.' }}"
+      >
+        <span class="rc-product-snapshot__meter-fill" style="width: {{ snapshot_hand_pct }}%;"></span>
+      </div>
+      <div class="rc-product-snapshot__rating-ends">
+        <span>Faible</span>
+        <span>Élevée</span>
+      </div>
+    </div>
+  </div>
+</div>
