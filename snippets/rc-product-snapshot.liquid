@@ -116,15 +116,87 @@
   assign snapshot_kiff_min = 87
   assign snapshot_kiff_max = 99
 
-  assign snapshot_id = snapshot_product.id | plus: 0
+  assign snapshot_price = snapshot_product.price_min | default: snapshot_product.price | plus: 0
+  assign snapshot_price_bias = snapshot_price | minus: 6000 | times: 100 | divided_by: 22000
+  if snapshot_price_bias < 0
+    assign snapshot_price_bias = 0
+  endif
+  if snapshot_price_bias > 100
+    assign snapshot_price_bias = 100
+  endif
+
   assign snapshot_road_span = snapshot_road_max | minus: snapshot_road_min | plus: 1
   assign snapshot_shock_span = snapshot_shock_max | minus: snapshot_shock_min | plus: 1
   assign snapshot_hand_span = snapshot_hand_max | minus: snapshot_hand_min | plus: 1
   assign snapshot_kiff_span = snapshot_kiff_max | minus: snapshot_kiff_min | plus: 1
+  assign snapshot_road_lift = snapshot_road_span | minus: 1 | times: snapshot_price_bias | divided_by: 180
+  assign snapshot_shock_lift = snapshot_shock_span | minus: 1 | times: snapshot_price_bias | divided_by: 180
+  assign snapshot_hand_lift = snapshot_hand_span | minus: 1 | times: snapshot_price_bias | divided_by: 180
+  assign snapshot_kiff_lift = snapshot_kiff_span | minus: 1 | times: snapshot_price_bias | divided_by: 180
+  assign snapshot_road_min = snapshot_road_min | plus: snapshot_road_lift
+  assign snapshot_shock_min = snapshot_shock_min | plus: snapshot_shock_lift
+  assign snapshot_hand_min = snapshot_hand_min | plus: snapshot_hand_lift
+  assign snapshot_kiff_min = snapshot_kiff_min | plus: snapshot_kiff_lift
+  assign snapshot_road_span = snapshot_road_max | minus: snapshot_road_min | plus: 1
+  assign snapshot_shock_span = snapshot_shock_max | minus: snapshot_shock_min | plus: 1
+  assign snapshot_hand_span = snapshot_hand_max | minus: snapshot_hand_min | plus: 1
+  assign snapshot_kiff_span = snapshot_kiff_max | minus: snapshot_kiff_min | plus: 1
+  if snapshot_road_span < 3
+    assign snapshot_road_span = 3
+    assign snapshot_road_min = snapshot_road_max | minus: 2
+  endif
+  if snapshot_shock_span < 3
+    assign snapshot_shock_span = 3
+    assign snapshot_shock_min = snapshot_shock_max | minus: 2
+  endif
+  if snapshot_hand_span < 3
+    assign snapshot_hand_span = 3
+    assign snapshot_hand_min = snapshot_hand_max | minus: 2
+  endif
+  if snapshot_kiff_span < 3
+    assign snapshot_kiff_span = 3
+    assign snapshot_kiff_min = snapshot_kiff_max | minus: 2
+  endif
+
+  assign snapshot_id = snapshot_product.id | plus: 0
   assign snapshot_road_raw = snapshot_id | modulo: snapshot_road_span | plus: snapshot_road_min
   assign snapshot_shock_raw = snapshot_id | plus: 11 | modulo: snapshot_shock_span | plus: snapshot_shock_min
   assign snapshot_hand_raw = snapshot_id | plus: 23 | modulo: snapshot_hand_span | plus: snapshot_hand_min
   assign snapshot_kiff_raw = snapshot_id | plus: 37 | modulo: snapshot_kiff_span | plus: snapshot_kiff_min
+
+  assign snapshot_road_roll = snapshot_id | plus: 53 | modulo: 100
+  if snapshot_road_roll < snapshot_price_bias
+    assign snapshot_road_boost = snapshot_road_max | minus: snapshot_road_raw | divided_by: 3
+    assign snapshot_road_raw = snapshot_road_raw | plus: snapshot_road_boost
+  endif
+  assign snapshot_shock_roll = snapshot_id | plus: 67 | modulo: 100
+  if snapshot_shock_roll < snapshot_price_bias
+    assign snapshot_shock_boost = snapshot_shock_max | minus: snapshot_shock_raw | divided_by: 3
+    assign snapshot_shock_raw = snapshot_shock_raw | plus: snapshot_shock_boost
+  endif
+  assign snapshot_hand_roll = snapshot_id | plus: 79 | modulo: 100
+  if snapshot_hand_roll < snapshot_price_bias
+    assign snapshot_hand_boost = snapshot_hand_max | minus: snapshot_hand_raw | divided_by: 3
+    assign snapshot_hand_raw = snapshot_hand_raw | plus: snapshot_hand_boost
+  endif
+  assign snapshot_kiff_roll = snapshot_id | plus: 91 | modulo: 100
+  if snapshot_kiff_roll < snapshot_price_bias
+    assign snapshot_kiff_boost = snapshot_kiff_max | minus: snapshot_kiff_raw | divided_by: 3
+    assign snapshot_kiff_raw = snapshot_kiff_raw | plus: snapshot_kiff_boost
+  endif
+
+  if snapshot_road_raw > snapshot_road_max
+    assign snapshot_road_raw = snapshot_road_max
+  endif
+  if snapshot_shock_raw > snapshot_shock_max
+    assign snapshot_shock_raw = snapshot_shock_max
+  endif
+  if snapshot_hand_raw > snapshot_hand_max
+    assign snapshot_hand_raw = snapshot_hand_max
+  endif
+  if snapshot_kiff_raw > snapshot_kiff_max
+    assign snapshot_kiff_raw = snapshot_kiff_max
+  endif
   assign snapshot_road_whole = snapshot_road_raw | divided_by: 10
   assign snapshot_shock_whole = snapshot_shock_raw | divided_by: 10
   assign snapshot_hand_whole = snapshot_hand_raw | divided_by: 10
