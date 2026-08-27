@@ -15,9 +15,6 @@
         id="rc-extra-batteries-{{ extra.id }}"
         class="variant-option__select"
         name="rc-extra-batteries"
-        {% unless extra_variant.available %}
-          disabled
-        {% endunless %}
       >
         <option value="0" selected>Aucune</option>
         {%- for count in (1..5) -%}
@@ -39,10 +36,6 @@
         {%- render 'icon', icon: 'caret' -%}
       </svg>
     </div>
-    {%- if extra_variant.available -%}
-      <p class="rc-extra-batteries__price">{{ extra_variant.price | money }} / unité</p>
-    {%- else -%}
-      <p class="rc-extra-batteries__price">Indisponible pour le moment</p>
-    {%- endif -%}
+    <p class="rc-extra-batteries__price">{{ extra_variant.price | money }} / unité</p>
   </div>
 {%- endif -%}

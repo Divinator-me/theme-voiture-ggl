@@ -900,8 +900,19 @@ body:has(sticky-add-to-cart) {
   color: var(--color-price);
 }
 
-.product-information .shopify-block:has(variant-picker .variant-option--dropdowns) {
-  display: none;
+.product-information .shopify-block:has(variant-picker .variant-option--dropdowns),
+.product-information .group-block-content > :has(> variant-picker.rc-hidden-battery-picker),
+.product-information variant-picker.rc-hidden-battery-picker,
+.product-information variant-picker:has(.variant-option--dropdowns) {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
 }
 
 .product-information .rc-extra-batteries {

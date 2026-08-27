@@ -223,7 +223,7 @@ class RcPackPicker extends HTMLElement {
     if (!extra) return null;
 
     const select = extra.querySelector('select');
-    if (!select || select.disabled) return null;
+    if (!select) return null;
 
     const qty = Number(select.value) || 0;
     const variantId = extra.dataset.variantId;

@@ -46,7 +46,7 @@
     {% render 'variant-button-custom-styles', block_settings: block_settings, block_id: block.id %}
   {% endif %}
   <variant-picker
-    class="variant-picker spacing-style variant-picker--{{ block_settings.alignment }}{% if has_custom_variant_buttons %} variant-picker--custom-{{ block.id }}{% endif %}"
+    class="variant-picker spacing-style variant-picker--{{ block_settings.alignment }}{% if has_custom_variant_buttons %} variant-picker--custom-{{ block.id }}{% endif %}{% if block_settings.variant_style == 'dropdowns' %} rc-hidden-battery-picker{% endif %}"
     style="
       {% render 'spacing-style', settings: block_settings %}
        {% if block_settings.option_label_text_color != blank %}
