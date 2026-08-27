@@ -389,7 +389,7 @@ class RcPackPicker extends HTMLElement {
     return window.Theme?.routes?.cart_add_url || '/cart/add.js';
   }
 
-  async #postCartItems(items) {
+  async #postBatch(items) {
     const payload = this.#mergeItems(items).map((item) => ({
       id: Number(item.variantId),
       quantity: item.quantity,
@@ -399,40 +399,17 @@ class RcPackPicker extends HTMLElement {
     window.RCLAB = window.RCLAB || {};
     window.RCLAB.internalCartAdd = true;
 
-    const addUrl = this.#cartAddUrl();
-    const postJson = (body) =>
-      fetch(addUrl, {
+    try {
+      const response = await fetch(this.#cartAddUrl(), {
         method: 'POST',
         credentials: 'same-origin',
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
         },
-        body: JSON.stringify(body),
-      }).then((response) => response.json().then((data) => ({ ok: response.ok, data })));
-
-    const postForm = (id, quantity) => {
-      const body = new FormData();
-      body.append('id', String(id));
-      body.append('quantity', String(quantity));
-      return fetch(addUrl, {
-        method: 'POST',
-        credentials: 'same-origin',
-        headers: { Accept: 'application/json' },
-        body,
-      }).then((response) => response.json().then((data) => ({ ok: response.ok, data })));
-    };
-
-    try {
-      const batched = await postJson({ items: payload });
-      if (batched.ok && !batched.data?.status) return batched.data;
-
-      let last = batched.data;
-      for (const item of payload) {
-        const one = await postForm(item.id, item.quantity);
-        if (one.ok && !one.data?.status) last = one.data;
-      }
-      return last;
+        body: JSON.stringify({ items: payload }),
+      });
+      return await response.json();
     } finally {
       window.RCLAB.internalCartAdd = false;
     }
@@ -442,12 +419,11 @@ class RcPackPicker extends HTMLElement {
     if (this.#addingBundle) return;
     this.#addingBundle = true;
 
-    const accessories = this.#mergeItems(
-      [
-        this.#pendingGift || this.#giftBatteryItem(packQty),
-        this.#pendingExtras || this.#readExtraBatteries(),
-      ].filter(Boolean)
-    );
+    const bundle = this.#mergeItems([
+      ...vehicles,
+      this.#pendingGift || this.#giftBatteryItem(packQty),
+      this.#pendingExtras || this.#readExtraBatteries(),
+    ]);
 
     const deferred = CartLinesUpdateEvent.createPromise?.();
     form.dispatchEvent(
@@ -463,23 +439,21 @@ class RcPackPicker extends HTMLElement {
     );
 
     try {
-      const vehicleCart = await this.#postCartItems(vehicles);
-      if (vehicleCart?.status) {
-        deferred?.reject?.(vehicleCart);
-        throw vehicleCart;
+      const cart = await this.#postBatch(bundle);
+      if (cart?.status) {
+        deferred?.reject?.(cart);
+        throw cart;
       }
 
-      if (accessories.length) {
-        await this.#postCartItems(accessories);
-      }
-
+      this.#pendingGift = null;
+      this.#pendingExtras = null;
       this.#finishBundleGate();
 
       deferred?.resolve?.({
-        cart: CartLinesUpdateEvent.createCartFromAjaxResponse?.(vehicleCart) || vehicleCart,
-        detail: { didError: false, items: vehicleCart?.items, source: 'rc-pack-picker' },
+        cart: CartLinesUpdateEvent.createCartFromAjaxResponse?.(cart) || cart,
+        detail: { didError: false, items: cart?.items, source: 'rc-pack-picker' },
       });
-      return vehicleCart;
+      return cart;
     } catch (error) {
       this.#finishBundleGate();
       deferred?.reject?.(error);
