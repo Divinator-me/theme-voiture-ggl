@@ -16,10 +16,15 @@
     "contact_form_rc": {
       "type": "contact-form-rc",
       "settings": {}
+    },
+    "trust_end": {
+      "type": "trust-end",
+      "settings": {}
     }
   },
   "order": [
     "contact_header_rc",
-    "contact_form_rc"
+    "contact_form_rc",
+    "trust_end"
   ]
 }
