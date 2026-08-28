@@ -97,10 +97,27 @@
 
 .rc-guide__side {
   display: grid;
-  grid-template-rows: auto minmax(200px, 1fr);
   gap: 18px;
-  align-content: stretch;
   min-height: 0;
+}
+
+.rc-guide-photos {
+  order: -1;
+  min-height: 0;
+}
+
+.rc-guide-photos figure {
+  margin: 0;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #161616;
+}
+
+.rc-guide-photos img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
 }
 
 .rc-guide-faq h2 {
