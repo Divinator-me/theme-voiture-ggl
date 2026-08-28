@@ -30,6 +30,8 @@
     </a>
   {% elsif context == 'empty-cart' %}
     <a class="rc-cart-empty__cat" href="{{ href }}">{{ label }}</a>
+  {% elsif context == 'search' %}
+    <a class="rc-search__cat" href="{{ href }}">{{ label }}</a>
   {% else -%}
     <a
       class="rc-category-nav__link{% if request.page_type == 'collection' and collection.handle == handle %} is-active{% endif %}"

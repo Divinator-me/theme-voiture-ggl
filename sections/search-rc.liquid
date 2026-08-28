@@ -1,0 +1,113 @@
+{{ 'search-rc.css' | asset_url | stylesheet_tag }}
+{{ 'rc-product-card.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'rc-product-card.js' | asset_url }}" defer></script>
+
+{%- liquid
+  assign search_terms = search.terms | strip
+  assign search_done = search.performed
+-%}
+
+<section class="rc-search-hero" aria-label="Recherche RCLAB">
+  <span class="rc-search-hero__glow" aria-hidden="true"></span>
+
+  <div class="rc-search-hero__inner">
+    <p class="rc-search-hero__label">Recherche</p>
+
+    {% if search_done and search_terms != blank %}
+      <h1 class="rc-search-hero__title">Résultats</h1>
+      {% if search.results_count > 0 %}
+        <p class="rc-search-hero__lead">
+          {{ search.results_count }} RC pour « {{ search_terms | escape }} ».
+        </p>
+      {% else %}
+        <p class="rc-search-hero__lead">
+          Rien pour « {{ search_terms | escape }} ». Essaie un modèle, une vitesse, ou une collection.
+        </p>
+      {% endif %}
+    {% else %}
+      <h1 class="rc-search-hero__title">Trouve ta RC</h1>
+      <p class="rc-search-hero__lead">Tape un modèle, une vitesse, une gamme. On te sort les voitures qui collent.</p>
+    {% endif %}
+
+    <form class="rc-search-hero__form" action="{{ routes.search_url }}" method="get" role="search">
+      <label class="visually-hidden" for="rc-search-page-input">Rechercher une voiture RC</label>
+      <span class="rc-search-hero__icon" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+          <circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="14.5" y1="14.5" x2="18.5" y2="18.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <input type="hidden" name="type" value="product">
+      <input
+        id="rc-search-page-input"
+        type="search"
+        name="q"
+        value="{{ search_terms | escape }}"
+        placeholder="Rechercher une voiture RC"
+        autocomplete="off"
+      >
+      <button type="submit" class="rc-search-hero__submit" aria-label="Lancer la recherche">
+        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M3 8h9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="m9 5 3 3-3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </form>
+  </div>
+</section>
+
+<section class="rc-search-results" aria-label="Résultats de recherche">
+  <div class="rc-search-results__inner">
+    {% paginate search.results by 24 %}
+      {% assign rc_products = search.results | where: 'object_type', 'product' %}
+
+      {% if search_done and search_terms != blank and rc_products.size > 0 %}
+        <p class="rc-search-results__meta">
+          {{ rc_products.size }} modèle{% if rc_products.size > 1 %}s{% endif %}
+        </p>
+        <div class="rc-search-results__grid">
+          {% for product in rc_products %}
+            {% render 'rc-product-card', product: product %}
+          {% endfor %}
+        </div>
+
+        {% if paginate.pages > 1 %}
+          <nav class="rc-search-results__pager" aria-label="Pages de résultats">
+            {{ paginate | default_pagination }}
+          </nav>
+        {% endif %}
+      {% else %}
+        <div class="rc-search-empty">
+          {% if search_done and search_terms != blank %}
+            <p>Aucun résultat. Pars d'une collection, ou lance le quiz.</p>
+          {% else %}
+            <p>Les collections, c'est plus simple si tu ne cherches pas un modèle précis.</p>
+          {% endif %}
+
+          <nav class="rc-search-empty__cats" aria-label="Collections RC">
+            {% render 'rc-nav-collections', context: 'search' %}
+          </nav>
+
+          <button type="button" class="rc-search-empty__quiz" data-rc-quiz-open>
+            <span>Trouver ma voiture RC</span>
+          </button>
+        </div>
+      {% endif %}
+    {% endpaginate %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Recherche RC",
+  "enabled_on": {
+    "templates": ["search"]
+  },
+  "settings": [],
+  "presets": [
+    {
+      "name": "Recherche RC"
+    }
+  ]
+}
+{% endschema %}
