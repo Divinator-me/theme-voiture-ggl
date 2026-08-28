@@ -3,6 +3,7 @@
   isolation: isolate;
   overflow: hidden;
   padding: 44px 16px 56px;
+  border-bottom: 2px solid var(--color-red);
   background: var(--color-black);
   color: var(--color-white);
 }
