@@ -49,6 +49,7 @@
   display: inline-flex;
   gap: 10px;
   align-items: center;
+  max-width: 100%;
   margin: 0 0 22px;
   color: var(--color-red);
   font-family: var(--font-body);
@@ -56,7 +57,7 @@
   font-style: normal;
   font-weight: 800;
   letter-spacing: 0.16em;
-  line-height: 1;
+  line-height: 1.25;
   text-transform: uppercase;
 }
 
@@ -95,8 +96,10 @@
 
 .rc-guide__side {
   display: grid;
+  grid-template-rows: auto minmax(200px, 1fr);
   gap: 18px;
-  align-content: start;
+  align-content: stretch;
+  min-height: 0;
 }
 
 .rc-guide-faq h2 {
@@ -195,11 +198,11 @@
 }
 
 .rc-guide-photos {
-  display: grid;
-  gap: 10px;
+  min-height: 0;
 }
 
 .rc-guide-photos figure {
+  height: 100%;
   margin: 0;
   overflow: hidden;
   border-radius: 12px;
@@ -209,6 +212,7 @@
 .rc-guide-photos img {
   display: block;
   width: 100%;
+  height: 100%;
   aspect-ratio: 16 / 10;
   object-fit: cover;
 }
@@ -221,7 +225,7 @@
   .rc-guide__inner {
     grid-template-columns: minmax(0, 1.2fr) minmax(340px, 0.8fr);
     gap: 56px;
-    align-items: start;
+    align-items: stretch;
   }
 
   .rc-guide__choose {
@@ -230,7 +234,7 @@
   }
 
   .rc-guide-photos img {
-    aspect-ratio: 16 / 11;
+    aspect-ratio: auto;
   }
 }
 
