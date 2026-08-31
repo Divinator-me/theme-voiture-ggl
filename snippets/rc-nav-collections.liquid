@@ -1,10 +1,10 @@
 {% comment %}
   Liens collections partagés — barre catégories desktop + menu latéral.
-  Handles Shopify : monster-truck-4x4, buggy, rallye-trophy, drift, piste
+  Handles Shopify : monster-truck-4x4, buggy, drift, rallye-trophy, piste
   Usage: {% render 'rc-nav-collections', context: 'bar' %}
 {% endcomment %}
 
-{% assign nav_collections = 'Monster Truck / 4x4|monster-truck-4x4||Buggy|buggy||Rallye / Trophy Truck|rallye-trophy||Drift|drift||Piste|piste' | split: '||' %}
+{% assign nav_collections = 'Monster Truck / 4x4|monster-truck-4x4||Buggy|buggy||Drift|drift||Rallye / Trophy Truck|rallye-trophy||Piste|piste' | split: '||' %}
 
 {% for item in nav_collections %}
   {% assign parts = item | split: '|' %}

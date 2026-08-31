@@ -4,7 +4,7 @@
 {% endcomment %}
 
 {% liquid
-  assign switcher_items = 'Monster Truck / 4x4|monster-truck-4x4||Buggy|buggy||Rallye / Trophy Truck|rallye-trophy||Drift|drift||Piste|piste' | split: '||'
+  assign switcher_items = 'Monster Truck / 4x4|monster-truck-4x4||Buggy|buggy||Drift|drift||Rallye / Trophy Truck|rallye-trophy||Piste|piste' | split: '||'
   if context == 'about'
     assign switcher_class = 'rc-categories'
     assign switcher_label = 'Collections voitures RC'
