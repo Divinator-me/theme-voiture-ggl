@@ -2,12 +2,8 @@
 
 {% liquid
   assign form_id = 'ContactForm-rc'
-  assign legal_mentions_url = '/policies/legal-notice'
   assign legal_cgv_url = '/policies/terms-of-sale'
   for shop_policy in shop.policies
-    if shop_policy.url contains 'legal-notice'
-      assign legal_mentions_url = shop_policy.url
-    endif
     if shop_policy.url contains 'terms-of-sale'
       assign legal_cgv_url = shop_policy.url
     endif
@@ -196,7 +192,7 @@
 
       <p class="rc-contact-aside__legal">
         <span>Société : RCLAB, éditeur du site rclab-car.com</span>
-        <span>Informations : <a class="rc-contact-aside__link" href="{{ legal_mentions_url }}">mentions légales</a> et <a class="rc-contact-aside__link" href="{{ legal_cgv_url }}">conditions générales</a> en bas de page.</span>
+        <span>Informations : <a class="rc-contact-aside__link" href="{{ legal_cgv_url }}">conditions générales</a> en bas de page.</span>
       </p>
     </aside>
   </div>

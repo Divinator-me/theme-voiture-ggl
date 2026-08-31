@@ -22,8 +22,8 @@
         assign rc_legal_page_redirect = shop.shipping_policy.url | default: '/policies/shipping-policy'
       when '/pages/confidentialite'
         assign rc_legal_page_redirect = shop.privacy_policy.url | default: '/policies/privacy-policy'
-      when '/pages/mentions-legales', '/pages/mention-legale'
-        assign rc_legal_page_redirect = '/policies/legal-notice'
+      when '/pages/mentions-legales', '/pages/mention-legale', '/policies/legal-notice'
+        assign rc_legal_page_redirect = routes.root_url
       when '/pages/cgv', '/pages/conditions-generales-de-vente', '/pages/conditions-de-vente'
         assign rc_legal_page_redirect = rc_cgv_policy_url
       when '/policies/terms-of-service'
