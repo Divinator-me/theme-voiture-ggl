@@ -104,13 +104,20 @@
                 {%- endif -%}
               {%- elsif collection.handle == 'rallye-trophy' or collection.handle == 'drift' -%}
                 {%- if forloop.index == 2 -%}
+                  {%- if collection.handle == 'drift' -%}
+                    {% assign rc_c3_heading = 'Drift 1/14, en action.' %}
+                    {% assign rc_c3_aria = 'Citroën C3 WRC en drift' %}
+                  {%- else -%}
+                    {% assign rc_c3_heading = 'Rallye 1/14, en action.' %}
+                    {% assign rc_c3_aria = 'Citroën C3 WRC en rallye' %}
+                  {%- endif -%}
                   {% render 'rc-collection-video',
                     video: 'rc-collection-rallye.mp4',
                     product_handle: 'citroen-c3-wrc-1-14-rc-rallye-rclab',
                     kicker: 'Citroën C3 WRC',
-                    heading: 'Rallye 1/14, en action.',
+                    heading: rc_c3_heading,
                     cta: 'Voir mes options',
-                    aria_label: 'Citroën C3 WRC en rallye',
+                    aria_label: rc_c3_aria,
                     credit: '@RCDriftTok - Youtube',
                     credit_url: 'https://www.youtube.com/shorts/dzm8XDWg4C4'
                   %}
