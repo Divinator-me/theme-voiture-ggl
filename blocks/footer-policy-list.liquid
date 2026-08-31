@@ -30,6 +30,9 @@
         "
       >
         {%- for policy in shop.policies -%}
+          {%- if policy.url contains 'legal-notice' -%}
+            {%- continue -%}
+          {%- endif -%}
           {%- if policy != blank -%}
             <li>
               <a
