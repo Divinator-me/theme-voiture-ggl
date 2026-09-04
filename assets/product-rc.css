@@ -90,7 +90,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .product-information .variant-option--rc-swatches > legend {
@@ -109,10 +109,10 @@
   display: grid;
   place-items: center;
   flex: none;
-  width: 32px;
-  min-width: 32px;
-  height: 32px;
-  min-height: 32px;
+  width: 26px;
+  min-width: 26px;
+  height: 26px;
+  min-height: 26px;
   padding: 0;
   border: 0;
   border-radius: 50%;
@@ -130,8 +130,8 @@
 
 .product-information .rc-variant-swatch {
   display: block;
-  width: 28px;
-  height: 28px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   background: var(--rc-swatch, #cccccc);
   box-shadow: inset 0 0 0 1px rgb(0 0 0 / 18%);
