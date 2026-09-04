@@ -6,20 +6,17 @@
   const SECTION_CONFIG = {
     tout_savoir: { label: 'Tout Savoir', group: 'main', icon: 'toutSavoir' },
     caracteristiques: { label: 'Caractéristiques', group: 'main', icon: 'caracteristiques' },
-    points_fort: { label: 'Points Fort', group: 'main', icon: 'pointsFort' },
     livraison_retours: { label: 'Livraison et retours (4 à 8 jours ouvrés)', group: 'bottom', icon: 'livraison' },
     fabrication_rigoureuse: { label: 'Fabrication hautement contrôlée', group: 'bottom', icon: 'fabrication' },
     garantie_2_ans: { label: 'Retour Gratuit et Rapide sous 30 Jours', group: 'bottom', icon: 'garantie' },
   };
 
-  const MAIN_SECTION_IDS = ['tout_savoir', 'caracteristiques', 'points_fort'];
+  const MAIN_SECTION_IDS = ['tout_savoir', 'caracteristiques'];
   const BOTTOM_SECTION_IDS = ['livraison_retours', 'fabrication_rigoureuse', 'garantie_2_ans'];
 
   const SECTION_ALIASES = {
     'tout savoir': 'tout_savoir',
     caracteristiques: 'caracteristiques',
-    'points fort': 'points_fort',
-    'points forts': 'points_fort',
     'livraison et retours': 'livraison_retours',
     'livraison et retour': 'livraison_retours',
     livraison: 'livraison_retours',
