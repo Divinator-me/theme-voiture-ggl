@@ -556,6 +556,7 @@ body:has(sticky-add-to-cart) {
   justify-content: space-between;
   padding: 16px 0;
   color: var(--color-black);
+  font-weight: 400;
   cursor: pointer;
   list-style: none;
   user-select: none;
@@ -596,11 +597,11 @@ body:has(sticky-add-to-cart) {
 
 .rc-product-desc__label {
   color: var(--color-black);
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: 16px;
   font-style: italic;
   font-weight: 400;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
   line-height: 1.15;
 }
 
