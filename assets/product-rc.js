@@ -116,13 +116,6 @@
     return Boolean(element.querySelector(':scope > .rc-highlight-card'));
   };
 
-  const hasFullPointSections = (nodes) =>
-    nodes.some(
-      (node) =>
-        node.nodeType === Node.ELEMENT_NODE &&
-        (node.classList.contains('rc-desc-section__title') || node.tagName === 'H3')
-    );
-
   const getParseableNodes = (body) => {
     const nodes = [...body.childNodes].filter(isMeaningfulNode);
     if (nodes.length !== 1 || nodes[0].nodeType !== Node.ELEMENT_NODE) return nodes;
@@ -271,12 +264,6 @@
 
   const enhanceHighlightCards = (root) => {
     const cards = [...root.querySelectorAll('.rc-highlight-card')];
-
-    if (root.id === 'rc-desc-panel-points_fort') {
-      root.querySelectorAll('ul > li').forEach((item) => {
-        if (!cards.includes(item)) cards.push(item);
-      });
-    }
 
     cards.forEach((card) => {
       card.classList.add('rc-highlight-card');
