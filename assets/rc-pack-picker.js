@@ -276,11 +276,11 @@ class RcPackPicker extends HTMLElement {
     if (fromApi?.variantId && fromApi.quantity > 0) return fromApi;
 
     const root = document.querySelector('.rc-extra-batteries');
-    const checked = root?.querySelector('input[name="rc-extra-batteries"]:checked');
-    const quantity = Number(checked?.value || root?.getAttribute('data-qty') || 0) || 0;
+    const select = root?.querySelector('select[name="rc-extra-batteries"]');
+    const quantity = Number(select?.value || root?.getAttribute('data-qty') || 0) || 0;
     const variantId = String(
       root?.getAttribute('data-variant-id') ||
-        checked?.getAttribute('data-variant-id') ||
+        select?.getAttribute('data-variant-id') ||
         this.dataset.extraBatteryVariantId ||
         ''
     );
@@ -339,7 +339,7 @@ class RcPackPicker extends HTMLElement {
       'change',
       (event) => {
         const target = event.target;
-        if (!(target instanceof HTMLInputElement)) return;
+        if (!(target instanceof HTMLSelectElement)) return;
         if (target.name !== 'rc-extra-batteries') return;
         const snap = this.#readExtraBatteries();
         this.#pendingExtras = snap;
