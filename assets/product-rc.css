@@ -1403,12 +1403,12 @@ body:has(sticky-add-to-cart) {
 }
 
 .product-information .rc-product-trust {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  width: fit-content;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  width: 100%;
   max-width: 100%;
-  margin: 12px auto 4px;
+  margin: 12px 0 4px;
   padding: 0;
   list-style: none;
 }
@@ -1420,36 +1420,38 @@ body:has(sticky-add-to-cart) {
 
 .product-information .rc-product-trust__item {
   display: flex;
-  gap: 14px;
+  flex-direction: column;
   align-items: center;
+  gap: 6px;
+  min-width: 0;
 }
 
 .product-information .rc-product-trust__icon {
   display: grid;
-  flex: 0 0 52px;
-  width: 52px;
-  height: 52px;
+  flex: none;
+  width: 34px;
+  height: 34px;
   place-items: center;
   color: var(--color-black);
 }
 
 .product-information .rc-product-trust__icon svg {
   display: block;
-  width: 48px;
-  height: 48px;
+  width: 32px;
+  height: 32px;
 }
 
 .product-information .rc-product-trust__copy {
   display: flex;
   min-width: 0;
   flex-direction: column;
-  gap: 2px;
-  text-align: left;
+  gap: 1px;
+  text-align: center;
 }
 
 .product-information .rc-product-trust__copy strong {
   color: var(--color-black);
-  font-size: 15px;
+  font-size: 11px;
   font-weight: 800;
   letter-spacing: 0;
   line-height: 1.2;
@@ -1458,9 +1460,10 @@ body:has(sticky-add-to-cart) {
 .product-information .rc-product-trust__copy span,
 .product-information .rc-product-trust__copy a {
   color: var(--color-black);
-  font-size: 13px;
+  font-size: 10px;
   font-weight: 500;
-  line-height: 1.35;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
 }
 
 .product-information .rc-product-trust__copy em,
