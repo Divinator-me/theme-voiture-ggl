@@ -1608,9 +1608,12 @@ body:has(sticky-add-to-cart) {
   border-radius: inherit;
   background: var(--color-red);
   box-shadow: 0 0 12px rgb(255 45 45 / 35%);
-  transform: scaleX(0);
+  transform: none;
   transform-origin: left center;
-  animation: rc-snapshot-meter 0.85s var(--ease-smooth) 0.12s forwards;
+}
+
+.rc-product-snapshot.is-animating .rc-product-snapshot__meter-fill {
+  animation: rc-snapshot-meter 0.85s var(--ease-smooth) both;
 }
 
 .rc-product-snapshot__rating-ends {
@@ -1625,15 +1628,19 @@ body:has(sticky-add-to-cart) {
 }
 
 @keyframes rc-snapshot-meter {
+  from {
+    transform: scaleX(0);
+  }
+
   to {
     transform: scaleX(1);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .rc-product-snapshot__meter-fill {
-    transform: none;
+  .rc-product-snapshot.is-animating .rc-product-snapshot__meter-fill {
     animation: none;
+    transform: none;
   }
 }
 
