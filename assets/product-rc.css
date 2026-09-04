@@ -99,37 +99,52 @@
 
 .product-information .variant-option--rc-swatches .variant-option__button-label,
 .product-information .variant-option--rc-swatches .variant-option__button-label[data-rc-swatch],
+.product-information .variant-option--rc-swatches .variant-option__button-label:hover,
+.product-information .variant-option--rc-swatches .variant-option__button-label:has(:checked),
+.product-information .variant-option--rc-swatches .variant-option__button-label:has(:checked):hover,
 .product-information .variant-option--rc-swatches .variant-option__button-label[data-rc-swatch]:has(:checked),
 .product-information .variant-option--rc-swatches .variant-option__button-label[data-rc-swatch]:has(:checked):hover,
 .product-information .variant-option--rc-swatches .variant-option__button-label[data-rc-swatch-light]:has(:checked),
 .product-information .variant-option--rc-swatches .variant-option__button-label[data-rc-swatch-light]:has(:checked):hover {
+  display: grid;
+  place-items: center;
   flex: none;
-  width: 36px;
-  min-width: 36px;
-  height: 36px;
+  width: 32px;
+  min-width: 32px;
+  height: 32px;
+  min-height: 32px;
   padding: 0;
-  border: 2px solid transparent;
-  border-radius: 999px;
+  border: 0;
+  border-radius: 50%;
+  overflow: visible;
   background: transparent;
   box-shadow: none;
   color: inherit;
 }
 
-.product-information .variant-option--rc-swatches .variant-option__button-label:hover {
-  border-color: #c8c8c8;
-}
-
-.product-information .variant-option--rc-swatches .variant-option__button-label:has(:checked) {
-  border-color: var(--color-black);
+.product-information .variant-option--rc-swatches .variant-option__button-label::before,
+.product-information .variant-option--rc-swatches .variant-option__button-label::after {
+  content: none;
+  display: none;
 }
 
 .product-information .rc-variant-swatch {
   display: block;
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   background: var(--rc-swatch, #cccccc);
   box-shadow: inset 0 0 0 1px rgb(0 0 0 / 18%);
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.product-information .variant-option--rc-swatches .variant-option__button-label:hover .rc-variant-swatch {
+  outline-color: #c8c8c8;
+}
+
+.product-information .variant-option--rc-swatches .variant-option__button-label:has(:checked) .rc-variant-swatch {
+  outline-color: var(--color-black);
 }
 
 .product-information .rc-variant-swatch.is-light {
