@@ -320,21 +320,38 @@
     const nodes = getParseableNodes(doc.body);
     const buckets = createEmptyBuckets();
     let currentId = 'tout_savoir';
+    let skipNextBody = false;
 
     nodes.forEach((node) => {
       if (node.nodeType === Node.ELEMENT_NODE && isSectionHeading(node)) {
         const sectionId = resolveSectionId(getSectionTitle(node));
-        if (sectionId === null) return;
-        if (sectionId) {
-          currentId = sectionId;
+        if (sectionId === null) {
+          skipNextBody = false;
           return;
         }
-        if (isThematicPointHeading(node)) return;
+        if (sectionId) {
+          currentId = sectionId;
+          skipNextBody = false;
+          return;
+        }
+        if (isThematicPointHeading(node)) {
+          skipNextBody = true;
+          return;
+        }
       } else if (node.nodeType === Node.ELEMENT_NODE && isThematicPointHeading(node)) {
+        skipNextBody = true;
         return;
       }
 
-      if (isHighlightList(node)) return;
+      if (isHighlightList(node)) {
+        skipNextBody = false;
+        return;
+      }
+
+      if (skipNextBody) {
+        skipNextBody = false;
+        return;
+      }
 
       const bucket = buckets.get(currentId);
       if (!bucket) return;
