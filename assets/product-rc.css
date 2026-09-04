@@ -857,6 +857,27 @@ body:has(sticky-add-to-cart) {
   padding: 0;
 }
 
+.rc-desc-section__video {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  aspect-ratio: 16 / 9;
+  margin: 0 auto 1em;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #111;
+}
+
+.rc-desc-section__video video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  object-fit: cover;
+  background: #111;
+}
+
 .rc-product-desc__content img,
 .rc-product-desc__content picture,
 .rc-product-desc__content video,

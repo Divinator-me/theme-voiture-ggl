@@ -146,10 +146,47 @@
     });
 
     root.querySelectorAll('video').forEach((video) => {
-      if (video.dataset.src && !video.getAttribute('src')) {
-        video.setAttribute('src', video.dataset.src);
+      const url =
+        video.dataset.src ||
+        video.getAttribute('src') ||
+        video.currentSrc ||
+        video.querySelector('source')?.getAttribute('src');
+
+      if (url && video.getAttribute('src') !== url) {
+        video.querySelectorAll('source').forEach((source) => source.remove());
+        video.setAttribute('src', url);
       }
-      if (!video.hasAttribute('preload')) video.setAttribute('preload', 'metadata');
+
+      video.muted = true;
+      video.defaultMuted = true;
+      video.loop = true;
+      video.autoplay = true;
+      video.playsInline = true;
+      video.preload = 'auto';
+      video.setAttribute('muted', '');
+      video.setAttribute('playsinline', '');
+      video.setAttribute('webkit-playsinline', '');
+      video.setAttribute('preload', 'auto');
+
+      const tryPlay = () => {
+        const play = video.play();
+        if (play && typeof play.catch === 'function') play.catch(() => {});
+      };
+
+      if (typeof IntersectionObserver === 'function') {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) tryPlay();
+              else video.pause();
+            });
+          },
+          { threshold: 0.2 }
+        );
+        observer.observe(video);
+      } else {
+        tryPlay();
+      }
     });
 
     root.querySelectorAll('iframe').forEach((iframe) => {
