@@ -423,9 +423,26 @@
     }
 
     const snapshot = root.querySelector('[data-rc-product-snapshot]');
+    const expert = snapshot?.querySelector('[data-rc-product-expert]');
+    if (expert) expert.remove();
+
     if (snapshot) {
       const toutSavoirNodes = buckets.get('tout_savoir') || [];
       toutSavoirNodes.unshift(snapshot);
+      buckets.set('tout_savoir', toutSavoirNodes);
+    }
+
+    if (expert) {
+      const toutSavoirNodes = buckets.get('tout_savoir') || [];
+      const videoIndex = toutSavoirNodes.findIndex((node) => {
+        if (node.nodeType !== Node.ELEMENT_NODE) return false;
+        return (
+          node.classList.contains('rc-desc-section__video') ||
+          node.matches('video') ||
+          Boolean(node.querySelector(':scope video, :scope .rc-desc-section__video'))
+        );
+      });
+      toutSavoirNodes.splice(videoIndex >= 0 ? videoIndex + 1 : 1, 0, expert);
       buckets.set('tout_savoir', toutSavoirNodes);
     }
 
