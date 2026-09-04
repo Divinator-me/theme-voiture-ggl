@@ -31,6 +31,8 @@
     'garantie 2 ans': 'garantie_2_ans',
     'retour gratuit': 'garantie_2_ans',
     description: null,
+    'points fort': null,
+    'points forts': null,
   };
 
   const ICONS = {
@@ -40,8 +42,6 @@
       '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.5"/><path d="M12 11v5M12 8.5h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
     caracteristiques:
       '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',
-    pointsFort:
-      '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4.5 14.2 9l4.8.7-3.5 3.4.8 4.8L12 15.8 7.5 17.9l.8-4.8L4.8 9.7 9.6 9 12 4.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>',
     livraison:
       '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 7.5h12v9H3v-9Z" stroke="currentColor" stroke-width="1.5"/><path d="M15 10.5h3.2L21 14v2.5h-3M6.5 18.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3ZM17.5 18.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     fabrication:
@@ -100,7 +100,7 @@
     if (Object.prototype.hasOwnProperty.call(SECTION_ALIASES, normalized)) {
       return SECTION_ALIASES[normalized];
     }
-    if (normalized.startsWith('points fort')) return 'points_fort';
+    if (normalized.startsWith('points fort')) return null;
     return undefined;
   };
 
@@ -329,16 +329,16 @@
           currentId = sectionId;
           return;
         }
-        if (isThematicPointHeading(node)) currentId = 'points_fort';
+        if (isThematicPointHeading(node)) return;
       } else if (node.nodeType === Node.ELEMENT_NODE && isThematicPointHeading(node)) {
-        currentId = 'points_fort';
-      }
-
-      if (isHighlightList(node) && hasFullPointSections(buckets.get('points_fort') || [])) {
         return;
       }
 
-      buckets.get(currentId).push(node.cloneNode(true));
+      if (isHighlightList(node)) return;
+
+      const bucket = buckets.get(currentId);
+      if (!bucket) return;
+      bucket.push(node.cloneNode(true));
     });
 
     return buckets;
