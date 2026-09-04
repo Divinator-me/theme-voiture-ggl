@@ -1,5 +1,5 @@
 .rc-trust-end {
-  padding: 28px 18px 36px;
+  padding: 28px 18px 56px;
   background: var(--color-white);
   color: var(--color-black);
 }
@@ -7,9 +7,10 @@
 .rc-trust-end__list {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 18px;
-  width: 100%;
-  max-width: 420px;
+  width: fit-content;
+  max-width: 100%;
   margin: 0 auto;
   padding: 0;
   list-style: none;
@@ -19,6 +20,7 @@
   display: flex;
   gap: 14px;
   align-items: center;
+  justify-content: center;
 }
 
 .rc-trust-end__icon {
@@ -84,7 +86,6 @@
   }
 
   .rc-trust-end__list {
-    max-width: 460px;
     gap: 20px;
   }
 }
