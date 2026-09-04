@@ -11,31 +11,33 @@
     data-qty="0"
   >
     <div class="rc-extra-batteries__head">
-      <p class="rc-extra-batteries__title">Des Batteries Supplémentaires ?</p>
+      <label class="rc-extra-batteries__title" for="rc-extra-batteries">Des Batteries Supplémentaires ?</label>
       <span class="rc-extra-batteries__price">{{ extra_variant.price | money }} / unité</span>
     </div>
 
-    <div class="rc-extra-batteries__grid" role="radiogroup" aria-label="Batteries supplémentaires">
-      {%- for count in (0..7) -%}
-        <label class="variant-option__button-label">
-          <input
-            type="radio"
-            name="rc-extra-batteries"
-            value="{{ count }}"
-            data-variant-id="{{ extra_variant.id }}"
-            {% if count == 0 %}
-              checked
-            {% endif %}
-          >
-          <span class="variant-option__button-label__text">
+    <div class="rc-extra-batteries__select-wrap">
+      <select
+        id="rc-extra-batteries"
+        class="rc-extra-batteries__select"
+        name="rc-extra-batteries"
+        data-variant-id="{{ extra_variant.id }}"
+        aria-label="Nombre de batteries supplémentaires"
+      >
+        {%- for count in (0..7) -%}
+          <option value="{{ count }}"{% if count == 0 %} selected{% endif %}>
             {%- if count == 0 -%}
               Aucune
+            {%- elsif count == 1 -%}
+              1 batterie
             {%- else -%}
-              {{ count }}
+              {{ count }} batteries
             {%- endif -%}
-          </span>
-        </label>
-      {%- endfor -%}
+          </option>
+        {%- endfor -%}
+      </select>
+      <svg class="rc-extra-batteries__caret" viewBox="0 0 10 6" aria-hidden="true" focusable="false">
+        <path d="M1 1.2 5 5l4-3.8" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
     </div>
   </div>
   <script src="{{ 'rc-extra-batteries.js' | asset_url }}" defer></script>

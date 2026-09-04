@@ -2,17 +2,21 @@
   window.RCLAB = window.RCLAB || {};
 
   const EXTRA_ROOT = () => document.querySelector('.rc-extra-batteries');
+  const EXTRA_SELECT = () => EXTRA_ROOT()?.querySelector('select[name="rc-extra-batteries"]');
 
   let selectedQty = 0;
   let variantId = '';
 
   const readFromDom = () => {
     const root = EXTRA_ROOT();
+    const select = EXTRA_SELECT();
     if (!root) return { quantity: 0, variantId: '' };
 
-    const checked = root.querySelector('input[name="rc-extra-batteries"]:checked');
-    const qty = Number(checked?.value || root.getAttribute('data-qty') || 0) || 0;
-    const id = root.getAttribute('data-variant-id') || checked?.getAttribute('data-variant-id') || '';
+    const qty = Number(select?.value || root.getAttribute('data-qty') || 0) || 0;
+    const id =
+      root.getAttribute('data-variant-id') ||
+      select?.getAttribute('data-variant-id') ||
+      '';
     return { quantity: qty, variantId: String(id) };
   };
 
@@ -40,15 +44,6 @@
       const target = event.target;
       if (!(target instanceof Element)) return;
 
-      const extraLabel = target.closest('.rc-extra-batteries .variant-option__button-label');
-      if (extraLabel) {
-        const input = extraLabel.querySelector('input[name="rc-extra-batteries"]');
-        if (input) {
-          rememberSelection(Number(input.value) || 0, input.getAttribute('data-variant-id'));
-        }
-        return;
-      }
-
       if (
         target.closest(
           'product-form-component .add-to-cart-button, product-form-component button[type="submit"]'
@@ -65,7 +60,7 @@
     'change',
     (event) => {
       const target = event.target;
-      if (!(target instanceof HTMLInputElement) || target.name !== 'rc-extra-batteries') return;
+      if (!(target instanceof HTMLSelectElement) || target.name !== 'rc-extra-batteries') return;
       rememberSelection(Number(target.value) || 0, target.getAttribute('data-variant-id'));
     },
     true
