@@ -93,35 +93,36 @@
   }
 
   .rc-session__inner {
-    max-width: 1320px;
+    max-width: 1180px;
     align-items: center;
-    gap: 24px;
+    gap: 28px;
   }
 
   .rc-session__copy {
     width: auto;
-    max-width: 480px;
+    max-width: 560px;
     align-self: flex-start;
-    gap: 5px;
-    padding-left: 16px;
-    padding-bottom: 10px;
+    gap: 7px;
+    padding-left: 18px;
+    padding-bottom: 12px;
   }
 
   .rc-session__lead {
-    font-size: 14px;
+    font-size: 16px;
   }
 
   .rc-session__title {
-    font-size: 26px;
+    font-size: 34px;
   }
 
   .rc-session__tags {
-    font-size: 13px;
+    font-size: 15px;
     margin-top: 2px;
   }
 
   .rc-session__media {
     order: 0;
     width: 100%;
+    max-width: 980px;
   }
 }
