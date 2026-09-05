@@ -93,27 +93,35 @@
   }
 
   .rc-session__inner {
-    flex-direction: row;
+    max-width: 1320px;
     align-items: center;
-    gap: 48px;
+    gap: 24px;
   }
 
   .rc-session__copy {
-    flex: 0 1 42%;
-    max-width: 420px;
-    padding-left: 20px;
+    width: auto;
+    max-width: 480px;
+    align-self: flex-start;
+    gap: 5px;
+    padding-left: 16px;
+    padding-bottom: 10px;
+  }
+
+  .rc-session__lead {
+    font-size: 14px;
+  }
+
+  .rc-session__title {
+    font-size: 26px;
+  }
+
+  .rc-session__tags {
+    font-size: 13px;
+    margin-top: 2px;
   }
 
   .rc-session__media {
     order: 0;
-    flex: 1 1 58%;
-  }
-
-  .rc-session__lead {
-    font-size: 18px;
-  }
-
-  .rc-session__tags {
-    font-size: 16px;
+    width: 100%;
   }
 }
