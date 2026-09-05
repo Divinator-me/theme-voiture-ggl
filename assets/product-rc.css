@@ -1337,6 +1337,23 @@ body:has(sticky-add-to-cart) {
   transform: translateY(-50%);
 }
 
+@media (max-width: 749px) {
+  .product-information .rc-extra-batteries__select-wrap {
+    width: min(100%, 248px);
+  }
+
+  .product-information .rc-extra-batteries__select {
+    padding: 11px 36px 11px 14px;
+    font-size: 14px;
+  }
+
+  .product-information .rc-extra-batteries__caret {
+    right: 14px;
+    width: 10px;
+    height: 6px;
+  }
+}
+
 .rc-color-clones {
   display: flex;
   flex-direction: column;
