@@ -1294,20 +1294,20 @@ body:has(sticky-add-to-cart) {
 
 .product-information .rc-extra-batteries__select-wrap {
   position: relative;
-  width: min(100%, 168px);
+  width: min(100%, 220px);
 }
 
 .product-information .rc-extra-batteries__select {
   width: 100%;
   margin: 0;
-  padding: 6px 28px 6px 10px;
+  padding: 9px 34px 9px 12px;
   appearance: none;
   border: 1px solid #d6d6d6;
   border-radius: 6px;
   background: var(--color-white);
   color: var(--color-black);
   font-family: var(--font-display);
-  font-size: 12px;
+  font-size: 13px;
   font-style: italic;
   font-weight: 400;
   letter-spacing: 0.03em;
@@ -1329,9 +1329,9 @@ body:has(sticky-add-to-cart) {
 .product-information .rc-extra-batteries__caret {
   position: absolute;
   top: 50%;
-  right: 10px;
-  width: 7px;
-  height: 4px;
+  right: 12px;
+  width: 9px;
+  height: 5px;
   color: var(--color-black);
   pointer-events: none;
   transform: translateY(-50%);
