@@ -1,5 +1,6 @@
 (() => {
   const SWIPE_MIN = 48;
+  const MOBILE_MQ = '(max-width: 749px)';
 
   class RcProductStories extends HTMLElement {
     connectedCallback() {
@@ -14,49 +15,40 @@
 
       this.viewer = this.querySelector('[data-rc-story-viewer]');
       this.stage = this.querySelector('[data-rc-story-stage]');
-      this.video = this.querySelector('[data-rc-story-video]');
-      this.progress = this.querySelector('[data-rc-story-progress]');
+      this.desktopVideo = this.querySelector('[data-rc-story-video]');
+      this.reel = this.querySelector('[data-rc-story-reel]');
       this.peeks = this.querySelector('[data-rc-story-peeks]');
-      this.pauseBtn = this.querySelector('[data-rc-story-pause]');
-      this.muteBtn = this.querySelector('[data-rc-story-mute]');
       this.index = 0;
-      this.raf = 0;
+      this.muted = false;
       this.drag = null;
+      this.reelVideos = [];
 
       this.buildProgress();
       this.prepareThumbs();
       this.bind();
     }
 
+    isMobile() {
+      return window.matchMedia(MOBILE_MQ).matches;
+    }
+
+    currentVideo() {
+      if (this.isMobile() && this.reelVideos[this.index]) return this.reelVideos[this.index];
+      return this.desktopVideo;
+    }
+
     buildProgress() {
-      if (!this.progress) return;
-      this.progress.innerHTML = this.stories
-        .map(() => '<span class="rc-stories__seg"><i></i></span>')
-        .join('');
-      this.segs = [...this.progress.querySelectorAll('.rc-stories__seg')];
+      this.progressGroups = [...this.querySelectorAll('[data-rc-story-progress]')].map((bar) => {
+        bar.innerHTML = this.stories.map(() => '<span class="rc-stories__seg"><i></i></span>').join('');
+        return [...bar.querySelectorAll('.rc-stories__seg')];
+      });
     }
 
     prepareThumbs() {
       this.querySelectorAll('[data-rc-story-thumb]').forEach((thumb, index) => {
         const story = this.stories[index];
         if (!story?.src || story.src.startsWith('STORY_URL')) return;
-        const media = document.createElement('video');
-        media.muted = true;
-        media.playsInline = true;
-        media.preload = 'metadata';
-        media.src = story.src;
-        media.addEventListener(
-          'loadeddata',
-          () => {
-            try {
-              media.currentTime = 0.15;
-            } catch (error) {
-              // Some browsers refuse seek before canplay.
-            }
-          },
-          { once: true }
-        );
-        thumb.appendChild(media);
+        thumb.appendChild(this.mediaThumb(story.src));
       });
     }
 
@@ -89,8 +81,13 @@
         });
       });
 
-      this.pauseBtn?.addEventListener('click', () => this.togglePause());
-      this.muteBtn?.addEventListener('click', () => this.toggleMute());
+      this.querySelectorAll('[data-rc-story-pause]').forEach((button) => {
+        button.addEventListener('click', () => this.togglePause());
+      });
+
+      this.querySelectorAll('[data-rc-story-mute]').forEach((button) => {
+        button.addEventListener('click', () => this.toggleMute());
+      });
 
       this.peeks?.addEventListener('click', (event) => {
         const jump = event.target.closest('[data-rc-story-jump]');
@@ -99,13 +96,16 @@
       });
 
       this.viewer?.addEventListener('click', (event) => {
+        if (this.isMobile()) return;
         if (event.target === this.viewer || event.target === this.stage) this.close();
       });
 
-      this.video?.addEventListener('ended', () => this.next({ fromEnd: true }));
-      this.video?.addEventListener('timeupdate', () => this.updateProgress());
-      this.video?.addEventListener('play', () => this.syncTools());
-      this.video?.addEventListener('pause', () => this.syncTools());
+      this.desktopVideo?.addEventListener('ended', () => this.next({ fromEnd: true }));
+      this.desktopVideo?.addEventListener('timeupdate', () => {
+        if (!this.isMobile()) this.updateProgress();
+      });
+      this.desktopVideo?.addEventListener('play', () => this.syncTools());
+      this.desktopVideo?.addEventListener('pause', () => this.syncTools());
 
       this.viewer?.addEventListener('pointerdown', (event) => this.onPointerDown(event));
       this.viewer?.addEventListener('pointerup', (event) => this.onPointerUp(event));
@@ -116,10 +116,95 @@
       this.onKey = (event) => {
         if (this.viewer?.hidden) return;
         if (event.key === 'Escape') this.close();
-        if (event.key === 'ArrowRight') this.next();
-        if (event.key === 'ArrowLeft') this.prev();
+        if (event.key === 'ArrowRight' || event.key === 'ArrowDown') this.next();
+        if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') this.prev();
       };
       document.addEventListener('keydown', this.onKey);
+    }
+
+    buildReel() {
+      if (!this.reel || this.reel.dataset.built === 'true') return;
+      this.stories.forEach((story, index) => {
+        const slide = document.createElement('div');
+        slide.className = 'rc-stories__slide';
+        slide.dataset.rcStorySlide = String(index);
+
+        const video = document.createElement('video');
+        video.className = 'rc-stories__video';
+        video.playsInline = true;
+        video.setAttribute('webkit-playsinline', '');
+        video.preload = index === 0 ? 'auto' : 'metadata';
+        video.src = story.src;
+        video.addEventListener('ended', () => {
+          if (this.index === index) this.next({ fromEnd: true });
+        });
+        video.addEventListener('timeupdate', () => {
+          if (this.index === index) this.updateProgress();
+        });
+        video.addEventListener('play', () => {
+          if (this.index === index) this.syncTools();
+        });
+        video.addEventListener('pause', () => {
+          if (this.index === index) this.syncTools();
+        });
+
+        slide.appendChild(video);
+        this.reel.appendChild(slide);
+      });
+      this.reelVideos = [...this.reel.querySelectorAll('video')];
+      this.reel.dataset.built = 'true';
+      this.observeReel();
+    }
+
+    observeReel() {
+      if (!this.reel || typeof IntersectionObserver !== 'function') return;
+      this.reelObserver?.disconnect();
+      this.reelObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.intersectionRatio < 0.6) return;
+            const nextIndex = Number(entry.target.dataset.rcStorySlide);
+            if (Number.isNaN(nextIndex) || nextIndex === this.index) {
+              this.playReel(this.index);
+              return;
+            }
+            this.index = nextIndex;
+            this.playReel(nextIndex);
+            this.updateProgress(true);
+            this.syncTools();
+          });
+        },
+        { root: this.reel, threshold: 0.6 }
+      );
+      this.reel.querySelectorAll('[data-rc-story-slide]').forEach((slide) => {
+        this.reelObserver.observe(slide);
+      });
+    }
+
+    playReel(index) {
+      this.reelVideos.forEach((video, videoIndex) => {
+        if (videoIndex === index) {
+          video.muted = this.muted;
+          const play = video.play();
+          if (play && typeof play.catch === 'function') {
+            play.catch(() => {
+              video.muted = true;
+              this.muted = true;
+              video.play()?.catch(() => {});
+            });
+          }
+          return;
+        }
+        video.pause();
+      });
+    }
+
+    scrollReel(index, behavior = 'smooth') {
+      if (!this.reel) return;
+      this.reel.scrollTo({
+        top: index * this.reel.clientHeight,
+        behavior,
+      });
     }
 
     open(index) {
@@ -128,31 +213,58 @@
       this.viewer.hidden = false;
       document.body.classList.add('is-rc-stories-open');
       document.querySelectorAll('video').forEach((video) => {
-        if (video !== this.video) video.pause();
+        if (video !== this.desktopVideo && !this.reel?.contains(video)) video.pause();
       });
+
+      if (this.isMobile()) {
+        this.buildReel();
+        requestAnimationFrame(() => {
+          const slide = this.reel.querySelector(`[data-rc-story-slide="${this.index}"]`);
+          slide?.scrollIntoView({ behavior: 'auto', block: 'start' });
+          this.playReel(this.index);
+          this.updateProgress(true);
+          this.syncTools();
+        });
+        return;
+      }
+
       this.load(this.index);
     }
 
     close() {
-      this.video?.pause();
-      this.video.removeAttribute('src');
-      this.video.load();
+      this.desktopVideo?.pause();
+      this.desktopVideo?.removeAttribute('src');
+      this.desktopVideo?.load();
+      this.reelVideos.forEach((video) => {
+        video.pause();
+        video.currentTime = 0;
+      });
       this.viewer.hidden = true;
       this.appendChild(this.viewer);
       document.body.classList.remove('is-rc-stories-open');
     }
 
     load(index) {
+      if (this.isMobile()) {
+        this.index = index;
+        this.scrollReel(index);
+        this.playReel(index);
+        this.updateProgress(true);
+        this.syncTools();
+        return;
+      }
+
       const story = this.stories[index];
-      if (!story?.src) return;
+      if (!story?.src || !this.desktopVideo) return;
       this.index = index;
-      this.video.src = story.src;
-      this.video.muted = false;
-      const play = this.video.play();
+      this.desktopVideo.src = story.src;
+      this.desktopVideo.muted = this.muted;
+      const play = this.desktopVideo.play();
       if (play && typeof play.catch === 'function') {
         play.catch(() => {
-          this.video.muted = true;
-          this.video.play()?.catch(() => {});
+          this.desktopVideo.muted = true;
+          this.muted = true;
+          this.desktopVideo.play()?.catch(() => {});
         });
       }
       this.updateProgress(true);
@@ -222,46 +334,60 @@
     }
 
     togglePause() {
-      if (this.video.paused) this.video.play()?.catch(() => {});
-      else this.video.pause();
+      const video = this.currentVideo();
+      if (!video) return;
+      if (video.paused) video.play()?.catch(() => {});
+      else video.pause();
     }
 
     toggleMute() {
-      this.video.muted = !this.video.muted;
+      this.muted = !this.muted;
+      const video = this.currentVideo();
+      if (video) video.muted = this.muted;
       this.syncTools();
     }
 
     syncTools() {
-      const paused = Boolean(this.video?.paused);
-      const muted = Boolean(this.video?.muted);
-      this.pauseBtn?.querySelector('[data-icon="pause"]')?.toggleAttribute('hidden', paused);
-      this.pauseBtn?.querySelector('[data-icon="play"]')?.toggleAttribute('hidden', !paused);
-      this.pauseBtn?.setAttribute('aria-label', paused ? 'Lecture' : 'Pause');
-      this.muteBtn?.querySelector('[data-icon="sound"]')?.toggleAttribute('hidden', muted);
-      this.muteBtn?.querySelector('[data-icon="mute"]')?.toggleAttribute('hidden', !muted);
-      this.muteBtn?.setAttribute('aria-label', muted ? 'Activer le son' : 'Couper le son');
+      const video = this.currentVideo();
+      const paused = Boolean(video?.paused);
+      const muted = Boolean(video?.muted ?? this.muted);
+      const scope = this.viewer || this;
+      scope.querySelectorAll('[data-rc-story-pause]').forEach((button) => {
+        button.querySelector('[data-icon="pause"]')?.toggleAttribute('hidden', paused);
+        button.querySelector('[data-icon="play"]')?.toggleAttribute('hidden', !paused);
+        button.setAttribute('aria-label', paused ? 'Lecture' : 'Pause');
+      });
+      scope.querySelectorAll('[data-rc-story-mute]').forEach((button) => {
+        button.querySelector('[data-icon="sound"]')?.toggleAttribute('hidden', muted);
+        button.querySelector('[data-icon="mute"]')?.toggleAttribute('hidden', !muted);
+        button.setAttribute('aria-label', muted ? 'Activer le son' : 'Couper le son');
+      });
     }
 
     updateProgress(reset = false) {
-      const duration = this.video?.duration || 0;
-      const ratio = reset || !duration ? 0 : Math.min(1, this.video.currentTime / duration);
-      this.segs?.forEach((seg, index) => {
-        const fill = seg.querySelector('i');
-        seg.classList.toggle('is-done', index < this.index);
-        if (!fill) return;
-        if (index < this.index) fill.style.transform = 'scaleX(1)';
-        else if (index > this.index) fill.style.transform = 'scaleX(0)';
-        else fill.style.transform = `scaleX(${ratio})`;
+      const video = this.currentVideo();
+      const duration = video?.duration || 0;
+      const ratio = reset || !duration ? 0 : Math.min(1, video.currentTime / duration);
+      this.progressGroups?.forEach((segs) => {
+        segs.forEach((seg, index) => {
+          const fill = seg.querySelector('i');
+          seg.classList.toggle('is-done', index < this.index);
+          if (!fill) return;
+          if (index < this.index) fill.style.transform = 'scaleX(1)';
+          else if (index > this.index) fill.style.transform = 'scaleX(0)';
+          else fill.style.transform = `scaleX(${ratio})`;
+        });
       });
     }
 
     onPointerDown(event) {
+      if (this.isMobile()) return;
       if (event.target.closest('button') && !event.target.closest('[data-rc-story-frame]')) return;
       this.drag = { x: event.clientX, y: event.clientY };
     }
 
     onPointerUp(event) {
-      if (!this.drag) return;
+      if (this.isMobile() || !this.drag) return;
       const dx = event.clientX - this.drag.x;
       const dy = event.clientY - this.drag.y;
       this.drag = null;
