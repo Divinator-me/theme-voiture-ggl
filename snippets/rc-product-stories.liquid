@@ -1,0 +1,91 @@
+{%- liquid
+  assign stories_product = product | default: closest.product
+  assign stories_handle = stories_product.handle | default: ''
+  assign stories_ok = false
+  if stories_handle == 'sweep-pro-4x4-voiture-telecommandee-tout-terrain-70-km-h' or stories_handle == 'sweep-pro-4x4-70-kmh-rclab'
+    assign stories_ok = true
+  endif
+-%}
+
+{%- if stories_ok -%}
+{{ 'rc-product-stories.css' | asset_url | stylesheet_tag }}
+
+<rc-product-stories class="rc-stories">
+  <p class="rc-stories__kicker">Voir en action</p>
+  <div class="rc-stories__bubbles" role="list">
+    {%- for i in (1..3) -%}
+      <button
+        class="rc-stories__bubble"
+        type="button"
+        role="listitem"
+        data-rc-story-open="{{ forloop.index0 }}"
+        aria-label="Vidéo {{ forloop.index }}"
+      >
+        <span class="rc-stories__ring">
+          <span class="rc-stories__thumb" data-rc-story-thumb="{{ forloop.index0 }}"></span>
+        </span>
+        <span class="rc-stories__caption">Vidéo</span>
+      </button>
+    {%- endfor -%}
+  </div>
+
+  <div class="rc-stories__viewer" data-rc-story-viewer hidden>
+    <button class="rc-stories__close" type="button" data-rc-story-close aria-label="Fermer">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    <div class="rc-stories__stage">
+      <button class="rc-stories__nav is-prev" type="button" data-rc-story-prev aria-label="Vidéo précédente">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M14.5 6 8.5 12l6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <div class="rc-stories__frame" data-rc-story-frame>
+        <div class="rc-stories__progress" data-rc-story-progress aria-hidden="true"></div>
+        <div class="rc-stories__tools">
+          <button class="rc-stories__tool" type="button" data-rc-story-pause aria-label="Pause">
+            <svg data-icon="pause" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M8 6v12M16 6v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <svg data-icon="play" viewBox="0 0 24 24" fill="none" hidden aria-hidden="true">
+              <path d="M8 6.5v11l9-5.5-9-5.5Z" fill="currentColor"/>
+            </svg>
+          </button>
+          <button class="rc-stories__tool" type="button" data-rc-story-mute aria-label="Couper le son">
+            <svg data-icon="sound" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 10v4h3l4 3V7L8 10H5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+              <path d="M16.2 9.2a4 4 0 0 1 0 5.6M18.4 7a7 7 0 0 1 0 10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+            <svg data-icon="mute" viewBox="0 0 24 24" fill="none" hidden aria-hidden="true">
+              <path d="M5 10v4h3l4 3V7L8 10H5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+              <path d="m16 10 5 5M21 10l-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+        <video class="rc-stories__video" playsinline webkit-playsinline preload="auto" data-rc-story-video></video>
+        <button class="rc-stories__hit is-prev" type="button" data-rc-story-prev tabindex="-1" aria-hidden="true"></button>
+        <button class="rc-stories__hit is-next" type="button" data-rc-story-next tabindex="-1" aria-hidden="true"></button>
+      </div>
+
+      <button class="rc-stories__nav is-next" type="button" data-rc-story-next aria-label="Vidéo suivante">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="m9.5 6 6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <script type="application/json" data-rc-stories>
+    [
+      {"src":"STORY_URL_1","label":"Vidéo"},
+      {"src":"STORY_URL_2","label":"Vidéo"},
+      {"src":"STORY_URL_3","label":"Vidéo"}
+    ]
+  </script>
+</rc-product-stories>
+
+<script src="{{ 'rc-product-stories.js' | asset_url }}" type="module"></script>
+{%- endif -%}
