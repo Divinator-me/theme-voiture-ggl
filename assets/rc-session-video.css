@@ -70,7 +70,6 @@
 }
 
 .rc-session__media {
-  order: -1;
   overflow: hidden;
   width: 100%;
   border: 2px solid var(--color-red);
@@ -133,7 +132,6 @@
   }
 
   .rc-session__media {
-    order: 0;
     width: 100%;
     max-width: 980px;
   }
