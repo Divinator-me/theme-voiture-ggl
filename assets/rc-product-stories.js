@@ -124,6 +124,7 @@
 
     open(index) {
       this.index = Math.max(0, Math.min(index, this.stories.length - 1));
+      document.body.appendChild(this.viewer);
       this.viewer.hidden = false;
       document.body.classList.add('is-rc-stories-open');
       document.querySelectorAll('video').forEach((video) => {
@@ -137,6 +138,7 @@
       this.video.removeAttribute('src');
       this.video.load();
       this.viewer.hidden = true;
+      this.appendChild(this.viewer);
       document.body.classList.remove('is-rc-stories-open');
     }
 
