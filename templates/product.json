@@ -381,10 +381,6 @@
         "max_products": 8
       }
     },
-    "story_rc": {
-      "type": "story-rc",
-      "settings": {}
-    },
     "session_sweep": {
       "type": "rc-session-video",
       "name": "Session Sweep Pro",
@@ -405,7 +401,6 @@
     "main",
     "session_sweep",
     "faq_rc_Fp4egP",
-    "story_rc",
     "product_recommendations_qggXJq",
     "trust_end_YQaN4c"
   ]
