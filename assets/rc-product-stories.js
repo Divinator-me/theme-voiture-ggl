@@ -48,7 +48,7 @@
       this.querySelectorAll('[data-rc-story-thumb]').forEach((thumb, index) => {
         const story = this.stories[index];
         if (!story?.src || story.src.startsWith('STORY_URL')) return;
-        thumb.appendChild(this.mediaThumb(story.src));
+        thumb.appendChild(this.storyPreview(story));
       });
     }
 
@@ -219,8 +219,7 @@
       if (this.isMobile()) {
         this.buildReel();
         requestAnimationFrame(() => {
-          const slide = this.reel.querySelector(`[data-rc-story-slide="${this.index}"]`);
-          slide?.scrollIntoView({ behavior: 'auto', block: 'start' });
+          this.scrollReel(this.index, 'auto');
           this.playReel(this.index);
           this.updateProgress(true);
           this.syncTools();
@@ -272,12 +271,19 @@
       this.renderPeeks();
     }
 
-    mediaThumb(src) {
+    storyPreview(story) {
+      if (story.poster && !String(story.poster).startsWith('STORY_POSTER')) {
+        const image = document.createElement('img');
+        image.src = story.poster;
+        image.alt = '';
+        image.decoding = 'async';
+        return image;
+      }
       const media = document.createElement('video');
       media.muted = true;
       media.playsInline = true;
       media.preload = 'metadata';
-      media.src = src;
+      media.src = story.src;
       media.addEventListener(
         'loadeddata',
         () => {
@@ -302,13 +308,13 @@
         card.className = 'rc-stories__peek';
         card.dataset.rcStoryJump = String(jump);
         card.setAttribute('aria-label', `Vidéo ${jump + 1}`);
-        card.appendChild(this.mediaThumb(story.src));
+        card.appendChild(this.storyPreview(story));
 
         const mark = document.createElement('span');
         mark.className = 'rc-stories__peek-mark';
         const dot = document.createElement('span');
         dot.className = 'rc-stories__peek-dot';
-        dot.appendChild(this.mediaThumb(story.src));
+        dot.appendChild(this.storyPreview(story));
         const label = document.createElement('span');
         label.textContent = story.label || 'Vidéo';
         mark.append(dot, label);
