@@ -396,6 +396,48 @@
     return buckets;
   };
 
+  const flattenBucketNodes = (nodes) => {
+    if (nodes.length !== 1) return nodes;
+    const only = nodes[0];
+    if (only.nodeType !== Node.ELEMENT_NODE) return nodes;
+    if (!new Set(['DIV', 'ARTICLE', 'SECTION']).has(only.tagName)) return nodes;
+    if (!only.querySelector('.rc-desc-section__pitch, .rc-desc-section__intro, .rc-desc-section__body')) {
+      return nodes;
+    }
+    return [...only.childNodes].filter(isMeaningfulNode);
+  };
+
+  const isDescriptionLabel = (element) =>
+    element.classList.contains('rc-desc-section__label') && normalize(element.textContent) === 'description';
+
+  const isDescriptionCopy = (element) =>
+    element.classList.contains('rc-desc-section__pitch') ||
+    element.classList.contains('rc-desc-section__intro') ||
+    element.classList.contains('rc-desc-section__body');
+
+  const pullDescriptionCopy = (nodes) => {
+    const copy = [];
+    const rest = [];
+    let takingCopy = false;
+
+    flattenBucketNodes(nodes).forEach((node) => {
+      if (node.nodeType !== Node.ELEMENT_NODE) {
+        if (!takingCopy) rest.push(node);
+        return;
+      }
+      if (isDescriptionLabel(node)) return;
+      if (isDescriptionCopy(node)) {
+        copy.push(node);
+        takingCopy = true;
+        return;
+      }
+      takingCopy = false;
+      rest.push(node);
+    });
+
+    return { copy, rest };
+  };
+
   const getSectionBuckets = (root) => {
     const buckets = createEmptyBuckets();
     const sectionsJson = root.querySelector('[data-rc-product-sections]');
@@ -420,6 +462,15 @@
           buckets.set(sectionId, parsed.get(sectionId) || []);
         }
       });
+    }
+
+    let { copy: descriptionCopy, rest: toutSavoirRest } = pullDescriptionCopy(
+      buckets.get('tout_savoir') || []
+    );
+    buckets.set('tout_savoir', toutSavoirRest);
+
+    if (!descriptionCopy.length && source) {
+      descriptionCopy = pullDescriptionCopy(parseDescriptionBuckets(source.innerHTML).get('tout_savoir') || []).copy;
     }
 
     const snapshot = root.querySelector('[data-rc-product-snapshot]');
@@ -447,11 +498,10 @@
     }
 
     const repair = root.querySelector('[data-rc-product-repair]');
-    if (repair) {
-      const caracteristiquesNodes = buckets.get('caracteristiques') || [];
-      caracteristiquesNodes.unshift(repair);
-      buckets.set('caracteristiques', caracteristiquesNodes);
-    }
+    const caracteristiquesNodes = buckets.get('caracteristiques') || [];
+    if (repair) caracteristiquesNodes.unshift(repair);
+    if (descriptionCopy.length) caracteristiquesNodes.unshift(...descriptionCopy);
+    buckets.set('caracteristiques', caracteristiquesNodes);
 
     return buckets;
   };
