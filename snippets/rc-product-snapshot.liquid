@@ -113,7 +113,7 @@
       assign snapshot_hand_max = 90
   endcase
 
-  assign snapshot_kiff_min = 87
+  assign snapshot_kiff_min = 95
   assign snapshot_kiff_max = 99
 
   assign snapshot_price = snapshot_product.price_min | default: snapshot_product.price | plus: 0
@@ -194,8 +194,11 @@
   if snapshot_hand_raw > snapshot_hand_max
     assign snapshot_hand_raw = snapshot_hand_max
   endif
-  if snapshot_kiff_raw > snapshot_kiff_max
-    assign snapshot_kiff_raw = snapshot_kiff_max
+  if snapshot_kiff_raw < 95
+    assign snapshot_kiff_raw = 95
+  endif
+  if snapshot_kiff_raw > 99
+    assign snapshot_kiff_raw = 99
   endif
   assign snapshot_road_whole = snapshot_road_raw | divided_by: 10
   assign snapshot_shock_whole = snapshot_shock_raw | divided_by: 10
