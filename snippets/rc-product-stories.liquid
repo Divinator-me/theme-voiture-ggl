@@ -21,7 +21,10 @@
         aria-label="Vidéo {{ forloop.index }}"
       >
         <span class="rc-stories__ring">
-          <span class="rc-stories__thumb" data-rc-story-thumb="{{ forloop.index0 }}"></span>
+          <span class="rc-stories__thumb" data-rc-story-thumb="{{ forloop.index0 }}">
+            {%- capture story_poster -%}rc-story-sweep-{{ i }}.jpg{%- endcapture -%}
+            <img src="{{ story_poster | asset_url }}" alt="" width="82" height="82" decoding="async">
+          </span>
         </span>
         <span class="rc-stories__caption">Vidéo</span>
       </button>
@@ -109,10 +112,10 @@
 
   <script type="application/json" data-rc-stories>
     [
-      {"src":"https://cdn.shopify.com/s/files/1/1009/7174/1566/files/rclab-story-sweep-4b.mp4?v=1788627811","label":"Vidéo","poster":"STORY_POSTER_4"},
-      {"src":"https://cdn.shopify.com/s/files/1/1009/7174/1566/files/rclab-story-sweep-1.mp4?v=1788627243","label":"Vidéo","poster":"STORY_POSTER_1"},
-      {"src":"https://cdn.shopify.com/s/files/1/1009/7174/1566/files/rclab-story-sweep-2.mp4?v=1788627258","label":"Vidéo","poster":"STORY_POSTER_2"},
-      {"src":"https://cdn.shopify.com/s/files/1/1009/7174/1566/files/rclab-story-sweep-3.mp4?v=1788627272","label":"Vidéo","poster":"STORY_POSTER_3"}
+      {"src":"https://cdn.shopify.com/s/files/1/1009/7174/1566/files/rclab-story-sweep-4b.mp4?v=1788627811","label":"Vidéo","poster":{{ 'rc-story-sweep-1.jpg' | asset_url | json }}},
+      {"src":"https://cdn.shopify.com/s/files/1/1009/7174/1566/files/rclab-story-sweep-1.mp4?v=1788627243","label":"Vidéo","poster":{{ 'rc-story-sweep-2.jpg' | asset_url | json }}},
+      {"src":"https://cdn.shopify.com/s/files/1/1009/7174/1566/files/rclab-story-sweep-2.mp4?v=1788627258","label":"Vidéo","poster":{{ 'rc-story-sweep-3.jpg' | asset_url | json }}},
+      {"src":"https://cdn.shopify.com/s/files/1/1009/7174/1566/files/rclab-story-sweep-3.mp4?v=1788627272","label":"Vidéo","poster":{{ 'rc-story-sweep-4.jpg' | asset_url | json }}}
     ]
   </script>
 </rc-product-stories>

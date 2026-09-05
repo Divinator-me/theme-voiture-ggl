@@ -46,6 +46,7 @@
 
     prepareThumbs() {
       this.querySelectorAll('[data-rc-story-thumb]').forEach((thumb, index) => {
+        if (thumb.querySelector('img, video')) return;
         const story = this.stories[index];
         if (!story?.src || story.src.startsWith('STORY_URL')) return;
         thumb.appendChild(this.storyPreview(story));
@@ -134,6 +135,7 @@
         video.playsInline = true;
         video.setAttribute('webkit-playsinline', '');
         video.preload = index === 0 ? 'auto' : 'metadata';
+        if (story.poster) video.poster = story.poster;
         video.src = story.src;
         video.addEventListener('ended', () => {
           if (this.index === index) this.next({ fromEnd: true });
