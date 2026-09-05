@@ -87,6 +87,18 @@
   vertical-align: middle;
 }
 
+.rc-session__specs {
+  display: none;
+  width: 100%;
+  max-width: 980px;
+  margin: 28px auto 0;
+  padding: 0;
+}
+
+.rc-session__specs:not(:empty) {
+  display: block;
+}
+
 @media (min-width: 750px) {
   .rc-session {
     padding: 56px 24px 64px;
@@ -124,5 +136,9 @@
     order: 0;
     width: 100%;
     max-width: 980px;
+  }
+
+  .rc-session__specs {
+    margin-top: 40px;
   }
 }

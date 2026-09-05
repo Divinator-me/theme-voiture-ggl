@@ -651,12 +651,52 @@
     return details;
   };
 
+  const mountCaracteristiquesBelowVideo = (nodes) => {
+    const mount = document.querySelector('[data-rc-session-specs]');
+    if (!mount || !hasVisibleContent(nodes)) return false;
+    nodes.forEach((node) => mount.appendChild(node));
+    enhanceContent(mount);
+    return true;
+  };
+
+  const createDescriptionGroup = (tabSections) => {
+    const descriptionGroup = document.createElement('details');
+    descriptionGroup.className = 'rc-product-desc__group';
+    descriptionGroup.open = true;
+    descriptionGroup.append(createSummary('Description', 'description'));
+
+    if (tabSections.length === 1) {
+      const content = document.createElement('div');
+      content.className = 'rc-product-desc__content rte';
+      tabSections[0].nodes.forEach((node) => content.appendChild(node));
+      enhanceContent(content);
+      descriptionGroup.append(content);
+    } else {
+      descriptionGroup.append(createTabsPanel(tabSections));
+    }
+
+    descriptionGroup.addEventListener('toggle', () => {
+      if (!descriptionGroup.open) return;
+      descriptionGroup.querySelectorAll('video').forEach((video) => {
+        const play = video.play();
+        if (play && typeof play.catch === 'function') play.catch(() => {});
+      });
+      replaySnapshotMeters(descriptionGroup);
+    });
+
+    return descriptionGroup;
+  };
+
   const buildProductDescription = (root) => {
     if (root.dataset.rcProductDescReady === 'true') return;
 
     const buckets = getSectionBuckets(root);
     const list = document.createElement('div');
     list.className = 'rc-product-desc__list';
+
+    if (mountCaracteristiquesBelowVideo(buckets.get('caracteristiques') || [])) {
+      buckets.set('caracteristiques', []);
+    }
 
     const tabSections = MAIN_SECTION_IDS.map((id) => ({
       id,
@@ -665,20 +705,7 @@
     })).filter((section) => hasVisibleContent(section.nodes));
 
     if (tabSections.length) {
-      const descriptionGroup = document.createElement('details');
-      descriptionGroup.className = 'rc-product-desc__group';
-      descriptionGroup.open = true;
-      descriptionGroup.append(createSummary('Description', 'description'));
-      descriptionGroup.append(createTabsPanel(tabSections));
-      descriptionGroup.addEventListener('toggle', () => {
-        if (!descriptionGroup.open) return;
-        descriptionGroup.querySelectorAll('video').forEach((video) => {
-          const play = video.play();
-          if (play && typeof play.catch === 'function') play.catch(() => {});
-        });
-        replaySnapshotMeters(descriptionGroup);
-      });
-      list.appendChild(descriptionGroup);
+      list.appendChild(createDescriptionGroup(tabSections));
     }
 
     BOTTOM_SECTION_IDS.forEach((sectionId) => {
