@@ -18,16 +18,28 @@
   flex-direction: column;
   gap: 8px;
   padding-left: 16px;
+  padding-bottom: 12px;
+}
+
+.rc-session__copy::before,
+.rc-session__copy::after {
+  content: '';
+  position: absolute;
+  background: var(--color-red);
 }
 
 .rc-session__copy::before {
-  content: '';
-  position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   width: 3px;
-  background: var(--color-red);
+}
+
+.rc-session__copy::after {
+  left: 0;
+  bottom: 0;
+  width: 62%;
+  height: 3px;
 }
 
 .rc-session__lead {
