@@ -13,8 +13,10 @@
       }
 
       this.viewer = this.querySelector('[data-rc-story-viewer]');
+      this.stage = this.querySelector('[data-rc-story-stage]');
       this.video = this.querySelector('[data-rc-story-video]');
       this.progress = this.querySelector('[data-rc-story-progress]');
+      this.peeks = this.querySelector('[data-rc-story-peeks]');
       this.pauseBtn = this.querySelector('[data-rc-story-pause]');
       this.muteBtn = this.querySelector('[data-rc-story-mute]');
       this.index = 0;
@@ -90,6 +92,16 @@
       this.pauseBtn?.addEventListener('click', () => this.togglePause());
       this.muteBtn?.addEventListener('click', () => this.toggleMute());
 
+      this.peeks?.addEventListener('click', (event) => {
+        const jump = event.target.closest('[data-rc-story-jump]');
+        if (!jump) return;
+        this.load(Number(jump.dataset.rcStoryJump));
+      });
+
+      this.viewer?.addEventListener('click', (event) => {
+        if (event.target === this.viewer || event.target === this.stage) this.close();
+      });
+
       this.video?.addEventListener('ended', () => this.next({ fromEnd: true }));
       this.video?.addEventListener('timeupdate', () => this.updateProgress());
       this.video?.addEventListener('play', () => this.syncTools());
@@ -143,6 +155,52 @@
       }
       this.updateProgress(true);
       this.syncTools();
+      this.renderPeeks();
+    }
+
+    mediaThumb(src) {
+      const media = document.createElement('video');
+      media.muted = true;
+      media.playsInline = true;
+      media.preload = 'metadata';
+      media.src = src;
+      media.addEventListener(
+        'loadeddata',
+        () => {
+          try {
+            media.currentTime = 0.15;
+          } catch (error) {
+            // Some browsers refuse seek before canplay.
+          }
+        },
+        { once: true }
+      );
+      return media;
+    }
+
+    renderPeeks() {
+      if (!this.peeks) return;
+      this.peeks.innerHTML = '';
+      this.stories.slice(this.index + 1, this.index + 3).forEach((story, offset) => {
+        const jump = this.index + 1 + offset;
+        const card = document.createElement('button');
+        card.type = 'button';
+        card.className = 'rc-stories__peek';
+        card.dataset.rcStoryJump = String(jump);
+        card.setAttribute('aria-label', `Vidéo ${jump + 1}`);
+        card.appendChild(this.mediaThumb(story.src));
+
+        const mark = document.createElement('span');
+        mark.className = 'rc-stories__peek-mark';
+        const dot = document.createElement('span');
+        dot.className = 'rc-stories__peek-dot';
+        dot.appendChild(this.mediaThumb(story.src));
+        const label = document.createElement('span');
+        label.textContent = story.label || 'Vidéo';
+        mark.append(dot, label);
+        card.appendChild(mark);
+        this.peeks.appendChild(card);
+      });
     }
 
     prev() {
