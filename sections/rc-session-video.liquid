@@ -1,0 +1,45 @@
+{%- liquid
+  assign session_product = product | default: closest.product
+  assign session_handle = session_product.handle | default: ''
+  assign session_ok = false
+  if session_handle == 'sweep-pro-4x4-voiture-telecommandee-tout-terrain-70-km-h' or session_handle == 'sweep-pro-4x4-70-kmh-rclab'
+    assign session_ok = true
+  endif
+-%}
+
+{%- if session_ok -%}
+{{ 'rc-session-video.css' | asset_url | stylesheet_tag }}
+
+<section class="rc-session" aria-label="Session Sweep Pro">
+  <div class="rc-session__inner">
+    <div class="rc-session__copy">
+      <p class="rc-session__lead">Une session complète avec</p>
+      <h2 class="rc-session__title">une Sweep Pro RCLAB</h2>
+      <p class="rc-session__tags">Déballage, essai, vitesse, adrénaline, saut, accident et figures.</p>
+    </div>
+
+    <div class="rc-session__media">
+      <video
+        class="rc-session__video"
+        poster="{{ 'rc-session-sweep-poster.jpg' | asset_url }}"
+        src="SESSION_VIDEO_URL"
+        controls
+        playsinline
+        webkit-playsinline
+        preload="metadata"
+      ></video>
+    </div>
+  </div>
+</section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Session vidéo RC",
+  "presets": [
+    {
+      "name": "Session vidéo RC"
+    }
+  ]
+}
+{% endschema %}

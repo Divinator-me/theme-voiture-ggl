@@ -385,6 +385,11 @@
       "type": "story-rc",
       "settings": {}
     },
+    "session_sweep": {
+      "type": "rc-session-video",
+      "name": "Session Sweep Pro",
+      "settings": {}
+    },
     "faq_rc_Fp4egP": {
       "type": "faq-rc",
       "name": "FAQ RC",
@@ -398,6 +403,7 @@
   },
   "order": [
     "main",
+    "session_sweep",
     "faq_rc_Fp4egP",
     "story_rc",
     "product_recommendations_qggXJq",
