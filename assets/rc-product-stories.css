@@ -321,37 +321,73 @@ body.is-rc-stories-open {
   }
 }
 
+.rc-stories__reel,
+.rc-stories__hud {
+  display: none;
+}
+
 @media (max-width: 749px) {
   .rc-stories__viewer {
     background: #111;
   }
 
   .rc-stories__nav,
-  .rc-stories__peeks {
+  .rc-stories__peeks,
+  .rc-stories__stage,
+  .rc-stories__main {
     display: none;
   }
 
-  .rc-stories__stage,
-  .rc-stories__main {
-    position: relative;
-    top: auto;
-    left: auto;
+  .rc-stories__reel {
+    display: block;
     width: 100%;
     height: 100%;
-    padding: 0;
-    transform: none;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    overscroll-behavior: none;
+    -webkit-overflow-scrolling: touch;
   }
 
-  .rc-stories__frame {
+  .rc-stories__slide {
+    position: relative;
     width: 100%;
     height: 100%;
-    max-height: 100dvh;
-    border-radius: 0;
-    box-shadow: none;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    background: #000;
+  }
+
+  .rc-stories__slide .rc-stories__video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .rc-stories__hud {
+    position: absolute;
+    top: 12px;
+    right: 56px;
+    left: 12px;
+    z-index: 4;
+    display: block;
+    pointer-events: none;
+  }
+
+  .rc-stories__hud .rc-stories__progress {
+    position: static;
+    margin: 0 0 10px;
+  }
+
+  .rc-stories__hud .rc-stories__tools {
+    position: static;
+    justify-content: flex-end;
+    pointer-events: auto;
   }
 
   .rc-stories__close {
-    top: 16px;
+    top: 10px;
     right: 10px;
   }
 }

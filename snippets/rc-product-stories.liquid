@@ -79,6 +79,32 @@
 
       <div class="rc-stories__peeks" data-rc-story-peeks></div>
     </div>
+
+    <div class="rc-stories__reel" data-rc-story-reel></div>
+
+    <div class="rc-stories__hud" data-rc-story-hud>
+      <div class="rc-stories__progress" data-rc-story-progress></div>
+      <div class="rc-stories__tools">
+        <button class="rc-stories__tool" type="button" data-rc-story-pause aria-label="Pause">
+          <svg data-icon="pause" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M8 6v12M16 6v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <svg data-icon="play" viewBox="0 0 24 24" fill="none" hidden aria-hidden="true">
+            <path d="M8 6.5v11l9-5.5-9-5.5Z" fill="currentColor"/>
+          </svg>
+        </button>
+        <button class="rc-stories__tool" type="button" data-rc-story-mute aria-label="Couper le son">
+          <svg data-icon="sound" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M5 10v4h3l4 3V7L8 10H5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M16.2 9.2a4 4 0 0 1 0 5.6M18.4 7a7 7 0 0 1 0 10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+          <svg data-icon="mute" viewBox="0 0 24 24" fill="none" hidden aria-hidden="true">
+            <path d="M5 10v4h3l4 3V7L8 10H5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="m16 10 5 5M21 10l-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
   </div>
 
   <script type="application/json" data-rc-stories>
