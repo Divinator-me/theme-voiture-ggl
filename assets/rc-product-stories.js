@@ -174,6 +174,7 @@
             this.playReel(nextIndex);
             this.updateProgress(true);
             this.syncTools();
+            this.syncScrollHint();
           });
         },
         { root: this.reel, threshold: 0.6 }
@@ -225,6 +226,7 @@
           this.playReel(this.index);
           this.updateProgress(true);
           this.syncTools();
+          this.syncScrollHint();
         });
         return;
       }
@@ -252,6 +254,7 @@
         this.playReel(index);
         this.updateProgress(true);
         this.syncTools();
+        this.syncScrollHint();
         return;
       }
 
@@ -353,6 +356,12 @@
       const video = this.currentVideo();
       if (video) video.muted = this.muted;
       this.syncTools();
+    }
+
+    syncScrollHint() {
+      const hint = this.viewer?.querySelector('[data-rc-story-scroll-hint]');
+      if (!hint) return;
+      hint.hidden = this.index >= this.stories.length - 1;
     }
 
     syncTools() {
