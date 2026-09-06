@@ -2,9 +2,10 @@
   assign stories_product = product | default: closest.product
   assign stories_handle = stories_product.handle | default: ''
   assign stories_set = ''
+  assign stories_hay = stories_handle | append: ' ' | append: stories_product.title | downcase
   if stories_handle == 'sweep-pro-4x4-voiture-telecommandee-tout-terrain-70-km-h' or stories_handle == 'sweep-pro-4x4-70-kmh-rclab'
     assign stories_set = 'sweep'
-  elsif stories_handle == 'conquer-4x4-1-16-voiture-telecommandee-tout-terrain-50-km-h' or stories_handle == '4x4-tout-terrain-1-16-50-km-h'
+  elsif stories_handle == 'conquer-4x4-1-16-voiture-telecommandee-tout-terrain-50-km-h' or stories_handle == '4x4-tout-terrain-1-16-50-km-h' or stories_hay contains 'conquer'
     assign stories_set = 'conquer'
   endif
 -%}

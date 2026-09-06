@@ -19,7 +19,8 @@
   assign desc_handle = description_product.handle | default: ''
   assign desc_video_src = ''
   assign desc_video_poster = ''
-  if desc_handle == 'conquer-4x4-1-16-voiture-telecommandee-tout-terrain-50-km-h' or desc_handle == '4x4-tout-terrain-1-16-50-km-h'
+  assign desc_hay = desc_handle | append: ' ' | append: description_product.title | downcase
+  if desc_handle == 'conquer-4x4-1-16-voiture-telecommandee-tout-terrain-50-km-h' or desc_handle == '4x4-tout-terrain-1-16-50-km-h' or desc_hay contains 'conquer'
     assign desc_video_src = 'https://cdn.shopify.com/videos/c/o/v/3cd2217cea954b88babc96b61c502a13.mp4'
     assign desc_video_poster = 'rc-desc-conquer-poster.jpg'
   endif
