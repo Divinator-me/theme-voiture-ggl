@@ -15,6 +15,8 @@
     assign stories_set = 'gantry'
   elsif stories_handle == 'force-13-buggy-4x4-75-kmh-rclab' or stories_handle == 'force-13-1-12-buggy-telecommande-4x4-haute-vitesse-75-km-h' or stories_hay contains 'force-13' or stories_hay contains 'format 45'
     assign stories_set = 'force13'
+  elsif stories_handle == 'buggy-4x4-1-14-brushless-70-km-h' or stories_hay contains 'z06 evolution buggy'
+    assign stories_set = 'z06'
   endif
   assign stories_count = 4
   if stories_set == 'nismo'
