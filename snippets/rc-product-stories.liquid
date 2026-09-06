@@ -192,6 +192,12 @@
       {"src":"https://cdn.shopify.com/s/files/1/1009/7174/1566/files/rclab-story-drive-2.mp4?v=1788709574","label":"Vidéo","poster":{{ 'rc-story-drive-2.jpg' | asset_url | json }}},
       {"src":"https://cdn.shopify.com/s/files/1/1009/7174/1566/files/rclab-story-drive-3.mp4?v=1788709596","label":"Vidéo","poster":{{ 'rc-story-drive-3.jpg' | asset_url | json }}}
     ]
+    {%- elsif stories_set == 'buggy16' -%}
+    [
+      {"src":"STORY_BUGGY16_1_URL","label":"Vidéo","poster":{{ 'rc-story-buggy16-1.jpg' | asset_url | json }}},
+      {"src":"STORY_BUGGY16_2_URL","label":"Vidéo","poster":{{ 'rc-story-buggy16-2.jpg' | asset_url | json }}},
+      {"src":"STORY_BUGGY16_3_URL","label":"Vidéo","poster":{{ 'rc-story-buggy16-3.jpg' | asset_url | json }}}
+    ]
     {%- endif -%}
   </script>
 </rc-product-stories>
