@@ -182,6 +182,29 @@
         ></video>
       </div>
     </div>
+  {%- elsif session_set == 'drive' -%}
+    <div class="rc-session__inner">
+      <div class="rc-session__copy">
+        <p class="rc-session__lead">Une session complète avec</p>
+        <h2 class="rc-session__title">le Drive RCLAB</h2>
+        <p class="rc-session__tags">Tout-terrain, brushless, 70 km/h. Sable, vitesse.</p>
+      </div>
+
+      <div class="rc-session__media">
+        <video
+          class="rc-session__video"
+          poster="{{ 'rc-session-drive-poster.jpg' | asset_url }}"
+          src="DRIVE_SESSION"
+          autoplay
+          muted
+          loop
+          playsinline
+          webkit-playsinline
+          controls
+          preload="auto"
+        ></video>
+      </div>
+    </div>
   {%- endif -%}
 
   <div class="rc-session__specs rc-product-desc__content rte" data-rc-session-specs></div>

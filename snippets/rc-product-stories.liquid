@@ -184,6 +184,12 @@
       {"src":"https://cdn.shopify.com/s/files/1/1009/7174/1566/files/rclab-story-z06-3.mp4?v=1788708387","label":"Vidéo","poster":{{ 'rc-story-z06-3.jpg' | asset_url | json }}},
       {"src":"https://cdn.shopify.com/s/files/1/1009/7174/1566/files/rclab-story-z06-4.mp4?v=1788708407","label":"Vidéo","poster":{{ 'rc-story-z06-4.jpg' | asset_url | json }}}
     ]
+    {%- elsif stories_set == 'drive' -%}
+    [
+      {"src":"DRIVE_STORY_1","label":"Vidéo","poster":{{ 'rc-story-drive-1.jpg' | asset_url | json }}},
+      {"src":"DRIVE_STORY_2","label":"Vidéo","poster":{{ 'rc-story-drive-2.jpg' | asset_url | json }}},
+      {"src":"DRIVE_STORY_3","label":"Vidéo","poster":{{ 'rc-story-drive-3.jpg' | asset_url | json }}}
+    ]
     {%- endif -%}
   </script>
 </rc-product-stories>
