@@ -429,6 +429,36 @@
     root.querySelectorAll(VIDEO_NODE_SELECTOR).forEach((node) => node.remove());
   };
 
+  const createForcedDescVideo = (root) => {
+    const json = root.querySelector('[data-rc-desc-video]');
+    if (!json) return null;
+    let data;
+    try {
+      data = JSON.parse(json.textContent);
+    } catch (error) {
+      return null;
+    }
+    if (!data?.src) return null;
+
+    const wrap = document.createElement('div');
+    wrap.className = 'rc-desc-section__video';
+    const video = document.createElement('video');
+    video.src = data.src;
+    if (data.poster) video.poster = data.poster;
+    video.muted = true;
+    video.defaultMuted = true;
+    video.autoplay = true;
+    video.loop = true;
+    video.playsInline = true;
+    video.controls = true;
+    video.preload = 'auto';
+    video.setAttribute('muted', '');
+    video.setAttribute('playsinline', '');
+    video.setAttribute('webkit-playsinline', '');
+    wrap.appendChild(video);
+    return wrap;
+  };
+
   const pullDescriptionCopy = (nodes) => {
     const copy = [];
     const rest = [];
@@ -501,6 +531,16 @@
       ['tout_savoir', 'caracteristiques'].forEach((sectionId) => {
         buckets.set(sectionId, withoutVideos(buckets.get(sectionId) || []));
       });
+    }
+
+    const forcedVideo = createForcedDescVideo(root);
+    if (forcedVideo) {
+      const toutSavoirNodes = withoutVideos(buckets.get('tout_savoir') || []);
+      const snapshotIndex = toutSavoirNodes.findIndex(
+        (node) => node.nodeType === Node.ELEMENT_NODE && node.hasAttribute('data-rc-product-snapshot')
+      );
+      toutSavoirNodes.splice(snapshotIndex >= 0 ? snapshotIndex + 1 : 0, 0, forcedVideo);
+      buckets.set('tout_savoir', toutSavoirNodes);
     }
 
     if (expert) {
