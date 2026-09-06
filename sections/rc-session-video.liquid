@@ -11,12 +11,14 @@
     assign session_set = 'lancia'
   elsif session_handle == 'nissan-gt-r-nismo-gt500-1-24-voiture-telecommandee-drift-et-piste' or session_hay contains 'gt500'
     assign session_set = 'nismo'
+  elsif session_handle == '4x4-rc-1-16-brushless-70-kmh-rclab' or session_handle == '4x4-off-road-1-16-voiture-telecommandee-brushless-70-km-h' or session_hay contains 'gantry'
+    assign session_set = 'gantry'
   endif
 -%}
 
 {{ 'rc-session-video.css' | asset_url | stylesheet_tag }}
 
-<section class="rc-session{% if session_set == blank %} rc-session--specs-only{% endif %}" aria-label="{% if session_set == 'sweep' %}Session Sweep Pro{% elsif session_set == 'conquer' %}Session Conquer{% elsif session_set == 'lancia' %}Session Lancia Delta{% elsif session_set == 'nismo' %}Session GT-R NISMO{% else %}Caractéristiques{% endif %}">
+<section class="rc-session{% if session_set == blank %} rc-session--specs-only{% endif %}" aria-label="{% if session_set == 'sweep' %}Session Sweep Pro{% elsif session_set == 'conquer' %}Session Conquer{% elsif session_set == 'lancia' %}Session Lancia Delta{% elsif session_set == 'nismo' %}Session GT-R NISMO{% elsif session_set == 'gantry' %}Session Gantry Pro{% else %}Caractéristiques{% endif %}">
   {%- if session_set == 'sweep' -%}
     <div class="rc-session__inner">
       <div class="rc-session__copy">
@@ -107,6 +109,25 @@
           controls
           preload="auto"
         ></video>
+      </div>
+    </div>
+  {%- elsif session_set == 'gantry' -%}
+    <div class="rc-session__inner">
+      <div class="rc-session__copy">
+        <p class="rc-session__lead">Une session complète avec</p>
+        <h2 class="rc-session__title">le Gantry Pro</h2>
+        <p class="rc-session__tags">Tout-terrain, brushless, 70 km/h. Terre, eau, bosses. Elle encaisse.</p>
+      </div>
+
+      <div class="rc-session__media">
+        <iframe
+          class="rc-session__yt"
+          src="https://www.youtube-nocookie.com/embed/V1SJu7ya7Ts?rel=0&modestbranding=1&playsinline=1"
+          title="Session Gantry Pro"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+          loading="lazy"
+        ></iframe>
       </div>
     </div>
   {%- endif -%}

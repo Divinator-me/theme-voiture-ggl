@@ -11,6 +11,8 @@
     assign stories_set = 'lancia'
   elsif stories_handle == 'nissan-gt-r-nismo-gt500-1-24-voiture-telecommandee-drift-et-piste' or stories_hay contains 'gt500'
     assign stories_set = 'nismo'
+  elsif stories_handle == '4x4-rc-1-16-brushless-70-kmh-rclab' or stories_handle == '4x4-off-road-1-16-voiture-telecommandee-brushless-70-km-h' or stories_hay contains 'gantry'
+    assign stories_set = 'gantry'
   endif
   assign stories_count = 4
   if stories_set == 'nismo'

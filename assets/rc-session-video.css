@@ -81,13 +81,19 @@
   background: #111;
 }
 
-.rc-session__video {
+.rc-session__video,
+.rc-session__yt {
   display: block;
   width: 100%;
   height: auto;
   aspect-ratio: 16 / 9;
   object-fit: cover;
   vertical-align: middle;
+}
+
+.rc-session__yt {
+  border: 0;
+  background: #111;
 }
 
 .rc-session__specs {
