@@ -190,10 +190,7 @@
 
     applyMute(index, video) {
       if (!video) return;
-      if (this.storyWantsMute(index)) {
-        this.muted = true;
-      }
-      video.muted = this.muted;
+      video.muted = this.storyWantsMute(index) || this.muted;
     }
 
     playReel(index) {
