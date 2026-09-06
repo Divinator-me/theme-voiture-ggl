@@ -1020,5 +1020,34 @@
       "lengthCm": null,
       "remoteFreq": "2.4"
     }
+  },
+  "hyper-go-tout-terrain-4wd-50km-h": {
+    "id": 16076697174398,
+    "handle": "hyper-go-tout-terrain-4wd-50km-h",
+    "currentTitle": "HYPER GO 4x4 RC 1/14 brushless - 50 km/h tout-terrain",
+    "priceMin": 359.9,
+    "variantCount": 1,
+    "imageCount": 0,
+    "tags": [
+      "Monster Truck / 4X4",
+      "Dès 12 ans",
+      "Extérieur"
+    ],
+    "categories": [
+      "monster-truck-4x4"
+    ],
+    "specs": {
+      "speedKmh": "50",
+      "scale": "14",
+      "battery": "3000",
+      "autonomyMin": "14",
+      "voltage": "7.4",
+      "motor": "brushless",
+      "hasLed": false,
+      "hasWaterproof": false,
+      "is4wd": true,
+      "lengthCm": "32.5",
+      "remoteFreq": "2.4"
+    }
   }
 }
