@@ -7,12 +7,14 @@
     assign session_set = 'sweep'
   elsif session_handle == 'conquer-4x4-1-16-voiture-telecommandee-tout-terrain-50-km-h' or session_handle == '4x4-tout-terrain-1-16-50-km-h' or session_hay contains 'conquer'
     assign session_set = 'conquer'
+  elsif session_handle == 'lancia-delta-martini-racing-1-14-voiture-telecommandee-de-rallye-et-drift' or session_handle == 'lancia-delta-martini-1-14-rc-rclab' or session_hay contains 'lancia'
+    assign session_set = 'lancia'
   endif
 -%}
 
 {{ 'rc-session-video.css' | asset_url | stylesheet_tag }}
 
-<section class="rc-session{% if session_set == blank %} rc-session--specs-only{% endif %}" aria-label="{% if session_set == 'sweep' %}Session Sweep Pro{% elsif session_set == 'conquer' %}Session Conquer{% else %}Caractéristiques{% endif %}">
+<section class="rc-session{% if session_set == blank %} rc-session--specs-only{% endif %}" aria-label="{% if session_set == 'sweep' %}Session Sweep Pro{% elsif session_set == 'conquer' %}Session Conquer{% elsif session_set == 'lancia' %}Session Lancia Delta{% else %}Caractéristiques{% endif %}">
   {%- if session_set == 'sweep' -%}
     <div class="rc-session__inner">
       <div class="rc-session__copy">
@@ -49,6 +51,29 @@
           class="rc-session__video"
           poster="{{ 'rc-session-conquer-poster.jpg' | asset_url }}"
           src="https://cdn.shopify.com/videos/c/o/v/7484d718a89147feb2e9421819f6e156.mp4"
+          autoplay
+          muted
+          loop
+          playsinline
+          webkit-playsinline
+          controls
+          preload="auto"
+        ></video>
+      </div>
+    </div>
+  {%- elsif session_set == 'lancia' -%}
+    <div class="rc-session__inner">
+      <div class="rc-session__copy">
+        <p class="rc-session__lead">Une session complète avec</p>
+        <h2 class="rc-session__title">la Lancia Delta RCLAB</h2>
+        <p class="rc-session__tags">Drift, rallye, 1/14. Les lignes Martini, le glisse, la piste.</p>
+      </div>
+
+      <div class="rc-session__media">
+        <video
+          class="rc-session__video"
+          poster="{{ 'rc-session-lancia-poster.jpg' | asset_url }}"
+          src="https://cdn.shopify.com/videos/c/o/v/LANCIA_SESSION_URL.mp4"
           autoplay
           muted
           loop
