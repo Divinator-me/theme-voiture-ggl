@@ -415,6 +415,20 @@
     element.classList.contains('rc-desc-section__intro') ||
     element.classList.contains('rc-desc-section__body');
 
+  const VIDEO_NODE_SELECTOR = 'video, iframe, deferred-media, shopify-video, .rc-desc-section__video';
+
+  const isVideoNode = (node) => {
+    if (!node || node.nodeType !== Node.ELEMENT_NODE) return false;
+    return node.matches(VIDEO_NODE_SELECTOR) || Boolean(node.querySelector(VIDEO_NODE_SELECTOR));
+  };
+
+  const withoutVideos = (nodes) => nodes.filter((node) => !isVideoNode(node));
+
+  const removeVideos = (root) => {
+    if (!root) return;
+    root.querySelectorAll(VIDEO_NODE_SELECTOR).forEach((node) => node.remove());
+  };
+
   const pullDescriptionCopy = (nodes) => {
     const copy = [];
     const rest = [];
@@ -485,17 +499,7 @@
 
     if (!root.hasAttribute('data-rc-keep-video')) {
       ['tout_savoir', 'caracteristiques'].forEach((sectionId) => {
-        buckets.set(
-          sectionId,
-          (buckets.get(sectionId) || []).filter((node) => {
-            if (node.nodeType !== Node.ELEMENT_NODE) return true;
-            return !(
-              node.classList.contains('rc-desc-section__video') ||
-              node.matches('video') ||
-              Boolean(node.querySelector(':scope video, :scope .rc-desc-section__video'))
-            );
-          })
-        );
+        buckets.set(sectionId, withoutVideos(buckets.get(sectionId) || []));
       });
     }
 
@@ -667,10 +671,13 @@
     return details;
   };
 
-  const mountCaracteristiquesBelowVideo = (nodes) => {
+  const mountCaracteristiquesBelowVideo = (nodes, keepVideo) => {
     const mount = document.querySelector('[data-rc-session-specs]');
     if (!mount || !hasVisibleContent(nodes)) return false;
-    nodes.forEach((node) => mount.appendChild(node));
+    const nextNodes = keepVideo ? nodes : withoutVideos(nodes);
+    if (!hasVisibleContent(nextNodes)) return false;
+    nextNodes.forEach((node) => mount.appendChild(node));
+    if (!keepVideo) removeVideos(mount);
     enhanceContent(mount);
     return true;
   };
@@ -709,8 +716,9 @@
     const buckets = getSectionBuckets(root);
     const list = document.createElement('div');
     list.className = 'rc-product-desc__list';
+    const keepVideo = root.hasAttribute('data-rc-keep-video');
 
-    if (mountCaracteristiquesBelowVideo(buckets.get('caracteristiques') || [])) {
+    if (mountCaracteristiquesBelowVideo(buckets.get('caracteristiques') || [], keepVideo)) {
       buckets.set('caracteristiques', []);
     }
 
@@ -735,6 +743,11 @@
     const mountPoint =
       root.querySelector('[data-rc-product-sections]') || root.querySelector('[data-rc-product-desc-source]');
     mountPoint.replaceWith(list);
+    root.querySelector('[data-rc-product-desc-source]')?.remove();
+    if (!keepVideo) {
+      removeVideos(root);
+      removeVideos(document.querySelector('[data-rc-session-specs]'));
+    }
     root.dataset.rcProductDescReady = 'true';
   };
 
