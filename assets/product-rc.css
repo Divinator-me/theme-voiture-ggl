@@ -1233,6 +1233,13 @@ body:has(sticky-add-to-cart) {
   color: var(--color-black);
 }
 
+.rc-pack-picker__card.is-duo .rc-pack-picker__perk,
+.rc-pack-picker__card.is-trio .rc-pack-picker__perk,
+.rc-pack-picker__card.is-duo .rc-pack-picker__price,
+.rc-pack-picker__card.is-trio .rc-pack-picker__price {
+  color: var(--color-price);
+}
+
 .product-information .shopify-block:has(variant-picker .variant-option--dropdowns),
 .product-information .group-block-content > :has(> variant-picker.rc-hidden-battery-picker),
 .product-information variant-picker.rc-hidden-battery-picker,
