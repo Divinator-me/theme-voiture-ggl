@@ -1,13 +1,15 @@
 {%- liquid
   assign stories_product = product | default: closest.product
   assign stories_handle = stories_product.handle | default: ''
-  assign stories_ok = false
+  assign stories_set = ''
   if stories_handle == 'sweep-pro-4x4-voiture-telecommandee-tout-terrain-70-km-h' or stories_handle == 'sweep-pro-4x4-70-kmh-rclab'
-    assign stories_ok = true
+    assign stories_set = 'sweep'
+  elsif stories_handle == 'conquer-4x4-1-16-voiture-telecommandee-tout-terrain-50-km-h' or stories_handle == '4x4-tout-terrain-1-16-50-km-h'
+    assign stories_set = 'conquer'
   endif
 -%}
 
-{%- if stories_ok -%}
+{%- if stories_set != blank -%}
 {{ 'rc-product-stories.css' | asset_url | stylesheet_tag }}
 
 <rc-product-stories class="rc-stories">
@@ -22,7 +24,7 @@
       >
         <span class="rc-stories__ring">
           <span class="rc-stories__thumb" data-rc-story-thumb="{{ forloop.index0 }}">
-            {%- capture story_poster -%}rc-story-sweep-{{ i }}.jpg{%- endcapture -%}
+            {%- capture story_poster -%}rc-story-{{ stories_set }}-{{ i }}.jpg{%- endcapture -%}
             <img src="{{ story_poster | asset_url }}" alt="" width="82" height="82" decoding="async">
           </span>
         </span>
@@ -117,12 +119,21 @@
   </div>
 
   <script type="application/json" data-rc-stories>
+    {%- if stories_set == 'sweep' -%}
     [
       {"src":"https://cdn.shopify.com/s/files/1/1009/7174/1566/files/rclab-story-sweep-4b.mp4?v=1788627811","label":"Vidéo","poster":{{ 'rc-story-sweep-1.jpg' | asset_url | json }}},
       {"src":"https://cdn.shopify.com/s/files/1/1009/7174/1566/files/rclab-story-sweep-1.mp4?v=1788627243","label":"Vidéo","poster":{{ 'rc-story-sweep-2.jpg' | asset_url | json }}},
       {"src":"https://cdn.shopify.com/s/files/1/1009/7174/1566/files/rclab-story-sweep-2.mp4?v=1788627258","label":"Vidéo","poster":{{ 'rc-story-sweep-3.jpg' | asset_url | json }}},
       {"src":"https://cdn.shopify.com/s/files/1/1009/7174/1566/files/rclab-story-sweep-3.mp4?v=1788627272","label":"Vidéo","poster":{{ 'rc-story-sweep-4.jpg' | asset_url | json }}}
     ]
+    {%- else -%}
+    [
+      {"src":"https://cdn.shopify.com/s/files/1/1009/7174/1566/files/rclab-story-conquer-1.mp4?v=1788691895","label":"Vidéo","poster":{{ 'rc-story-conquer-1.jpg' | asset_url | json }}},
+      {"src":"https://cdn.shopify.com/s/files/1/1009/7174/1566/files/rclab-story-conquer-2.mp4?v=1788691914","label":"Vidéo","poster":{{ 'rc-story-conquer-2.jpg' | asset_url | json }}},
+      {"src":"https://cdn.shopify.com/s/files/1/1009/7174/1566/files/rclab-story-conquer-3.mp4?v=1788691931","label":"Vidéo","poster":{{ 'rc-story-conquer-3.jpg' | asset_url | json }}},
+      {"src":"https://cdn.shopify.com/s/files/1/1009/7174/1566/files/rclab-story-conquer-4.mp4?v=1788691948","label":"Vidéo","poster":{{ 'rc-story-conquer-4.jpg' | asset_url | json }},"muted":true}
+    ]
+    {%- endif -%}
   </script>
 </rc-product-stories>
 
