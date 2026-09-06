@@ -136,6 +136,28 @@
     return Boolean(temp.querySelector(MEDIA_SELECTOR));
   };
 
+  const lockAmbientVideo = (video) => {
+    if (!video) return;
+    video.muted = true;
+    video.defaultMuted = true;
+    video.loop = true;
+    video.autoplay = true;
+    video.playsInline = true;
+    video.controls = false;
+    video.preload = 'auto';
+    video.disablePictureInPicture = true;
+    video.disableRemotePlayback = true;
+    video.removeAttribute('controls');
+    video.setAttribute('muted', '');
+    video.setAttribute('autoplay', '');
+    video.setAttribute('loop', '');
+    video.setAttribute('playsinline', '');
+    video.setAttribute('webkit-playsinline', '');
+    video.setAttribute('preload', 'auto');
+    video.setAttribute('disablepictureinpicture', '');
+    video.setAttribute('controlslist', 'nodownload nofullscreen noremoteplayback noplaybackrate');
+  };
+
   const enhanceMedia = (root) => {
     root.querySelectorAll('img').forEach((image) => {
       image.loading = 'eager';
@@ -157,16 +179,7 @@
         video.setAttribute('src', url);
       }
 
-      video.muted = true;
-      video.defaultMuted = true;
-      video.loop = true;
-      video.autoplay = true;
-      video.playsInline = true;
-      video.preload = 'auto';
-      video.setAttribute('muted', '');
-      video.setAttribute('playsinline', '');
-      video.setAttribute('webkit-playsinline', '');
-      video.setAttribute('preload', 'auto');
+      lockAmbientVideo(video);
 
       const tryPlay = () => {
         const play = video.play();
@@ -449,16 +462,7 @@
     const video = document.createElement('video');
     video.src = data.src;
     if (data.poster) video.poster = data.poster;
-    video.muted = true;
-    video.defaultMuted = true;
-    video.autoplay = true;
-    video.loop = true;
-    video.playsInline = true;
-    video.controls = true;
-    video.preload = 'auto';
-    video.setAttribute('muted', '');
-    video.setAttribute('playsinline', '');
-    video.setAttribute('webkit-playsinline', '');
+    lockAmbientVideo(video);
     wrap.appendChild(video);
     return wrap;
   };

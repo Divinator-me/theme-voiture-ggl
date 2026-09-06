@@ -871,16 +871,23 @@ body:has(sticky-add-to-cart) {
   overflow: hidden;
   border-radius: 12px;
   background: #111;
+  pointer-events: none;
 }
 
-.rc-desc-section__video video {
+.rc-product-desc .rc-desc-section__video video,
+.rc-product-desc__content .rc-desc-section__video video,
+.rc-product-desc__tab-panel .rc-desc-section__video video {
   position: absolute;
   inset: 0;
   width: 100%;
+  max-width: none;
   height: 100%;
   margin: 0;
   object-fit: cover;
+  object-position: center;
+  border-radius: 0;
   background: #111;
+  pointer-events: none;
 }
 
 .rc-product-desc__content img,
