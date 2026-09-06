@@ -483,18 +483,6 @@
       buckets.set('tout_savoir', toutSavoirNodes);
     }
 
-    if (document.querySelector('[data-rc-session-from-desc]')) {
-      const toutSavoirNodes = (buckets.get('tout_savoir') || []).filter((node) => {
-        if (node.nodeType !== Node.ELEMENT_NODE) return true;
-        return !(
-          node.classList.contains('rc-desc-section__video') ||
-          node.matches('video') ||
-          Boolean(node.querySelector(':scope video, :scope .rc-desc-section__video'))
-        );
-      });
-      buckets.set('tout_savoir', toutSavoirNodes);
-    }
-
     if (expert) {
       const toutSavoirNodes = buckets.get('tout_savoir') || [];
       const videoIndex = toutSavoirNodes.findIndex((node) => {
