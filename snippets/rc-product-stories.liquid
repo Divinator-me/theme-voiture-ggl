@@ -21,6 +21,8 @@
     assign stories_set = 'drive'
   elsif stories_handle == 'buggy-off-road-4x4-1-16-rclab' or stories_handle == 'voiture-telecommandee-buggy-off-road-4x4-1-16' or stories_hay contains 'led complètes'
     assign stories_set = 'buggy16'
+  elsif stories_handle == 'hyper-go-tout-terrain-4wd-50km-h' or stories_hay contains 'hyper go' or stories_hay contains 'hypergo'
+    assign stories_set = 'hypergo'
   endif
   assign stories_count = 4
   if stories_set == 'nismo' or stories_set == 'drive' or stories_set == 'buggy16'
@@ -197,6 +199,13 @@
       {"src":"https://cdn.shopify.com/videos/c/o/v/30ee806f7e15488897aa33c10c291e7d.mp4","label":"Vidéo","poster":{{ 'rc-story-buggy16-1.jpg' | asset_url | json }}},
       {"src":"https://cdn.shopify.com/videos/c/o/v/fcdf72e181874faf9b9d121a012e7ab9.mp4","label":"Vidéo","poster":{{ 'rc-story-buggy16-2.jpg' | asset_url | json }}},
       {"src":"https://cdn.shopify.com/videos/c/o/v/4f6f095a707642b58764a797758cb1f2.mp4","label":"Vidéo","poster":{{ 'rc-story-buggy16-3.jpg' | asset_url | json }}}
+    ]
+    {%- elsif stories_set == 'hypergo' -%}
+    [
+      {"src":"STORY_HYPERGO_1_URL","label":"Vidéo","poster":{{ 'rc-story-hypergo-1.jpg' | asset_url | json }}},
+      {"src":"STORY_HYPERGO_2_URL","label":"Vidéo","poster":{{ 'rc-story-hypergo-2.jpg' | asset_url | json }}},
+      {"src":"STORY_HYPERGO_3_URL","label":"Vidéo","poster":{{ 'rc-story-hypergo-3.jpg' | asset_url | json }}},
+      {"src":"STORY_HYPERGO_4_URL","label":"Vidéo","poster":{{ 'rc-story-hypergo-4.jpg' | asset_url | json }}}
     ]
     {%- endif -%}
   </script>

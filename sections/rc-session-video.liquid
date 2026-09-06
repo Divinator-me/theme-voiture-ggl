@@ -21,12 +21,14 @@
     assign session_set = 'drive'
   elsif session_handle == 'buggy-off-road-4x4-1-16-rclab' or session_handle == 'voiture-telecommandee-buggy-off-road-4x4-1-16' or session_hay contains 'led complètes'
     assign session_set = 'buggy16'
+  elsif session_handle == 'hyper-go-tout-terrain-4wd-50km-h' or session_hay contains 'hyper go' or session_hay contains 'hypergo'
+    assign session_set = 'hypergo'
   endif
 -%}
 
 {{ 'rc-session-video.css' | asset_url | stylesheet_tag }}
 
-<section class="rc-session{% if session_set == blank %} rc-session--specs-only{% endif %}" aria-label="{% if session_set == 'sweep' %}Session Sweep Pro{% elsif session_set == 'conquer' %}Session Conquer{% elsif session_set == 'lancia' %}Session Lancia Delta{% elsif session_set == 'nismo' %}Session GT-R NISMO{% elsif session_set == 'gantry' %}Session Gantry Pro{% elsif session_set == 'force13' %}Session buggy 1/12{% elsif session_set == 'z06' %}Session Z06 Evolution{% elsif session_set == 'drive' %}Session Drive{% elsif session_set == 'buggy16' %}Session buggy 1/16{% else %}Caractéristiques{% endif %}">
+<section class="rc-session{% if session_set == blank %} rc-session--specs-only{% endif %}" aria-label="{% if session_set == 'sweep' %}Session Sweep Pro{% elsif session_set == 'conquer' %}Session Conquer{% elsif session_set == 'lancia' %}Session Lancia Delta{% elsif session_set == 'nismo' %}Session GT-R NISMO{% elsif session_set == 'gantry' %}Session Gantry Pro{% elsif session_set == 'force13' %}Session buggy 1/12{% elsif session_set == 'z06' %}Session Z06 Evolution{% elsif session_set == 'drive' %}Session Drive{% elsif session_set == 'buggy16' %}Session buggy 1/16{% elsif session_set == 'hypergo' %}Session Hyper Go{% else %}Caractéristiques{% endif %}">
   {%- if session_set == 'sweep' -%}
     <div class="rc-session__inner">
       <div class="rc-session__copy">
@@ -220,6 +222,29 @@
           class="rc-session__video"
           poster="{{ 'rc-session-buggy16-poster.jpg' | asset_url }}"
           src="https://cdn.shopify.com/videos/c/o/v/e0a6b094a4084527af31f1d1d58991ef.mp4"
+          autoplay
+          muted
+          loop
+          playsinline
+          webkit-playsinline
+          controls
+          preload="auto"
+        ></video>
+      </div>
+    </div>
+  {%- elsif session_set == 'hypergo' -%}
+    <div class="rc-session__inner">
+      <div class="rc-session__copy">
+        <p class="rc-session__lead">Une session complète avec</p>
+        <h2 class="rc-session__title">le Hyper Go</h2>
+        <p class="rc-session__tags">4WD, 50 km/h, tout-terrain.</p>
+      </div>
+
+      <div class="rc-session__media">
+        <video
+          class="rc-session__video"
+          poster="{{ 'rc-session-hypergo-poster.jpg' | asset_url }}"
+          src="SESSION_HYPERGO_URL"
           autoplay
           muted
           loop
