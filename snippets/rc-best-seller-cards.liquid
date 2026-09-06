@@ -1,0 +1,9 @@
+{%- liquid
+  assign rc_best_seller_products = 'sweep-pro-4x4-70-kmh-rclab,4x4-tout-terrain-1-16-50-km-h,lancia-delta-martini-1-14-rc-rclab,nissan-gt-r-nismo-gt500-1-24-voiture-telecommandee-drift-et-piste,4x4-rc-1-16-brushless-70-kmh-rclab,force-13-buggy-4x4-75-kmh-rclab,buggy-4x4-1-14-brushless-70-km-h,4x4-tout-terrain-brushless-70-km-h-rclab,buggy-off-road-4x4-1-16-rclab,hyper-go-tout-terrain-4wd-50km-h' | split: ','
+  for handle in rc_best_seller_products
+    assign rc_best_product = all_products[handle]
+    if rc_best_product != blank and rc_best_product.id != blank
+      render 'rc-product-card', product: rc_best_product
+    endif
+  endfor
+-%}
