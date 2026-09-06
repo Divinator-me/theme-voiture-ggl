@@ -112,6 +112,13 @@
           {"src":"https://cdn.shopify.com/videos/c/o/v/fbd3a0f0d76a43ccb7629fbd09105e39.mp4","poster":{{ 'rc-desc-nismo-2.jpg' | asset_url | json }}}
         ]}
       </script>
+    {% elsif desc_video_mode == 'gantry' %}
+      <script type="application/json" data-rc-desc-video>
+        {"videos":[
+          {"src":"GANTRY_DESC_1","poster":{{ 'rc-desc-gantry-1.jpg' | asset_url | json }}},
+          {"src":"GANTRY_DESC_2","poster":{{ 'rc-desc-gantry-2.jpg' | asset_url | json }}}
+        ]}
+      </script>
     {% endif %}
 
     {% render 'rc-product-snapshot', product: description_product %}
