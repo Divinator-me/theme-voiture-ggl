@@ -426,7 +426,10 @@
 
   const removeVideos = (root) => {
     if (!root) return;
-    root.querySelectorAll(VIDEO_NODE_SELECTOR).forEach((node) => node.remove());
+    root.querySelectorAll(VIDEO_NODE_SELECTOR).forEach((node) => {
+      if (node.closest('[data-rc-forced-video]')) return;
+      node.remove();
+    });
   };
 
   const createForcedDescVideo = (root) => {
@@ -442,6 +445,7 @@
 
     const wrap = document.createElement('div');
     wrap.className = 'rc-desc-section__video';
+    wrap.dataset.rcForcedVideo = 'true';
     const video = document.createElement('video');
     video.src = data.src;
     if (data.poster) video.poster = data.poster;

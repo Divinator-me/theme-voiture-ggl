@@ -184,10 +184,22 @@
       });
     }
 
+    storyWantsMute(index) {
+      return Boolean(this.stories[index]?.muted);
+    }
+
+    applyMute(index, video) {
+      if (!video) return;
+      if (this.storyWantsMute(index)) {
+        this.muted = true;
+      }
+      video.muted = this.muted;
+    }
+
     playReel(index) {
       this.reelVideos.forEach((video, videoIndex) => {
         if (videoIndex === index) {
-          video.muted = this.muted;
+          this.applyMute(index, video);
           const play = video.play();
           if (play && typeof play.catch === 'function') {
             play.catch(() => {
@@ -212,6 +224,7 @@
 
     open(index) {
       this.index = Math.max(0, Math.min(index, this.stories.length - 1));
+      this.muted = this.storyWantsMute(this.index);
       document.body.appendChild(this.viewer);
       this.viewer.hidden = false;
       document.body.classList.add('is-rc-stories-open');
@@ -262,7 +275,7 @@
       if (!story?.src || !this.desktopVideo) return;
       this.index = index;
       this.desktopVideo.src = story.src;
-      this.desktopVideo.muted = this.muted;
+      this.applyMute(index, this.desktopVideo);
       const play = this.desktopVideo.play();
       if (play && typeof play.catch === 'function') {
         play.catch(() => {
