@@ -9,6 +9,8 @@
     assign session_set = 'conquer'
   elsif session_handle == 'lancia-delta-martini-racing-1-14-voiture-telecommandee-de-rallye-et-drift' or session_handle == 'lancia-delta-martini-1-14-rc-rclab' or session_hay contains 'lancia'
     assign session_set = 'lancia'
+  elsif session_handle == 'nissan-gt-r-nismo-gt500-1-24-voiture-telecommandee-drift-et-piste' or session_hay contains 'gt500'
+    assign session_set = 'nismo'
   endif
 -%}
 
