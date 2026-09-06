@@ -38,6 +38,8 @@
   assign snapshot_age = '8'
   if snapshot_handle contains 'gt500'
     assign snapshot_age = '5'
+  elsif snapshot_handle contains 'hyper-go'
+    assign snapshot_age = '12'
   endif
 
   assign snapshot_cat = ''
