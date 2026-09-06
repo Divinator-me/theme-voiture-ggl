@@ -445,26 +445,34 @@
     });
   };
 
-  const createForcedDescVideo = (root) => {
-    const json = root.querySelector('[data-rc-desc-video]');
-    if (!json) return null;
-    let data;
-    try {
-      data = JSON.parse(json.textContent);
-    } catch (error) {
-      return null;
-    }
-    if (!data?.src) return null;
-
+  const createForcedDescVideo = (item) => {
+    if (!item?.src) return null;
     const wrap = document.createElement('div');
     wrap.className = 'rc-desc-section__video';
     wrap.dataset.rcForcedVideo = 'true';
     const video = document.createElement('video');
-    video.src = data.src;
-    if (data.poster) video.poster = data.poster;
+    video.src = item.src;
+    if (item.poster) video.poster = item.poster;
     lockAmbientVideo(video);
     wrap.appendChild(video);
     return wrap;
+  };
+
+  const createForcedDescVideos = (root) => {
+    const json = root.querySelector('[data-rc-desc-video]');
+    if (!json) return [];
+    let data;
+    try {
+      data = JSON.parse(json.textContent);
+    } catch (error) {
+      return [];
+    }
+    const items = Array.isArray(data?.videos)
+      ? data.videos
+      : data?.src
+        ? [{ src: data.src, poster: data.poster }]
+        : [];
+    return items.map((item) => createForcedDescVideo(item)).filter(Boolean);
   };
 
   const pullDescriptionCopy = (nodes) => {
@@ -541,25 +549,26 @@
       });
     }
 
-    const forcedVideo = createForcedDescVideo(root);
-    if (forcedVideo) {
+    const forcedVideos = createForcedDescVideos(root);
+    if (forcedVideos.length) {
       const toutSavoirNodes = withoutVideos(buckets.get('tout_savoir') || []);
       const snapshotIndex = toutSavoirNodes.findIndex(
         (node) => node.nodeType === Node.ELEMENT_NODE && node.hasAttribute('data-rc-product-snapshot')
       );
-      toutSavoirNodes.splice(snapshotIndex >= 0 ? snapshotIndex + 1 : 0, 0, forcedVideo);
+      toutSavoirNodes.splice(snapshotIndex >= 0 ? snapshotIndex + 1 : 0, 0, ...forcedVideos);
       buckets.set('tout_savoir', toutSavoirNodes);
     }
 
     if (expert) {
       const toutSavoirNodes = buckets.get('tout_savoir') || [];
-      const videoIndex = toutSavoirNodes.findIndex((node) => {
-        if (node.nodeType !== Node.ELEMENT_NODE) return false;
-        return (
+      let videoIndex = -1;
+      toutSavoirNodes.forEach((node, index) => {
+        if (node.nodeType !== Node.ELEMENT_NODE) return;
+        const isVideo =
           node.classList.contains('rc-desc-section__video') ||
           node.matches('video') ||
-          Boolean(node.querySelector(':scope video, :scope .rc-desc-section__video'))
-        );
+          Boolean(node.querySelector(':scope video, :scope .rc-desc-section__video'));
+        if (isVideo) videoIndex = index;
       });
       toutSavoirNodes.splice(videoIndex >= 0 ? videoIndex + 1 : 1, 0, expert);
       buckets.set('tout_savoir', toutSavoirNodes);
