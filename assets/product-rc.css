@@ -1131,30 +1131,14 @@ body:has(sticky-add-to-cart) {
   min-width: 0;
   min-height: 100%;
   padding: 12px 10px 10px;
-  border: 1px solid var(--color-gray-200);
+  border: 1.5px solid var(--color-red);
   border-radius: var(--radius-md);
   background: var(--color-white);
   cursor: pointer;
 }
 
-.rc-pack-picker__card.is-solo {
-  --rc-pack-accent: var(--color-gray-500);
-  --rc-pack-accent-soft: #f4f4f4;
-}
-
-.rc-pack-picker__card.is-duo {
-  --rc-pack-accent: #e86a12;
-  --rc-pack-accent-soft: #fff4eb;
-}
-
-.rc-pack-picker__card.is-trio {
-  --rc-pack-accent: var(--color-price);
-  --rc-pack-accent-soft: #edfbf1;
-}
-
 .rc-pack-picker__card.is-selected {
-  border-color: var(--rc-pack-accent);
-  background: var(--rc-pack-accent-soft);
+  border-width: 2px;
 }
 
 .rc-pack-picker__radio {
@@ -1173,13 +1157,13 @@ body:has(sticky-add-to-cart) {
   width: 16px;
   height: 16px;
   margin: 0;
-  border: 1.5px solid #cfcfcf;
+  border: 1.5px solid var(--color-red);
   border-radius: 50%;
   background: var(--color-white);
 }
 
 .rc-pack-picker__card.is-selected .rc-pack-picker__radio-ui {
-  border-color: var(--rc-pack-accent);
+  border-color: var(--color-red);
 }
 
 .rc-pack-picker__card.is-selected .rc-pack-picker__radio-ui::after {
@@ -1187,7 +1171,7 @@ body:has(sticky-add-to-cart) {
   position: absolute;
   inset: 3px;
   border-radius: 50%;
-  background: var(--rc-pack-accent);
+  background: var(--color-red);
 }
 
 .rc-pack-picker__icon {
@@ -1229,7 +1213,7 @@ body:has(sticky-add-to-cart) {
   font-style: normal;
   font-weight: 400;
   line-height: 1.25;
-  color: var(--rc-pack-accent, var(--color-gray-500));
+  color: var(--color-black);
 }
 
 .rc-pack-picker__perk.is-inline {
@@ -1246,15 +1230,7 @@ body:has(sticky-add-to-cart) {
   line-height: 1;
   text-align: left;
   white-space: nowrap;
-  color: var(--color-gray-500);
-}
-
-.rc-pack-picker__price.is-duo {
-  color: #e86a12;
-}
-
-.rc-pack-picker__price.is-trio {
-  color: var(--color-price);
+  color: var(--color-black);
 }
 
 .product-information .shopify-block:has(variant-picker .variant-option--dropdowns),
