@@ -7,6 +7,8 @@
     assign stories_set = 'sweep'
   elsif stories_handle == 'conquer-4x4-1-16-voiture-telecommandee-tout-terrain-50-km-h' or stories_handle == '4x4-tout-terrain-1-16-50-km-h' or stories_hay contains 'conquer'
     assign stories_set = 'conquer'
+  elsif stories_handle == 'lancia-delta-martini-racing-1-14-voiture-telecommandee-de-rallye-et-drift' or stories_handle == 'lancia-delta-martini-1-14-rc-rclab' or stories_hay contains 'lancia'
+    assign stories_set = 'lancia'
   endif
 -%}
 
@@ -127,12 +129,19 @@
       {"src":"https://cdn.shopify.com/s/files/1/1009/7174/1566/files/rclab-story-sweep-2.mp4?v=1788627258","label":"Vidéo","poster":{{ 'rc-story-sweep-3.jpg' | asset_url | json }}},
       {"src":"https://cdn.shopify.com/s/files/1/1009/7174/1566/files/rclab-story-sweep-3.mp4?v=1788627272","label":"Vidéo","poster":{{ 'rc-story-sweep-4.jpg' | asset_url | json }}}
     ]
-    {%- else -%}
+    {%- elsif stories_set == 'conquer' -%}
     [
       {"src":"https://cdn.shopify.com/s/files/1/1009/7174/1566/files/rclab-story-conquer-1.mp4?v=1788691895","label":"Vidéo","poster":{{ 'rc-story-conquer-1.jpg' | asset_url | json }}},
       {"src":"https://cdn.shopify.com/s/files/1/1009/7174/1566/files/rclab-story-conquer-2.mp4?v=1788691914","label":"Vidéo","poster":{{ 'rc-story-conquer-2.jpg' | asset_url | json }}},
       {"src":"https://cdn.shopify.com/s/files/1/1009/7174/1566/files/rclab-story-conquer-3.mp4?v=1788691931","label":"Vidéo","poster":{{ 'rc-story-conquer-3.jpg' | asset_url | json }}},
       {"src":"https://cdn.shopify.com/s/files/1/1009/7174/1566/files/rclab-story-conquer-4.mp4?v=1788691948","label":"Vidéo","poster":{{ 'rc-story-conquer-4.jpg' | asset_url | json }},"muted":true}
+    ]
+    {%- elsif stories_set == 'lancia' -%}
+    [
+      {"src":"https://cdn.shopify.com/s/files/1/1009/7174/1566/files/rclab-story-lancia-1.mp4?v=1788693057","label":"Vidéo","poster":{{ 'rc-story-lancia-1.jpg' | asset_url | json }}},
+      {"src":"https://cdn.shopify.com/s/files/1/1009/7174/1566/files/rclab-story-lancia-2.mp4?v=1788693076","label":"Vidéo","poster":{{ 'rc-story-lancia-2.jpg' | asset_url | json }}},
+      {"src":"https://cdn.shopify.com/s/files/1/1009/7174/1566/files/rclab-story-lancia-3.mp4?v=1788693095","label":"Vidéo","poster":{{ 'rc-story-lancia-3.jpg' | asset_url | json }}},
+      {"src":"https://cdn.shopify.com/s/files/1/1009/7174/1566/files/rclab-story-lancia-4.mp4?v=1788693117","label":"Vidéo","poster":{{ 'rc-story-lancia-4.jpg' | asset_url | json }}}
     ]
     {%- endif -%}
   </script>
