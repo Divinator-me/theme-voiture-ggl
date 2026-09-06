@@ -17,12 +17,14 @@
     assign session_set = 'force13'
   elsif session_handle == 'buggy-4x4-1-14-brushless-70-km-h' or session_hay contains 'z06 evolution buggy'
     assign session_set = 'z06'
+  elsif session_handle == '4x4-tout-terrain-brushless-70-km-h-rclab' or session_handle == 'drive-4x4-voiture-telecommandee-tout-terrain-70-km-h' or session_hay contains 'drive 4x4'
+    assign session_set = 'drive'
   endif
 -%}
 
 {{ 'rc-session-video.css' | asset_url | stylesheet_tag }}
 
-<section class="rc-session{% if session_set == blank %} rc-session--specs-only{% endif %}" aria-label="{% if session_set == 'sweep' %}Session Sweep Pro{% elsif session_set == 'conquer' %}Session Conquer{% elsif session_set == 'lancia' %}Session Lancia Delta{% elsif session_set == 'nismo' %}Session GT-R NISMO{% elsif session_set == 'gantry' %}Session Gantry Pro{% elsif session_set == 'force13' %}Session buggy 1/12{% elsif session_set == 'z06' %}Session Z06 Evolution{% else %}Caractéristiques{% endif %}">
+<section class="rc-session{% if session_set == blank %} rc-session--specs-only{% endif %}" aria-label="{% if session_set == 'sweep' %}Session Sweep Pro{% elsif session_set == 'conquer' %}Session Conquer{% elsif session_set == 'lancia' %}Session Lancia Delta{% elsif session_set == 'nismo' %}Session GT-R NISMO{% elsif session_set == 'gantry' %}Session Gantry Pro{% elsif session_set == 'force13' %}Session buggy 1/12{% elsif session_set == 'z06' %}Session Z06 Evolution{% elsif session_set == 'drive' %}Session Drive{% else %}Caractéristiques{% endif %}">
   {%- if session_set == 'sweep' -%}
     <div class="rc-session__inner">
       <div class="rc-session__copy">

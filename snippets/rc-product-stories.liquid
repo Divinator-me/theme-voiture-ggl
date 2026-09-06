@@ -17,9 +17,11 @@
     assign stories_set = 'force13'
   elsif stories_handle == 'buggy-4x4-1-14-brushless-70-km-h' or stories_hay contains 'z06 evolution buggy'
     assign stories_set = 'z06'
+  elsif stories_handle == '4x4-tout-terrain-brushless-70-km-h-rclab' or stories_handle == 'drive-4x4-voiture-telecommandee-tout-terrain-70-km-h' or stories_hay contains 'drive 4x4'
+    assign stories_set = 'drive'
   endif
   assign stories_count = 4
-  if stories_set == 'nismo'
+  if stories_set == 'nismo' or stories_set == 'drive'
     assign stories_count = 3
   endif
 -%}
