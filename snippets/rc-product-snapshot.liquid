@@ -36,6 +36,9 @@
   endfor
 
   assign snapshot_age = '8'
+  if snapshot_handle contains 'gt500'
+    assign snapshot_age = '5'
+  endif
 
   assign snapshot_cat = ''
   assign snapshot_cat_priority = 'drift,piste,monster-truck-4x4,rallye-trophy,buggy' | split: ','

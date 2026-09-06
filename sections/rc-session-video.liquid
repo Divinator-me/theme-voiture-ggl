@@ -16,7 +16,7 @@
 
 {{ 'rc-session-video.css' | asset_url | stylesheet_tag }}
 
-<section class="rc-session{% if session_set == blank %} rc-session--specs-only{% endif %}" aria-label="{% if session_set == 'sweep' %}Session Sweep Pro{% elsif session_set == 'conquer' %}Session Conquer{% elsif session_set == 'lancia' %}Session Lancia Delta{% else %}Caractéristiques{% endif %}">
+<section class="rc-session{% if session_set == blank %} rc-session--specs-only{% endif %}" aria-label="{% if session_set == 'sweep' %}Session Sweep Pro{% elsif session_set == 'conquer' %}Session Conquer{% elsif session_set == 'lancia' %}Session Lancia Delta{% elsif session_set == 'nismo' %}Session GT-R NISMO{% else %}Caractéristiques{% endif %}">
   {%- if session_set == 'sweep' -%}
     <div class="rc-session__inner">
       <div class="rc-session__copy">
@@ -76,6 +76,29 @@
           class="rc-session__video"
           poster="{{ 'rc-session-lancia-poster.jpg' | asset_url }}"
           src="https://cdn.shopify.com/videos/c/o/v/a9c9905c44c449a7b4fb7b32d5108137.mp4"
+          autoplay
+          muted
+          loop
+          playsinline
+          webkit-playsinline
+          controls
+          preload="auto"
+        ></video>
+      </div>
+    </div>
+  {%- elsif session_set == 'nismo' -%}
+    <div class="rc-session__inner">
+      <div class="rc-session__copy">
+        <p class="rc-session__lead">Une session complète avec</p>
+        <h2 class="rc-session__title">la GT-R NISMO GT500</h2>
+        <p class="rc-session__tags">Déballage, drift, piste. Deux trains de pneus, les néons, 30 km/h.</p>
+      </div>
+
+      <div class="rc-session__media">
+        <video
+          class="rc-session__video"
+          poster="{{ 'rc-session-nismo-poster.jpg' | asset_url }}"
+          src="https://cdn.shopify.com/videos/c/o/v/NISMO_SESSION.mp4"
           autoplay
           muted
           loop

@@ -31,6 +31,7 @@
     "ford-mustang-gt-1-24-rc-drift-rclab",
     "porsche-911-gt3-r-1-24-rc-drift-rclab",
     "nissan-gt-r-r35-1-24-voiture-telecommandee-drift-et-piste-30-km-h",
+    "nissan-gt-r-nismo-gt500-1-24-voiture-telecommandee-drift-et-piste",
     "bmw-m4-gt3-1-24-rc-drift-rclab"
   ],
   "redirects": {
@@ -43,7 +44,6 @@
     "mini-4x4-1-32-voiture-telecommandee-pour-interieur-et-exterieur": "rapidly-4x4-1-16-50-kmh-rclab",
     "mini-buggy-off-road-1-32-voiture-telecommandee-pour-interieur-et-exterieur": "buggy-1-16-voiture-telecommandee-pour-enfant-25-km-h",
     "nissan-gt-r-nismo-1-24-voiture-telecommandee-drift-et-piste": "nissan-gt-r-r35-1-24-voiture-telecommandee-drift-et-piste-30-km-h",
-    "nissan-gt-r-nismo-gt500-1-24-voiture-telecommandee-drift-et-piste": "nissan-gt-r-r35-1-24-voiture-telecommandee-drift-et-piste-30-km-h",
     "nissan-gt-r-r35-1-24-voiture-telecommandee-drift-et-piste": "nissan-gt-r-r35-1-24-voiture-telecommandee-drift-et-piste-30-km-h",
     "porsche-911-gt2-1-24-voiture-telecommandee-drift-et-piste-30-km-h": "porsche-911-gt3-r-1-24-rc-drift-rclab",
     "porsche-911-vintage-1-24-voiture-telecommandee-drift-et-piste-30-km-h": "porsche-911-gt3-r-1-24-rc-drift-rclab",
