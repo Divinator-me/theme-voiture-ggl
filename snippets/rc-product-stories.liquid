@@ -9,6 +9,12 @@
     assign stories_set = 'conquer'
   elsif stories_handle == 'lancia-delta-martini-racing-1-14-voiture-telecommandee-de-rallye-et-drift' or stories_handle == 'lancia-delta-martini-1-14-rc-rclab' or stories_hay contains 'lancia'
     assign stories_set = 'lancia'
+  elsif stories_handle == 'nissan-gt-r-nismo-gt500-1-24-voiture-telecommandee-drift-et-piste' or stories_hay contains 'gt500'
+    assign stories_set = 'nismo'
+  endif
+  assign stories_count = 4
+  if stories_set == 'nismo'
+    assign stories_count = 3
   endif
 -%}
 
@@ -17,7 +23,7 @@
 
 <rc-product-stories class="rc-stories">
   <div class="rc-stories__bubbles" role="list">
-    {%- for i in (1..4) -%}
+    {%- for i in (1..stories_count) -%}
       <button
         class="rc-stories__bubble"
         type="button"
