@@ -19,9 +19,11 @@
     assign stories_set = 'z06'
   elsif stories_handle == '4x4-tout-terrain-brushless-70-km-h-rclab' or stories_handle == 'drive-4x4-voiture-telecommandee-tout-terrain-70-km-h' or stories_hay contains 'drive 4x4'
     assign stories_set = 'drive'
+  elsif stories_handle == 'buggy-off-road-4x4-1-16-rclab' or stories_handle == 'voiture-telecommandee-buggy-off-road-4x4-1-16' or stories_hay contains 'led complètes'
+    assign stories_set = 'buggy16'
   endif
   assign stories_count = 4
-  if stories_set == 'nismo' or stories_set == 'drive'
+  if stories_set == 'nismo' or stories_set == 'drive' or stories_set == 'buggy16'
     assign stories_count = 3
   endif
 -%}

@@ -19,12 +19,14 @@
     assign session_set = 'z06'
   elsif session_handle == '4x4-tout-terrain-brushless-70-km-h-rclab' or session_handle == 'drive-4x4-voiture-telecommandee-tout-terrain-70-km-h' or session_hay contains 'drive 4x4'
     assign session_set = 'drive'
+  elsif session_handle == 'buggy-off-road-4x4-1-16-rclab' or session_handle == 'voiture-telecommandee-buggy-off-road-4x4-1-16' or session_hay contains 'led complètes'
+    assign session_set = 'buggy16'
   endif
 -%}
 
 {{ 'rc-session-video.css' | asset_url | stylesheet_tag }}
 
-<section class="rc-session{% if session_set == blank %} rc-session--specs-only{% endif %}" aria-label="{% if session_set == 'sweep' %}Session Sweep Pro{% elsif session_set == 'conquer' %}Session Conquer{% elsif session_set == 'lancia' %}Session Lancia Delta{% elsif session_set == 'nismo' %}Session GT-R NISMO{% elsif session_set == 'gantry' %}Session Gantry Pro{% elsif session_set == 'force13' %}Session buggy 1/12{% elsif session_set == 'z06' %}Session Z06 Evolution{% elsif session_set == 'drive' %}Session Drive{% else %}Caractéristiques{% endif %}">
+<section class="rc-session{% if session_set == blank %} rc-session--specs-only{% endif %}" aria-label="{% if session_set == 'sweep' %}Session Sweep Pro{% elsif session_set == 'conquer' %}Session Conquer{% elsif session_set == 'lancia' %}Session Lancia Delta{% elsif session_set == 'nismo' %}Session GT-R NISMO{% elsif session_set == 'gantry' %}Session Gantry Pro{% elsif session_set == 'force13' %}Session buggy 1/12{% elsif session_set == 'z06' %}Session Z06 Evolution{% elsif session_set == 'drive' %}Session Drive{% elsif session_set == 'buggy16' %}Session buggy 1/16{% else %}Caractéristiques{% endif %}">
   {%- if session_set == 'sweep' -%}
     <div class="rc-session__inner">
       <div class="rc-session__copy">
@@ -195,6 +197,29 @@
           class="rc-session__video"
           poster="{{ 'rc-session-drive-poster.jpg' | asset_url }}"
           src="https://cdn.shopify.com/videos/c/o/v/ce13a9e0a67d424ea9c22240ee8a93a3.mp4"
+          autoplay
+          muted
+          loop
+          playsinline
+          webkit-playsinline
+          controls
+          preload="auto"
+        ></video>
+      </div>
+    </div>
+  {%- elsif session_set == 'buggy16' -%}
+    <div class="rc-session__inner">
+      <div class="rc-session__copy">
+        <p class="rc-session__lead">Une session complète avec</p>
+        <h2 class="rc-session__title">le buggy 1/16</h2>
+        <p class="rc-session__tags">50 km/h, LED, tout-terrain.</p>
+      </div>
+
+      <div class="rc-session__media">
+        <video
+          class="rc-session__video"
+          poster="{{ 'rc-session-buggy16-poster.jpg' | asset_url }}"
+          src="SESSION_BUGGY16_URL"
           autoplay
           muted
           loop
