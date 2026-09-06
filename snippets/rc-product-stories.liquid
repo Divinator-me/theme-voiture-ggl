@@ -13,6 +13,8 @@
     assign stories_set = 'nismo'
   elsif stories_handle == '4x4-rc-1-16-brushless-70-kmh-rclab' or stories_handle == '4x4-off-road-1-16-voiture-telecommandee-brushless-70-km-h' or stories_hay contains 'gantry'
     assign stories_set = 'gantry'
+  elsif stories_handle == 'force-13-buggy-4x4-75-kmh-rclab' or stories_handle == 'force-13-1-12-buggy-telecommande-4x4-haute-vitesse-75-km-h' or stories_hay contains 'force-13' or stories_hay contains 'format 45'
+    assign stories_set = 'force13'
   endif
   assign stories_count = 4
   if stories_set == 'nismo'
