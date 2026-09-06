@@ -4,6 +4,10 @@
   color: var(--color-black);
 }
 
+.rc-session--specs-only {
+  padding-top: 8px;
+}
+
 .rc-session__inner {
   display: flex;
   flex-direction: column;
@@ -101,6 +105,10 @@
 @media (min-width: 750px) {
   .rc-session {
     padding: 56px 24px 64px;
+  }
+
+  .rc-session--specs-only {
+    padding-top: 16px;
   }
 
   .rc-session__inner {

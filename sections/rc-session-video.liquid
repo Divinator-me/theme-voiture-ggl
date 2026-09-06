@@ -1,42 +1,95 @@
 {%- liquid
   assign session_product = product | default: closest.product
   assign session_handle = session_product.handle | default: ''
-  assign session_ok = false
+  assign session_title = session_product.title | default: ''
+  assign session_hay = session_title | append: ' ' | append: session_handle | downcase
+  assign session_skip = false
+  if session_hay contains 'batterie' or session_hay contains 'chargeur'
+    assign session_skip = true
+  endif
+
+  assign session_is_sweep = false
   if session_handle == 'sweep-pro-4x4-voiture-telecommandee-tout-terrain-70-km-h' or session_handle == 'sweep-pro-4x4-70-kmh-rclab'
-    assign session_ok = true
+    assign session_is_sweep = true
+  endif
+
+  assign session_src = ''
+  assign session_poster = ''
+  assign session_from_desc = false
+  assign session_lead = 'Une session complète avec'
+  assign session_heading = session_title
+  assign session_tags = ''
+
+  if session_is_sweep
+    assign session_src = 'https://cdn.shopify.com/videos/c/o/v/ebbe3cc84961408ebed61f9dabdd2a53.mp4'
+    assign session_poster = 'rc-session-sweep-poster.jpg' | asset_url
+    assign session_heading = 'la Sweep Pro RCLAB'
+    assign session_tags = "Déballage, essai, vitesse, adrénaline, saut, crash. Et elle encaisse. Saltos et figures jusqu'à la fin de la session."
+  elsif session_skip == false
+    if session_product.featured_image
+      assign session_poster = session_product.featured_image | image_url: width: 1600
+    endif
+
+    assign session_media = session_product.media | where: 'media_type', 'video' | first
+    if session_media
+      for source in session_media.sources
+        if session_src == blank
+          assign source_type = source.mime_type | default: source.format | downcase
+          if source_type contains 'mp4'
+            assign session_src = source.url
+          endif
+        endif
+      endfor
+    endif
+
+    if session_src == blank and session_product.description contains '.mp4'
+      assign session_chunks = session_product.description | split: 'src="'
+      for chunk in session_chunks
+        if session_src == blank and chunk contains '.mp4'
+          assign session_src = chunk | split: '"' | first
+          assign session_from_desc = true
+        endif
+      endfor
+    endif
   endif
 -%}
 
-{%- if session_ok -%}
 {{ 'rc-session-video.css' | asset_url | stylesheet_tag }}
 
-<section class="rc-session" aria-label="Session Sweep Pro">
-  <div class="rc-session__inner">
-    <div class="rc-session__copy">
-      <p class="rc-session__lead">Une session complète avec</p>
-      <h2 class="rc-session__title">la Sweep Pro RCLAB</h2>
-      <p class="rc-session__tags">Déballage, essai, vitesse, adrénaline, saut, crash. Et elle encaisse. Saltos et figures jusqu'à la fin de la session.</p>
-    </div>
+<section
+  class="rc-session{% if session_src == blank %} rc-session--specs-only{% endif %}"
+  aria-label="Session {{ session_heading | escape }}"
+  {% if session_from_desc %}data-rc-session-from-desc{% endif %}
+>
+  {%- if session_src != blank -%}
+    <div class="rc-session__inner">
+      <div class="rc-session__copy">
+        <p class="rc-session__lead">{{ session_lead }}</p>
+        <h2 class="rc-session__title">{{ session_heading }}</h2>
+        {%- if session_tags != blank -%}
+          <p class="rc-session__tags">{{ session_tags }}</p>
+        {%- endif -%}
+      </div>
 
-    <div class="rc-session__media">
-      <video
-        class="rc-session__video"
-        poster="{{ 'rc-session-sweep-poster.jpg' | asset_url }}"
-        src="https://cdn.shopify.com/videos/c/o/v/ebbe3cc84961408ebed61f9dabdd2a53.mp4"
-        autoplay
-        muted
-        loop
-        playsinline
-        webkit-playsinline
-        controls
-        preload="auto"
-      ></video>
+      <div class="rc-session__media">
+        <video
+          class="rc-session__video"
+          {% if session_poster != blank %}poster="{{ session_poster }}"{% endif %}
+          src="{{ session_src }}"
+          autoplay
+          muted
+          loop
+          playsinline
+          webkit-playsinline
+          controls
+          preload="auto"
+        ></video>
+      </div>
     </div>
-  </div>
+  {%- endif -%}
 
   <div class="rc-session__specs rc-product-desc__content rte" data-rc-session-specs></div>
 </section>
-{%- endif -%}
 
 {% schema %}
 {
