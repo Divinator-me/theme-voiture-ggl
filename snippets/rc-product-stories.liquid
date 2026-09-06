@@ -166,6 +166,13 @@
       {"src":"https://cdn.shopify.com/s/files/1/1009/7174/1566/files/rclab-story-gantry-3.mp4?v=1788703638","label":"Vidéo","poster":{{ 'rc-story-gantry-3.jpg' | asset_url | json }}},
       {"src":"https://cdn.shopify.com/videos/c/o/v/3f9251b6766a4206b6522b5240e78c69.mp4","label":"Vidéo","poster":{{ 'rc-story-gantry-4.jpg' | asset_url | json }}}
     ]
+    {%- elsif stories_set == 'force13' -%}
+    [
+      {"src":"FORCE13_STORY_1","label":"Vidéo","poster":{{ 'rc-story-force13-1.jpg' | asset_url | json }}},
+      {"src":"FORCE13_STORY_2","label":"Vidéo","poster":{{ 'rc-story-force13-2.jpg' | asset_url | json }}},
+      {"src":"FORCE13_STORY_3","label":"Vidéo","poster":{{ 'rc-story-force13-3.jpg' | asset_url | json }}},
+      {"src":"FORCE13_STORY_4","label":"Vidéo","poster":{{ 'rc-story-force13-4.jpg' | asset_url | json }}}
+    ]
     {%- endif -%}
   </script>
 </rc-product-stories>

@@ -132,6 +132,29 @@
         ></iframe>
       </div>
     </div>
+  {%- elsif session_set == 'force13' -%}
+    <div class="rc-session__inner">
+      <div class="rc-session__copy">
+        <p class="rc-session__lead">Une session complète avec</p>
+        <h2 class="rc-session__title">le buggy 1/12</h2>
+        <p class="rc-session__tags">45 cm, brushless, 75 km/h. Test vitesse 3S.</p>
+      </div>
+
+      <div class="rc-session__media">
+        <video
+          class="rc-session__video"
+          poster="{{ 'rc-session-force13-poster.jpg' | asset_url }}"
+          src="FORCE13_SESSION"
+          autoplay
+          muted
+          loop
+          playsinline
+          webkit-playsinline
+          controls
+          preload="auto"
+        ></video>
+      </div>
+    </div>
   {%- endif -%}
 
   <div class="rc-session__specs rc-product-desc__content rte" data-rc-session-specs></div>
