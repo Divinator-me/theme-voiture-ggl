@@ -25,7 +25,7 @@
   endfor
 
   assign snapshot_autonomy = ''
-  assign snapshot_auto_needles = '30,25,22,20,18,15,12,10,8' | split: ','
+  assign snapshot_auto_needles = '30,25,22,20,18,15,14,12,10,8' | split: ','
   for needle in snapshot_auto_needles
     assign hay_a = needle | append: ' minute'
     assign hay_b = needle | append: ' min'
