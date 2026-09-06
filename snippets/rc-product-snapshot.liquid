@@ -71,49 +71,49 @@
     endif
   endif
 
-  assign snapshot_road_min = 70
-  assign snapshot_road_max = 90
-  assign snapshot_shock_min = 70
-  assign snapshot_shock_max = 90
-  assign snapshot_hand_min = 70
-  assign snapshot_hand_max = 90
+  assign snapshot_road_min = 85
+  assign snapshot_road_max = 93
+  assign snapshot_shock_min = 85
+  assign snapshot_shock_max = 93
+  assign snapshot_hand_min = 85
+  assign snapshot_hand_max = 93
 
   case snapshot_cat
     when 'monster-truck-4x4'
-      assign snapshot_road_min = 75
-      assign snapshot_road_max = 88
-      assign snapshot_shock_min = 82
-      assign snapshot_shock_max = 90
-      assign snapshot_hand_min = 70
-      assign snapshot_hand_max = 80
+      assign snapshot_road_min = 85
+      assign snapshot_road_max = 91
+      assign snapshot_shock_min = 88
+      assign snapshot_shock_max = 94
+      assign snapshot_hand_min = 85
+      assign snapshot_hand_max = 90
     when 'buggy'
-      assign snapshot_road_min = 74
-      assign snapshot_road_max = 86
-      assign snapshot_shock_min = 78
-      assign snapshot_shock_max = 89
-      assign snapshot_hand_min = 76
-      assign snapshot_hand_max = 88
+      assign snapshot_road_min = 85
+      assign snapshot_road_max = 91
+      assign snapshot_shock_min = 86
+      assign snapshot_shock_max = 93
+      assign snapshot_hand_min = 86
+      assign snapshot_hand_max = 93
     when 'rallye-trophy'
-      assign snapshot_road_min = 78
-      assign snapshot_road_max = 90
-      assign snapshot_shock_min = 76
-      assign snapshot_shock_max = 88
-      assign snapshot_hand_min = 73
-      assign snapshot_hand_max = 85
+      assign snapshot_road_min = 87
+      assign snapshot_road_max = 94
+      assign snapshot_shock_min = 85
+      assign snapshot_shock_max = 92
+      assign snapshot_hand_min = 85
+      assign snapshot_hand_max = 91
     when 'drift'
-      assign snapshot_road_min = 70
-      assign snapshot_road_max = 80
-      assign snapshot_shock_min = 70
-      assign snapshot_shock_max = 80
-      assign snapshot_hand_min = 82
-      assign snapshot_hand_max = 90
-    when 'piste'
-      assign snapshot_road_min = 82
+      assign snapshot_road_min = 85
       assign snapshot_road_max = 90
-      assign snapshot_shock_min = 70
-      assign snapshot_shock_max = 80
-      assign snapshot_hand_min = 80
-      assign snapshot_hand_max = 90
+      assign snapshot_shock_min = 85
+      assign snapshot_shock_max = 90
+      assign snapshot_hand_min = 88
+      assign snapshot_hand_max = 94
+    when 'piste'
+      assign snapshot_road_min = 88
+      assign snapshot_road_max = 94
+      assign snapshot_shock_min = 85
+      assign snapshot_shock_max = 90
+      assign snapshot_hand_min = 87
+      assign snapshot_hand_max = 94
   endcase
 
   assign snapshot_kiff_min = 95
@@ -188,6 +188,15 @@
     assign snapshot_kiff_raw = snapshot_kiff_raw | plus: snapshot_kiff_boost
   endif
 
+  if snapshot_road_raw < 85
+    assign snapshot_road_raw = 85
+  endif
+  if snapshot_shock_raw < 85
+    assign snapshot_shock_raw = 85
+  endif
+  if snapshot_hand_raw < 85
+    assign snapshot_hand_raw = 85
+  endif
   if snapshot_road_raw > snapshot_road_max
     assign snapshot_road_raw = snapshot_road_max
   endif
