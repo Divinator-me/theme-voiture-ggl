@@ -483,16 +483,20 @@
       buckets.set('tout_savoir', toutSavoirNodes);
     }
 
-    if (document.querySelector('[data-rc-session-from-desc]')) {
-      const toutSavoirNodes = (buckets.get('tout_savoir') || []).filter((node) => {
-        if (node.nodeType !== Node.ELEMENT_NODE) return true;
-        return !(
-          node.classList.contains('rc-desc-section__video') ||
-          node.matches('video') ||
-          Boolean(node.querySelector(':scope video, :scope .rc-desc-section__video'))
+    if (!root.hasAttribute('data-rc-keep-video')) {
+      ['tout_savoir', 'caracteristiques'].forEach((sectionId) => {
+        buckets.set(
+          sectionId,
+          (buckets.get(sectionId) || []).filter((node) => {
+            if (node.nodeType !== Node.ELEMENT_NODE) return true;
+            return !(
+              node.classList.contains('rc-desc-section__video') ||
+              node.matches('video') ||
+              Boolean(node.querySelector(':scope video, :scope .rc-desc-section__video'))
+            );
+          })
         );
       });
-      buckets.set('tout_savoir', toutSavoirNodes);
     }
 
     if (expert) {
