@@ -988,5 +988,37 @@
       "lengthCm": null,
       "remoteFreq": "2.4"
     }
+  },
+  "nissan-gt-r-nismo-gt500-1-24-voiture-telecommandee-drift-et-piste": {
+    "id": 16076565578110,
+    "handle": "nissan-gt-r-nismo-gt500-1-24-voiture-telecommandee-drift-et-piste",
+    "currentTitle": "Nissan GT-R NISMO GT500 RC 1/24 - drift et piste",
+    "priceMin": null,
+    "variantCount": 1,
+    "imageCount": 0,
+    "tags": [
+      "Drift",
+      "Piste",
+      "Dès 5 ans",
+      "Intérieur",
+      "Extérieur"
+    ],
+    "categories": [
+      "drift",
+      "piste"
+    ],
+    "specs": {
+      "speedKmh": "30",
+      "scale": "24",
+      "battery": "500",
+      "autonomyMin": "20",
+      "voltage": "3.7",
+      "motor": null,
+      "hasLed": true,
+      "hasWaterproof": false,
+      "is4wd": true,
+      "lengthCm": null,
+      "remoteFreq": "2.4"
+    }
   }
 }
