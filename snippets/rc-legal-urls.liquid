@@ -6,7 +6,10 @@
 
 {%- liquid
   assign rc_contact_page = pages['contact']
-  assign rc_paiement_page = pages['conditions-paiement']
+  assign rc_paiement_page = pages['conditions-moyens-de-paiement']
+  if rc_paiement_page == blank
+    assign rc_paiement_page = pages['conditions-paiement']
+  endif
   assign rc_faq_boutique_page = pages['faq-boutique']
   assign rc_about_page = pages['a-propos']
   if rc_about_page == blank
@@ -25,8 +28,7 @@
   assign rc_retours_url = shop.refund_policy.url | default: '/policies/refund-policy'
   assign rc_livraison_url = shop.shipping_policy.url | default: '/policies/shipping-policy'
   assign rc_confidentialite_url = shop.privacy_policy.url | default: '/policies/privacy-policy'
-  assign rc_mentions_legales_url = '/policies/legal-notice'
-  assign rc_paiement_url = rc_paiement_page.url | default: '/pages/conditions-paiement'
+  assign rc_paiement_url = rc_paiement_page.url | default: '/pages/conditions-moyens-de-paiement'
   assign rc_about_url = rc_about_page.url | default: '/pages/a-propos'
   if rc_faq_boutique_page != blank
     assign rc_faq_boutique_url = rc_faq_boutique_page.url
@@ -41,7 +43,6 @@
   {%- when 'livraison' -%}{{ rc_livraison_url }}
   {%- when 'cgv' -%}{{ rc_cgv_url }}
   {%- when 'confidentialite' -%}{{ rc_confidentialite_url }}
-  {%- when 'mentions-legales' -%}{{ rc_mentions_legales_url }}
   {%- when 'paiement' -%}{{ rc_paiement_url }}
   {%- when 'faq-boutique' -%}{{ rc_faq_boutique_url }}
   {%- when 'a-propos' -%}{{ rc_about_url }}
