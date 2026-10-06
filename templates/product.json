@@ -194,7 +194,7 @@
               "type": "custom-liquid",
               "name": "Stock status",
               "settings": {
-                "custom_liquid": "{% render 'rc-stock-status', product: product %}"
+                "custom_liquid": "{% render 'rc-product-stories', product: product %}"
               },
               "blocks": {}
             },
