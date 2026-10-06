@@ -534,6 +534,12 @@ body:has(sticky-add-to-cart) {
   margin-top: 12px;
 }
 
+.rc-product-desc__item a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 .rc-product-desc [data-rc-product-desc-source],
 .rc-product-desc [data-rc-product-desc-source][hidden] {
   display: none !important;

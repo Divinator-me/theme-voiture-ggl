@@ -66,12 +66,16 @@
     {% endif %}
   {% endcapture %}
 
+  {% capture livraison_policy_url %}{% render 'rc-legal-urls', part: 'livraison' %}{% endcapture %}
+  {% capture retours_policy_url %}{% render 'rc-legal-urls', part: 'retours' %}{% endcapture %}
+
   {% capture livraison_html %}
     {% if mf.livraison_retours != blank %}
       {{ mf.livraison_retours | metafield_tag }}
     {% else %}
       {{ default_livraison }}
     {% endif %}
+    <p><a href="{{ livraison_policy_url | strip }}">Politique de livraison</a> et <a href="{{ retours_policy_url | strip }}">politique de retour</a>.</p>
   {% endcapture %}
 
   {% capture fabrication_html %}
@@ -84,6 +88,7 @@
 
   {% capture garantie_html %}
     {{ default_garantie }}
+    <p><a href="{{ retours_policy_url | strip }}">Politique de retour</a></p>
   {% endcapture %}
 
   <div
