@@ -15,6 +15,9 @@
   assign compare_at_price = selected_variant.compare_at_price
 
   assign show_compare_price = false
+  if compare_at_price != blank and compare_at_price > price
+    assign show_compare_price = true
+  endif
 
   if product_resource == blank
     assign price = 1999
@@ -94,14 +97,8 @@
     >
       <span class="price">{{ price | default: '&nbsp;' }}</span>
     </div>
-    <div
-      class="
-        price__sale
-        {% unless show_compare_price %}
-          price__hidden
-        {% endunless %}
-      "
-    >
+    {% if show_compare_price %}
+    <div class="price__sale">
       {% if show_sale_price_first %}
         <span class="price-item__group">
           <span class="visually-hidden">{{ 'content.price_sale' | t }}&nbsp;</span>
@@ -122,6 +119,7 @@
         </span>
       {% endif %}
     </div>
+    {% endif %}
   {% endif %}
   {%- if selected_variant.unit_price and show_unit_price %}
     {%- liquid
