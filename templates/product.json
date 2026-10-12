@@ -353,8 +353,8 @@
           },
           "block_order": [
             "group_icgrde",
-            "rc_delivery_options",
             "custom_liquid_stock",
+            "rc_delivery_options",
             "rc_pack_picker",
             "variant_picker_couleur",
             "variant_picker_batteries",

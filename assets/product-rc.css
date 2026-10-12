@@ -1127,6 +1127,10 @@ body:has(sticky-add-to-cart) {
   line-height: 1.6;
 }
 
+.product-details .group-block-content > div:not(:has(*)) {
+  display: none;
+}
+
 .rc-pack-picker {
   width: 100%;
 }
