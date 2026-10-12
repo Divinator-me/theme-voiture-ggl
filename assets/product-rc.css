@@ -1,3 +1,24 @@
+media-gallery {
+  position: relative;
+}
+
+media-gallery > .rc-stock-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 6;
+  padding: 7px 10px;
+  background: var(--color-red);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
 .product-information > .rc-product-breadcrumb {
   margin-block-end: calc(10px - var(--gap, 0px));
   padding: 12px 0 0;

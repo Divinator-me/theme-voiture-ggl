@@ -57,6 +57,9 @@
           </svg>
         {% endif %}
       </a>
+      {% unless product.available %}
+        <span class="rc-stock-badge">Rupture</span>
+      {% endunless %}
     </div>
   </div>
 
