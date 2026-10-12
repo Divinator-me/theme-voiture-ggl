@@ -48,7 +48,7 @@
 {%- if offer_count > 1 -%}
   {{ 'rc-delivery-options.css' | asset_url | stylesheet_tag }}
   <section class="rc-delivery-options" data-rc-delivery-options aria-labelledby="rc-delivery-options-title">
-    <h2 class="rc-delivery-options__title" id="rc-delivery-options-title">Choisissez votre livraison</h2>
+    <h2 class="rc-delivery-options__title" id="rc-delivery-options-title">Choisissez votre fournisseur</h2>
     <div class="rc-delivery-options__list" role="list">
       {%- for offer_handle in offer_list -%}
         {%- assign offer_product = all_products[offer_handle] -%}
