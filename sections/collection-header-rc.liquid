@@ -57,8 +57,15 @@
       assign max_autonomy = '35 min'
   endcase
 
+  assign visible_models = 0
+  for visible_product in collection.products
+    unless visible_product.handle contains '-livraison-'
+      assign visible_models = visible_models | plus: 1
+    endunless
+  endfor
+
   assign models_label = 'modèle'
-  if collection.products_count > 1
+  if visible_models > 1
     assign models_label = 'modèles'
   endif
 -%}
@@ -125,7 +132,7 @@
             </svg>
           </span>
           <span class="rc-collection-header__stat-copy">
-            <strong>{{ collection.products_count }} {{ models_label }}</strong>
+            <strong>{{ visible_models }} {{ models_label }}</strong>
             <span>En stock</span>
           </span>
         </li>

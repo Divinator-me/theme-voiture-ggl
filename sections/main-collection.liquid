@@ -65,6 +65,7 @@
       {% paginate collection.products by products_per_page %}
         {% capture children %}
           {% for product in collection.products %}
+            {% unless product.handle contains '-livraison-' %}
             <li
               id="{{ section.id }}-{{ product.id }}"
               class="product-grid__item product-grid__item--{{ forloop.index0 }}"
@@ -75,6 +76,7 @@
             >
               {% render 'rc-product-card', product: product %}
             </li>
+            {% endunless %}
             {%- if paginate.current_page == 1 -%}
               {%- if collection.handle == 'monster-truck-4x4' -%}
                 {%- if product.handle == '4x4-rc-1-16-brushless-70-kmh-rclab' -%}
