@@ -15,6 +15,9 @@ PAIEMENT & RETOUR¤Quels moyens de paiement ?@@Paiement sécurisé par carte ban
 §§
 LA MARQUE¤Vous êtes qui exactement ?@@Une boutique RC pensée pour les passionnés, les parents et les débutants qui veulent une voiture qui roule vraiment. La sélection privilégie les modèles fun, solides et cohérents avec un usage réel: vitesse, autonomie et SAV clair.
 {% endcapture %}
+{% capture rc_delay %}{% render 'rc-delivery-delay', product: product %}{% endcapture %}
+{% assign rc_delay = rc_delay | strip %}
+{% assign faq_categories = faq_categories | replace: '4 à 8 jours ouvrés', rc_delay %}
 
 <section class="rc-faq" id="faq" aria-label="Questions fréquentes">
   <div class="rc-faq__grid" aria-hidden="true"></div>
