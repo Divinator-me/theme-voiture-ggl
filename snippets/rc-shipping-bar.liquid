@@ -1,7 +1,9 @@
+{% capture rc_delay %}{% render 'rc-delivery-delay', product: product %}{% endcapture %}
+{% assign rc_delay = rc_delay | strip %}
 <div class="shipping-bar">
   <div class="shipping-left">
     <div class="shipping-dot"></div>
-    <span>Livraison <span class="shipping-bold">4 à 8 jours ouvrés</span> · France métropolitaine</span>
+    <span>Livraison <span class="shipping-bold">{{ rc_delay }}</span> · France métropolitaine</span>
   </div>
   <div class="shipping-right">
     <span>

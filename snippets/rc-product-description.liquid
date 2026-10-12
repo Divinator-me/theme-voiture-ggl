@@ -68,6 +68,8 @@
 
   {% capture livraison_policy_url %}{% render 'rc-legal-urls', part: 'livraison' %}{% endcapture %}
   {% capture retours_policy_url %}{% render 'rc-legal-urls', part: 'retours' %}{% endcapture %}
+  {% capture rc_delay %}{% render 'rc-delivery-delay', product: description_product %}{% endcapture %}
+  {% assign rc_delay = rc_delay | strip %}
 
   {% capture livraison_html %}
     {% if mf.livraison_retours != blank %}
@@ -86,14 +88,16 @@
     {% endif %}
   {% endcapture %}
 
+  {% assign livraison_out = livraison_html | strip | replace: '4 à 8 jours ouvrés', rc_delay %}
+
   {% capture garantie_html %}
     {{ default_garantie }}
-    <p><a href="{{ retours_policy_url | strip }}">Politique de retour</a></p>
   {% endcapture %}
 
   <div
     class="rc-product-desc"
     data-rc-product-desc
+    data-rc-delivery-delay="{{ rc_delay | escape }}"
     {% if video_ok %}
       data-rc-keep-video
     {% endif %}
@@ -111,7 +115,7 @@
       {
         "tout_savoir": {{ tout_savoir_html | strip | json }},
         "caracteristiques": {{ caracteristiques_html | strip | json }},
-        "livraison_retours": {{ livraison_html | strip | json }},
+        "livraison_retours": {{ livraison_out | json }},
         "fabrication_rigoureuse": {{ fabrication_html | strip | json }},
         "garantie_2_ans": {{ garantie_html | strip | json }}
       }

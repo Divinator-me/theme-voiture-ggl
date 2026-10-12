@@ -714,7 +714,7 @@
     return wrapper;
   };
 
-  const createAccordionItem = (sectionId, nodes) => {
+  const createAccordionItem = (sectionId, nodes, deliveryDelay) => {
     const config = SECTION_CONFIG[sectionId];
     const details = document.createElement('details');
     details.className = 'rc-product-desc__item';
@@ -724,7 +724,11 @@
     nodes.forEach((node) => content.appendChild(node));
     enhanceContent(content);
 
-    details.append(createSummary(config.label, config.icon), content);
+    const summaryLabel =
+      sectionId === 'livraison_retours' && deliveryDelay
+        ? `Livraison et retours (${deliveryDelay})`
+        : config.label;
+    details.append(createSummary(summaryLabel, config.icon), content);
     return details;
   };
 
@@ -792,7 +796,7 @@
     BOTTOM_SECTION_IDS.forEach((sectionId) => {
       const nodes = buckets.get(sectionId) || [];
       if (!hasVisibleContent(nodes)) return;
-      list.appendChild(createAccordionItem(sectionId, nodes));
+      list.appendChild(createAccordionItem(sectionId, nodes, root.dataset.rcDeliveryDelay || ''));
     });
 
     if (!list.children.length) return;
