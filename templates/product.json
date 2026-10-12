@@ -353,12 +353,12 @@
           },
           "block_order": [
             "group_icgrde",
+            "rc_delivery_options",
             "custom_liquid_stock",
             "rc_pack_picker",
             "variant_picker_couleur",
             "variant_picker_batteries",
             "rc_extra_batteries",
-            "rc_delivery_options",
             "custom_liquid_ma39Xw",
             "buy_buttons_eYQEYi",
             "rc_product_description"
