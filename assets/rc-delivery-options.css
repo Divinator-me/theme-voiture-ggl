@@ -1,0 +1,105 @@
+.rc-delivery-options {
+  width: 100%;
+  margin: 0 0 12px;
+}
+
+.rc-delivery-options__title {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 0 10px;
+  padding: 2px 0 2px 10px;
+  border-left: 4px solid var(--color-red);
+  font-family: var(--font-display);
+  font-size: clamp(18px, 4.2vw, 22px);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  text-transform: none;
+  color: var(--color-black);
+}
+
+.rc-delivery-options__list {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.rc-delivery-options__list::-webkit-scrollbar {
+  display: none;
+}
+
+.rc-delivery-options__card {
+  position: relative;
+  display: flex;
+  flex: 1 0 132px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  min-width: 132px;
+  scroll-snap-align: start;
+  padding: 14px 28px 12px 12px;
+  border: 1.5px solid var(--color-gray-200);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--color-black);
+  text-decoration: none;
+}
+
+.rc-delivery-options__card.is-selected {
+  border: 2px solid var(--color-red);
+}
+
+.rc-delivery-options__radio {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid var(--color-gray-200);
+  border-radius: 50%;
+  background: var(--color-white);
+}
+
+.rc-delivery-options__card.is-selected .rc-delivery-options__radio {
+  border-color: var(--color-red);
+}
+
+.rc-delivery-options__card.is-selected .rc-delivery-options__radio::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: var(--color-red);
+}
+
+.rc-delivery-options__price {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1;
+  color: var(--color-black);
+}
+
+.rc-delivery-options__delay {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--color-gray-500);
+}
+
+@media (min-width: 750px) {
+  .rc-delivery-options__list {
+    overflow: visible;
+  }
+
+  .rc-delivery-options__card {
+    flex-basis: 0;
+    min-width: 0;
+  }
+}
