@@ -262,14 +262,6 @@
               },
               "blocks": {}
             },
-            "rc_delivery_options": {
-              "type": "custom-liquid",
-              "name": "Choix livraison",
-              "settings": {
-                "custom_liquid": "{% render 'rc-delivery-options', product: product %}"
-              },
-              "blocks": {}
-            },
             "custom_liquid_ma39Xw": {
               "type": "custom-liquid",
               "name": "t:names.custom_liquid",
@@ -344,7 +336,7 @@
               "type": "rc-product-description",
               "name": "Description produit RC",
               "settings": {
-                "default_livraison": "<p><strong>Livraison, 4 à 8 jours ouvrés</strong></p><ul><li>Livraison offerte en France métropolitaine</li><li>Livraison suivie et assurée à domicile avec : Colissimo / DHL / Fedex / Chronopost ou en point relais</li></ul><p><strong>Retours</strong></p><ul><li>30 jours pour changer d'avis</li><li>Produit non utilisé, complet et dans son emballage d'origine</li></ul>",
+                "default_livraison": "<p><strong>Livraison, 4 à 10 jours ouvrés</strong></p><ul><li>Livraison offerte en France métropolitaine</li><li>Livraison suivie et assurée à domicile avec : Colissimo / DHL / Fedex / Chronopost ou en point relais</li></ul><p><strong>Retours</strong></p><ul><li>30 jours pour changer d'avis</li><li>Produit non utilisé, complet et dans son emballage d'origine</li></ul>",
                 "default_fabrication": "<p>Chez RCLAB, on ne vend pas des jouets bas de gamme. Chaque voiture est sélectionnée par des passionnés et contrôlée dans des <strong>ateliers spécialisés</strong> : châssis renforcés, transmissions dimensionnées pour un usage réel, pièces métal aux points critiques (transmission, pignons, ESC), soudures propres, finitions vérifiées avant expédition.</p><p>On fait attention à chaque détail, solidité des pièces, fiabilité de l'électronique, cohérence des performances annoncées, pour que ta machine tienne dans l'herbe, la poussière et les chocs, sortie après sortie.</p><p>Le but : une RC qui roule vraiment, pas un modèle qui casse au bout de deux sessions.</p>",
                 "default_garantie": "<p><strong>↩️ Retour gratuit</strong> sous 30 jours pour changer d'avis.</p><p>Le produit doit être non utilisé, complet et dans son emballage d'origine. Contacte le SAV si besoin.</p>"
               },
@@ -354,7 +346,6 @@
           "block_order": [
             "group_icgrde",
             "custom_liquid_stock",
-            "rc_delivery_options",
             "rc_pack_picker",
             "variant_picker_couleur",
             "variant_picker_batteries",
