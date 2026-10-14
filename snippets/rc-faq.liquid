@@ -9,19 +9,12 @@ UPGRADES & COMPATIBILITÉ¤Je peux la modifier ?@@Oui, selon le modèle tu peux 
 §§
 USAGE ENFANT¤À partir de quel âge ?@@Toutes nos voitures RC sont accessibles dès 8 ans, avec supervision d'un adulte et vitesse modérée au début. Pour un premier modèle, privilégie une voiture robuste, pas forcément la plus rapide.|||Mon fils va s'en lasser au bout de 2 semaines ?@@S'il a une voiture qui casse vite, oui. S'il a une voiture qui roule vraiment, qui passe dans l'herbe et qui garde de la puissance, l'expérience est complètement différente. C'est pour ça qu'on met l'accent sur la solidité et la fiabilité.
 §§
-COMMANDE & LIVRAISON¤Livraison en combien de temps ?@@La livraison en France métropolitaine dépend du produit, entre 1 et 35 jours. Commande avant 00:00 pour un traitement le jour même (lun. au ven.). Le suivi est envoyé par mail dès l'expédition.|||La livraison est offerte ?@@Oui, la livraison est offerte en France métropolitaine. Le délai dépend du produit, entre 1 et 35 jours.
+COMMANDE & LIVRAISON¤Livraison en combien de temps ?@@La livraison en France métropolitaine est de 4 à 12 jours ouvrés. Commande avant 00:00 pour un traitement le jour même (lun. au ven.). Le suivi est envoyé par mail dès l'expédition.|||La livraison est offerte ?@@Oui, la livraison est offerte en France métropolitaine, en 4 à 12 jours ouvrés.
 §§
 PAIEMENT & RETOUR¤Quels moyens de paiement ?@@Paiement sécurisé par carte bancaire et moyens de paiement disponibles via Shopify selon ton appareil et ton pays, comme Apple Pay, Google Pay ou PayPal si activés sur la boutique. Les options exactes apparaissent au moment du paiement.|||Elle ne me plaît pas, je peux la renvoyer ?@@Oui, tu as 30 jours pour changer d'avis. Le produit doit être non utilisé, complet et dans son emballage d'origine. Le retour gratuit est indiqué sur la boutique.|||Et si elle arrive cassée ?@@Tu prends une photo du colis et de la voiture, puis tu contactes le SAV. Si le produit est arrivé endommagé, on trouve une solution rapidement: remplacement, pièce ou prise en charge selon le problème constaté.
 §§
 LA MARQUE¤Vous êtes qui exactement ?@@Une boutique RC pensée pour les passionnés, les parents et les débutants qui veulent une voiture qui roule vraiment. La sélection privilégie les modèles fun, solides et cohérents avec un usage réel: vitesse, autonomie et SAV clair.
 {% endcapture %}
-{% capture rc_delay %}{% render 'rc-delivery-delay', product: product %}{% endcapture %}
-{% assign rc_delay = rc_delay | strip %}
-{% if product != blank %}
-  {% capture rc_delay_phrase %}est de {{ rc_delay }}{% endcapture %}
-  {% assign rc_delay_phrase = rc_delay_phrase | strip %}
-  {% assign faq_categories = faq_categories | replace: 'dépend du produit, entre 1 et 35 jours', rc_delay_phrase %}
-{% endif %}
 
 <section class="rc-faq" id="faq" aria-label="Questions fréquentes">
   <div class="rc-faq__grid" aria-hidden="true"></div>
