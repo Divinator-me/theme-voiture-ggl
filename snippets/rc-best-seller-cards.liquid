@@ -3,7 +3,7 @@
   for handle in rc_best_seller_products
     assign rc_best_product = all_products[handle]
     if rc_best_product != blank and rc_best_product.id != blank
-      render 'rc-product-card', product: rc_best_product
+      render 'rc-product-card', product: rc_best_product, best_seller: true
     endif
   endfor
 -%}
