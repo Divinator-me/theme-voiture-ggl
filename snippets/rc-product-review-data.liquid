@@ -73,4 +73,9 @@
     when 'crawler-4x4-jeune-enfant-rclab'
       assign rc_review_count = 30
   endcase
--%}
+%}
+{%- if part == 'score' -%}
+  {{- rc_review_score -}}
+{%- else -%}
+  {{- rc_review_count -}}
+{%- endif -%}

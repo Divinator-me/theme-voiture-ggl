@@ -1,7 +1,10 @@
 {% liquid
   assign reviews_product = closest.product | default: product
 %}
-{% render 'rc-product-review-data', product: reviews_product %}
+{% capture rc_review_count %}{% render 'rc-product-review-data', product: reviews_product %}{% endcapture %}
+{% capture rc_review_score %}{% render 'rc-product-review-data', product: reviews_product, part: 'score' %}{% endcapture %}
+{% assign rc_review_count = rc_review_count | strip %}
+{% assign rc_review_score = rc_review_score | strip %}
 {{ 'rc-product-reviews.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'rc-product-reviews.js' | asset_url }}" defer></script>
 
