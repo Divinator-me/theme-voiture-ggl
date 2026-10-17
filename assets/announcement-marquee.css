@@ -26,12 +26,11 @@
   pointer-events: none;
 }
 
-.announcement-badge__dot {
+.announcement-badge__icon {
   flex-shrink: 0;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #ffffff;
+  width: 13px;
+  height: 13px;
+  color: #ffffff;
 }
 
 .announcement-badge__label {
@@ -82,12 +81,36 @@
   white-space: nowrap;
 }
 
+.announcement-icon {
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  color: #ffffff;
+}
+
 .announcement-flag {
   flex-shrink: 0;
   width: 14px;
   height: 10px;
   border-radius: 1px;
   box-shadow: 0 0 0 1px rgb(255 255 255 / 20%);
+}
+
+.announcement-return {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;
+  background: #3b82f6;
+  color: #ffffff;
+}
+
+.announcement-return svg {
+  width: 10px;
+  height: 10px;
 }
 
 .announcement-separator {
