@@ -181,23 +181,30 @@
 
       lockAmbientVideo(video);
 
+      let visible = false;
       const tryPlay = () => {
+        if (!visible) return;
+        video.muted = true;
         const play = video.play();
         if (play && typeof play.catch === 'function') play.catch(() => {});
       };
+
+      video.addEventListener('canplay', tryPlay);
 
       if (typeof IntersectionObserver === 'function') {
         const observer = new IntersectionObserver(
           (entries) => {
             entries.forEach((entry) => {
-              if (entry.isIntersecting) tryPlay();
+              visible = entry.isIntersecting;
+              if (visible) tryPlay();
               else video.pause();
             });
           },
-          { threshold: 0.2 }
+          { threshold: 0.15 }
         );
         observer.observe(video);
       } else {
+        visible = true;
         tryPlay();
       }
     });
