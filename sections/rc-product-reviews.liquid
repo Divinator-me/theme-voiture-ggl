@@ -1,0 +1,49 @@
+{% liquid
+  assign reviews_product = closest.product | default: product
+%}
+{% render 'rc-product-review-data', product: reviews_product %}
+{{ 'rc-product-reviews.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'rc-product-reviews.js' | asset_url }}" defer></script>
+
+<section
+  class="rc-reviews"
+  id="rc-product-reviews"
+  aria-label="Avis clients"
+  data-rc-reviews
+  data-handle="{{ reviews_product.handle | escape }}"
+  data-title="{{ reviews_product.title | escape }}"
+  data-count="{{ rc_review_count }}"
+  data-score="{{ rc_review_score }}"
+>
+  <div class="rc-reviews__inner">
+    <header class="rc-reviews__header">
+      <span class="rc-reviews__kicker">Avis clients</span>
+      <h2 class="rc-reviews__title">Ils ont commandé l'esprit tranquille</h2>
+      <p class="rc-reviews__lead">Parents, ados, passionnés. Ce qui les a fait commander, et ce qui s'est passé une fois la boîte ouverte.</p>
+    </header>
+
+    <div class="rc-reviews__summary">
+      <p class="rc-reviews__score">{{ rc_review_score }}<span>/5</span></p>
+      <div class="rc-reviews__meta">
+        <p>{{ rc_review_count }} avis vérifiés</p>
+        <small>Achat vérifié · note 4,9/5</small>
+      </div>
+    </div>
+
+    <ul class="rc-reviews__list" data-rc-reviews-list></ul>
+    <div class="rc-reviews__more" hidden>
+      <button class="rc-reviews__more-btn" type="button" data-rc-reviews-more>Voir plus d'avis</button>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Avis produit RC",
+  "presets": [
+    {
+      "name": "Avis produit RC"
+    }
+  ]
+}
+{% endschema %}

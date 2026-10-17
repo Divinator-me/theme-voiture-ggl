@@ -1,0 +1,16 @@
+{% render 'rc-product-review-data', product: product %}
+{{ 'rc-product-reviews.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'rc-product-reviews.js' | asset_url }}" defer></script>
+
+<a
+  class="rc-reviews-teaser"
+  href="#rc-product-reviews"
+  data-rc-reviews-teaser
+  aria-label="{{ rc_review_score }} sur 5, {{ rc_review_count }} avis clients"
+>
+  <span class="rc-reviews-teaser__stars" aria-hidden="true">
+    <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+  </span>
+  <strong>{{ rc_review_score }}</strong>
+  <span class="rc-reviews-teaser__count">{{ rc_review_count }} avis</span>
+</a>
