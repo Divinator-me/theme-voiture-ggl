@@ -132,10 +132,11 @@
       <div class="rc-session__media">
         <iframe
           class="rc-session__yt"
-          data-src="https://www.youtube-nocookie.com/embed/V1SJu7ya7Ts?autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=V1SJu7ya7Ts&amp;rel=0&amp;modestbranding=1&amp;playsinline=1"
+          src="https://www.youtube-nocookie.com/embed/V1SJu7ya7Ts?autoplay=1&mute=1&rel=0&modestbranding=1&playsinline=1"
           title="Session Gantry Pro"
-          allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowfullscreen
+          loading="lazy"
         ></iframe>
       </div>
     </div>
@@ -258,8 +259,6 @@
 
   <div class="rc-session__specs rc-product-desc__content rte" data-rc-session-specs></div>
 </section>
-
-<script src="{{ 'rc-session-video.js' | asset_url }}" defer></script>
 
 {% schema %}
 {
