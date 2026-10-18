@@ -13,6 +13,7 @@
   "sections": {
     "announcement_marquee": {
       "type": "announcement-marquee",
+      "disabled": true,
       "settings": {}
     },
     "main_nav": {
