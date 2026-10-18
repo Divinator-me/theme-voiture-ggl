@@ -15,6 +15,8 @@ class DeferredMedia extends Component {
   isPlaying = false;
 
   #abortController = new AbortController();
+  /** @type {IntersectionObserver | null} */
+  #autoplayObserver = null;
 
   connectedCallback() {
     super.connectedCallback();
@@ -22,11 +24,51 @@ class DeferredMedia extends Component {
     // If we're to use deferred media for images, we will need to run this only when it's not an image type media
     document.addEventListener(ThemeEvents.mediaStartedPlaying, this.pauseMedia.bind(this), { signal });
     window.addEventListener(DialogCloseEvent.eventName, this.pauseMedia.bind(this), { signal });
+    if (this.hasAttribute('autoplay')) this.#setupMutedAutoplay();
+  }
+
+  #setupMutedAutoplay() {
+    const video = [...this.querySelectorAll('video')].find((node) => !node.closest('template'));
+    if (video) {
+      video.muted = true;
+      video.defaultMuted = true;
+      video.volume = 0;
+      video.playsInline = true;
+      video.loop = true;
+      video.setAttribute('muted', '');
+      video.setAttribute('playsinline', '');
+      video.setAttribute('autoplay', '');
+      video.setAttribute('loop', '');
+    }
+
+    const attemptPlay = () => {
+      if (!video) return;
+      const play = video.play();
+      if (play && typeof play.catch === 'function') play.catch(() => {});
+      this.isPlaying = true;
+    };
+
+    if (typeof IntersectionObserver !== 'function') {
+      attemptPlay();
+      return;
+    }
+
+    this.#autoplayObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) attemptPlay();
+          else video?.pause();
+        });
+      },
+      { threshold: 0.2 }
+    );
+    this.#autoplayObserver.observe(this);
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
     this.#abortController.abort();
+    this.#autoplayObserver?.disconnect();
   }
 
   /**
@@ -112,7 +154,12 @@ class DeferredMedia extends Component {
   /**
    * Pauses the media
    */
-  pauseMedia() {
+  pauseMedia(event) {
+    if (this.hasAttribute('autoplay')) {
+      if (event?.type === ThemeEvents.mediaStartedPlaying) return;
+      if (event?.type === DialogCloseEvent.eventName && !this.closest('dialog')) return;
+    }
+
     /** @type {HTMLIFrameElement | null} */
     const iframe = this.querySelector('iframe[data-video-type]');
 

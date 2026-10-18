@@ -51,7 +51,7 @@
             "media_radius": 0,
             "extend_media": false,
             "zoom": true,
-            "video_loop": false,
+            "video_loop": true,
             "hide_variants": true,
             "padding-block-start": 0,
             "padding-block-end": 0,
@@ -175,14 +175,6 @@
                   },
                   "blocks": {}
                 },
-                "custom_liquid_reviews_teaser": {
-                  "type": "custom-liquid",
-                  "name": "Avis teaser",
-                  "settings": {
-                    "custom_liquid": "{% render 'rc-product-reviews-teaser', product: product %}"
-                  },
-                  "blocks": {}
-                },
                 "custom_liquid_EtK73f": {
                   "type": "custom-liquid",
                   "name": "t:names.custom_liquid",
@@ -194,7 +186,6 @@
               },
               "block_order": [
                 "text_xrnftG",
-                "custom_liquid_reviews_teaser",
                 "price_tVjtKg",
                 "custom_liquid_EtK73f"
               ]
@@ -203,7 +194,7 @@
               "type": "custom-liquid",
               "name": "Stock status",
               "settings": {
-                "custom_liquid": "{% render 'rc-stock-status', product: product %}"
+                "custom_liquid": "{% render 'rc-product-stories', product: product %}"
               },
               "blocks": {}
             },
@@ -390,11 +381,6 @@
         "max_products": 8
       }
     },
-    "product_reviews": {
-      "type": "rc-product-reviews",
-      "name": "Avis produit",
-      "settings": {}
-    },
     "session_sweep": {
       "type": "rc-session-video",
       "name": "Session Sweep Pro",
@@ -413,7 +399,6 @@
   },
   "order": [
     "main",
-    "product_reviews",
     "session_sweep",
     "faq_rc_Fp4egP",
     "product_recommendations_qggXJq",

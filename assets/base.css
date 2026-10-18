@@ -1710,6 +1710,10 @@ deferred-media {
   transition: opacity 0.3s ease;
 }
 
+deferred-media[autoplay] > .deferred-media__poster-button:not(.video-interaction-hint) {
+  display: none;
+}
+
 deferred-media img {
   height: 100%;
   object-fit: cover;
