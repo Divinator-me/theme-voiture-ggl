@@ -13,6 +13,12 @@ const GIFT_BATTERIES_BY_PACK = {
   3: 7,
 };
 
+const PACK_LABELS = {
+  1: 'Pack Standard - 2 batteries offertes',
+  2: 'Pack duo - 4 batteries',
+  3: 'Pack trio - 7 batteries',
+};
+
 const formatMoney = (cents) =>
   `${(cents / 100).toLocaleString('fr-FR', {
     minimumFractionDigits: 2,
@@ -264,12 +270,12 @@ class RcPackPicker extends HTMLElement {
       if (!id) return;
       const existing = items.find((item) => item.variantId === id);
       if (existing) existing.quantity += 1;
-      else items.push({ variantId: id, quantity: 1 });
+      else items.push({ variantId: id, quantity: 1, pack: true });
     });
 
     if (!items.length) {
       const fallbackId = String(this.#currentVariantId() || '');
-      if (fallbackId) items.push({ variantId: fallbackId, quantity: packQty });
+      if (fallbackId) items.push({ variantId: fallbackId, quantity: packQty, pack: true });
     }
 
     return items;
@@ -309,9 +315,16 @@ class RcPackPicker extends HTMLElement {
       const variantId = String(item?.variantId || '').trim();
       const quantity = Number(item?.quantity) || 0;
       if (!variantId || quantity < 1) return;
-      map.set(variantId, (map.get(variantId) || 0) + quantity);
+      const current = map.get(variantId) || { quantity: 0, pack: false };
+      current.quantity += quantity;
+      current.pack = current.pack || item.pack === true;
+      map.set(variantId, current);
     });
-    return Array.from(map, ([variantId, quantity]) => ({ variantId, quantity }));
+    return Array.from(map, ([variantId, value]) => ({
+      variantId,
+      quantity: value.quantity,
+      pack: value.pack,
+    }));
   }
 
   #beginBundleGate() {
@@ -420,10 +433,15 @@ class RcPackPicker extends HTMLElement {
   }
 
   async #postBatch(items) {
-    const payload = this.#mergeItems(items).map((item) => ({
-      id: Number(item.variantId),
-      quantity: item.quantity,
-    }));
+    const packLabel = PACK_LABELS[this.#selectedQty()] || PACK_LABELS[1];
+    const payload = this.#mergeItems(items).map((item) => {
+      const line = {
+        id: Number(item.variantId),
+        quantity: item.quantity,
+      };
+      if (item.pack) line.properties = { Pack: packLabel };
+      return line;
+    });
     if (!payload.length) return { items: [] };
 
     window.RCLAB = window.RCLAB || {};
