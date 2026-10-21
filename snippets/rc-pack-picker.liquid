@@ -2,15 +2,8 @@
   assign pack_product = product | default: closest.product
   assign variant = pack_product.selected_or_first_available_variant
   assign unit_cents = variant.price | default: 0
-  assign unit_off = unit_cents | times: 20 | plus: 50 | divided_by: 100
-  assign duo_cents = unit_cents | times: 2 | minus: unit_off
-  assign trio_cents = unit_cents | times: 3 | minus: unit_off
-  assign duo_full = unit_cents | times: 2
-  assign trio_full = unit_cents | times: 3
-  assign duo_half = duo_full | divided_by: 2
-  assign trio_half = trio_full | divided_by: 2
-  assign duo_off = unit_off | times: 100 | plus: duo_half | divided_by: duo_full
-  assign trio_off = unit_off | times: 100 | plus: trio_half | divided_by: trio_full
+  assign duo_cents = unit_cents | times: 18 | plus: 5 | divided_by: 10
+  assign trio_cents = unit_cents | times: 24 | plus: 5 | divided_by: 10
   assign pack_id = pack_product.id
   assign trio_gift = all_products['batterie-offerte-produit-rc-lab']
   assign trio_gift_variant = trio_gift.selected_or_first_available_variant
@@ -96,8 +89,8 @@
     </div>
     <div class="rc-pack-picker__badges">
       <span></span>
-      <span class="rc-pack-picker__badge" data-rc-pack-badge="2">-{{ duo_off }} %</span>
-      <span class="rc-pack-picker__badge" data-rc-pack-badge="3">-{{ trio_off }} %</span>
+      <span class="rc-pack-picker__badge" data-rc-pack-badge="2">-10 %</span>
+      <span class="rc-pack-picker__badge" data-rc-pack-badge="3">-20 %</span>
     </div>
   </fieldset>
 </rc-pack-picker>
