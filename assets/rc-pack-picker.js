@@ -2,9 +2,9 @@ import { CartLinesUpdateEvent, StandardEvents } from '@shopify/events';
 import { QuantitySelectorUpdateEvent } from '@theme/events';
 
 const packTotal = (unitCents, qty) => {
-  if (qty === 2) return Math.round((unitCents * 18) / 10);
-  if (qty === 3) return Math.round((unitCents * 24) / 10);
-  return unitCents;
+  if (qty !== 2 && qty !== 3) return unitCents;
+  const unitOff = Math.round((unitCents * 20) / 100);
+  return unitCents * qty - unitOff;
 };
 
 const GIFT_BATTERIES_BY_PACK = {
@@ -133,8 +133,11 @@ class RcPackPicker extends HTMLElement {
 
     this.querySelectorAll('[data-rc-pack-badge]').forEach((badge) => {
       const qty = Number(badge.getAttribute('data-rc-pack-badge'));
-      badge.hidden = false;
-      badge.textContent = qty === 3 ? '-20 %' : '-10 %';
+      const full = this.#unitCents * qty;
+      const saved = full - packTotal(this.#unitCents, qty);
+      const off = full > 0 ? Math.round((saved * 100) / full) : 0;
+      badge.hidden = off <= 0;
+      badge.textContent = `-${off} %`;
     });
   }
 
