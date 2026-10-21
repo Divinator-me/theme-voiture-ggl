@@ -3,6 +3,7 @@
   top: 0;
   z-index: 68;
   background: var(--color-white);
+  border-bottom: 2px solid var(--color-red);
   box-shadow: 0 2px 8px rgb(0 0 0 / 4%);
   color: var(--color-black);
 }
