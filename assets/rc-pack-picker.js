@@ -13,6 +13,12 @@ const GIFT_BATTERIES_BY_PACK = {
   3: 7,
 };
 
+const PACK_OPTION_BY_QTY = {
+  1: 'Pack Standard - 2 batteries offertes',
+  2: 'Pack duo - 4 batteries',
+  3: 'Pack trio - 7 batteries',
+};
+
 const formatMoney = (cents) =>
   `${(cents / 100).toLocaleString('fr-FR', {
     minimumFractionDigits: 2,
@@ -253,26 +259,24 @@ class RcPackPicker extends HTMLElement {
     return match?.id ? String(match.id) : '';
   }
 
+  #packOption() {
+    return PACK_OPTION_BY_QTY[this.#selectedQty()] || this.#batteryValue();
+  }
+
   #packCartItems() {
-    const battery = this.#batteryValue();
+    const battery = this.#packOption();
     const colors = this.#colorValues();
-    const packQty = this.#selectedQty();
-    const items = [];
+    const primary = colors[0] || '';
+    const id = primary ? this.#variantIdFor(primary, battery) : '';
+    const variantId = id || String(this.#currentVariantId() || '');
+    if (!variantId) return [];
 
-    colors.forEach((color) => {
-      const id = this.#variantIdFor(color, battery);
-      if (!id) return;
-      const existing = items.find((item) => item.variantId === id);
-      if (existing) existing.quantity += 1;
-      else items.push({ variantId: id, quantity: 1 });
+    const item = { variantId, quantity: 1 };
+    colors.slice(1).forEach((color, index) => {
+      item.properties = item.properties || {};
+      item.properties[`Couleur ${index + 2}`] = color;
     });
-
-    if (!items.length) {
-      const fallbackId = String(this.#currentVariantId() || '');
-      if (fallbackId) items.push({ variantId: fallbackId, quantity: packQty });
-    }
-
-    return items;
+    return [item];
   }
 
   #readExtraBatteries() {
@@ -309,9 +313,12 @@ class RcPackPicker extends HTMLElement {
       const variantId = String(item?.variantId || '').trim();
       const quantity = Number(item?.quantity) || 0;
       if (!variantId || quantity < 1) return;
-      map.set(variantId, (map.get(variantId) || 0) + quantity);
+      const current = map.get(variantId) || { variantId, quantity: 0, properties: {} };
+      current.quantity += quantity;
+      if (item.properties) Object.assign(current.properties, item.properties);
+      map.set(variantId, current);
     });
-    return Array.from(map, ([variantId, quantity]) => ({ variantId, quantity }));
+    return Array.from(map.values());
   }
 
   #beginBundleGate() {
@@ -420,10 +427,14 @@ class RcPackPicker extends HTMLElement {
   }
 
   async #postBatch(items) {
-    const payload = this.#mergeItems(items).map((item) => ({
-      id: Number(item.variantId),
-      quantity: item.quantity,
-    }));
+    const payload = this.#mergeItems(items).map((item) => {
+      const line = {
+        id: Number(item.variantId),
+        quantity: item.quantity,
+      };
+      if (item.properties && Object.keys(item.properties).length) line.properties = item.properties;
+      return line;
+    });
     if (!payload.length) return { items: [] };
 
     window.RCLAB = window.RCLAB || {};
