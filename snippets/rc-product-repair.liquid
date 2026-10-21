@@ -36,8 +36,8 @@
   if repair_hay contains 'brushless'
     assign repair_raw = repair_raw | plus: 1
   endif
-  if repair_raw < 33
-    assign repair_raw = 33
+  if repair_raw < 44
+    assign repair_raw = 44
   endif
   if repair_raw > 46
     assign repair_raw = 46
@@ -48,11 +48,9 @@
   assign repair_score = repair_score_whole | append: ',' | append: repair_score_frac
   assign repair_pct = repair_raw | times: 2
 
-  if repair_raw <= 34
-    assign repair_label = 'Réparable avec un peu de méthode'
-  elsif repair_raw <= 39
+  if repair_raw <= 44
     assign repair_label = 'Réparable sans difficulté'
-  elsif repair_raw <= 43
+  elsif repair_raw <= 45
     assign repair_label = 'Réparation simple'
   else
     assign repair_label = 'Réparation rapide'
