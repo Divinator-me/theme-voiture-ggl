@@ -1239,11 +1239,14 @@ body:has(sticky-add-to-cart) {
 }
 
 .rc-pack-picker__perk {
+  align-self: stretch;
+  display: block;
   font-family: var(--font-body);
   font-size: 11px;
   font-style: normal;
   font-weight: 400;
   line-height: 1.25;
+  text-align: center;
   color: var(--color-black);
 }
 
