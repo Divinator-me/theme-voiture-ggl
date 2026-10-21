@@ -16,7 +16,7 @@ media-gallery {
 
 .product-information .slideshow-controls__thumbnails .slideshow-control {
   overflow: hidden;
-  border: 2px solid var(--color-red);
+  border: 1px solid var(--color-red);
   border-radius: 4px;
   outline: none;
 }
@@ -98,6 +98,10 @@ media-gallery > .rc-stock-badge {
 
 .rc-product-breadcrumb__current {
   color: var(--color-black);
+}
+
+.product-information .product-details .text-block.h3 {
+  margin-top: -10px;
 }
 
 .product-information .product-details .text-block.h3 :is(h1, h2, h3, h4, h5, h6) {
