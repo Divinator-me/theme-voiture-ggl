@@ -2,8 +2,8 @@ import { CartLinesUpdateEvent, StandardEvents } from '@shopify/events';
 import { QuantitySelectorUpdateEvent } from '@theme/events';
 
 const packTotal = (unitCents, qty) => {
-  if (qty === 2) return Math.round((unitCents * 1.75) / 50) * 50;
-  if (qty === 3) return Math.round((unitCents * 2.7) / 100) * 100;
+  if (qty === 2) return Math.round((unitCents * 18) / 10);
+  if (qty === 3) return Math.round((unitCents * 24) / 10);
   return unitCents;
 };
 
@@ -101,8 +101,18 @@ class RcPackPicker extends HTMLElement {
   }
 
   #syncUnitFromVariant() {
-    const variantId = this.#currentVariantId();
-    const next = Number(this.#variantPrices[variantId]);
+    const variantId = String(this.#currentVariantId() || '');
+    const current = this.#variantMap.find((variant) => String(variant.id) === variantId);
+    const options = (current?.options || []).map((option) => String(option).trim().toLowerCase());
+    const color = options.find((option) => !option.startsWith('pack '));
+    const standard = this.#variantMap.find((variant) => {
+      const names = (variant.options || []).map((option) => String(option).trim().toLowerCase());
+      const isStandard = names.includes('pack standard - 2 batteries offertes');
+      const sameColor = !color || names.includes(color);
+      return isStandard && sameColor;
+    });
+    const sourceId = standard?.id || variantId;
+    const next = Number(this.#variantPrices[sourceId]);
     if (Number.isFinite(next) && next > 0) this.#unitCents = next;
   }
 
@@ -123,12 +133,8 @@ class RcPackPicker extends HTMLElement {
 
     this.querySelectorAll('[data-rc-pack-badge]').forEach((badge) => {
       const qty = Number(badge.getAttribute('data-rc-pack-badge'));
-      const standard = this.#unitCents;
-      const full = standard * qty;
-      const pack = packTotal(standard, qty);
-      const saved = full - pack;
-      badge.hidden = saved <= 0;
-      badge.textContent = `-${formatMoney(saved)}`;
+      badge.hidden = false;
+      badge.textContent = qty === 3 ? '-20 %' : '-10 %';
     });
   }
 
