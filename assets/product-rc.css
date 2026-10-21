@@ -2,6 +2,28 @@ media-gallery {
   position: relative;
 }
 
+.product-information .product-media-container {
+  overflow: hidden;
+  border: 1px solid var(--color-red);
+  border-radius: 8px;
+}
+
+.product-information .slideshow-controls__thumbnails .slideshow-control {
+  overflow: hidden;
+  border: 1px solid var(--color-red);
+  border-radius: 4px;
+  outline: none;
+}
+
+.product-information .slideshow-controls__thumbnails .slideshow-control img {
+  border-radius: 3px;
+}
+
+.product-information .slideshow-controls__thumbnails .slideshow-control[aria-selected='true'] {
+  outline: none;
+  border-color: var(--color-red);
+}
+
 media-gallery > .rc-stock-badge {
   position: absolute;
   top: 12px;
