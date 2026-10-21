@@ -2,15 +2,21 @@ media-gallery {
   position: relative;
 }
 
+@media screen and (max-width: 749px) {
+  .product-information .product-information__media {
+    grid-column: 2 / 3;
+  }
+}
+
 .product-information .product-media-container {
   overflow: hidden;
-  border: 1px solid var(--color-red);
+  border: 2px solid var(--color-red);
   border-radius: 8px;
 }
 
 .product-information .slideshow-controls__thumbnails .slideshow-control {
   overflow: hidden;
-  border: 1px solid var(--color-red);
+  border: 2px solid var(--color-red);
   border-radius: 4px;
   outline: none;
 }
