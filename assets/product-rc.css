@@ -84,7 +84,7 @@ media-gallery > .rc-stock-badge {
   font-style: italic;
   font-weight: 400;
   letter-spacing: -0.03em;
-  line-height: 0.92;
+  line-height: 1.05;
   text-transform: uppercase;
   text-wrap: balance;
   color: var(--color-black);
