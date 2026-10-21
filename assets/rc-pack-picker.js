@@ -120,6 +120,15 @@ class RcPackPicker extends HTMLElement {
       const qty = Number(node.getAttribute('data-rc-pack-price'));
       node.textContent = formatMoney(packTotal(this.#unitCents, qty));
     });
+
+    this.querySelectorAll('[data-rc-pack-badge]').forEach((badge) => {
+      const qty = Number(badge.getAttribute('data-rc-pack-badge'));
+      const full = this.#unitCents * qty;
+      const pack = packTotal(this.#unitCents, qty);
+      const off = full > 0 ? Math.round(((full - pack) * 100) / full) : 0;
+      badge.hidden = off <= 0;
+      badge.textContent = `-${off} %`;
+    });
   }
 
   #formatLike(sample, cents) {
