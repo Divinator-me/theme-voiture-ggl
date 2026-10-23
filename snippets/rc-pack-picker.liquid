@@ -10,6 +10,20 @@
   assign extra_battery = all_products['batterie-supplementaire-produit-rc-lab']
   assign extra_battery_variant = extra_battery.selected_or_first_available_variant
   assign accessory_handles = 'batterie-supplementaire-produit-rc-lab,chargeur-secteur-haute-capacite-rc-lab,batterie-offerte-produit-rc-lab' | split: ','
+  assign solo_batteries = 2
+  assign duo_batteries = 4
+  assign trio_batteries = 7
+  assign pack_standard_label = 'pack standard - 2 batteries offertes'
+  assign pack_duo_label = 'pack duo - 4 batteries'
+  assign pack_trio_label = 'pack trio - 7 batteries'
+  if pack_product.handle == '4x4-brushless-1-16-85-km-h'
+    assign solo_batteries = 3
+    assign duo_batteries = 6
+    assign trio_batteries = 9
+    assign pack_standard_label = 'pack standard - 3 batteries offertes'
+    assign pack_duo_label = 'pack duo - 6 batteries offertes'
+    assign pack_trio_label = 'pack trio - 9 batteries offertes'
+  endif
 -%}
 
 {%- unless accessory_handles contains pack_product.handle -%}
@@ -17,6 +31,8 @@
   class="rc-pack-picker"
   data-product-id="{{ pack_id }}"
   data-unit-price="{{ unit_cents }}"
+  data-rc-pack-labels="{{ pack_standard_label }}|{{ pack_duo_label }}|{{ pack_trio_label }}"
+  data-rc-gift-batteries="{{ solo_batteries }},{{ duo_batteries }},{{ trio_batteries }}"
   {% if trio_gift_variant %}data-gift-battery-variant-id="{{ trio_gift_variant.id }}" data-trio-gift-variant-id="{{ trio_gift_variant.id }}"{% endif %}
   {% if extra_battery_variant %}data-extra-battery-variant-id="{{ extra_battery_variant.id }}"{% endif %}
 >
@@ -50,7 +66,7 @@
       <span class="rc-pack-picker__icon" aria-hidden="true">🚗</span>
       <span class="rc-pack-picker__copy">
         <span class="rc-pack-picker__title">1 véhicule</span>
-        <span class="rc-pack-picker__perk">+ 2 batteries<br>offertes</span>
+        <span class="rc-pack-picker__perk">+ {{ solo_batteries }} batteries<br>offertes</span>
       </span>
       <span class="rc-pack-picker__price" data-rc-pack-price="1">{{ unit_cents | money }}</span>
     </label>
@@ -66,7 +82,7 @@
       <span class="rc-pack-picker__icon" aria-hidden="true">⭐</span>
       <span class="rc-pack-picker__copy">
         <span class="rc-pack-picker__title">Pack duo</span>
-        <span class="rc-pack-picker__perk">+ 4 batteries<br>offertes</span>
+        <span class="rc-pack-picker__perk">+ {{ duo_batteries }} batteries<br>offertes</span>
       </span>
       <span class="rc-pack-picker__price is-duo" data-rc-pack-price="2">{{ duo_cents | money }}</span>
     </label>
@@ -82,7 +98,7 @@
       <span class="rc-pack-picker__icon" aria-hidden="true">🏆</span>
       <span class="rc-pack-picker__copy">
         <span class="rc-pack-picker__title">Pack trio</span>
-        <span class="rc-pack-picker__perk">+ 7 batteries<br>offertes</span>
+        <span class="rc-pack-picker__perk">+ {{ trio_batteries }} batteries<br>offertes</span>
       </span>
       <span class="rc-pack-picker__price is-trio" data-rc-pack-price="3">{{ trio_cents | money }}</span>
     </label>

@@ -7,17 +7,11 @@ const packTotal = (unitCents, qty) => {
   return unitCents;
 };
 
-const GIFT_BATTERIES_BY_PACK = {
-  1: 2,
-  2: 4,
-  3: 7,
-};
-
-const PACK_OPTION_BY_QTY = {
-  1: 'pack standard - 2 batteries offertes',
-  2: 'pack duo - 4 batteries',
-  3: 'pack trio - 7 batteries',
-};
+const DEFAULT_PACK_LABELS = [
+  'pack standard - 2 batteries offertes',
+  'pack duo - 4 batteries',
+  'pack trio - 7 batteries',
+];
 
 const formatMoney = (cents) =>
   `${(cents / 100).toLocaleString('fr-FR', {
@@ -100,14 +94,39 @@ class RcPackPicker extends HTMLElement {
     return document.querySelector('product-form-component input[name="id"]')?.value;
   }
 
+  #packLabels() {
+    const labels = String(this.dataset.rcPackLabels || '')
+      .split('|')
+      .map((label) => label.trim().toLowerCase())
+      .filter(Boolean);
+    return labels.length === 3 ? labels : DEFAULT_PACK_LABELS;
+  }
+
+  #giftCounts() {
+    const counts = String(this.dataset.rcGiftBatteries || '2,4,7')
+      .split(',')
+      .map((value) => Number(value));
+    return counts.length === 3 && counts.every((count) => count > 0) ? counts : [2, 4, 7];
+  }
+
+  #productHasColor() {
+    return this.#variantMap.some((variant) =>
+      (variant.options || []).some((option) => {
+        const name = String(option).trim().toLowerCase();
+        return name && !name.startsWith('pack ');
+      })
+    );
+  }
+
   #syncUnitFromVariant() {
     const variantId = String(this.#currentVariantId() || '');
     const current = this.#variantMap.find((variant) => String(variant.id) === variantId);
     const options = (current?.options || []).map((option) => String(option).trim().toLowerCase());
     const color = options.find((option) => !option.startsWith('pack '));
+    const standardLabel = this.#packLabels()[0];
     const standard = this.#variantMap.find((variant) => {
       const names = (variant.options || []).map((option) => String(option).trim().toLowerCase());
-      const isStandard = names.includes('pack standard - 2 batteries offertes');
+      const isStandard = names.includes(standardLabel);
       const sameColor = !color || names.includes(color);
       return isStandard && sameColor;
     });
@@ -276,18 +295,19 @@ class RcPackPicker extends HTMLElement {
   }
 
   #packOptionFor(packQty) {
-    return PACK_OPTION_BY_QTY[packQty] || '';
+    return this.#packLabels()[packQty - 1] || '';
   }
 
   #variantIdForPack(color, packQty) {
     const packOption = this.#packOptionFor(packQty);
     if (!packOption) return '';
     const colorNorm = String(color || '').trim().toLowerCase();
-    if (!colorNorm) return '';
+    if (this.#productHasColor() && !colorNorm) return '';
     const match = this.#variantMap.find((variant) => {
       if (variant.available === false) return false;
       const options = (variant.options || []).map((option) => String(option).trim().toLowerCase());
-      return options.includes(packOption) && options.includes(colorNorm);
+      if (!options.includes(packOption)) return false;
+      return !colorNorm || options.includes(colorNorm);
     });
     return match?.id ? String(match.id) : '';
   }
@@ -297,7 +317,11 @@ class RcPackPicker extends HTMLElement {
     const colors = this.#colorValues();
     const packQty = this.#selectedQty();
     const sameColor = colors.length > 0 && colors.every((color) => color === colors[0]);
-    const packVariantId = sameColor ? this.#variantIdForPack(colors[0], packQty) : '';
+    const packVariantId = this.#productHasColor()
+      ? sameColor
+        ? this.#variantIdForPack(colors[0], packQty)
+        : ''
+      : this.#variantIdForPack('', packQty);
     if (packVariantId) return [{ variantId: packVariantId, quantity: 1 }];
 
     const items = [];
@@ -339,8 +363,13 @@ class RcPackPicker extends HTMLElement {
     if (!this.#hasPackChoice()) return null;
     const colors = this.#colorValues();
     const sameColor = colors.length > 0 && colors.every((color) => color === colors[0]);
-    if (sameColor && this.#variantIdForPack(colors[0], packQty)) return null;
-    const quantity = GIFT_BATTERIES_BY_PACK[packQty];
+    const packVariantId = this.#productHasColor()
+      ? sameColor
+        ? this.#variantIdForPack(colors[0], packQty)
+        : ''
+      : this.#variantIdForPack('', packQty);
+    if (packVariantId) return null;
+    const quantity = this.#giftCounts()[packQty - 1];
     if (!quantity) return null;
     const variantId = String(
       this.dataset.giftBatteryVariantId || this.dataset.trioGiftVariantId || ''
