@@ -1537,7 +1537,7 @@ body:has(sticky-add-to-cart) {
 }
 
 .product-information .product-details .shopify-block:has(.buy-buttons-block) {
-  margin-top: -22px;
+  margin-top: -34px;
 }
 
 .rc-try-note {
@@ -1570,7 +1570,7 @@ body:has(sticky-add-to-cart) {
   gap: 8px;
   width: 100%;
   max-width: 100%;
-  margin: 12px 0 4px;
+  margin: 22px 0 4px;
   padding: 0;
   list-style: none;
 }
