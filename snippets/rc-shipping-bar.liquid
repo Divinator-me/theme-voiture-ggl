@@ -1,9 +1,7 @@
-{% capture rc_delay %}{% render 'rc-delivery-delay', product: product %}{% endcapture %}
-{% assign rc_delay = rc_delay | strip %}
 <div class="shipping-bar">
   <div class="shipping-left">
     <div class="shipping-dot"></div>
-    <span>Livraison <span class="shipping-bold">{{ rc_delay }}</span> · France métropolitaine</span>
+    <span>Expédié en <span class="shipping-bold">-24 heures</span></span>
   </div>
   <div class="shipping-right">
     <span>
@@ -19,7 +17,8 @@
         <rect x="8" width="8" height="16" fill="#ffffff"></rect>
         <rect x="16" width="8" height="16" fill="#ed2939"></rect>
       </svg>
-      Livraison <span class="shipping-bold">Gratuite</span>
+      Livraison <span class="shipping-bold">Offerte</span>
     </span>
   </div>
 </div>
+<p class="rc-try-note">30 jours pour l'essayer, satisfait ou remboursé</p>
