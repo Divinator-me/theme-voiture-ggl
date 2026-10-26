@@ -1511,13 +1511,13 @@ body:has(sticky-add-to-cart) {
   gap: 12px;
   width: 100%;
   box-sizing: border-box;
-  padding: 10px 14px;
+  padding: 11px 14px;
   border: 1px solid #ececec;
   border-radius: 12px;
   background: var(--color-white);
   color: var(--color-black);
   font-family: var(--font-body);
-  font-size: 13px;
+  font-size: 16px;
   line-height: 1.2;
 }
 
@@ -1537,7 +1537,7 @@ body:has(sticky-add-to-cart) {
 }
 
 .rc-try-note {
-  margin: 14px 0 4px;
+  margin: 28px 0 2px;
   color: #e8920c;
   font-family: var(--font-body);
   font-size: 14px;
@@ -1552,8 +1552,8 @@ body:has(sticky-add-to-cart) {
 
 .shipping-flag {
   display: inline-block;
-  width: 14px;
-  height: 10px;
+  width: 16px;
+  height: 11px;
   margin-right: 4px;
   vertical-align: -1px;
   border-radius: 1px;
