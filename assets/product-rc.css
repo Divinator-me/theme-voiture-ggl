@@ -1511,9 +1511,9 @@ body:has(sticky-add-to-cart) {
   gap: 12px;
   width: 100%;
   box-sizing: border-box;
-  padding: 11px 14px;
+  padding: 11px 16px;
   border: 1px solid #ececec;
-  border-radius: 12px;
+  border-radius: 999px;
   background: var(--color-white);
   color: var(--color-black);
   font-family: var(--font-body);
