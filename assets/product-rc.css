@@ -1536,6 +1536,10 @@ body:has(sticky-add-to-cart) {
   flex-shrink: 0;
 }
 
+.product-information .product-details .shopify-block:has(.buy-buttons-block) {
+  margin-top: -12px;
+}
+
 .rc-try-note {
   margin: 28px 0 2px;
   color: #e8920c;
