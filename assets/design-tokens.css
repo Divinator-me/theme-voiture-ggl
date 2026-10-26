@@ -43,11 +43,43 @@ body :focus-visible {
   outline-offset: 4px;
 }
 
-/* Prix RC LAB : pas de promo barrée, prix vente en vert */
-.compare-at-price,
-.price-item--regular.compare-at-price,
-s.compare-at-price {
-  display: none !important;
+.rc-product-card__price.is-sale {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.rc-product-card__price.is-sale .rc-product-card__price-current {
+  color: #ff7a00;
+  font-weight: 800;
+}
+
+.rc-product-card__price.is-sale .rc-product-card__price-compare {
+  color: #9a9a9a;
+  font-size: 0.82em;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: line-through;
+  text-decoration-color: #9a9a9a;
+}
+
+.rc-sale-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 6px;
+  border-radius: 4px;
+  background: #e10613;
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1;
+  text-transform: none;
+  white-space: nowrap;
 }
 
 .color-custom-badge-sale,

@@ -42,7 +42,26 @@
           </a>
           <div class="rc-product-card__body">
             <h3><a href="{{ product.url }}">{{ product.title }}</a></h3>
-            <p>{{ product.price | money }}</p>
+            {%- liquid
+              assign card_variant = product.selected_or_first_available_variant
+              for variant in product.variants
+                if variant.price == product.price
+                  assign card_variant = variant
+                  break
+                endif
+              endfor
+              assign card_pct = 0
+              if card_variant.compare_at_price > card_variant.price and card_variant.price > 0
+                assign card_pct = card_variant.compare_at_price | minus: card_variant.price | times: 1000 | divided_by: card_variant.compare_at_price | plus: 5 | divided_by: 10
+              endif
+            -%}
+            <p class="rc-product-card__price{% if card_pct > 0 %} is-sale{% endif %}">
+              <span class="rc-product-card__price-current">{{ card_variant.price | money }}</span>
+              {% if card_pct > 0 %}
+                <span class="rc-sale-badge">-{{ card_pct }}%</span>
+                <s class="rc-product-card__price-compare">{{ card_variant.compare_at_price | money }}</s>
+              {% endif %}
+            </p>
             <a class="rc-product-card__cta" href="{{ product.url }}">Voir mes options</a>
           </div>
         </article>

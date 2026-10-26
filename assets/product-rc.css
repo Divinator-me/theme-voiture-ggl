@@ -425,10 +425,15 @@ sticky-add-to-cart {
 }
 
 .sticky-add-to-cart__price-current {
-  color: var(--color-price);
+  color: #ff7a00;
   font-size: 16px;
   font-weight: 800;
   letter-spacing: -0.02em;
+}
+
+.sticky-add-to-cart__button .rc-sale-badge {
+  padding: 3px 5px;
+  font-size: 12px;
 }
 
 body.has-sticky-atc-visible {
@@ -494,19 +499,43 @@ body:has(sticky-add-to-cart) {
   color: var(--color-black);
 }
 
-.product-information .product-details product-price.text-block.paragraph :is(.price, .price-item--regular, .price-item--sale, .price-item--last, .compare-at-price) {
+.product-information .product-details product-price.text-block.paragraph :is(.price, .price-item--regular, .price-item--sale, .price-item--last) {
   font-size: clamp(27px, 4.6vw, 36px);
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1;
 }
 
-.product-information .product-details product-price.text-block.paragraph .compare-at-price,
-.product-information .product-details product-price.text-block.paragraph .price-item--regular.compare-at-price {
-  display: none !important;
+.product-information .product-details product-price .price__sale {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
 }
 
-.product-information .product-details product-price.text-block.paragraph :is(.price-item--sale, .price-item--last, .price__regular .price-item--regular) {
+.product-information .product-details product-price.text-block.paragraph .compare-at-price,
+.product-information .product-details product-price.text-block.paragraph .price-item--regular.compare-at-price {
+  display: inline;
+  color: #9a9a9a;
+  font-size: clamp(18px, 3vw, 22px);
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1;
+  text-decoration: line-through;
+  text-decoration-color: #9a9a9a;
+  text-decoration-thickness: 1.5px;
+}
+
+.product-information .product-details product-price .rc-sale-badge {
+  padding: 4px 7px;
+  font-size: 15px;
+}
+
+.product-information .product-details product-price.text-block.paragraph .price-item--sale {
+  color: #ff7a00;
+}
+
+.product-information .product-details product-price.text-block.paragraph :is(.price-item--last, .price__regular .price) {
   color: var(--color-price);
 }
 

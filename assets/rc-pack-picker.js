@@ -23,7 +23,9 @@ class RcPackPicker extends HTMLElement {
   #radios = [];
   #priceNodes = [];
   #unitCents = 0;
+  #compareUnitCents = 0;
   #variantPrices = {};
+  #comparePrices = {};
   #variantMap = [];
   #variantObserver;
   #cartBound = false;
@@ -36,7 +38,9 @@ class RcPackPicker extends HTMLElement {
     this.#radios = Array.from(this.querySelectorAll('.rc-pack-picker__radio'));
     this.#priceNodes = Array.from(this.querySelectorAll('[data-rc-pack-price]'));
     this.#unitCents = Number(this.dataset.unitPrice) || 0;
+    this.#compareUnitCents = Number(this.dataset.comparePrice) || 0;
     this.#variantPrices = this.#readJson('[data-rc-pack-variants]', {});
+    this.#comparePrices = this.#readJson('[data-rc-pack-compares]', {});
     this.#variantMap = this.#readJson('[data-rc-pack-variant-map]', []);
 
     this.#radios.forEach((radio) => {
@@ -133,6 +137,8 @@ class RcPackPicker extends HTMLElement {
     const sourceId = standard?.id || variantId;
     const next = Number(this.#variantPrices[sourceId]);
     if (Number.isFinite(next) && next > 0) this.#unitCents = next;
+    const compareNext = Number(this.#comparePrices[sourceId]);
+    if (Number.isFinite(compareNext) && compareNext > 0) this.#compareUnitCents = compareNext;
   }
 
   #watchVariant() {
@@ -168,9 +174,9 @@ class RcPackPicker extends HTMLElement {
     return `${number} €`;
   }
 
-  #updateProductPrice(totalCents) {
+  #updateProductPrice(totalCents, compareCents) {
     const priceNodes = document.querySelectorAll(
-      '.product-information .product-details product-price .price:not(.compare-at-price), .product-information .product-details product-price .price-item--sale'
+      '.product-information .product-details product-price .price-item--sale, .product-information .product-details product-price .price__regular .price'
     );
     const sample = priceNodes[0]?.textContent || '';
     const formatted = this.#formatLike(sample, totalCents);
@@ -178,6 +184,17 @@ class RcPackPicker extends HTMLElement {
     priceNodes.forEach((node) => {
       node.textContent = formatted;
     });
+
+    if (compareCents > totalCents) {
+      const compareText = this.#formatLike(sample, compareCents);
+      document.querySelectorAll('.product-information .product-details product-price .compare-at-price').forEach((node) => {
+        node.textContent = compareText;
+      });
+      const pct = Math.round(((compareCents - totalCents) * 100) / compareCents);
+      document.querySelectorAll('.product-information .rc-sale-badge, .sticky-add-to-cart .rc-sale-badge').forEach((badge) => {
+        badge.textContent = `-${pct}%`;
+      });
+    }
 
     const sticky = document.querySelector('.sticky-add-to-cart__price-current');
     if (sticky) sticky.textContent = this.#formatLike(sticky.textContent, totalCents);
@@ -574,6 +591,7 @@ class RcPackPicker extends HTMLElement {
 
     const qty = this.#selectedQty();
     const totalCents = packTotal(this.#unitCents, qty);
+    const compareCents = this.#compareUnitCents > 0 ? packTotal(this.#compareUnitCents, qty) : 0;
 
     this.querySelectorAll('.rc-pack-picker__card').forEach((card) => {
       card.classList.toggle('is-selected', card.querySelector('.rc-pack-picker__radio')?.checked === true);
@@ -581,7 +599,7 @@ class RcPackPicker extends HTMLElement {
 
     this.#renderPrices();
     this.#ensureQuantityInput(qty);
-    this.#updateProductPrice(totalCents);
+    this.#updateProductPrice(totalCents, compareCents);
 
     const productForm = document.querySelector('product-form-component');
     if (productForm) productForm.dataset.quantityDefault = String(qty);
