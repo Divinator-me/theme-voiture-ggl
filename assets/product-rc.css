@@ -1537,7 +1537,7 @@ body:has(sticky-add-to-cart) {
 }
 
 .product-information .product-details .shopify-block:has(.buy-buttons-block) {
-  margin-top: -12px;
+  margin-top: -22px;
 }
 
 .rc-try-note {
