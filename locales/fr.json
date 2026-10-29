@@ -362,6 +362,11 @@
     "checkout": {
       "alternative_payment_method_banner": {
         "or": "★★★★★ 4,8/5 par +3470 Clients FR Vérifiés | Meilleur Service Client FR"
+      },
+      "contact": {
+        "phone_label": "Téléphone (pour l'appel de livraison)",
+        "phone_placeholder": "Téléphone (pour l'appel de livraison)",
+        "phone_tooltip": "Obligatoire : le livreur vous appellera à ce numéro pour la livraison de votre commande"
       }
     }
   }
